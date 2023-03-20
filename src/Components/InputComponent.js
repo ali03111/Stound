@@ -84,7 +84,13 @@ export const InputComponent = ({
         }}
       />
       {errors[name]?.message && (
-        <View>
+        <View
+          style={
+            {
+              // width: Platform.OS == 'ios' ? width * 0.875 : Sizes.width * 0.9,
+              // width: Sizes.width * 0.9,
+            }
+          }>
           <Text style={[styles.error]}>{errors[name]?.message}</Text>
         </View>
       )}
@@ -115,7 +121,7 @@ const styles = StyleSheet.create({
     color: Colors.black,
     paddingHorizontal: wp('2'),
     paddingLeft: wp('3'),
-    fontWeight: '400',
+    fontWeight: '600',
   }),
   eyeContainer: {
     width: 30,

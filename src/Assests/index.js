@@ -28,3 +28,6 @@ export {default as phoneIcon} from './Icons/phone.png';
 export {default as bed} from './Icons/bed.png';
 export {default as bathtub} from './Icons/bathtub.png';
 export {default as location} from './Icons/location.png';
+export {default as search} from './Icons/search.png';
+export {default as notification} from './Icons/notification.png';
+export {default as setting} from './Icons/setting.png';

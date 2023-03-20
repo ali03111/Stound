@@ -30,12 +30,11 @@ const LoginScreen = ({navigation}) => {
     PhoneNumberLoginFuc,
     register,
     loginWithEmail,
-    goBack,
   } = useLogin(navigation);
   return (
     <View style={styles.mainView}>
       <KeyBoardWrapper>
-        <Touchable style={styles.backMain} onPress={goBack}>
+        <Touchable style={styles.backMain} onPress={''}>
           <Image
             source={arrowback}
             style={{
@@ -78,7 +77,7 @@ const LoginScreen = ({navigation}) => {
         />
         <TextComponent text={'Forget Password?'} styles={styles.forgetPass} />
         <ShareButton
-          onPress={handleSubmit(loginWithEmail)}
+          onPress={loginWithEmail}
           title={'Log In'}
           style={styles.getStart}
         />
@@ -96,9 +95,9 @@ const LoginScreen = ({navigation}) => {
         </View>
         <TextComponent text={'Or'} styles={styles.or} />
         <View style={styles.signUpWith}>
-          <TextComponent text={''} styles={styles.signUpBorder} />
+          <TextComponent styles={styles.signUpBorder} />
           <TextComponent text={'sign up with'} styles={styles.signUpText} />
-          <TextComponent text={''} styles={styles.signUpBorder} />
+          <TextComponent styles={styles.signUpBorder} />
         </View>
 
         <View style={styles.mainSocialIcon}>

@@ -1,9 +1,6 @@
 import {yupResolver} from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
-const emailRegex =
-  /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-
 const passwordSchema = {
   password: yup
     .string()
@@ -26,10 +23,11 @@ const number = yup.object().shape({
 const signUpschema = yup.object().shape({
   email: yup
     .string()
+    // .email('Email must be valid')
     .required('Please Enter your email')
     .min(3, 'Email must be valid')
-    .max(50, 'Email must be valid')
-    .matches(emailRegex, 'Email is not Valid'),
+    .max(50, 'Email must be valid'),
+  // .matches(emailRegex, 'email is not Valid'),
   name: yup
     .string()
     .required('Please Enter your fullname')
@@ -45,6 +43,14 @@ const signUpschema = yup.object().shape({
   //   .required('Please Enter your number')
   //   .typeError('Please Enter your number'),
   // ...passwordSchema,
+  // password: yup
+  //   .string()
+  //   .required('Please Enter your password')
+  //   .max(25, 'Password must be less than 25 characters')
+  //   .matches(
+  //     /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+  //     'Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character',
+  //   ),
   ...passwordSchema,
 });
 const logInUpschema = yup.object().shape({
@@ -54,7 +60,10 @@ const logInUpschema = yup.object().shape({
     .min(3, 'Email must be valid')
     .max(50, 'Email must be valid')
     .required('Please Enter your email')
-    .matches(emailRegex, 'Please enter valid email'),
+    .matches(
+      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+      'Please enter valid email',
+    ),
   password: yup
     .string()
     .required('Please Enter your password')

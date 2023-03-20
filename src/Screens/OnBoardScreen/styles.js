@@ -28,12 +28,13 @@ export const styles = StyleSheet.create({
   },
   centerMainView: {
     width: wp('100'),
+    // backgroundColor: 'red',
     // justifyContent: 'flex-end',
     // height: hp('100'),
     alignItems: 'center',
   },
   centerHeading: {
-    fontSize: hp('3'),
+    fontSize: hp('4'),
     fontWeight: 'normal',
     marginVertical: hp('1.5'),
     marginBottom: hp('2'),
@@ -61,6 +62,6 @@ export const styles = StyleSheet.create({
   }),
   bannerImg: {
     // height: hp('100'),
-    width: wp('100'),
+    // width: wp('100'),
   },
 });

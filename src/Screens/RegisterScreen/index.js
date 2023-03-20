@@ -30,13 +30,13 @@ const RegisterScreen = ({navigation}) => {
     facebookLoginFunc,
     googleLoginFunc,
     PhoneNumberLoginFuc,
+    register,
     loginWithEmail,
-    goBack,
   } = useRegister(navigation);
   return (
     <View style={styles.mainView}>
       <KeyBoardWrapper>
-        <Touchable style={styles.backMain} onPress={goBack}>
+        <Touchable style={styles.backMain} onPress={''}>
           <Image
             source={arrowback}
             style={{
@@ -105,7 +105,7 @@ const RegisterScreen = ({navigation}) => {
         />
         <InputComponent
           {...{
-            name: 'confirm_password',
+            name: 'password',
             handleSubmit,
             errors,
             reset,
@@ -129,7 +129,7 @@ const RegisterScreen = ({navigation}) => {
             styles={styles.account}
           />
           <TextComponent
-            onPress={goBack}
+            onPress={register}
             text={'Sign In'}
             styles={{color: Colors.primaryColor}}
           />

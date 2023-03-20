@@ -29,7 +29,7 @@ const tabarComponent = (iconName, title, last) => {
             styles={{
               color: Colors.primaryColor,
               fontSize: hp('1.5'),
-              // fontFamily: FontFamily.light,
+              fontFamily: FontFamily.light,
             }}
           />
         )}

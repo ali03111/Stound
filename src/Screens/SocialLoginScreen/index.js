@@ -25,16 +25,19 @@ const SocialLoginScreen = ({navigation}) => {
         title={'Continue with Google'}
         image={googleIconWhite}
         style={{...styles.socialBtn, backgroundColor: Colors.redfaded}}
+        onPress={''}
       />
       <ShareButton
         title={'Continue with Apple'}
         image={appleIconWhite}
         style={{...styles.socialBtn, backgroundColor: Colors.black}}
+        onPress={''}
       />
       <ShareButton
         title={'Continue with Facebook'}
         image={facebookIconWhite}
         style={{...styles.socialBtn, backgroundColor: Colors.blue}}
+        onPress={''}
       />
       <View style={styles.barMain}>
         <TextComponent styles={styles.barBorder} />

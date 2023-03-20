@@ -68,9 +68,9 @@ export default HomeCard;
 const styles = StyleSheet.create({
   HomeCardMain: {
     width: wp('100'),
-    height: hp('90'),
+    height: hp('75'),
     paddingHorizontal: wp('3'),
-    paddingVertical: hp('3'),
+    // paddingVertical: hp('3'),
     overflow: 'hidden',
     borderRadius: 10,
   },

@@ -1,10 +1,10 @@
 export {default as LoginScreen} from './LoginScreen';
 export {default as OnboardScreen} from './OnBoardScreen';
+export {default as RegisterScreen} from './RegisterScreen';
+export {default as SocialLoginScreen} from './SocialLoginScreen';
 export {default as FavourateScreen} from './FavourateScreen';
 export {default as HomeScreen} from './HomeScreen';
 export {default as MessageScreen} from './MessageScreen';
 export {default as ProfileScreen} from './ProfileScreen';
 export {default as GestureScreen} from './GestureScreen';
 export {default as SomeComponent} from './GestureScreenTest';
-export {default as SocialLoginScreen} from './SocialLoginScreen';
-export {default as RegisterScreen} from './RegisterScreen';

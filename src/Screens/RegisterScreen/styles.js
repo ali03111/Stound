@@ -12,7 +12,6 @@ export const styles = StyleSheet.create({
   },
   mainView: {
     paddingHorizontal: hp('3'),
-    flex: 1,
   },
   loginInput: {
     fontWeight: '600',

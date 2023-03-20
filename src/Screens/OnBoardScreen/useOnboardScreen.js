@@ -20,17 +20,11 @@ const useOnboardingScreen = ({navigate, params}) => {
       type: types.onBoardFinished,
     });
   };
-
-  const goNext = () => {
-    setCurrentIndex(prev => prev + 1);
-  };
-
   return {
     onBoardinData,
     onSnapToItem,
     currentIndex,
     getStart,
-    goNext,
   };
 };
 
