@@ -30,11 +30,12 @@ const LoginScreen = ({navigation}) => {
     PhoneNumberLoginFuc,
     register,
     loginWithEmail,
+    goBack,
   } = useLogin(navigation);
   return (
     <View style={styles.mainView}>
       <KeyBoardWrapper>
-        <Touchable style={styles.backMain} onPress={''}>
+        <Touchable style={styles.backMain} onPress={goBack}>
           <Image
             source={arrowback}
             style={{

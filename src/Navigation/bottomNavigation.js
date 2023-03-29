@@ -1,18 +1,13 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {View, Platform, Dimensions, StyleSheet} from 'react-native';
-import * as Animatable from 'react-native-animatable';
 import * as Screens from '../Screens/index';
-import {Colors, FontFamily} from '../Theme/Variables';
+import {Colors} from '../Theme/Variables';
 import {hp, wp} from '../Config/responsive';
-import {TextComponent} from '../Components/TextComponent';
+import Svg, {Path} from 'react-native-svg';
 
 globalStyles = {};
-
-const colorFocused = focused => {
-  return focused ? Colors.primaryColor : Colors.white;
-};
 
 const tabarComponent = (iconName, title, last) => {
   return {
@@ -20,19 +15,9 @@ const tabarComponent = (iconName, title, last) => {
       <View style={styles.tabarView(focused, last)}>
         <Ionicons
           name={focused ? iconName : `${iconName}-outline`}
-          color={colorFocused(focused)}
-          size={hp('2')}
+          color={Colors.white}
+          size={hp('3')}
         />
-        {focused && (
-          <TextComponent
-            text={title}
-            styles={{
-              color: Colors.primaryColor,
-              fontSize: hp('1.5'),
-              fontFamily: FontFamily.light,
-            }}
-          />
-        )}
       </View>
     ),
     title: '',
@@ -49,8 +34,8 @@ function MybottomTabs() {
         tabBarActiveTintColor: Colors.white,
         tabBarInactiveTintColor: 'transparent',
         headerShown: false,
-        tabBarActiveBackgroundColor: Colors.primaryColor,
-        tabBarInactiveBackgroundColor: Colors.primaryColor,
+        tabBarActiveBackgroundColor: 'transparent',
+        tabBarInactiveBackgroundColor: 'transparent',
         tabBarHideOnKeyboard: true,
         swipeEnabled: true,
         animationEnabled: true,
@@ -60,12 +45,25 @@ function MybottomTabs() {
         },
         tabBarStyle: {
           height: hp('6'),
-          paddingBottom: hp('0'),
-          bottom: Platform.OS == 'ios' ? hp('4') : hp('2'),
+          borderTopWidth: 0,
           width: wp('95'),
           alignSelf: 'center',
-          borderRadius: Platform.OS == 'android' ? 10 : 10,
-          overflow: 'hidden',
+        },
+        tabBarBackground: () => {
+          return (
+            <Svg
+              width={wp('88')}
+              height={hp('10')}
+              viewBox="0 0 374 74"
+              fill="none"
+              style={styles.barSvg}
+              xmlns="http://www.w3.org/2000/svg">
+              <Path
+                d="M374 10V64C374 69.5 369.5 74 364 74H10C4.5 74 0 69.5 0 64V10C0 4.5 4.5 0 10 0L141.1 20C145.8 20 149.9 23.2 150.8 27.8C154.4 44.5 169.3 57 187 57C204.7 57 219.6 44.5 223.2 27.8C224.2 23.2 228.3 20 232.9 20L364 0C369.5 0 374 4.5 374 10Z"
+                fill="#0BB4FF"
+              />
+            </Svg>
+          );
         },
       })}>
       <Tab.Screen
@@ -75,17 +73,54 @@ function MybottomTabs() {
       />
       <Tab.Screen
         name="FavourateScreen"
-        options={tabarComponent('heart', 'Favourite')}
+        options={tabarComponent('heart', 'Favourite', 0)}
         component={Screens.FavourateScreen}
       />
       <Tab.Screen
+        name="SomeComponent"
+        options={{
+          tabBarIcon: () => {
+            return (
+              <Svg
+                width={wp('50')}
+                height={hp('7')}
+                viewBox="0 0 54 54"
+                style={styles.circleSvg}
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <Path
+                  d="M27 54C41.9117 54 54 41.9117 54 27C54 12.0883 41.9117 0 27 0C12.0883 0 0 12.0883 0 27C0 41.9117 12.0883 54 27 54Z"
+                  fill="#0BB4FF"
+                />
+                <Path
+                  d="M21 27H33"
+                  stroke="white"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <Path
+                  d="M27 33V21"
+                  stroke="white"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </Svg>
+            );
+          },
+          title: '',
+        }}
+        component={Screens.SomeComponent}
+      />
+      <Tab.Screen
         name="MessageScreen"
-        options={tabarComponent('chatbox-ellipses', 'Message')}
+        options={tabarComponent('chatbox-ellipses', 'Message', 1)}
         component={Screens.MessageScreen}
       />
       <Tab.Screen
         name="ProfileScreen"
-        options={tabarComponent('person', 'Profile', true)}
+        options={tabarComponent('person', 'Profile')}
         component={Screens.ProfileScreen}
       />
     </Tab.Navigator>
@@ -132,14 +167,21 @@ const styles = StyleSheet.create({
     display: 'none',
   },
   tabarView: (focused, last) => ({
-    width: focused ? wp('22') : 'auto',
-    backgroundColor: focused ? Colors.white : 'transparent',
-    height: focused ? hp('4') : 'auto',
-    borderRadius: focused ? 10 : 0,
-    marginLeft: focused && !last ? wp('2') : 0,
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: wp('2'),
-    justifyContent: 'center',
+    width: 'auto',
+    backgroundColor: 'transparent',
+    bottom: hp('0.5'),
   }),
+  circleSvg: {
+    position: 'absolute',
+    zIndex: 1,
+    bottom: hp('-0.2'),
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  barSvg: {
+    position: 'absolute',
+    bottom: Platform.OS == 'ios' ? hp('1') : hp('2'),
+    zIndex: 1,
+    alignSelf: 'center',
+  },
 });

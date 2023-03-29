@@ -13,7 +13,7 @@ import useReduxStore from '../../Hooks/UseReduxStore';
 const {default: useFormHook} = require('../../Hooks/UseFormHooks');
 const {default: Schemas} = require('../../Utils/Validation');
 
-const useRegister = ({navigate}) => {
+const useRegister = ({navigate, goBack}) => {
   const {handleSubmit, errors, reset, control, getValues} = useFormHook(
     Schemas.signUp,
   );
@@ -60,7 +60,7 @@ const useRegister = ({navigate}) => {
   //     }
   //   };
 
-  const register = () => navigate('RegisterScreen');
+  const register = () => navigate('LoginScreen');
 
   return {
     handleSubmit,
@@ -73,6 +73,7 @@ const useRegister = ({navigate}) => {
     PhoneNumberLoginFuc: () => {},
     register,
     loginWithEmail: () => {},
+    goBack,
   };
 };
 

@@ -67,10 +67,8 @@ export default HomeCard;
 
 const styles = StyleSheet.create({
   HomeCardMain: {
-    width: wp('100'),
     height: hp('75'),
     paddingHorizontal: wp('3'),
-    // paddingVertical: hp('3'),
     overflow: 'hidden',
     borderRadius: 10,
   },
@@ -107,7 +105,7 @@ const styles = StyleSheet.create({
     width: wp('12'),
     height: hp('6'),
     borderRadius: 60,
-    marginRight: 10,
+    marginRight: wp('2'),
   },
   userName: {
     color: 'white',

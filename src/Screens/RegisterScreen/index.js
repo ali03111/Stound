@@ -32,11 +32,12 @@ const RegisterScreen = ({navigation}) => {
     PhoneNumberLoginFuc,
     register,
     loginWithEmail,
+    goBack,
   } = useRegister(navigation);
   return (
     <View style={styles.mainView}>
       <KeyBoardWrapper>
-        <Touchable style={styles.backMain} onPress={''}>
+        <Touchable style={styles.backMain} onPress={goBack}>
           <Image
             source={arrowback}
             style={{
