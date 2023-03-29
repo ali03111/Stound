@@ -11,6 +11,7 @@ import * as Animatable from 'react-native-animatable';
 import {InputComponent} from '../../Components/InputComponent';
 // import {TextInput} from 'react-native-paper';
 import {Touchable} from '../../Components/Touchable';
+import Notification from '../../Components/Notification';
 
 const HomeScreen = ({navigation}) => {
   const [text, onChangeText] = React.useState('');
@@ -52,6 +53,7 @@ const HomeScreen = ({navigation}) => {
           duration={'month'}
         />
       </View>
+      {/* <Notification /> */}
     </>
   );
 };

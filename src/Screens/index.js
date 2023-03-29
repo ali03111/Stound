@@ -8,3 +8,4 @@ export {default as MessageScreen} from './MessageScreen';
 export {default as ProfileScreen} from './ProfileScreen';
 export {default as GestureScreen} from './GestureScreen';
 export {default as SomeComponent} from './GestureScreenTest';
+export {default as NotificationScreen} from './NotificationScreen';

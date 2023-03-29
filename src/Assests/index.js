@@ -8,6 +8,10 @@ export {default as logo} from './Images/logo.png';
 export {default as homeCard} from './Images/homeCard.png';
 export {default as cardOverlay} from './Images/cardOverlay.png';
 export {default as profile} from './Images/profile.png';
+export {default as notificationProfile1} from './Images/profile1.png';
+export {default as notificationProfile2} from './Images/profile2.png';
+export {default as notificationProfile3} from './Images/profile3.png';
+export {default as notificationProfile4} from './Images/profile4.png';
 
 //  Icons
 
