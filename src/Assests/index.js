@@ -12,6 +12,8 @@ export {default as notificationProfile1} from './Images/profile1.png';
 export {default as notificationProfile2} from './Images/profile2.png';
 export {default as notificationProfile3} from './Images/profile3.png';
 export {default as notificationProfile4} from './Images/profile4.png';
+export {default as favouriteBgImage} from './Images/favoriteImage.png';
+export {default as overlay} from './Images/favOverlay.png';
 
 //  Icons
 
@@ -31,6 +33,7 @@ export {default as user} from './Icons/user.png';
 export {default as phoneIcon} from './Icons/phone.png';
 export {default as bed} from './Icons/bed.png';
 export {default as bathtub} from './Icons/bathtub.png';
+export {default as scaleIcon} from './Icons/scale.png';
 export {default as location} from './Icons/location.png';
 export {default as search} from './Icons/search.png';
 export {default as notification} from './Icons/notification.png';

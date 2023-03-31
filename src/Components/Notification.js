@@ -5,8 +5,6 @@ import {hp, wp} from '../Config/responsive';
 import {Colors} from '../Theme/Variables';
 
 const NotificationComp = ({image, name, description, time}) => {
-  const [selectedId, setSelectedId] = useState();
-
   return (
     <View style={styles.notificationMian}>
       <View style={styles.mainBannerImg}>
@@ -29,17 +27,19 @@ const NotificationComp = ({image, name, description, time}) => {
 
 const styles = StyleSheet.create({
   mainBannerImg: {
-    width: wp('13'),
+    width: wp('14'),
   },
   notificationMian: {
     flexDirection: 'row',
     borderBottomWidth: 1,
     borderColor: '#d3d3d3',
-    paddingVertical: hp('2.7'),
+    paddingVertical: hp('1.5'),
     alignItems: 'center',
   },
   bannerImg: {
     borderRadius: 50,
+    width: wp('12'),
+    height: hp('6'),
   },
   nameDescriptionMain: {
     width: wp('55'),
@@ -50,12 +50,16 @@ const styles = StyleSheet.create({
   },
   username: {
     fontWeight: 'bold',
+    fontSize: hp('2'),
+  },
+  description: {
+    fontSize: hp('1.8'),
   },
   mainTiming: {
-    width: wp('24'),
+    width: wp('23'),
   },
   timing: {
-    fontSize: hp('1.7'),
+    fontSize: hp('1.5'),
     textAlign: 'right',
     color: 'rgba(41, 45, 50, 0.5)',
   },

@@ -32,7 +32,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     marginTop: hp('6'),
   },
-  arrowBack: {},
+
   backBtn: {
     marginLeft: wp('3'),
     color: Colors.gray2,

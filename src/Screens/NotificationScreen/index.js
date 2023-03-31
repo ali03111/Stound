@@ -7,45 +7,47 @@ import {
   ScrollView,
   Text,
 } from 'react-native';
+import Header from '../../Components/Header';
 import NotificationComp from '../../Components/Notification';
 import {TextComponent} from '../../Components/TextComponent';
 import {styles} from './styles';
 import useNotificationScreen from './useNotificationScreen';
+import {NotificationHeader} from '../../Components/Header';
+import {wp} from '../../Config/responsive';
 
 const Notification = () => {
-  const {notificationData, currentIndex, getStart} = useNotificationScreen();
-  const renderItem = useCallback(
-    ({item, index}) => {
-      return (
-        <View style={styles.notification}>
-          <NotificationComp
-            image={item?.image}
-            name={item?.name}
-            description={item?.description}
-            time={item?.time}
-          />
-        </View>
-      );
-    },
-    [currentIndex],
-  );
+  const {notificationData, getStart} = useNotificationScreen();
+  const renderItem = useCallback(({item, index}) => {
+    return (
+      <View style={styles.notification}>
+        <NotificationComp
+          image={item?.image}
+          name={item?.name}
+          description={item?.description}
+          time={item?.time}
+        />
+      </View>
+    );
+  });
   return (
-    <ScrollView style={{backgroundColor: 'white', flex: 1}}>
+    <View style={styles.notificationMain}>
+      <Header style={styles.topHeader} headerTitle={'Notification'} />
       <View>
         <FlatList
           refreshing={false}
           data={notificationData}
           renderItem={renderItem}
           showsHorizontalScrollIndicator={false}
-          pagingEnabled={true}
           contentContainerStyle={{
             paddingBottom: 0,
+            paddingHorizontal: wp('4'),
+
             // height: 'auto',
           }}
           style={{paddingBottom: 0}}
         />
       </View>
-    </ScrollView>
+    </View>
   );
 };
 
