@@ -6,19 +6,26 @@ import {arrowback} from '../Assests';
 import {hp, wp} from '../Config/responsive';
 import {Colors} from '../Theme/Variables';
 
-const NotificationHeader = ({headerTitle, style, saveReset, icon}) => {
+const NotificationHeader = ({
+  headerTitle,
+  style,
+  saveReset,
+  icon,
+  arrowBackIcon,
+  backText,
+}) => {
   return (
     <View style={styles.TopHeader}>
       <View style={styles.HeaderLeft}>
         <Touchable style={styles.backMain}>
           <Image
-            source={arrowback}
+            source={arrowBackIcon}
             style={{
               resizeMode: 'contain',
               style: styles.arrowback,
             }}
           />
-          <TextComponent text={'Back'} styles={styles.backBtn} />
+          <TextComponent text={backText} styles={styles.backBtn} />
         </Touchable>
       </View>
       <View style={styles.HeaderCenter}>
@@ -41,7 +48,7 @@ const NotificationHeader = ({headerTitle, style, saveReset, icon}) => {
 };
 const styles = StyleSheet.create({
   TopHeader: {
-    paddingBottom: hp('2'),
+    paddingBottom: hp('1.5'),
     flexDirection: 'row',
     width: wp('100'),
     // justifyContent: 'space-between',

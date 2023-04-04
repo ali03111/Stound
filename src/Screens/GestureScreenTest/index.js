@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {View, Text, Button, StyleSheet} from 'react-native';
 import Swiper from 'react-native-deck-swiper';
+import {hp} from '../../Config/responsive';
 
 class SomeComponent extends Component {
   render() {
@@ -47,16 +48,17 @@ export default SomeComponent;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#F5FCFF',
+    // flex: 0,
+    backgroundColor: 'red',
   },
   card: {
-    flex: 1,
+    // flex: 1,
     borderRadius: 4,
     borderWidth: 2,
     borderColor: '#E8E8E8',
     justifyContent: 'center',
     backgroundColor: 'white',
+    height: hp('10'),
   },
   text: {
     textAlign: 'center',

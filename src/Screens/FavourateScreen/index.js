@@ -1,11 +1,14 @@
-import React, {memo, useCallback} from 'react';
+import React, {memo, useCallback, useState} from 'react';
 import {View, FlatList} from 'react-native';
 import useFavourateScreen from './useFavourateScreen';
 import {styles} from './styles';
 import {TextComponent} from '../../Components/TextComponent';
 import FavouriteComp from '../../Components/FavouriteComponent';
+import Header from '../../Components/Header';
+import {Picker} from '@react-native-picker/picker';
 
 const Favourite = () => {
+  const [selectedLanguage, setSelectedLanguage] = useState();
   const {favouriteData} = useFavourateScreen();
   const renderItem = useCallback(({item}) => {
     return (
@@ -24,7 +27,16 @@ const Favourite = () => {
     );
   });
   return (
-    <View>
+    <View style={styles.favMain}>
+      <Header styles={styles.topHeader} headerTitle={'Favourite'} />
+      <Picker
+        selectedValue={selectedLanguage}
+        onValueChange={(itemValue, itemIndex) =>
+          setSelectedLanguage(itemValue)
+        }>
+        <Picker.Item label="Java" value="java" />
+        <Picker.Item label="JavaScript" value="js" />
+      </Picker>
       <FlatList
         refreshing={false}
         data={favouriteData}

@@ -35,24 +35,24 @@ const HomeCard = ({
             <View style={styles.cardTopbar}>
               <View style={styles.cardTopLeft}>
                 <Image style={styles.profileImg} source={profile} />
-                <Text style={styles.userName}>{userName}</Text>
+                <TextComponent text={userName} styles={styles.userName} />
               </View>
               <View style={styles.cardTopRight}>
                 <Image source={bathtub} />
-                <Text style={styles.bath}>{bath}</Text>
+                <TextComponent text={bath} styles={styles.bath} />
                 <Image source={bed} />
-                <Text style={styles.bed}>{Beds}</Text>
+                <TextComponent text={Beds} styles={styles.bed} />
               </View>
             </View>
             <View style={styles.locationMain}>
               <Image source={location} />
-              <Text style={styles.locationText}>{locationText}</Text>
+              <TextComponent text={locationText} styles={styles.locationText} />
             </View>
             <View style={styles.cardFooter}>
-              <Text style={styles.forRent}>{forRent}</Text>
+              <TextComponent text={forRent} styles={styles.forRent} />
               <View style={{flexDirection: 'row', alignItems: 'baseline'}}>
-                <Text style={styles.price}>{price}/</Text>
-                <Text style={styles.month}>{duration}</Text>
+                <TextComponent text={price + '/'} styles={styles.price} />
+                <TextComponent text={duration} styles={styles.month} />
               </View>
             </View>
           </View>
@@ -67,10 +67,8 @@ export default HomeCard;
 
 const styles = StyleSheet.create({
   HomeCardMain: {
-    width: wp('100'),
     height: hp('75'),
     paddingHorizontal: wp('3'),
-    // paddingVertical: hp('3'),
     overflow: 'hidden',
     borderRadius: 10,
   },
@@ -107,7 +105,7 @@ const styles = StyleSheet.create({
     width: wp('12'),
     height: hp('6'),
     borderRadius: 60,
-    marginRight: 10,
+    marginRight: wp('2'),
   },
   userName: {
     color: 'white',
@@ -118,10 +116,12 @@ const styles = StyleSheet.create({
     color: 'white',
     marginLeft: wp('1'),
     marginRight: wp('1.5'),
+    fontSize: hp('1.8'),
   },
   bed: {
     color: 'white',
     marginLeft: wp('1'),
+    fontSize: hp('1.8'),
   },
   locationMain: {
     flexDirection: 'row',
@@ -131,6 +131,7 @@ const styles = StyleSheet.create({
   locationText: {
     color: 'white',
     marginLeft: wp('3'),
+    fontSize: hp('1.9'),
   },
   cardFooter: {
     flexDirection: 'row',
@@ -141,16 +142,16 @@ const styles = StyleSheet.create({
   forRent: {
     color: 'white',
     fontWeight: '600',
-    fontSize: 22,
+    fontSize: hp('2.9'),
   },
   price: {
     color: 'white',
     fontWeight: '500',
-    fontSize: 22,
+    fontSize: hp('2.9'),
   },
   month: {
     color: 'white',
     fontWeight: '400',
-    fontSize: 16,
+    fontSize: hp('2'),
   },
 });

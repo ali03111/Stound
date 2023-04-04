@@ -112,7 +112,7 @@ const FontSize = {
   xxxlarge: 22,
 };
 const FontFamily = {
-  light: 'Rubik-Light',
+  light: 'ProximaNova-Regular',
   regular: 'Rubik-Regular',
   medium: 'Rubik-Medium',
   semiBold: 'Rubik-Semibold',

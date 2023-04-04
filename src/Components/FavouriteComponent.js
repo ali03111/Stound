@@ -4,7 +4,15 @@ import {Colors, FontFamily} from '../Theme/Variables';
 import {Touchable} from './Touchable';
 import {share} from '@/Assets/Images';
 import {hp, wp} from '../Config/responsive';
-import {overlay, profile, bed, bathtub, location, scaleIcon} from '../Assests';
+import {
+  overlay,
+  profile,
+  bed,
+  bathtub,
+  location,
+  scaleIcon,
+  fav,
+} from '../Assests';
 import {TextComponent} from './TextComponent';
 import {white} from 'react-native-paper/lib/typescript/src/styles/themes/v2/colors';
 import DetailButton from './detailButton';
@@ -31,36 +39,40 @@ const FavouriteComp = ({
           source={overlay}
           resizeMode="cover"
           style={styles.overlay}>
+          <View style={styles.favMain}>
+            <Touchable style={styles.fav}>
+              <Image source={fav} />
+            </Touchable>
+          </View>
           <View style={styles.cardMain}>
             <View style={styles.cardTopbar}>
               <View style={styles.cardTopLeft}>
-                <Text style={styles.userName}>{title}</Text>
+                <TextComponent text={title} styles={styles.userName} />
               </View>
               <View style={{flexDirection: 'row', alignItems: 'baseline'}}>
-                <Text style={styles.price}>{price}/</Text>
-                <Text style={styles.month}>{duration}</Text>
+                <TextComponent text={price + '/'} styles={styles.price} />
+                <TextComponent text={duration} styles={styles.month} />
               </View>
             </View>
             <View style={styles.locationMain}>
               <Image source={location} />
-              <Text style={styles.locationText}>{locationText}</Text>
+              <TextComponent text={locationText} styles={styles.locationText} />
             </View>
             <View style={styles.cardFooter}>
-              {/* <Text style={styles.forRent}>{forRent}</Text> */}
               <View
                 style={{
                   flexDirection: 'row',
                   justifyContent: 'space-between',
-                  // alignItems: 'baseline',
-                  // justifyContent: 'space-between',
                 }}>
                 <View style={styles.cardTopRight}>
                   <Image source={bathtub} />
-                  <Text style={styles.bath}>{baths}</Text>
+                  <TextComponent text={baths} styles={styles.bath} />
+
                   <Image source={bed} />
-                  <Text style={styles.bed}>{beds}</Text>
+                  <TextComponent text={beds} styles={styles.bed} />
+
                   <Image source={scaleIcon} />
-                  <Text style={styles.bed}>{size}</Text>
+                  <TextComponent text={size} styles={styles.bed} />
                 </View>
                 <View style={styles.detail}>
                   <DetailButton title={'Details'} />
@@ -78,14 +90,26 @@ const FavouriteComp = ({
 export default FavouriteComp;
 
 const styles = StyleSheet.create({
+  favMain: {
+    alignItems: 'flex-end',
+    paddingHorizontal: wp('2.3'),
+    paddingVertical: hp('1.3'),
+  },
+  fav: {
+    backgroundColor: 'white',
+    paddingHorizontal: wp('2.5'),
+    paddingVertical: hp('2'),
+    borderRadius: 10,
+    width: wp('13'),
+    alignItems: 'center',
+  },
   HomeCardMain: {
     width: wp('100'),
     height: hp('40'),
     paddingHorizontal: wp('3'),
-    // paddingVertical: hp('3'),
     overflow: 'hidden',
     borderRadius: 10,
-    marginBottom: hp('1.8'),
+    marginBottom: hp('1.5'),
   },
   image: {
     flex: 1,
@@ -130,10 +154,12 @@ const styles = StyleSheet.create({
     color: 'white',
     marginLeft: wp('1'),
     marginRight: wp('1.5'),
+    fontSize: hp('1.7'),
   },
   bed: {
     color: 'white',
     marginLeft: wp('1'),
+    fontSize: hp('1.7'),
     marginRight: wp('1.5'),
   },
   locationMain: {
@@ -144,6 +170,7 @@ const styles = StyleSheet.create({
   locationText: {
     color: 'white',
     marginLeft: wp('3'),
+    fontSize: hp('2'),
   },
   cardFooter: {
     flexDirection: 'row',

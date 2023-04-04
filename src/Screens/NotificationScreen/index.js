@@ -14,6 +14,7 @@ import {styles} from './styles';
 import useNotificationScreen from './useNotificationScreen';
 import {NotificationHeader} from '../../Components/Header';
 import {wp} from '../../Config/responsive';
+import {arrowback} from '../../Assests';
 
 const Notification = () => {
   const {notificationData, getStart} = useNotificationScreen();
@@ -31,7 +32,12 @@ const Notification = () => {
   });
   return (
     <View style={styles.notificationMain}>
-      <Header style={styles.topHeader} headerTitle={'Notification'} />
+      <Header
+        style={styles.topHeader}
+        headerTitle={'Notification'}
+        backText={'Back'}
+        arrowBackIcon={arrowback}
+      />
       <View>
         <FlatList
           refreshing={false}

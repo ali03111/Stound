@@ -13,7 +13,7 @@ import useReduxStore from '../../Hooks/UseReduxStore';
 const {default: useFormHook} = require('../../Hooks/UseFormHooks');
 const {default: Schemas} = require('../../Utils/Validation');
 
-const useLogin = ({navigate}) => {
+const useLogin = ({navigate, goBack}) => {
   const {handleSubmit, errors, reset, control, getValues} = useFormHook(
     Schemas.logIn,
   );
@@ -74,6 +74,7 @@ const useLogin = ({navigate}) => {
     PhoneNumberLoginFuc: () => {},
     register,
     loginWithEmail,
+    goBack,
   };
 };
 
