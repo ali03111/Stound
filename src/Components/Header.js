@@ -15,7 +15,7 @@ const NotificationHeader = ({
   backText,
 }) => {
   return (
-    <View style={styles.TopHeader}>
+    <View style={[styles.TopHeader, {...style}]}>
       <View style={styles.HeaderLeft}>
         <Touchable style={styles.backMain}>
           <Image

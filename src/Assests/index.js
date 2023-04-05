@@ -39,3 +39,5 @@ export {default as search} from './Icons/search.png';
 export {default as notification} from './Icons/notification.png';
 export {default as setting} from './Icons/setting.png';
 export {default as fav} from './Icons/fav.png';
+export {default as addcircle} from './Icons/add-circle.png';
+export {default as accessibleforward} from './Icons/accessible_forward.png';
