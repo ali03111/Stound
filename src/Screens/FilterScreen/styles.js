@@ -75,8 +75,30 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: Colors.primaryColor,
     marginBottom: hp('4'),
+    marginTop: hp('4'),
   },
   filterText: {
     fontSize: hp('2'),
+  },
+  rangeSlider: {
+    // height: 40,
+    // paddingBottom: wp('6'),
+    paddingHorizontal: hp('0'),
+    marginHorizontal: hp('0'),
+  },
+  rangeTextMain: {
+    flexDirection: 'row',
+  },
+  rangeTextLeft: {
+    flex: 1,
+    color: Colors.gray2,
+  },
+  rangeTextRight: {
+    flex: 1,
+    textAlign: 'right',
+    color: Colors.gray2,
+  },
+  max: {
+    backgroundColor: 'red',
   },
 });

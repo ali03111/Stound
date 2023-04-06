@@ -11,3 +11,4 @@ export {default as SomeComponent} from './GestureScreenTest';
 export {default as NotificationScreen} from './NotificationScreen';
 export {default as FilterScreen} from './FilterScreen';
 export {default as GeneralScreen} from './GeneralScreen';
+export {default as AccountScreen} from './AccountScreen';

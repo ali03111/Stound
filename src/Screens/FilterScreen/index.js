@@ -5,13 +5,22 @@ import {styles} from './styles';
 import {TextComponent} from '../../Components/TextComponent';
 import Header from '../../Components/Header';
 import {Picker} from '@react-native-picker/picker';
-import {arrowback, addcircle, search} from '../../Assests';
+import {
+  arrowback,
+  addcircle,
+  search,
+  sliderdot,
+  minslider,
+  maxslider,
+} from '../../Assests';
 import SwitchSelector from 'react-native-switch-selector';
 import {Colors} from '../../Theme/Variables';
 import FilterAddButton from '../../Components/FilterAddButton';
 import ThemeButtonComp from '../../Components/ThemeButtonComp';
+import Slider from '@react-native-community/slider';
 const FilterScreen = () => {
   const [selectedLanguage, setSelectedLanguage] = useState();
+  const [sliderValue, setSliderValue] = useState(0);
   const options = [
     {label: 'Rent', value: '1'},
     {label: 'Buy  ', value: '2'},
@@ -116,6 +125,29 @@ const FilterScreen = () => {
             />
           </View>
           <TextComponent styles={styles.pRange} text={'Price Range '} />
+          <View style={styles.rangeTextMain}>
+            <TextComponent
+              styles={styles.rangeTextLeft}
+              text={`$${sliderValue}`}
+            />
+            <TextComponent styles={styles.rangeTextRight} text={`$${'1200'}`} />
+          </View>
+          <Slider
+            style={styles.rangeSlider}
+            minimumValue={0}
+            maximumValue={1200}
+            minimumTrackTintColor={Colors.primaryColor2}
+            maximumTrackTintStyle={Colors.primaryColor2}
+            thumbTintColor="red"
+            thumbImage={sliderdot}
+            minimumTrackImage={minslider}
+            maximumTrackImage={maxslider}
+            trackImage={minslider}
+            value={sliderValue}
+            onValueChange={sliderValue =>
+              setSliderValue(Math.trunc(sliderValue))
+            }
+          />
           <ThemeButtonComp
             title={'Apply Filter'}
             style={styles.applyFilter}

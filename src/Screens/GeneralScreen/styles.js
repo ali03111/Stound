@@ -13,6 +13,8 @@ export const styles = StyleSheet.create({
     paddingHorizontal: wp('1'),
     flexDirection: 'row',
     width: '100%',
+    display: 'flex',
+    flexWrap: 'wrap',
   },
   filterHeader: {
     marginTop: hp('2'),
@@ -23,5 +25,9 @@ export const styles = StyleSheet.create({
     height: hp('6'),
     paddingHorizontal: wp('4'),
     marginHorizontal: wp('2'),
+    marginBottom: hp('2'),
+  },
+  save: {
+    color: Colors.primaryColor2,
   },
 });

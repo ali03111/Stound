@@ -1,15 +1,11 @@
 import React, {memo, useCallback, useState} from 'react';
 import {View, FlatList, Text, ScrollView, SafeAreaView} from 'react-native';
-import useFavourateScreen from './useFilterScreen';
+import useFavourateScreen from './useGeneralScreen';
 import {styles} from './styles';
-import {TextComponent} from '../../Components/TextComponent';
 import Header from '../../Components/Header';
-import {Picker} from '@react-native-picker/picker';
 import {arrowback, accessibleforward} from '../../Assests';
-import SwitchSelector from 'react-native-switch-selector';
 import {Colors} from '../../Theme/Variables';
 import FilterAddButton from '../../Components/FilterAddButton';
-import ThemeButtonComp from '../../Components/ThemeButtonComp';
 const GeneralScreen = () => {
   return (
     <View>
@@ -17,8 +13,9 @@ const GeneralScreen = () => {
         headerTitle={'General'}
         arrowBackIcon={arrowback}
         backText={'Back'}
-        saveReset={'Reset'}
+        saveReset={'Save'}
         style={styles.filterHeader}
+        saveResetStyle={styles.save}
       />
 
       <View style={styles.filterMain}>
