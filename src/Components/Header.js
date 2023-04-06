@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, Image, View} from 'react-native';
+import {StyleSheet, Text, Image, View, Platform} from 'react-native';
 import {TextComponent} from './TextComponent';
 import {Touchable} from './Touchable';
 import {arrowback} from '../Assests';
@@ -51,6 +51,7 @@ const styles = StyleSheet.create({
     paddingBottom: hp('1.5'),
     flexDirection: 'row',
     width: wp('100'),
+    marginTop: Platform.OS == 'ios' ? hp('4') : hp('1.5'),
     // justifyContent: 'space-between',
   },
   backMain: {

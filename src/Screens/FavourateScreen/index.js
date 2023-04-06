@@ -28,15 +28,7 @@ const Favourite = () => {
   });
   return (
     <View style={styles.favMain}>
-      <Header styles={styles.topHeader} headerTitle={'Favourite'} />
-      <Picker
-        selectedValue={selectedLanguage}
-        onValueChange={(itemValue, itemIndex) =>
-          setSelectedLanguage(itemValue)
-        }>
-        <Picker.Item label="Java" value="java" />
-        <Picker.Item label="JavaScript" value="js" />
-      </Picker>
+      <Header headerTitle={'Favourite'} />
       <FlatList
         refreshing={false}
         data={favouriteData}

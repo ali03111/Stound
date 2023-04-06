@@ -14,26 +14,30 @@ import {
   logo,
 } from '../../Assests';
 import useSocialLoginScreen from './useSocialLoginScreen';
-// import {logo} from '../../Assests';
+import {googleLogin} from '../../Utils/SocialLogin';
 
 const SocialLoginScreen = ({navigation}) => {
-  const {contWithEmail} = useSocialLoginScreen(navigation);
+  const {contWithEmail, appleIdAuth, googleAuth, facebookAuth} =
+    useSocialLoginScreen(navigation);
   return (
     <View style={styles.socialBtnMain}>
       <Image source={logo} style={styles.logo} />
       <ShareButton
         title={'Continue with Google'}
         image={googleIconWhite}
+        onPress={googleAuth}
         style={{...styles.socialBtn, backgroundColor: Colors.redfaded}}
       />
       <ShareButton
         title={'Continue with Apple'}
         image={appleIconWhite}
+        onPress={appleIdAuth}
         style={{...styles.socialBtn, backgroundColor: Colors.black}}
       />
       <ShareButton
         title={'Continue with Facebook'}
         image={facebookIconWhite}
+        onPress={facebookAuth}
         style={{...styles.socialBtn, backgroundColor: Colors.blue}}
       />
       <View style={styles.barMain}>

@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">stound</string>
+    <string name="facebook_app_id">889975852090973</string>
+    <string name="fb_login_protocol_scheme">fb889975852090973</string>
+    <string name="facebook_client_token">34c263fb68086b59782baba982456043</string>
+
 </resources>

@@ -9,6 +9,7 @@ import {
 import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
 import StackNavigatior from './src/Navigation/navigation';
 import {SplashScreen} from './src/Assests';
+import {Settings} from 'react-native-fbsdk-next';
 
 function App({navigation}) {
   const [isVisible, setIsVisible] = useState(true);
@@ -18,6 +19,21 @@ function App({navigation}) {
   const time = () => {
     return 5000;
   };
+
+  useEffect(() => {
+    /**
+     * Initialize the sdk
+     */
+    (function initializeSDK() {
+      Settings.initializeSDK();
+    })();
+
+    /**
+     * Set app id
+     */
+
+    Settings.setAppID('889975852090973');
+  }, []);
 
   useEffect(async () => {
     (async () => {

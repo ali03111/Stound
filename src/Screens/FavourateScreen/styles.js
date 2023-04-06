@@ -1,12 +1,12 @@
-import {Dimensions, StyleSheet} from 'react-native';
+import {Dimensions, Platform, StyleSheet} from 'react-native';
 import {hp, wp} from '../../Config/responsive';
 import {Colors} from '../../Theme/Variables';
 
 export const styles = StyleSheet.create({
   favMain: {
-    paddingTop: hp('1.5'),
+    flex: 1,
   },
   topHeader: {
-    paddingTop: hp('1.5'),
+    paddingTop: Platform.OS == 'ios' ? hp('100') : hp('1.5'),
   },
 });

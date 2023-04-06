@@ -1,11 +1,16 @@
 #import "AppDelegate.h"
-
+#import <Firebase.h>
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <RNGoogleSignin/RNGoogleSignin.h>
 #import <React/RCTBundleURLProvider.h>
+#import <FBSDKCoreKit/FBSDKCoreKit-swift.h> // <- Add This Import
+#import <React/RCTLinkingManager.h> // <- Add This Import
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+  [FIRApp configure];
   self.moduleName = @"stound";
   // You can add your custom initial props in the dictionary below.
   // They will be passed down to the ViewController used by React Native.

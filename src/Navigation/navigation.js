@@ -20,16 +20,10 @@ const StackNavigatior = () => {
       {!onboarding && (
         <Stack.Screen name="OnboardScreen" component={Screens.OnboardScreen} />
       )}
-      {/* <Stack.Screen name="MybottomTabs" component={MybottomTabs} /> */}
-
-      {/* <Stack.Screen
-        name="FavourateScreen"
-        component={Screens.FavourateScreen}
-      /> */}
-      {/* <Stack.Screen
-        name="NotificationScreen"
-        component={Screens.NotificationScreen}
-      /> */}
+      <Stack.Screen
+        name="SocialLoginScreen"
+        component={Screens.SocialLoginScreen}
+      />
       <Stack.Screen name="MybottomTabs" component={MybottomTabs} />
 
       <Stack.Screen name="LoginScreen" component={Screens.LoginScreen} />
