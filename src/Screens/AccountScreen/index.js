@@ -5,6 +5,8 @@ import {styles} from './styles';
 import Header from '../../Components/Header';
 import {
   AccountProfile,
+  EditProfile,
+  accountprofile,
   arrowRight,
   information,
   lock,
@@ -15,14 +17,23 @@ import {
   tasksquare,
 } from '../../Assests';
 import {Colors} from '../../Theme/Variables';
-import ProfileButton from '../../Components/profileButton';
+import ProfileButton from '../../Components/ProfileButton';
+import ProfileArea from './ProfileComponent';
+import CoinsComponent from './CoinsComponent';
 
 const AccountScreen = () => {
   return (
-    <View>
+    <View style={{flex: 1}}>
       <Header headerTitle={'Account'} style={styles.accountHeader} />
       <ScrollView>
         <View style={styles.accountMain}>
+          <ProfileArea
+            ProfileImage={accountprofile}
+            ProfileName={'Jhon Doe'}
+            UserEmail={'jhondoe@gmail.com'}
+            EditProfile={EditProfile}
+          />
+          <CoinsComponent RemainingCoins={'25'} />
           <ProfileButton
             title={'My Profile'}
             iconLeft={AccountProfile}

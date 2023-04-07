@@ -1,5 +1,5 @@
-const useGeneralScreen = () => {
+const useAccountScreen = () => {
   return {};
 };
 
-export default useGeneralScreen;
+export default useAccountScreen;

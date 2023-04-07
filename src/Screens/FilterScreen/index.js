@@ -1,6 +1,6 @@
 import React, {memo, useCallback, useState} from 'react';
 import {View, FlatList, Text, ScrollView, SafeAreaView} from 'react-native';
-import useFavourateScreen from './useFilterScreen';
+import useFilterScreen from './useFilterScreen';
 import {styles} from './styles';
 import {TextComponent} from '../../Components/TextComponent';
 import Header from '../../Components/Header';
