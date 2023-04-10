@@ -5,9 +5,9 @@ import {styles} from './styles';
 import {TextComponent} from '../../Components/TextComponent';
 import FavouriteComp from '../../Components/FavouriteComponent';
 import Header from '../../Components/Header';
-import {Picker} from '@react-native-picker/picker';
+import {hp} from '../../Config/responsive';
 
-const Favourite = () => {
+const FavouriteScreen = () => {
   const [selectedLanguage, setSelectedLanguage] = useState();
   const {favouriteData} = useFavourateScreen();
   const renderItem = useCallback(({item}) => {
@@ -28,13 +28,15 @@ const Favourite = () => {
   });
   return (
     <View style={styles.favMain}>
-      <Header headerTitle={'Favourite'} />
+      <Header styles={styles.topHeader} headerTitle={'Favourite'} />
       <FlatList
         refreshing={false}
         data={favouriteData}
         renderItem={renderItem}
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{paddingBottom: hp('6')}}
       />
     </View>
   );
 };
-export default memo(Favourite);
+export default memo(FavouriteScreen);

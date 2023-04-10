@@ -5,6 +5,7 @@ import {Touchable} from './Touchable';
 import {arrowback} from '../Assests';
 import {hp, wp} from '../Config/responsive';
 import {Colors} from '../Theme/Variables';
+import {goBack} from '../Utils';
 
 const NotificationHeader = ({
   headerTitle,
@@ -13,11 +14,12 @@ const NotificationHeader = ({
   icon,
   arrowBackIcon,
   backText,
+  saveResetStyle,
 }) => {
   return (
-    <View style={styles.TopHeader}>
+    <View style={[styles.TopHeader, {...style}]}>
       <View style={styles.HeaderLeft}>
-        <Touchable style={styles.backMain}>
+        <Touchable onPress={goBack} style={styles.backMain}>
           <Image
             source={arrowBackIcon}
             style={{
@@ -40,7 +42,10 @@ const NotificationHeader = ({
               style: styles.arrowback,
             }}
           />
-          <TextComponent text={saveReset} styles={styles.backBtn} />
+          <TextComponent
+            text={saveReset}
+            styles={{...styles.backBtn, ...saveResetStyle}}
+          />
         </Touchable>
       </View>
     </View>
@@ -51,7 +56,7 @@ const styles = StyleSheet.create({
     paddingBottom: hp('1.5'),
     flexDirection: 'row',
     width: wp('100'),
-    marginTop: Platform.OS == 'ios' ? hp('4') : hp('1.5'),
+    marginTop: Platform.OS == 'ios' ? hp('5') : hp('1.5'),
     // justifyContent: 'space-between',
   },
   backMain: {

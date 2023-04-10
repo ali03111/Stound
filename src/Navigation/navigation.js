@@ -24,6 +24,15 @@ const StackNavigatior = () => {
         name="SocialLoginScreen"
         component={Screens.SocialLoginScreen}
       />
+      {/* <Stack.Screen name="MybottomTabs" component={MybottomTabs} /> */}
+
+      {/* <Stack.Screen name="GeneralScreen" component={Screens.GeneralScreen} /> */}
+      <Stack.Screen name="AccountScreen" component={Screens.AccountScreen} />
+      <Stack.Screen name="FilterScreen" component={Screens.FilterScreen} />
+      {/* <Stack.Screen
+        name="NotificationScreen"
+        component={Screens.NotificationScreen}
+      /> */}
       <Stack.Screen name="MybottomTabs" component={MybottomTabs} />
 
       <Stack.Screen name="LoginScreen" component={Screens.LoginScreen} />

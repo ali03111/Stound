@@ -59,7 +59,9 @@ const HomeScreen = ({navigation}) => {
           />
         </View>
         <View style={styles.searchIcons}>
-          <Touchable style={styles.rightIcon}>
+          <Touchable
+            onPress={() => navigation.navigate('FilterScreen')}
+            style={styles.rightIcon}>
             <Image source={setting} style={styles.setting} />
           </Touchable>
           <Touchable style={styles.rightIcon}>

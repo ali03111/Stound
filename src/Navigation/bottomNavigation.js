@@ -119,9 +119,9 @@ function MybottomTabs() {
         component={Screens.MessageScreen}
       />
       <Tab.Screen
-        name="ProfileScreen"
+        name="AccountScreen"
         options={tabarComponent('person', 'Profile')}
-        component={Screens.ProfileScreen}
+        component={Screens.AccountScreen}
       />
     </Tab.Navigator>
   );
