@@ -53,6 +53,8 @@ export const styles = StyleSheet.create({
   },
   porfileImg: {
     borderRadius: 7,
+    width: wp('14.5'),
+    height: hp('7.2'),
   },
   porfileInfo: {
     flex: 0.9,

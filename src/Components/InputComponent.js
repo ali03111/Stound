@@ -22,6 +22,7 @@ export const InputComponent = ({
   editable,
   viewStyle,
   isImage,
+  forPasswordStyle,
 }) => {
   const [show, setShow] = useState(!isSecure);
   const handleClick = () => setShow(!show);
@@ -32,7 +33,7 @@ export const InputComponent = ({
     <>
       <Controller
         render={({field: {onChange, value}}) => (
-          <View style={{...styles.textfield, viewStyle}}>
+          <View style={{...styles.textfield, ...viewStyle}}>
             {isImage && (
               <Image
                 source={isImage}
@@ -46,6 +47,7 @@ export const InputComponent = ({
             <TextInput
               type={type}
               maxLength={maxLength}
+              style={{...forPasswordStyle}}
               {...{
                 value,
                 isDisabled,

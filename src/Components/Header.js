@@ -15,6 +15,8 @@ const NotificationHeader = ({
   arrowBackIcon,
   backText,
   saveResetStyle,
+  backTextStyle,
+  centerTextStyle,
 }) => {
   return (
     <View style={[styles.TopHeader, {...style}]}>
@@ -27,10 +29,13 @@ const NotificationHeader = ({
               style: styles.arrowback,
             }}
           />
-          <TextComponent text={backText} styles={styles.backBtn} />
+          <TextComponent
+            text={backText}
+            styles={{...styles.backBtn, ...backTextStyle}}
+          />
         </Touchable>
       </View>
-      <View style={styles.HeaderCenter}>
+      <View style={{...styles.HeaderCenter, ...centerTextStyle}}>
         <TextComponent text={headerTitle} styles={styles.HeaderTitle} />
       </View>
       <View style={styles.HeaderRight}>
