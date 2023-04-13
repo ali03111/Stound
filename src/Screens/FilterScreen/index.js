@@ -35,7 +35,7 @@ const FilterScreen = () => {
         // style={styles.filterHeader}
       />
 
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.filterMain}>
           <SwitchSelector
             options={options}

@@ -5,7 +5,6 @@ import {Touchable} from './Touchable';
 import {arrowback} from '../Assests';
 import {hp, wp} from '../Config/responsive';
 import {Colors} from '../Theme/Variables';
-import {goBack} from '../Utils';
 
 const NotificationHeader = ({
   headerTitle,
@@ -15,8 +14,8 @@ const NotificationHeader = ({
   arrowBackIcon,
   backText,
   saveResetStyle,
+  goBack,
   backTextStyle,
-  centerTextStyle,
 }) => {
   return (
     <View style={[styles.TopHeader, {...style}]}>
@@ -35,7 +34,7 @@ const NotificationHeader = ({
           />
         </Touchable>
       </View>
-      <View style={{...styles.HeaderCenter, ...centerTextStyle}}>
+      <View style={styles.HeaderCenter}>
         <TextComponent text={headerTitle} styles={styles.HeaderTitle} />
       </View>
       <View style={styles.HeaderRight}>

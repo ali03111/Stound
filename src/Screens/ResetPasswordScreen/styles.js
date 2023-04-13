@@ -4,7 +4,7 @@ import {Colors} from '../../Theme/Variables';
 
 export const styles = StyleSheet.create({
   Header: {
-    paddingHorizontal: wp('6'),
+    // paddingHorizontal: wp('6'),
     width: wp('100'),
   },
   headerBackText: {

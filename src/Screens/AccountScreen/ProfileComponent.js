@@ -4,7 +4,14 @@ import useAccountScreen from './useAccountScreen';
 import {styles} from './styles';
 import {AccountProfile} from '../../Assests';
 import {TextComponent} from '../../Components/TextComponent';
-const ProfileArea = ({ProfileImage, ProfileName, UserEmail, EditProfile}) => {
+import {Touchable} from '../../Components/Touchable';
+const ProfileArea = ({
+  ProfileImage,
+  ProfileName,
+  UserEmail,
+  EditProfile,
+  onPress,
+}) => {
   return (
     <View style={styles.porfileContainer}>
       <Image source={ProfileImage} style={styles.porfileImg} />
@@ -12,9 +19,9 @@ const ProfileArea = ({ProfileImage, ProfileName, UserEmail, EditProfile}) => {
         <TextComponent text={ProfileName} styles={styles.userName} />
         <TextComponent text={UserEmail} styles={styles.userEmail} />
       </View>
-      <View style={styles.editPorfile}>
+      <Touchable onPress={onPress} style={styles.editPorfile}>
         <Image source={EditProfile} style={styles.editPorfileImage} />
-      </View>
+      </Touchable>
     </View>
   );
 };

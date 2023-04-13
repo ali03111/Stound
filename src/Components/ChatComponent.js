@@ -1,14 +1,23 @@
 import React, {useState} from 'react';
-import {StyleSheet, Text, Image, View} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  Image,
+  View,
+  Dimensions,
+  Platform,
+} from 'react-native';
 import {TextComponent} from './TextComponent';
 import {hp, wp} from '../Config/responsive';
 import {Colors} from '../Theme/Variables';
+import {CircleImageComp} from './CircleImageComp';
 
 const ChatComponent = ({image, name, description, time, messages}) => {
   return (
     <View style={styles.notificationMian}>
       <View style={styles.mainBannerImg}>
-        <Image style={styles.bannerImg} resizeMode="contain" source={image} />
+        <CircleImageComp image={image} />
+        {/* <CircleImageComp styles={styles.bannerImg}  image={image} /> */}
       </View>
       <View style={styles.nameDescriptionMain}>
         <TextComponent text={name} styles={styles.username} />
@@ -16,7 +25,9 @@ const ChatComponent = ({image, name, description, time, messages}) => {
       </View>
       <View style={styles.mainTime}>
         <TextComponent text={time} styles={styles.timing} />
-        <TextComponent text={messages} styles={styles.messages(messages)} />
+        <View style={styles.messageView(messages)}>
+          <TextComponent text={messages} styles={styles.messages} />
+        </View>
       </View>
       {/* <TextComponent text={item?.description} styles={styles.centerDes} /> */}
     </View>
@@ -58,7 +69,7 @@ const styles = StyleSheet.create({
     fontSize: hp('2'),
   },
   description: {
-    fontSize: hp('1.8'),
+    fontSize: Platform.OS == 'ios' ? hp('1.5') : hp('1.8'),
   },
 
   timing: {
@@ -66,18 +77,26 @@ const styles = StyleSheet.create({
     textAlign: 'right',
     color: 'rgba(41, 45, 50, 0.5)',
   },
-  messages: messages => ({
+  messageView: messages => ({
     color: 'white',
     textAlign: 'center',
     backgroundColor: messages ? Colors.primaryColor : 'transparent',
-    width: wp('5'),
-    height: hp('2.5'),
-    borderRadius: 10,
+    borderRadius: Math.round(
+      Dimensions.get('window').width + Dimensions.get('window').height,
+    ),
+    width: Dimensions.get('screen').width * 0.05,
+    height: Dimensions.get('screen').width * 0.05,
     fontSize: hp('1.5'),
     alignSelf: 'flex-end',
     marginTop: hp('1'),
+    alignItems: 'center',
+    justifyContent: 'center',
+    textAlignVerticaly: 'center',
   }),
-  messageData: {},
+  messages: {
+    fontSize: hp('1.5'),
+    color: 'white',
+  },
 });
 
 export default ChatComponent;

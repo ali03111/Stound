@@ -21,8 +21,10 @@ import ProfileButton from '../../Components/ProfileButton';
 import ProfileArea from './ProfileComponent';
 import CoinsComponent from './CoinsComponent';
 import {hp} from '../../Config/responsive';
+import useAccountScreen from './useAccountScreen';
 
-const AccountScreen = () => {
+const AccountScreen = ({navigation}) => {
+  const {dynamicNav} = useAccountScreen(navigation);
   return (
     <View style={{flex: 1}}>
       <Header headerTitle={'Account'} />
@@ -35,6 +37,7 @@ const AccountScreen = () => {
             ProfileName={'Jhon Doe'}
             UserEmail={'jhondoe@gmail.com'}
             EditProfile={EditProfile}
+            onPress={() => dynamicNav('EditProfileScreen')}
           />
           <CoinsComponent RemainingCoins={'25'} />
           <ProfileButton
@@ -54,6 +57,7 @@ const AccountScreen = () => {
             textStyle={styles.buttonText}
             leftImgStyle={styles.iconLeft}
             rightImgStyle={styles.iconRight}
+            onPress={() => dynamicNav('ResetPasswordScreen')}
           />
           <ProfileButton
             title={'About Stound'}
@@ -90,6 +94,7 @@ const AccountScreen = () => {
             textStyle={styles.buttonText}
             leftImgStyle={styles.iconLeft}
             rightImgStyle={styles.iconRight}
+            onPress={() => dynamicNav('RatingScreen')}
           />
           <ProfileButton
             title={'Log Out'}

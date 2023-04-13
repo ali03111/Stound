@@ -119,9 +119,9 @@ function MybottomTabs() {
         component={Screens.SomeComponent}
       />
       <Tab.Screen
-        name="MessageScreen"
+        name="ChatScreen"
         options={tabarComponent('chatbox-ellipses', 'Message', 1)}
-        component={Screens.MessageScreen}
+        component={Screens.ChatScreen}
       />
       <Tab.Screen
         name="AccountScreen"

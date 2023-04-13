@@ -127,6 +127,7 @@ export const notificationData = [
     time: '32 min ago',
   },
 ];
+
 export const favouriteData = [
   {
     id: 1,
@@ -184,6 +185,7 @@ export const favouriteData = [
     size: '120 sqft',
   },
 ];
+
 export const ChatData = [
   {
     id: 0,
@@ -290,4 +292,35 @@ export const ChatData = [
     image: notificationProfile2,
     time: '4:32 PM',
   },
+];
+
+export const homeCardData = [
+  'DO',
+  'MORE',
+  'OF',
+  'WHAT',
+  'MAKES',
+  'YOU',
+  'HAPPY',
+  'DO',
+  'MORE',
+  'OF',
+  'WHAT',
+  'MAKES',
+  'YOU',
+  'HAPPY',
+  'DO',
+  'MORE',
+  'OF',
+  'WHAT',
+  'MAKES',
+  'YOU',
+  'HAPPY',
+  'DO',
+  'MORE',
+  'OF',
+  'WHAT',
+  'MAKES',
+  'YOU',
+  'HAPPY',
 ];

@@ -19,18 +19,17 @@ import {Colors} from '../../Theme/Variables';
 import {styles} from './styles';
 import useResetPasswordScreen from './useResetPasswordScreen';
 
-const ResetPasswordScreen = () => {
-  const {handleSubmit, errors, reset, control, getValues} =
-    useResetPasswordScreen();
+const ResetPasswordScreen = ({navigation}) => {
+  const {handleSubmit, errors, reset, control, getValues, goBack} =
+    useResetPasswordScreen(navigation);
   return (
     <View style={{flex: 1}}>
       <Header
         headerTitle={'Change Password'}
         backText={'Back'}
-        style={styles.Header}
         arrowBackIcon={arrowback}
-        backTextStyle={styles.headerBackText}
         centerTextStyle={styles.centerText}
+        goBack={goBack}
       />
       <View style={styles.mainView}>
         <KeyBoardWrapper>

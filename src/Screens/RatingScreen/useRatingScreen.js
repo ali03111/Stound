@@ -2,7 +2,7 @@ import Schemas from '../../Utils/Validation';
 
 const {default: useFormHook} = require('../../Hooks/UseFormHooks');
 
-const useEditProfileScreen = () => {
+const useRatingScreen = ({navigate, goBack}) => {
   const {handleSubmit, errors, reset, control, getValues} = useFormHook(
     Schemas.editProfile,
   );
@@ -12,7 +12,8 @@ const useEditProfileScreen = () => {
     reset,
     control,
     getValues,
+    goBack,
   };
 };
 
-export default useEditProfileScreen;
+export default useRatingScreen;

@@ -1,4 +1,4 @@
-import React, {memo, useCallback, useState} from 'react';
+import React, {memo} from 'react';
 import {View, Text, Image, Button} from 'react-native';
 import useEditProfileScreen from './useEditProfileScreen';
 import {styles} from './styles';
@@ -12,38 +12,34 @@ import {
   user,
   UploadProfileImage,
 } from '../../Assests';
-import {Colors} from '../../Theme/Variables';
-import ProfileButton from '../../Components/ProfileButton';
 import {TextComponent} from '../../Components/TextComponent';
 import {InputComponent} from '../../Components/InputComponent';
 import ShareButton from '../../Components/ShareButton';
-import {goBack} from '../../Utils';
 import KeyBoardWrapper from '../../Components/KeyboardWrapper';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import {Touchable} from '../../Components/Touchable';
-const EditProfileScreen = () => {
-  const {handleSubmit, errors, reset, control, getValues} =
-    useEditProfileScreen();
-  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
 
-  const showDatePicker = () => {
-    setDatePickerVisibility(true);
-  };
+const EditProfileScreen = ({navigation}) => {
+  const {
+    control,
+    errors,
+    isDatePickerVisible,
+    goBack,
+    reset,
+    handleSubmit,
+    getValues,
+    hideDatePicker,
+    showDatePicker,
+    handleConfirm,
+  } = useEditProfileScreen(navigation);
 
-  const hideDatePicker = () => {
-    setDatePickerVisibility(false);
-  };
-
-  const handleConfirm = date => {
-    console.warn('A date has been picked: ', date);
-    hideDatePicker();
-  };
   return (
     <View style={{flex: 1}}>
       <Header
         headerTitle={'Edit Profile'}
         arrowBackIcon={arrowback}
         backText={'Back'}
+        goBack={goBack}
         // style={styles.filterHeader}
         saveResetStyle={styles.save}
       />

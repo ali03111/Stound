@@ -23,6 +23,8 @@ import Notification from '../../Components/Notification';
 import Swiper from 'react-native-deck-swiper';
 import {hp, wp} from '../../Config/responsive';
 import SomeComponent from '../GestureScreenTest';
+import {successMessage} from '../../Config/NotificationMessage';
+import {homeCardData} from '../../Utils/localDB';
 
 const HomeScreen = ({navigation}) => {
   const [text, onChangeText] = React.useState('');
@@ -71,23 +73,23 @@ const HomeScreen = ({navigation}) => {
       </View>
       <View style={styles.cardMainView}>
         <Swiper
-          cards={['DO', 'MORE', 'OF', 'WHAT', 'MAKES', 'YOU', 'HAPPY']}
+          cards={homeCardData}
           useViewOverflow={true}
           cardVerticalMargin={0}
           cardHorizontalMargin={0}
           marginBottom={0}
           renderCard={renderItem}
           onSwipedLeft={ca => {
-            console.log('left');
+            successMessage('You cancel this property');
           }}
           onSwipedRight={ca => {
-            console.log('Right');
+            successMessage('You like this property');
           }}
           onSwipedTop={ca => {
             console.log('Top');
           }}
           onSwipedBottom={ca => {
-            console.log('bottom');
+            successMessage('This property has been added to favourite ');
           }}
           cardIndex={0}
           containerStyle={{

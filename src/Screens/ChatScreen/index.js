@@ -7,6 +7,7 @@ import {
   ScrollView,
   Text,
   TextInput,
+  Platform,
 } from 'react-native';
 import Header from '../../Components/Header';
 import ChatComponent from '../../Components/ChatComponent';
@@ -14,7 +15,7 @@ import {TextComponent} from '../../Components/TextComponent';
 import {styles} from './styles';
 import useChatScreen from './useChatScreen';
 import {NotificationHeader} from '../../Components/Header';
-import {wp} from '../../Config/responsive';
+import {hp, wp} from '../../Config/responsive';
 import {arrowback, moredots, search, smsedit} from '../../Assests';
 
 const ChatScreen = () => {
@@ -51,21 +52,19 @@ const ChatScreen = () => {
           placeholder={'Search property here...'}
         />
       </View>
-      <View>
-        <FlatList
-          refreshing={false}
-          data={ChatData}
-          renderItem={renderItem}
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{
-            paddingBottom: 0,
-            paddingHorizontal: wp('4'),
-
-            // height: 'auto',
-          }}
-          style={{paddingBottom: 0}}
-        />
-      </View>
+      <FlatList
+        refreshing={false}
+        data={ChatData}
+        renderItem={renderItem}
+        showsHorizontalScrollIndicator={false}
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{
+          paddingBottom: Platform.OS == 'ios' ? hp('25') : hp('22'),
+          paddingHorizontal: wp('4'),
+          // height: 'auto',
+        }}
+        // style={{paddingBottom: 0}}
+      />
     </View>
   );
 };
