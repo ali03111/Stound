@@ -12,3 +12,7 @@ export {default as NotificationScreen} from './NotificationScreen';
 export {default as FilterScreen} from './FilterScreen';
 export {default as GeneralScreen} from './GeneralScreen';
 export {default as AccountScreen} from './AccountScreen';
+export {default as EditProfileScreen} from './EditProfileScreen';
+export {default as ResetPasswordScreen} from './ResetPasswordScreen';
+export {default as ChatScreen} from './ChatScreen';
+export {default as RatingScreen} from './RatingScreen';

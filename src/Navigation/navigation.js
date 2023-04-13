@@ -20,11 +20,21 @@ const StackNavigatior = () => {
       {!onboarding && (
         <Stack.Screen name="OnboardScreen" component={Screens.OnboardScreen} />
       )}
+      <Stack.Screen name="RatingScreen" component={Screens.RatingScreen} />
+      <Stack.Screen name="ChatScreen" component={Screens.ChatScreen} />
+      <Stack.Screen
+        name="ResetPasswordScreen"
+        component={Screens.ResetPasswordScreen}
+      />
+      <Stack.Screen
+        name="EditProfileScreen"
+        component={Screens.EditProfileScreen}
+      />
       <Stack.Screen
         name="SocialLoginScreen"
         component={Screens.SocialLoginScreen}
       />
-      {/* <Stack.Screen name="MybottomTabs" component={MybottomTabs} /> */}
+      <Stack.Screen name="MybottomTabs" component={MybottomTabs} />
 
       {/* <Stack.Screen name="GeneralScreen" component={Screens.GeneralScreen} /> */}
       <Stack.Screen name="AccountScreen" component={Screens.AccountScreen} />
@@ -33,7 +43,7 @@ const StackNavigatior = () => {
         name="NotificationScreen"
         component={Screens.NotificationScreen}
       /> */}
-      <Stack.Screen name="MybottomTabs" component={MybottomTabs} />
+      {/* <Stack.Screen name="MybottomTabs" component={MybottomTabs} /> */}
 
       <Stack.Screen name="LoginScreen" component={Screens.LoginScreen} />
       <Stack.Screen name="RegisterScreen" component={Screens.RegisterScreen} />

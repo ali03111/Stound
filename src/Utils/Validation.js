@@ -124,6 +124,7 @@ const editProfileScheme = yup.object().shape({
     .matches(/^[A-Za-z ]*$/, 'Please Enter valid name')
     .min(2, 'Name must be atleast 2 characters')
     .max(50, 'Name must be of 50 characters'),
+  number: yup.string().required('Please enter your number'),
 });
 
 const Schemas = {

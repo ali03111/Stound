@@ -15,6 +15,10 @@ export {default as notificationProfile4} from './Images/profile4.png';
 export {default as favouriteBgImage} from './Images/favoriteImage.png';
 export {default as overlay} from './Images/favOverlay.png';
 export {default as accountprofile} from './Images/accountprofile.png';
+export {default as editProfile} from './Images/editProfile.png';
+export {default as editProfileShadow} from './Images/editProfileShadow.png';
+export {default as logowhite} from './Images/logo-white.png';
+export {default as stars} from './Images/stars.png';
 
 //  Icons
 
@@ -55,3 +59,8 @@ export {default as logout} from './Icons/logout.png';
 export {default as profileremove} from './Icons/profile-remove.png';
 export {default as EditProfile} from './Icons/EditProfile.png';
 export {default as coin} from './Icons/coin.png';
+export {default as calendar} from './Icons/calendar.png';
+export {default as UploadProfileImage} from './Icons/UploadProfileImage.png';
+export {default as smsedit} from './Icons/sms-edit.png';
+export {default as moredots} from './Icons/moredots.png';
+export {default as arrowbackwhite} from './Icons/arrowbackwhite.png';

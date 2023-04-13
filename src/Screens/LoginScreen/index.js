@@ -19,19 +19,6 @@ import {styles} from './styles';
 import useLogin from './useLoginScreen';
 
 const LoginScreen = ({navigation}) => {
-  const {
-    handleSubmit,
-    errors,
-    reset,
-    control,
-    getValues,
-    facebookLoginFunc,
-    googleLoginFunc,
-    PhoneNumberLoginFuc,
-    register,
-    loginWithEmail,
-    goBack,
-  } = useLogin(navigation);
   return (
     <View style={styles.mainView}>
       <KeyBoardWrapper>
