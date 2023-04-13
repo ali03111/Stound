@@ -8,7 +8,7 @@ import {hp, wp} from '../Config/responsive';
 import Svg, {Path} from 'react-native-svg';
 
 globalStyles = {};
-
+const isIOS = Boolean(Platform.OS == 'ios');
 const tabarComponent = (iconName, title, last) => {
   return {
     tabBarIcon: ({focused, color, size}) => (
@@ -44,15 +44,20 @@ function MybottomTabs() {
           width: 'auto',
         },
         tabBarStyle: {
-          height: hp('6'),
+          height: hp('6.5'),
           borderTopWidth: 0,
           width: wp('95'),
           alignSelf: 'center',
+          backgroundColor: 'transparent',
+          backfaceVisibility: 'hidden',
+          borderWidth: 0,
+          elevation: 0,
+          shadowOpacity: 0,
         },
         tabBarBackground: () => {
           return (
             <Svg
-              width={wp('88')}
+              width={wp(isIOS ? '88' : '90')}
               height={hp('10')}
               viewBox="0 0 374 74"
               fill="none"
@@ -83,7 +88,7 @@ function MybottomTabs() {
             return (
               <Svg
                 width={wp('50')}
-                height={hp('7')}
+                height={isIOS ? hp('6') : hp('7.5')}
                 viewBox="0 0 54 54"
                 style={styles.circleSvg}
                 fill="none"
@@ -174,13 +179,13 @@ const styles = StyleSheet.create({
   circleSvg: {
     position: 'absolute',
     zIndex: 1,
-    bottom: hp('-0.2'),
+    bottom: isIOS ? hp('-0.6') : hp('2'),
     justifyContent: 'center',
     alignItems: 'center',
   },
   barSvg: {
     position: 'absolute',
-    bottom: Platform.OS == 'ios' ? hp('1') : hp('2'),
+    bottom: isIOS ? hp('1') : hp('0.5'),
     zIndex: 1,
     alignSelf: 'center',
   },
