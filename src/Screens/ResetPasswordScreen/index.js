@@ -1,21 +1,11 @@
 import React, {memo} from 'react';
-import {View, Text, Image} from 'react-native';
-import {
-  appleIcon,
-  arrowback,
-  facebookIcon,
-  googleIcon,
-  lock,
-  sms,
-} from '../../Assests';
+import {View} from 'react-native';
+import {arrowback, lock} from '../../Assests';
 import {InputComponent} from '../../Components/InputComponent';
 import KeyBoardWrapper from '../../Components/KeyboardWrapper';
 import ShareButton from '../../Components/ShareButton';
 import {TextComponent} from '../../Components/TextComponent';
 import Header from '../../Components/Header';
-import {Touchable} from '../../Components/Touchable';
-import {hp} from '../../Config/responsive';
-import {Colors} from '../../Theme/Variables';
 import {styles} from './styles';
 import useResetPasswordScreen from './useResetPasswordScreen';
 

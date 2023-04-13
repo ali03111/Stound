@@ -15,6 +15,10 @@ const useOnboardingScreen = ({navigate, params}) => {
     setCurrentIndex(currentIndex);
   };
 
+  const goNext = () => {
+    setCurrentIndex(pre => pre + 1);
+  };
+
   const getStart = () => {
     dispatch({
       type: types.onBoardFinished,
@@ -25,6 +29,7 @@ const useOnboardingScreen = ({navigate, params}) => {
     onSnapToItem,
     currentIndex,
     getStart,
+    goNext,
   };
 };
 

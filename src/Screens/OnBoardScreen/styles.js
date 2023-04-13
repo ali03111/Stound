@@ -25,6 +25,7 @@ export const styles = StyleSheet.create({
     // borderRadius: 60,
     marginTop: hp('3'),
     alignSelf: 'center',
+    marginBottom: hp('5'),
   },
   centerMainView: {
     width: wp('100'),
@@ -34,7 +35,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
   centerHeading: {
-    fontSize: hp('4'),
+    fontSize: hp('3'),
     fontWeight: 'normal',
     marginVertical: hp('1.5'),
     marginBottom: hp('2'),
