@@ -324,3 +324,18 @@ export const homeCardData = [
   'YOU',
   'HAPPY',
 ];
+
+export const detailsImages = [
+  'https://images.pexels.com/photos/12629063/pexels-photo-12629063.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load',
+  'https://images.pexels.com/photos/12629063/pexels-photo-12629063.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load',
+  'https://images.pexels.com/photos/12629063/pexels-photo-12629063.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load',
+  'https://images.pexels.com/photos/12629063/pexels-photo-12629063.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load',
+  'https://images.pexels.com/photos/12629063/pexels-photo-12629063.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load',
+  'https://images.pexels.com/photos/12629063/pexels-photo-12629063.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load',
+  'https://images.pexels.com/photos/12629063/pexels-photo-12629063.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load',
+  'https://images.pexels.com/photos/12629063/pexels-photo-12629063.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load',
+  'https://images.pexels.com/photos/12629063/pexels-photo-12629063.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load',
+  'https://images.pexels.com/photos/12629063/pexels-photo-12629063.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load',
+  'https://images.pexels.com/photos/12629063/pexels-photo-12629063.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load',
+  'https://images.pexels.com/photos/12629063/pexels-photo-12629063.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load',
+];

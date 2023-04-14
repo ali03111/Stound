@@ -16,3 +16,4 @@ export {default as EditProfileScreen} from './EditProfileScreen';
 export {default as ResetPasswordScreen} from './ResetPasswordScreen';
 export {default as ChatScreen} from './ChatScreen';
 export {default as RatingScreen} from './RatingScreen';
+export {default as PackageDetailsScreen} from './PackageDetailsScreen';

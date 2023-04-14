@@ -47,6 +47,10 @@ const StackNavigatior = () => {
 
       <Stack.Screen name="LoginScreen" component={Screens.LoginScreen} />
       <Stack.Screen name="RegisterScreen" component={Screens.RegisterScreen} />
+      <Stack.Screen
+        name="PackageDetailsScreen"
+        component={Screens.PackageDetailsScreen}
+      />
       <Stack.Screen name="SomeComponent" component={Screens.SomeComponent} />
       <Stack.Screen
         name="NotificationScreen"
