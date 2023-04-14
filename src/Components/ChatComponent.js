@@ -11,10 +11,11 @@ import {TextComponent} from './TextComponent';
 import {hp, wp} from '../Config/responsive';
 import {Colors} from '../Theme/Variables';
 import {CircleImageComp} from './CircleImageComp';
+import {Touchable} from './Touchable';
 
-const ChatComponent = ({image, name, description, time, messages}) => {
+const ChatComponent = ({image, name, description, time, messages, onPress}) => {
   return (
-    <View style={styles.notificationMian}>
+    <Touchable style={styles.notificationMian} onPress={onPress}>
       <View style={styles.mainBannerImg}>
         <CircleImageComp image={image} />
         {/* <CircleImageComp styles={styles.bannerImg}  image={image} /> */}
@@ -30,7 +31,7 @@ const ChatComponent = ({image, name, description, time, messages}) => {
         </View>
       </View>
       {/* <TextComponent text={item?.description} styles={styles.centerDes} /> */}
-    </View>
+    </Touchable>
   );
 };
 

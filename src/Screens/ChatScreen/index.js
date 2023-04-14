@@ -18,8 +18,8 @@ import {NotificationHeader} from '../../Components/Header';
 import {hp, wp} from '../../Config/responsive';
 import {arrowback, moredots, search, smsedit} from '../../Assests';
 
-const ChatScreen = () => {
-  const {ChatData, getStart} = useChatScreen();
+const ChatScreen = ({navigation}) => {
+  const {ChatData, getStart, navigateToMsg} = useChatScreen(navigation);
   const [text, onChangeText] = React.useState('');
   const renderItem = useCallback(({item, index}) => {
     return (
@@ -30,6 +30,7 @@ const ChatScreen = () => {
           description={item?.description}
           time={item?.time}
           messages={item?.messages}
+          onPress={navigateToMsg}
         />
       </View>
     );

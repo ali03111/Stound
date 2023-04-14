@@ -24,6 +24,7 @@ const StackNavigatior = () => {
         name="SocialLoginScreen"
         component={Screens.SocialLoginScreen}
       />
+      <Stack.Screen name="MessagesScreen" component={Screens.MessagesScreen} />
       <Stack.Screen name="RatingScreen" component={Screens.RatingScreen} />
       <Stack.Screen name="ChatScreen" component={Screens.ChatScreen} />
       <Stack.Screen

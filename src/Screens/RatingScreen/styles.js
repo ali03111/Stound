@@ -47,15 +47,12 @@ export const styles = StyleSheet.create({
     bottom: 25,
     right: 0,
   },
-  UploadProfileIcon: {
-    width: wp('5'),
-    height: hp('2.5'),
-  },
+
   saveBtnMain: {
     flex: 1,
     justifyContent: 'flex-end',
     paddingHorizontal: wp('4'),
-    paddingBottom: hp('5'),
+    paddingBottom: hp('2.5'),
   },
   saveBtn: {
     justifyContent: 'center',
@@ -64,39 +61,6 @@ export const styles = StyleSheet.create({
   rateBtnText: {
     color: Colors.primaryColor,
     fontWeight: '600',
-  },
-  loginInput: {
-    backgroundColor: 'white',
-    // marginBottom: hp('1.5'),
-    fontSize: hp('2.2'),
-    marginTop: hp('1'),
-  },
-  calendar: {
-    marginBottom: hp('4'),
-  },
-  datePickerBtn: {
-    backgroundColor: 'white',
-    borderWidth: 1,
-    height: hp('7'),
-    borderRadius: 15,
-    flexDirection: 'row',
-    borderColor: Colors.lightblue,
-    alignItems: 'center',
-    marginVertical: hp('1'),
-  },
-  datePickerBtnInner: {
-    width: wp('100'),
-    color: 'white',
-  },
-  calenderImg: {
-    marginLeft: wp('4'),
-    marginRight: wp('2.5'),
-    resizeMode: 'contain',
-  },
-  date: {
-    fontSize: hp('2'),
-    fontWeight: 'bold',
-    color: 'black',
   },
   userEmail: {
     color: 'white',

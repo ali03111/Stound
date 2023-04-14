@@ -19,6 +19,8 @@ export {default as editProfile} from './Images/editProfile.png';
 export {default as editProfileShadow} from './Images/editProfileShadow.png';
 export {default as logowhite} from './Images/logo-white.png';
 export {default as stars} from './Images/stars.png';
+export {default as lineleft} from './Images/lineleft.png';
+export {default as lineright} from './Images/lineright.png';
 
 //  Icons
 
@@ -64,3 +66,4 @@ export {default as UploadProfileImage} from './Icons/UploadProfileImage.png';
 export {default as smsedit} from './Icons/sms-edit.png';
 export {default as moredots} from './Icons/moredots.png';
 export {default as arrowbackwhite} from './Icons/arrowbackwhite.png';
+export {default as whitedots} from './Icons/whitedots.png';
