@@ -4,21 +4,12 @@ import {Colors, FontFamily} from '../Theme/Variables';
 import {Touchable} from './Touchable';
 import {hp, wp} from '../Config/responsive';
 
-const FilterAddButton = ({
-  title,
-  onPress,
-  image,
-  style,
-  textStyle,
-  imgStyle,
-  disabledValue,
-}) => {
+const MsgSendButton = ({title, onPress, image, style, textStyle, imgStyle}) => {
   return (
     // <ShadowButton>
     <Touchable
       Opacity={0.7}
       onPress={onPress}
-      disabled={disabledValue}
       style={[
         styles.button,
         {justifyContent: image ? 'center' : 'space-between', ...style},
@@ -30,7 +21,7 @@ const FilterAddButton = ({
   );
 };
 
-export default FilterAddButton;
+export default MsgSendButton;
 
 const styles = StyleSheet.create({
   button: {

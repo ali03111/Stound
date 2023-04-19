@@ -110,4 +110,40 @@ export const styles = StyleSheet.create({
     alignItems: 'flex-end',
     display: 'flex',
   },
+  modalTitle: {
+    fontWeight: '600',
+    color: Colors.black,
+    fontSize: hp('2.5'),
+  },
+  modalMsg: {
+    color: Colors.gray,
+    fontSize: hp('1.8'),
+    marginBottom: hp('3'),
+  },
+  cancelBtnMain: {
+    backgroundColor: '#F6F6F6',
+    paddingHorizontal: wp('1'),
+    width: wp('30'),
+    height: hp('6'),
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 10,
+    marginBottom: hp('3'),
+  },
+  confirmBtnMain: {
+    backgroundColor: '#FF4949',
+    width: wp('30'),
+    height: hp('6'),
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 10,
+    marginBottom: hp('3'),
+  },
+  modalCancelBtnText: {
+    fontSize: hp('1.8'),
+    color: '#212759',
+  },
+  modalcConfirmBtnText: {
+    fontSize: hp('1.8'),
+  },
 });

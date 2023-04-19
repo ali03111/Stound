@@ -25,7 +25,7 @@ const NotificationHeader = ({
             source={arrowBackIcon}
             style={{
               resizeMode: 'contain',
-              style: styles.arrowback,
+              ...styles.arrowback,
             }}
           />
           <TextComponent
@@ -59,15 +59,16 @@ const styles = StyleSheet.create({
   TopHeader: {
     paddingBottom: hp('1.5'),
     flexDirection: 'row',
-    width: wp('100'),
+    width: wp('90'),
     marginTop: Platform.OS == 'ios' ? hp('5') : hp('1.5'),
-    // justifyContent: 'space-between',
+    paddingHorizontal: wp('5'),
   },
   backMain: {
     alignItems: 'center',
     flexDirection: 'row',
     textAlign: 'left',
-    marginTop: hp('0.2'),
+    justifyContent: 'center',
+    alignItems: 'flex-end',
   },
   backBtn: {
     marginLeft: wp('3'),
@@ -80,18 +81,23 @@ const styles = StyleSheet.create({
   },
   HeaderLeft: {
     width: wp('20'),
-    // textAlign: 'left',
     justifyContent: 'center',
+    alignItems: 'flex-start',
+  },
+  arrowback: {
     alignItems: 'center',
+    justifyContent: 'center',
+    textAlign: 'center',
+    alignSelf: 'center',
   },
   HeaderCenter: {
-    width: wp('60'),
+    width: wp('50'),
     alignItems: 'center',
   },
   HeaderRight: {
     width: wp('20'),
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'flex-end',
   },
 });
 export default NotificationHeader;

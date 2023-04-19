@@ -15,6 +15,8 @@ const useHomeScreen = ({navigate, params}) => {
     setCurrentIndex(currentIndex);
   };
 
+  const goToDetails = () => navigate('PackageDetailsScreen');
+
   const getStart = () => {
     console.log('check');
     // dispatch({
@@ -26,6 +28,7 @@ const useHomeScreen = ({navigate, params}) => {
     onSnapToItem,
     currentIndex,
     getStart,
+    goToDetails,
   };
 };
 

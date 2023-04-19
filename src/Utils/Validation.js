@@ -126,6 +126,16 @@ const editProfileScheme = yup.object().shape({
     .max(50, 'Name must be of 50 characters'),
   number: yup.string().required('Please enter your number'),
 });
+const addPostScheme = yup.object().shape({
+  name: yup
+    .string()
+    .required('Please Enter your fullname')
+    .max(200, 'Name must be less than 200 characters')
+    .matches(/^[A-Za-z ]*$/, 'Please Enter valid name')
+    .min(2, 'Name must be atleast 2 characters')
+    .max(50, 'Name must be of 50 characters'),
+  number: yup.string().required('Please enter your number'),
+});
 
 const Schemas = {
   signUp: yupResolver(signUpschema),
@@ -137,6 +147,7 @@ const Schemas = {
   username: yupResolver(addUsernameScheme),
   editProfile: yupResolver(editProfileScheme),
   reviewSend: yupResolver(reviewScheme),
+  addPost: yupResolver(addPostScheme),
   // loginNumber: yupResolver(numberScheme),
 };
 

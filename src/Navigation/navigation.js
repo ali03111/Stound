@@ -20,13 +20,15 @@ const StackNavigatior = () => {
       {!onboarding && (
         <Stack.Screen name="OnboardScreen" component={Screens.OnboardScreen} />
       )}
+      <Stack.Screen name="AddPostScreen" component={Screens.AddPostScreen} />
+
       <Stack.Screen
         name="SocialLoginScreen"
         component={Screens.SocialLoginScreen}
       />
+      <Stack.Screen name="ChatScreen" component={Screens.ChatScreen} />
       <Stack.Screen name="MessagesScreen" component={Screens.MessagesScreen} />
       <Stack.Screen name="RatingScreen" component={Screens.RatingScreen} />
-      <Stack.Screen name="ChatScreen" component={Screens.ChatScreen} />
       <Stack.Screen
         name="ResetPasswordScreen"
         component={Screens.ResetPasswordScreen}
@@ -36,7 +38,6 @@ const StackNavigatior = () => {
         component={Screens.EditProfileScreen}
       />
       <Stack.Screen name="MybottomTabs" component={MybottomTabs} />
-
       {/* <Stack.Screen name="GeneralScreen" component={Screens.GeneralScreen} /> */}
       <Stack.Screen name="AccountScreen" component={Screens.AccountScreen} />
       <Stack.Screen name="FilterScreen" component={Screens.FilterScreen} />
@@ -48,6 +49,10 @@ const StackNavigatior = () => {
 
       <Stack.Screen name="LoginScreen" component={Screens.LoginScreen} />
       <Stack.Screen name="RegisterScreen" component={Screens.RegisterScreen} />
+      <Stack.Screen
+        name="PackageDetailsScreen"
+        component={Screens.PackageDetailsScreen}
+      />
       <Stack.Screen name="SomeComponent" component={Screens.SomeComponent} />
       <Stack.Screen
         name="NotificationScreen"

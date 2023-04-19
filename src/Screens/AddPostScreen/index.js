@@ -1,6 +1,14 @@
 import React, {memo, useCallback, useState} from 'react';
-import {View, FlatList, Text, ScrollView, SafeAreaView} from 'react-native';
-import useFilterScreen from './useFilterScreen';
+import {
+  View,
+  FlatList,
+  Text,
+  ScrollView,
+  SafeAreaView,
+  Image,
+  TextInput,
+} from 'react-native';
+import useFilterScreen from './useAddPostScreen';
 import {styles} from './styles';
 import {TextComponent} from '../../Components/TextComponent';
 import Header from '../../Components/Header';
@@ -12,54 +20,88 @@ import {
   sliderdot,
   minslider,
   maxslider,
+  cat,
+  adTitle,
+  chat,
 } from '../../Assests';
-import SwitchSelector from 'react-native-switch-selector';
 import {Colors} from '../../Theme/Variables';
 import FilterAddButton from '../../Components/FilterAddButton';
 import ThemeButtonComp from '../../Components/ThemeButtonComp';
 import Slider from '@react-native-community/slider';
 import {goBack} from '../../Utils';
-const FilterScreen = () => {
+import {InputComponent} from '../../Components/InputComponent';
+import useAddPostScreen from './useAddPostScreen';
+
+const AddPostScreen = () => {
   const [selectedLanguage, setSelectedLanguage] = useState();
-  const [sliderValue, setSliderValue] = useState(0);
-  const options = [
-    {label: 'Rent', value: '1'},
-    {label: 'Buy  ', value: '2'},
-  ];
+  const {handleSubmit, errors, reset, control, getValues} = useAddPostScreen();
   return (
     <View style={{flex: 1}}>
       <Header
-        headerTitle={'Filters'}
+        headerTitle={'Ads details'}
         arrowBackIcon={arrowback}
         backText={'Back'}
-        saveReset={'Reset'}
         goBack={goBack}
         // style={styles.filterHeader}
       />
 
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.filterMain}>
-          <SwitchSelector
-            options={options}
-            initial={0}
-            onPress={value => console.log(`Call onPress with value: ${value}`)}
-            backgroundColor="rgba(11, 180, 255, 0.03);"
-            buttonColor={Colors.primaryColor}
-            borderRadius={10}
-            height={45}
-            style={styles.switcher}
-          />
-
-          <TextComponent styles={styles.itemHeading} text={'Property Type'} />
           <View style={styles.pickerStyle}>
+            <Image source={cat} />
             <Picker
+              style={styles.pick}
               selectedValue={selectedLanguage}
               onValueChange={(itemValue, itemIndex) =>
                 setSelectedLanguage(itemValue)
               }>
-              <Picker.Item label="Select" value="Select" />
+              <Picker.Item
+                label="Select Category..."
+                value="Select Category..."
+              />
               <Picker.Item label="Apartment" value="Apartment" />
             </Picker>
+          </View>
+          <View>
+            {/* <Image style={styles.titleImage} source={adTitle} />
+            <TextInput
+              style={styles.inputTitle}
+              placeholder={'Ad tittle here...'}
+            /> */}
+            <InputComponent
+              {...{
+                name: 'name',
+                handleSubmit,
+                errors,
+                reset,
+                control,
+                getValues,
+                placeholder: 'Ad tittle here...',
+                viewStyle: styles.inputTitle,
+                textStyle: styles.inputText,
+                inputIconStyle: styles.inputIcon,
+                isImage: adTitle,
+              }}
+            />
+
+            <InputComponent
+              {...{
+                name: 'description',
+                handleSubmit,
+                errors,
+                reset,
+                control,
+                getValues,
+                placeholder: 'Ad description...',
+                viewStyle: styles.inputDesc,
+                textStyle: styles.inputText,
+                inputIconStyle: styles.msgIcon,
+                isImage: chat,
+                inputLines: 4,
+                maxLength: 200,
+                multiline: true,
+              }}
+            />
           </View>
           <TextComponent styles={styles.itemHeading} text={'Location '} />
           <View style={styles.addButton}>
@@ -72,27 +114,7 @@ const FilterScreen = () => {
             />
           </View>
           <TextComponent styles={styles.itemHeading} text={'Rooms '} />
-          <View style={styles.pickerStyle}>
-            <Picker
-              selectedValue={selectedLanguage}
-              onValueChange={(itemValue, itemIndex) =>
-                setSelectedLanguage(itemValue)
-              }>
-              <Picker.Item label="Select" value="Select" />
-              <Picker.Item label="5" value="5" />
-            </Picker>
-          </View>
-          <TextComponent styles={styles.itemHeading} text={'Bathrooms '} />
-          <View style={styles.pickerStyle}>
-            <Picker
-              selectedValue={selectedLanguage}
-              onValueChange={(itemValue, itemIndex) =>
-                setSelectedLanguage(itemValue)
-              }>
-              <Picker.Item label="Select" value="Select" />
-              <Picker.Item label="3" value="3" />
-            </Picker>
-          </View>
+
           <TextComponent
             styles={styles.itemHeading}
             text={'General Preferences '}
@@ -126,32 +148,9 @@ const FilterScreen = () => {
               title={'add'}
             />
           </View>
-          <TextComponent styles={styles.pRange} text={'Price Range '} />
-          <View style={styles.rangeTextMain}>
-            <TextComponent
-              styles={styles.rangeTextLeft}
-              text={`$${sliderValue}`}
-            />
-            <TextComponent styles={styles.rangeTextRight} text={`$${'1200'}`} />
-          </View>
-          <Slider
-            style={styles.rangeSlider}
-            minimumValue={0}
-            maximumValue={1200}
-            minimumTrackTintColor={Colors.primaryColor2}
-            maximumTrackTintStyle={Colors.primaryColor2}
-            thumbTintColor="red"
-            thumbImage={sliderdot}
-            minimumTrackImage={minslider}
-            maximumTrackImage={maxslider}
-            trackImage={minslider}
-            value={sliderValue}
-            onValueChange={sliderValue =>
-              setSliderValue(Math.trunc(sliderValue))
-            }
-          />
+
           <ThemeButtonComp
-            title={'Apply Filter'}
+            title={'Post'}
             style={styles.applyFilter}
             textStyle={styles.filterText}
           />
@@ -160,4 +159,4 @@ const FilterScreen = () => {
     </View>
   );
 };
-export default memo(FilterScreen);
+export default memo(AddPostScreen);

@@ -20,7 +20,9 @@ import {
   smsedit,
   arrowbackwhite,
   whitedots,
+  send,
 } from '../../Assests';
+import MsgSendButton from '../../Components/MsgSendButton';
 
 const MessagesScreen = () => {
   const {msgs, getStart} = useChatScreen();
@@ -60,6 +62,12 @@ const MessagesScreen = () => {
             onChangeText={onChangeText}
             value={text}
             placeholder={'Type a message'}
+          />
+          <MsgSendButton
+            title={'Send'}
+            image={send}
+            style={styles.sendBtnStyle}
+            textStyle={styles.sendTextStyle}
           />
         </View>
       </View>

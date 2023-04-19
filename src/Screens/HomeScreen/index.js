@@ -29,7 +29,7 @@ import {homeCardData} from '../../Utils/localDB';
 const HomeScreen = ({navigation}) => {
   const [text, onChangeText] = React.useState('');
 
-  const {onBoardinData, currentIndex, onSnapToItem, getStart} =
+  const {onBoardinData, currentIndex, onSnapToItem, getStart, goToDetails} =
     useHomeScreen(navigation);
 
   const renderItem = useCallback(({item, index}) => {
@@ -86,7 +86,7 @@ const HomeScreen = ({navigation}) => {
             successMessage('You like this property');
           }}
           onSwipedTop={ca => {
-            console.log('Top');
+            goToDetails();
           }}
           onSwipedBottom={ca => {
             successMessage('This property has been added to favourite ');

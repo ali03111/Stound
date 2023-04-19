@@ -7,6 +7,13 @@ import {
   notificationProfile3,
   notificationProfile4,
   favouriteBgImage,
+  DetailSquareFoot,
+  DetailDeceased,
+  DetailDiversity,
+  DetailGarageHome,
+  DetailBed,
+  DetailBathtub,
+  profile,
 } from '../Assests';
 
 export const onBoardinData = [
@@ -380,3 +387,59 @@ export const msgs = [
     time: '3:15 PM',
   },
 ];
+export const detailsImages = [
+  'https://images.pexels.com/photos/12629063/pexels-photo-12629063.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load',
+  'https://images.pexels.com/photos/12629063/pexels-photo-12629063.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load',
+  'https://images.pexels.com/photos/12629063/pexels-photo-12629063.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load',
+  'https://images.pexels.com/photos/12629063/pexels-photo-12629063.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load',
+  'https://images.pexels.com/photos/12629063/pexels-photo-12629063.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load',
+  'https://images.pexels.com/photos/12629063/pexels-photo-12629063.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load',
+  'https://images.pexels.com/photos/12629063/pexels-photo-12629063.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load',
+  'https://images.pexels.com/photos/12629063/pexels-photo-12629063.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load',
+  'https://images.pexels.com/photos/12629063/pexels-photo-12629063.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load',
+  'https://images.pexels.com/photos/12629063/pexels-photo-12629063.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load',
+  'https://images.pexels.com/photos/12629063/pexels-photo-12629063.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load',
+  'https://images.pexels.com/photos/12629063/pexels-photo-12629063.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load',
+];
+
+export const PackageDetailData = {
+  title: 'Chessington Kanass',
+  forRent: 'For Rent',
+  forSale: 'For Sell',
+  location: '1050 Old Nichols Rd Islandia, NY 11749',
+  time: '3:15 PM',
+  tags: [
+    {
+      icon: DetailBathtub,
+      text: '3 Baths',
+    },
+    {
+      icon: DetailBed,
+      text: '4 Beds',
+    },
+    ,
+    {
+      icon: DetailGarageHome,
+      text: 'Parking',
+    },
+    ,
+    {
+      icon: DetailDiversity,
+      text: 'Friendly',
+    },
+    ,
+    {
+      icon: DetailDeceased,
+      text: 'Garden',
+    },
+    ,
+    {
+      icon: DetailSquareFoot,
+      text: '120 sqft',
+    },
+  ],
+  prifilePicture: profile,
+  userName: 'Jhon Doe',
+  userEmail: 'jhondoe@gmail.com',
+  price: '4,500',
+};

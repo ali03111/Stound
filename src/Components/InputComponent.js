@@ -23,6 +23,10 @@ export const InputComponent = ({
   viewStyle,
   isImage,
   forPasswordStyle,
+  textStyle,
+  inputIconStyle,
+  inputLines,
+  multiline,
 }) => {
   const [show, setShow] = useState(!isSecure);
   const handleClick = () => setShow(!show);
@@ -40,21 +44,23 @@ export const InputComponent = ({
                 style={{
                   resizeMode: 'contain',
                   ...styles.inputIcon,
+                  ...inputIconStyle,
                 }}
               />
             )}
-
             <TextInput
               type={type}
               maxLength={maxLength}
               style={{...forPasswordStyle}}
+              numberOfLines={inputLines}
+              multiline={multiline}
               {...{
                 value,
                 isDisabled,
                 selectionColor: Colors.gray,
                 placeholder,
                 keyboardType,
-                style: styles.input(isSecure),
+                style: {...styles.input(isSecure), ...textStyle},
                 secureTextEntry: !show,
                 onChangeText: onChange,
                 placeholderTextColor: Colors.gray,
@@ -111,9 +117,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     borderColor: Colors.lightblue,
     marginTop: hp('2.5'),
-    // justifyContent: 'space-between',
     backgroundColor: 'transparent',
-    // backgroundColor: Colors.blurWhite,
   },
   input: isSecure => ({
     height: '100%',
