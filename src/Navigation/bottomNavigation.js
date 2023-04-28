@@ -116,7 +116,7 @@ function MybottomTabs() {
           },
           title: '',
         }}
-        component={Screens.SomeComponent}
+        component={Screens.AddPostScreen}
       />
       <Tab.Screen
         name="ChatScreen"

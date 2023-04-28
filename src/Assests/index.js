@@ -21,6 +21,7 @@ export {default as logowhite} from './Images/logo-white.png';
 export {default as stars} from './Images/stars.png';
 export {default as lineleft} from './Images/lineleft.png';
 export {default as lineright} from './Images/lineright.png';
+export {default as addGalleryImage} from './Images/addgalleryimage.png';
 
 //  Icons
 
@@ -80,3 +81,5 @@ export {default as arrowDown} from './Icons/arrowDown.png';
 export {default as chat} from './Icons/chat.png';
 export {default as cat} from './Icons/cat.png';
 export {default as adTitle} from './Icons/ad-title.png';
+export {default as bedblue} from './Icons/bedblue.png';
+export {default as bluebath} from './Icons/bathtubblue.png';

@@ -12,6 +12,7 @@ export const styles = StyleSheet.create({
   filterMain: {
     paddingHorizontal: wp('3'),
     paddingTop: hp('2'),
+    paddingBottom: hp('4'),
   },
   switcher: {
     borderWidth: 1,
@@ -37,6 +38,11 @@ export const styles = StyleSheet.create({
     width: wp('84'),
   },
   itemHeading: {
+    marginTop: hp('3'),
+    marginBottom: hp('1.5'),
+    fontWeight: '500',
+  },
+  room: {
     marginTop: hp('3'),
     marginBottom: hp('1.5'),
     fontWeight: '500',
@@ -149,5 +155,19 @@ export const styles = StyleSheet.create({
     marginLeft: wp('3'),
     alignSelf: 'baseline',
     marginTop: hp('2'),
+  },
+  inputTextarea: {
+    fontWeight: '400',
+    paddingLeft: wp('2'),
+    textAlignVertical: 'top',
+    paddingTop: hp('2'),
+  },
+  galleryHd: {
+    flexDirection: 'row',
+    marginTop: hp('3'),
+    marginBottom: hp('1.5'),
+  },
+  addImage: {
+    marginRight: wp('2'),
   },
 });

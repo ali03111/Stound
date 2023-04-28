@@ -23,6 +23,10 @@ import {
   cat,
   adTitle,
   chat,
+  bedblue,
+  bluebath,
+  UploadProfileImage,
+  addGalleryImage,
 } from '../../Assests';
 import {Colors} from '../../Theme/Variables';
 import FilterAddButton from '../../Components/FilterAddButton';
@@ -94,7 +98,7 @@ const AddPostScreen = () => {
                 getValues,
                 placeholder: 'Ad description...',
                 viewStyle: styles.inputDesc,
-                textStyle: styles.inputText,
+                textStyle: styles.inputTextarea,
                 inputIconStyle: styles.msgIcon,
                 isImage: chat,
                 inputLines: 4,
@@ -113,8 +117,47 @@ const AddPostScreen = () => {
               imgStyle={styles.locationBtnImg}
             />
           </View>
-          <TextComponent styles={styles.itemHeading} text={'Rooms '} />
-
+          <TextComponent styles={styles.room} text={'Rooms '} />
+          <View style={styles.pickerStyle}>
+            <Image source={bedblue} />
+            <Picker
+              style={styles.pick}
+              selectedValue={selectedLanguage}
+              onValueChange={(itemValue, itemIndex) =>
+                setSelectedLanguage(itemValue)
+              }>
+              <Picker.Item label="Select" value="Select" />
+              <Picker.Item label="1" value="1" />
+              <Picker.Item label="2" value="2" />
+              <Picker.Item label="3" value="3" />
+              <Picker.Item label="4" value="4" />
+              <Picker.Item label="5" value="5" />
+            </Picker>
+          </View>
+          <TextComponent styles={styles.room} text={'Bathrooms '} />
+          <View style={styles.pickerStyle}>
+            <Image source={bluebath} />
+            <Picker
+              style={styles.pick}
+              selectedValue={selectedLanguage}
+              onValueChange={(itemValue, itemIndex) =>
+                setSelectedLanguage(itemValue)
+              }>
+              <Picker.Item label="Select" value="Select" />
+              <Picker.Item label="1" value="1" />
+              <Picker.Item label="2" value="2" />
+              <Picker.Item label="3" value="3" />
+              <Picker.Item label="4" value="4" />
+              <Picker.Item label="5" value="5" />
+            </Picker>
+          </View>
+          <View style={styles.galleryHd}>
+            <Image source={UploadProfileImage} style={styles.addImage} />
+            <TextComponent text={'Upload upto 10 photos'} />
+          </View>
+          <View>
+            <Image source={addGalleryImage} />
+          </View>
           <TextComponent
             styles={styles.itemHeading}
             text={'General Preferences '}
