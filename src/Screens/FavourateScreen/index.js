@@ -7,9 +7,9 @@ import FavouriteComp from '../../Components/FavouriteComponent';
 import Header from '../../Components/Header';
 import {hp} from '../../Config/responsive';
 
-const FavouriteScreen = () => {
+const FavouriteScreen = ({navigation}) => {
   const [selectedLanguage, setSelectedLanguage] = useState();
-  const {favouriteData} = useFavourateScreen();
+  const {favouriteData, onPress} = useFavourateScreen(navigation);
   const renderItem = useCallback(({item}) => {
     return (
       <View>
@@ -22,6 +22,7 @@ const FavouriteScreen = () => {
           beds={item?.beds}
           baths={item?.baths}
           size={item?.size}
+          onPress={onPress}
         />
       </View>
     );

@@ -25,7 +25,8 @@
     "report": "cd android && ./gradlew signingReport && cd ..",
     "bundle": "cd android && ./gradlew bundleRelease && cd ..",
     "postversion": "cd android && ./gradlew assembleRelease",
-    "gitPush": "git push -u origin DevOnePro"
+    "gitPush": "git push -u origin DevOnePro",
+    "build-ios": "react-native bundle --entry-file='index.js' --bundle-output='./ios/main.jsbundle' --dev=false --platform='ios'"
   },
   "dependencies": {
     "@hookform/resolvers": "^2.9.11",

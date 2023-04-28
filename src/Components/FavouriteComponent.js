@@ -27,6 +27,7 @@ const FavouriteComp = ({
   size,
   locationText,
   duration,
+  onPress,
 }) => {
   return (
     // <ShadowButton>
@@ -75,7 +76,7 @@ const FavouriteComp = ({
                   <TextComponent text={size} styles={styles.bed} />
                 </View>
                 <View style={styles.detail}>
-                  <DetailButton title={'Details'} />
+                  <DetailButton title={'Details'} onPress={onPress} />
                 </View>
               </View>
             </View>

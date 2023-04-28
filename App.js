@@ -55,7 +55,7 @@ function App({navigation}) {
   );
   return (
     <>
-      <StatusBar hidden={isVisible} />
+      <StatusBar hidden={isVisible} barStyle={'dark-content'} />
       {isVisible === true ? (
         Splash_Screen
       ) : (

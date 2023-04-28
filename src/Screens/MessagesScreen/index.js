@@ -23,6 +23,7 @@ import {
   send,
 } from '../../Assests';
 import MsgSendButton from '../../Components/MsgSendButton';
+import {Colors} from '../../Theme/Variables';
 
 const MessagesScreen = () => {
   const {msgs, getStart} = useChatScreen();
@@ -62,6 +63,7 @@ const MessagesScreen = () => {
             onChangeText={onChangeText}
             value={text}
             placeholder={'Type a message'}
+            placeholderTextColor={Colors.gray}
           />
           <MsgSendButton
             title={'Send'}
