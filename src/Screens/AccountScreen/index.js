@@ -24,11 +24,10 @@ import {hp} from '../../Config/responsive';
 import useAccountScreen from './useAccountScreen';
 import AwesomeAlert from 'react-native-awesome-alerts';
 import {Touchable} from '../../Components/Touchable';
+import {AlertDesign} from '../../Components/AlertDesign';
 const AccountScreen = ({navigation}) => {
-  const [logOut, setLogOut] = useState(false);
-  const [deactivate, setDeactivate] = useState(false);
-
-  const {dynamicNav} = useAccountScreen(navigation);
+  const {dynamicNav, deactivate, logOut, onCancel, onConfirm} =
+    useAccountScreen(navigation);
   return (
     <View style={{flex: 1}}>
       <Header headerTitle={'Account'} />
@@ -106,7 +105,7 @@ const AccountScreen = ({navigation}) => {
             style={styles.button}
             textStyle={styles.logOutText}
             leftImgStyle={styles.logOutIcon}
-            onPress={() => setLogOut(true)}
+            onPress={() => onCancel(logOut, 'logOut')}
           />
           <ProfileButton
             title={'Deactivate Account'}
@@ -114,58 +113,24 @@ const AccountScreen = ({navigation}) => {
             style={styles.button}
             textStyle={styles.deActivateAccText}
             leftImgStyle={styles.deActivateAccIcon}
-            onPress={() => setDeactivate(true)}
+            onPress={() => onCancel(deactivate, 'deactivate')}
           />
 
-          <AwesomeAlert
-            show={logOut}
-            showProgress={false}
+          <AlertDesign
+            isVisible={logOut}
             title="Log Out?"
             message="Are you sure, you want to log out ?"
-            closeOnTouchOutside={true}
-            closeOnHardwareBackPress={false}
-            showCancelButton={true}
-            showConfirmButton={true}
-            cancelText="Cancel"
             confirmText="Log Out"
-            confirmButtonColor="#FF4949"
-            titleStyle={styles.modalTitle}
-            messageStyle={styles.modalMsg}
-            cancelButtonStyle={styles.cancelBtnMain}
-            confirmButtonStyle={styles.confirmBtnMain}
-            cancelButtonTextStyle={styles.modalCancelBtnText}
-            confirmButtonTextStyle={styles.modalcConfirmBtnText}
-            onCancelPressed={() => {
-              setLogOut(false);
-            }}
-            onConfirmPressed={() => {
-              setLogOut(false);
-            }}
+            onCancel={() => onCancel(logOut, 'logOut')}
+            onConfirm={() => onConfirm(logOut)}
           />
-          <AwesomeAlert
+          <AlertDesign
             show={deactivate}
-            showProgress={false}
             title="Deactivate Account?"
             message="You’ll permanently lose all your data."
-            closeOnTouchOutside={true}
-            closeOnHardwareBackPress={false}
-            showCancelButton={true}
-            showConfirmButton={true}
-            cancelText="Cancel"
             confirmText="Deactivate"
-            confirmButtonColor="#FF4949"
-            titleStyle={styles.modalTitle}
-            messageStyle={styles.modalMsg}
-            cancelButtonStyle={styles.cancelBtnMain}
-            confirmButtonStyle={styles.confirmBtnMain}
-            cancelButtonTextStyle={styles.modalCancelBtnText}
-            confirmButtonTextStyle={styles.modalcConfirmBtnText}
-            onCancelPressed={() => {
-              setDeactivate(false);
-            }}
-            onConfirmPressed={() => {
-              setDeactivate(false);
-            }}
+            onCancel={() => onCancel(deactivate, 'deactivate')}
+            onConfirm={() => onConfirm(deactivate)}
           />
         </View>
       </ScrollView>

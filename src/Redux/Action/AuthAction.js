@@ -14,3 +14,8 @@ export const logOutUser = payload => ({
   type: types.LogoutType,
   payload,
 });
+
+export const updateAuth = payload => ({
+  type: types.UpdateAuth,
+  payload,
+});

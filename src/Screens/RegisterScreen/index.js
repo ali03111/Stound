@@ -63,6 +63,7 @@ const RegisterScreen = ({navigation}) => {
             placeholder: 'User Name',
             viewStyle: styles.loginInput,
             isImage: user,
+            defaultValue: 'iasdasda',
           }}
         />
         <InputComponent
@@ -76,6 +77,7 @@ const RegisterScreen = ({navigation}) => {
             placeholder: 'Email',
             viewStyle: styles.loginInput,
             isImage: sms,
+            defaultValue: 'agsdjk@gmail.com',
           }}
         />
         <InputComponent
@@ -89,6 +91,7 @@ const RegisterScreen = ({navigation}) => {
             placeholder: 'Phone Number',
             viewStyle: styles.loginInput,
             isImage: phoneIcon,
+            defaultValue: '8623489263',
           }}
         />
         <InputComponent
@@ -102,11 +105,12 @@ const RegisterScreen = ({navigation}) => {
             placeholder: 'Password',
             isSecure: true,
             isImage: lock,
+            defaultValue: 'i53rdgen@',
           }}
         />
         <InputComponent
           {...{
-            name: 'password',
+            name: 'confirm_password',
             handleSubmit,
             errors,
             reset,
@@ -115,11 +119,13 @@ const RegisterScreen = ({navigation}) => {
             placeholder: 'Confirm Password',
             isSecure: true,
             isImage: lock,
+            defaultValue: 'i53rdgen@',
           }}
         />
 
         <ShareButton
-          onPress={handleSubmit(loginWithEmail)}
+          onPress={loginWithEmail}
+          // onPress={handleSubmit(loginWithEmail)}
           title={'Sign Up'}
           style={styles.getStart}
         />

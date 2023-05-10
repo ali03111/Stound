@@ -6,19 +6,18 @@ const initial_state = {
 };
 
 const actionMap = {
-  [types.LoginType]: (state, act) => {
-    const deleteToken = {...act.payload.data};
-    delete deleteToken.token;
-    console.log('sdvsdvsd', deleteToken);
+  [types.UpdateAuth]: (state, act) => {
     return {
-      userData: deleteToken,
-      token: act.payload.data.token,
+      userData: act.payload.user,
+      token: act.payload.token,
     };
   },
-  [types.LogoutType]: (state, act) => ({
-    userData: {},
-    token: '',
-  }),
+  [types.LogoutType]: (state, act) => {
+    return {
+      userData: {},
+      token: '',
+    };
+  },
   [types.UpdateProfile]: (state, act) => ({
     ...state,
     userData: act.payload.data,

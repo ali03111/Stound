@@ -61,6 +61,7 @@ const LoginScreen = ({navigation}) => {
             placeholder: 'example@example.com',
             viewStyle: styles.loginInput,
             isImage: sms,
+            defaultValue: 'bdjasb@gmail.com',
           }}
         />
         <InputComponent
@@ -74,11 +75,12 @@ const LoginScreen = ({navigation}) => {
             placeholder: 'Password',
             isSecure: true,
             isImage: lock,
+            defaultValue: 'i53rdgen@',
           }}
         />
         <TextComponent text={'Forget Password?'} styles={styles.forgetPass} />
         <ShareButton
-          onPress={loginWithEmail}
+          onPress={handleSubmit(loginWithEmail)}
           title={'Log In'}
           style={styles.getStart}
         />

@@ -1,49 +1,71 @@
 {
   "project_info": {
-    "project_number": "925607838451",
-    "project_id": "stound-adfdb",
-    "storage_bucket": "stound-adfdb.appspot.com"
+    "project_number": "750096206798",
+    "project_id": "vega-food-app",
+    "storage_bucket": "vega-food-app.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:925607838451:android:eca69f533fc22ee6da6d86",
+        "mobilesdk_app_id": "1:750096206798:android:a7819341674e19d781399f",
         "android_client_info": {
-          "package_name": "com.stound"
+          "package_name": "com.fooddapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "925607838451-78r5q593erniv0rian0v8f7l1dkd3s6q.apps.googleusercontent.com",
+          "client_id": "750096206798-mca20qp2fv7qjn81dfm8qfoh1sqoju2c.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.stound",
-            "certificate_hash": "0d395375199cfdddeff53706a473e50d5316ef4e"
+            "package_name": "com.fooddapp",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
           }
         },
         {
-          "client_id": "925607838451-2i4fd6777bbpn30i228rjsjnsupkodn6.apps.googleusercontent.com",
+          "client_id": "750096206798-ul14i53fvjvgb0f5h4103tgiqf8oo4mj.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCPMLkWBKL5FgSHlhMPLDdhRYQXmStJg1s"
+          "current_key": "AIzaSyCoEK8SOe1aCJGVKxbN2eqyS5mEaDde9Pk"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "925607838451-2i4fd6777bbpn30i228rjsjnsupkodn6.apps.googleusercontent.com",
+              "client_id": "750096206798-ge3a2v45sd3lkgsbr51983d0dmehvaqp.apps.googleusercontent.com",
               "client_type": 3
-            },
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:750096206798:android:f6715294429bae8d81399f",
+        "android_client_info": {
+          "package_name": "com.stound"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "750096206798-ul14i53fvjvgb0f5h4103tgiqf8oo4mj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCoEK8SOe1aCJGVKxbN2eqyS5mEaDde9Pk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
             {
-              "client_id": "925607838451-2cbsfsq0oenaj93jdivbnm7k8qhv4emu.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.anideos.stound"
-              }
+              "client_id": "750096206798-ge3a2v45sd3lkgsbr51983d0dmehvaqp.apps.googleusercontent.com",
+              "client_type": 3
             }
           ]
         }

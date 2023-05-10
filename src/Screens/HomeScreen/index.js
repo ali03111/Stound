@@ -25,6 +25,7 @@ import {hp, wp} from '../../Config/responsive';
 import SomeComponent from '../GestureScreenTest';
 import {successMessage} from '../../Config/NotificationMessage';
 import {homeCardData} from '../../Utils/localDB';
+import {Colors} from '../../Theme/Variables';
 
 const HomeScreen = ({navigation}) => {
   const [text, onChangeText] = React.useState('');
@@ -58,6 +59,7 @@ const HomeScreen = ({navigation}) => {
             onChangeText={onChangeText}
             value={text}
             placeholder={'Search property here...'}
+            placeholderTextColor={Colors.gray}
           />
         </View>
         <View style={styles.searchIcons}>

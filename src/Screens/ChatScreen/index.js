@@ -17,6 +17,7 @@ import useChatScreen from './useChatScreen';
 import {NotificationHeader} from '../../Components/Header';
 import {hp, wp} from '../../Config/responsive';
 import {arrowback, moredots, search, smsedit} from '../../Assests';
+import {Colors} from '../../Theme/Variables';
 
 const ChatScreen = ({navigation}) => {
   const {ChatData, getStart, navigateToMsg} = useChatScreen(navigation);
@@ -51,6 +52,7 @@ const ChatScreen = ({navigation}) => {
           onChangeText={onChangeText}
           value={text}
           placeholder={'Search property here...'}
+          placeholderTextColor={Colors.gray}
         />
       </View>
       <FlatList

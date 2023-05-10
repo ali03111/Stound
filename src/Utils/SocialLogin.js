@@ -6,12 +6,17 @@ import {
 } from '@react-native-google-signin/google-signin';
 import {appleAuth} from '@invertase/react-native-apple-authentication';
 import {sha256} from 'react-native-sha256';
+import {Platform} from 'react-native';
 
 export const faceBookLogin = async () => {
+  // if (Platform.OS === 'android') {
+  //   LoginManager.setLoginBehavior('web_only');
+  // }
+
   // Attempt login with permissions
   const result = await LoginManager.logInWithPermissions([
     'public_profile',
-    // 'email',
+    'email',
   ]);
   console.log('result', result);
   if (result.isCancelled) {
@@ -29,6 +34,7 @@ export const faceBookLogin = async () => {
   const facebookCredential = auth.FacebookAuthProvider.credential(
     data.accessToken,
   );
+
   // Sign-in the user with the credential
   return auth().signInWithCredential(facebookCredential);
 };
@@ -46,14 +52,28 @@ export const appleIdlogin = async () => {
   }
 
   // Create a Firebase credential from the response
-  const {identityToken, nonce} = appleAuthRequestResponse;
+  const {
+    identityToken,
+    nonce,
+    fullName: {givenName, familyName},
+  } = appleAuthRequestResponse;
   const appleCredential = auth.AppleAuthProvider.credential(
     identityToken,
     nonce,
   );
+  await auth().signInWithCredential(appleCredential.token);
+  console.log({
+    identityToken,
+    appleCredential,
+    name: `${givenName || ''} ${familyName || ''}`,
+  });
+  return {
+    ...identityToken,
+    ...appleCredential,
+    name: `${givenName || ''} ${familyName || ''}`,
+  };
 
   // Sign the user in with the credential
-  return auth().signInWithCredential(appleCredential);
 };
 
 // export const googleLogin = async () => {
@@ -115,8 +135,9 @@ export const googleLogin = async () => {
   // Create a Google credential with the token
   const googleCredential = auth.GoogleAuthProvider.credential(idToken);
 
+  return {...idToken, ...googleCredential};
   // Sign-in the user with the credential
-  return auth().signInWithCredential(googleCredential);
+  // return auth().signInWithCredential(googleCredential);
 };
 
 export const PhoneNumberLogin = async phoneNumber => {
@@ -135,4 +156,14 @@ export const verifyCode = async ({confirm, code}) => {
   } catch (error) {
     console.log('Invalid code.');
   }
+};
+
+export const emailSignUp = async (email, password) => {
+  const data = await auth().createUserWithEmailAndPassword(email, password);
+  return data;
+};
+
+export const emailLogin = async (email, password) => {
+  const data = await auth().signInWithEmailAndPassword(email, password);
+  return data;
 };

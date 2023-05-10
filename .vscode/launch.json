@@ -1,0 +1,10 @@
+{
+  "configurations": [
+    {
+      "type": "chrome",
+      "name": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)",
+      "request": "launch",
+      "url": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)"
+    }
+  ]
+}
