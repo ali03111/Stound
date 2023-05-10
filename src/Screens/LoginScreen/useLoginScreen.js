@@ -1,5 +1,6 @@
 // import {errorMessage} from '../../Components/NotificationMessage';
 import useReduxStore from '../../Hooks/UseReduxStore';
+import {loginUser} from '../../Redux/Action/AuthAction';
 // import {loginUser} from '../../Redux/Actions/AuthAction';
 // import API from '../../Utils/helperFunction';
 // import {
@@ -61,7 +62,11 @@ const useLogin = ({navigate, goBack}) => {
   //   };
 
   const register = () => navigate('RegisterScreen');
-  const loginWithEmail = () => navigate('MybottomTabs');
+  const loginWithEmail = ({email, password}) => {
+    dispatch(loginUser({type: 'email', datas: {email, password}}));
+
+    // navigate('MybottomTabs')
+  };
 
   return {
     handleSubmit,

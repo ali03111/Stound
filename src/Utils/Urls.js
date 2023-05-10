@@ -1,7 +1,7 @@
 const getCredentials = () => {
   if (__DEV__)
     return {
-      baseURL: 'http://192.168.20.107:5000/api/',
+      baseURL: 'https://virtualrealitycreators.com/stound/api/',
       // baseURL: 'http://10.32.27.153:5000/api/',
     };
   else {

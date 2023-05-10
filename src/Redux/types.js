@@ -5,4 +5,5 @@ export const types = {
   LoginType: 'LoginType',
   LogoutType: 'LogoutType',
   UpdateProfile: 'UpdateProfile',
+  UpdateAuth: 'UpdateAuth',
 };
