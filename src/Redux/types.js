@@ -6,4 +6,5 @@ export const types = {
   LogoutType: 'LogoutType',
   UpdateProfile: 'UpdateProfile',
   UpdateAuth: 'UpdateAuth',
+  RegisterUser: 'RegisterUser',
 };

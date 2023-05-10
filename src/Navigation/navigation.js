@@ -10,6 +10,7 @@ const StackNavigatior = () => {
   const {getState} = useReduxStore();
   const {onboarding} = getState('onboarding');
   const {token} = getState('Auth');
+  console.log('AIUth token', token);
   return (
     <Stack.Navigator
       screenOptions={{
@@ -20,7 +21,6 @@ const StackNavigatior = () => {
       {!onboarding && (
         <Stack.Screen name="OnboardScreen" component={Screens.OnboardScreen} />
       )}
-      {/* <Stack.Screen name="AddPostScreen" component={Screens.AddPostScreen} /> */}
       {token == '' && (
         <>
           <Stack.Screen
@@ -51,23 +51,20 @@ const StackNavigatior = () => {
             name="EditProfileScreen"
             component={Screens.EditProfileScreen}
           />
-          {/* <Stack.Screen name="GeneralScreen" component={Screens.GeneralScreen} /> */}
           <Stack.Screen
             name="AccountScreen"
             component={Screens.AccountScreen}
           />
           <Stack.Screen name="FilterScreen" component={Screens.FilterScreen} />
-          {/* <Stack.Screen
-  name="NotificationScreen"
-  component={Screens.NotificationScreen}
-/> */}
-          {/* <Stack.Screen name="MybottomTabs" component={MybottomTabs} /> */}
-
           <Stack.Screen
             name="SomeComponent"
             component={Screens.SomeComponent}
           />
           <Stack.Screen
+            options={{
+              animation: 'fade_from_bottom',
+              animationTypeForReplace: 'pop',
+            }}
             name="PackageDetailsScreen"
             component={Screens.PackageDetailsScreen}
           />
@@ -80,39 +77,5 @@ const StackNavigatior = () => {
     </Stack.Navigator>
   );
 };
-// const Navigation = () => {
-//   const {getState} = useReduxStore();
-//   const {onboarding} = getState('onboarding');
-//   const {token} = getState('Auth');
-//   return (
-//     <Stack.Navigator
-//       screenOptions={{
-//         headerTransparent: true,
-//         headerTitle: null,
-//         // animation: 'slide_from_left',
-//         headerShown: false,
-//       }}>
-//       {!onboarding && (
-//         <Stack.Screen
-//         name="OnboardingScreen"
-//         component={Screens.OnboardingScreen}
-//         />
-//         )}
-//       {token == '' && (
-//           <>
-//           <Stack.Screen name="LoginScreen" component={Screens.LoginScreen} />
-//           <Stack.Screen
-//             name="RegisterScreen"
-//             component={Screens.RegisterScreen}
-//           />
-//           <Stack.Screen name="OtpScreen" component={Screens.OtpScreen} />
-//         </>
-//       )}
-//       {token != '' && (
-//         <Stack.Screen name="MybottomTabs" component={MybottomTabs} />
-//       )}
-//     </Stack.Navigator>
-//   );
-// };
 
 export default StackNavigatior;

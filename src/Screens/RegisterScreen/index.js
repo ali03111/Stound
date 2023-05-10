@@ -31,7 +31,7 @@ const RegisterScreen = ({navigation}) => {
     googleLoginFunc,
     PhoneNumberLoginFuc,
     register,
-    loginWithEmail,
+    registerWithEmail,
     goBack,
   } = useRegister(navigation);
   return (
@@ -77,7 +77,7 @@ const RegisterScreen = ({navigation}) => {
             placeholder: 'Email',
             viewStyle: styles.loginInput,
             isImage: sms,
-            defaultValue: 'agsdjk@gmail.com',
+            defaultValue: 'testing@gmail.com',
           }}
         />
         <InputComponent
@@ -124,8 +124,8 @@ const RegisterScreen = ({navigation}) => {
         />
 
         <ShareButton
-          onPress={loginWithEmail}
-          // onPress={handleSubmit(loginWithEmail)}
+          // onPress={loginWithEmail}
+          onPress={handleSubmit(registerWithEmail)}
           title={'Sign Up'}
           style={styles.getStart}
         />

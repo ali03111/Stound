@@ -1,5 +1,6 @@
 import {useState} from 'react';
 import Schemas from '../../Utils/Validation';
+import useReduxStore from '../../Hooks/UseReduxStore';
 
 const {default: useFormHook} = require('../../Hooks/UseFormHooks');
 
@@ -7,6 +8,11 @@ const useEditProfileScreen = ({navigate, goBack}) => {
   const {handleSubmit, errors, reset, control, getValues} = useFormHook(
     Schemas.editProfile,
   );
+
+  const {getState} = useReduxStore();
+
+  const {userData} = getState('Auth');
+
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
 
   const showDatePicker = () => {
@@ -32,6 +38,7 @@ const useEditProfileScreen = ({navigate, goBack}) => {
     showDatePicker,
     handleConfirm,
     goBack,
+    userData,
   };
 };
 

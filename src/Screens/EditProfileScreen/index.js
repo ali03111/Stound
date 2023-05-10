@@ -25,6 +25,7 @@ const EditProfileScreen = ({navigation}) => {
     errors,
     isDatePickerVisible,
     goBack,
+    userData,
     reset,
     handleSubmit,
     getValues,
@@ -59,11 +60,11 @@ const EditProfileScreen = ({navigation}) => {
                 />
               </View>
             </View>
-            <TextComponent text={'Nabeel Naeem'} styles={styles.userName} />
             <TextComponent
-              text={'nabeelnaeem@mail.com'}
-              styles={styles.userEmail}
+              text={userData.name ?? 'Nabeel Naeem'}
+              styles={styles.userName}
             />
+            <TextComponent text={userData?.email} styles={styles.userEmail} />
           </View>
 
           <InputComponent
@@ -76,7 +77,7 @@ const EditProfileScreen = ({navigation}) => {
               getValues,
               viewStyle: styles.loginInput,
               isImage: user,
-              defaultValue: 'Nabeel Naeem',
+              defaultValue: userData.name ?? 'Nabeel Naeem',
             }}
           />
           <View>
@@ -106,7 +107,7 @@ const EditProfileScreen = ({navigation}) => {
               getValues,
               viewStyle: styles.loginInput,
               isImage: phoneIcon,
-              defaultValue: '800-716-9002',
+              defaultValue: userData?.number ?? '800-716-9002',
             }}
           />
         </KeyBoardWrapper>

@@ -4,8 +4,10 @@ import {logOutUser} from '../../Redux/Action/AuthAction';
 
 const useAccountScreen = ({navigate}) => {
   const dynamicNav = res => navigate(res);
-  const {dispatch} = useReduxStore();
+  const {dispatch, getState} = useReduxStore();
+  const {userData} = getState('Auth');
 
+  console.log('use', userData);
   const [alerState, setAlertState] = useState({
     logOut: false,
     deactivate: false,
@@ -17,13 +19,15 @@ const useAccountScreen = ({navigate}) => {
 
   const onConfirm = () => {
     updateState({logOut: false});
-    dispatch(logOutUser());
+    setTimeout(() => {
+      dispatch(logOutUser());
+    }, 1000);
   };
   const onCancel = (state, stateName) => {
     updateState({[stateName]: !state});
   };
 
-  return {dynamicNav, logOut, deactivate, onCancel, onConfirm};
+  return {dynamicNav, logOut, deactivate, onCancel, onConfirm, userData};
 };
 
 export default useAccountScreen;

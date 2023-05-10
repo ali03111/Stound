@@ -19,3 +19,8 @@ export const updateAuth = payload => ({
   type: types.UpdateAuth,
   payload,
 });
+
+export const registerUser = payload => ({
+  type: types.RegisterUser,
+  payload,
+});
