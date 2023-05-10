@@ -35,10 +35,28 @@ import Slider from '@react-native-community/slider';
 import {goBack} from '../../Utils';
 import {InputComponent} from '../../Components/InputComponent';
 import useAddPostScreen from './useAddPostScreen';
+import {Touchable} from '../../Components/Touchable';
+import {hp, wp} from '../../Config/responsive';
+import {CircleImageComp} from '../../Components/CircleImageComp';
 
 const AddPostScreen = () => {
   const [selectedLanguage, setSelectedLanguage] = useState();
-  const {handleSubmit, errors, reset, control, getValues} = useAddPostScreen();
+  const {
+    handleSubmit,
+    errors,
+    reset,
+    control,
+    getValues,
+    pickImagesFromGalary,
+    AddImage,
+  } = useAddPostScreen();
+  const renderItem = useCallback(({item, index}) => {
+    return (
+      <View style={styles.mainMultiImages}>
+        <Image source={{uri: item.uri}} style={styles.multiImages} />
+      </View>
+    );
+  }, []);
   return (
     <View style={{flex: 1}}>
       <Header
@@ -156,7 +174,16 @@ const AddPostScreen = () => {
             <TextComponent text={'Upload upto 10 photos'} />
           </View>
           <View>
-            <Image source={addGalleryImage} />
+            <FlatList
+              refreshing={false}
+              data={AddImage}
+              renderItem={renderItem}
+              showsHorizontalScrollIndicator={false}
+              showsVerticalScrollIndicator={false}
+            />
+            <Touchable onPress={pickImagesFromGalary}>
+              <Image source={addGalleryImage} />
+            </Touchable>
           </View>
           <TextComponent
             styles={styles.itemHeading}

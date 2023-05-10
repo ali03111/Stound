@@ -170,4 +170,12 @@ export const styles = StyleSheet.create({
   addImage: {
     marginRight: wp('2'),
   },
+  multiImages: {
+    width: wp('35'),
+    height: hp('13'),
+    borderRadius: 4,
+  },
+  mainMultiImages: {
+    flexDirection: 'row',
+  },
 });
