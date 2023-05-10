@@ -26,7 +26,7 @@ import AwesomeAlert from 'react-native-awesome-alerts';
 import {Touchable} from '../../Components/Touchable';
 import {AlertDesign} from '../../Components/AlertDesign';
 const AccountScreen = ({navigation}) => {
-  const {dynamicNav, deactivate, logOut, onCancel, onConfirm} =
+  const {dynamicNav, deactivate, logOut, onCancel, onConfirm, userData} =
     useAccountScreen(navigation);
   return (
     <View style={{flex: 1}}>
@@ -37,8 +37,8 @@ const AccountScreen = ({navigation}) => {
         <View style={styles.accountMain}>
           <ProfileArea
             ProfileImage={accountprofile}
-            ProfileName={'Jhon Doe'}
-            UserEmail={'jhondoe@gmail.com'}
+            ProfileName={userData?.name ?? 'Jhon Doe'}
+            UserEmail={userData?.email}
             EditProfile={EditProfile}
             onPress={() => dynamicNav('EditProfileScreen')}
           />

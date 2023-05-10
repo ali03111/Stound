@@ -20,3 +20,4 @@ const apendUrl = url => {
 
 export const registerUrl = apendUrl('auth/register');
 export const loginUrl = apendUrl('auth/login');
+export const logoutUrl = apendUrl('auth/logout');

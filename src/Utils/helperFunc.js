@@ -24,6 +24,7 @@ const hideLoaderAPIs = [
 API.addRequestTransform(config => {
   store.dispatch(loadingTrue());
   const {Auth} = store.getState();
+  console.log('aurth', Auth.token);
   config.headers = {
     Authorization: `Bearer ${Auth.token}`,
   };

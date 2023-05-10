@@ -1,6 +1,6 @@
 // import {errorMessage} from '../../Components/NotificationMessage';
 import useReduxStore from '../../Hooks/UseReduxStore';
-import {loginUser} from '../../Redux/Action/AuthAction';
+import {loginUser, registerUser} from '../../Redux/Action/AuthAction';
 import {emailLogin} from '../../Utils/SocialLogin';
 // import {loginUser} from '../../Redux/Actions/AuthAction';
 // import API from '../../Utils/helperFunction';
@@ -62,21 +62,10 @@ const useRegister = ({navigate, goBack}) => {
   //     }
   //   };
 
-  const loginWithEmail = ({
-    name,
-    email,
-    password,
-    number,
-    confirm_password,
-  }) => {
-    console.log('first');
-    // dispatch(loginUser({type: 'email', datas: {email, password}}));
-    // try {
-    //   // const data = await emailLogin(email, password);
-    //   // console.log('data', data);
-    // } catch (error) {
-    //   // console.log('data', error);
-    // }
+  const registerWithEmail = ({name, email, password, number}) => {
+    dispatch(
+      registerUser({type: 'email', datas: {email, password, name, number}}),
+    );
   };
 
   const register = () => navigate('LoginScreen');
@@ -91,7 +80,7 @@ const useRegister = ({navigate, goBack}) => {
     googleLoginFunc: () => {},
     PhoneNumberLoginFuc: () => {},
     register,
-    loginWithEmail,
+    registerWithEmail,
     goBack,
   };
 };

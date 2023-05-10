@@ -9,9 +9,9 @@ import {sha256} from 'react-native-sha256';
 import {Platform} from 'react-native';
 
 export const faceBookLogin = async () => {
-  // if (Platform.OS === 'android') {
-  //   LoginManager.setLoginBehavior('web_only');
-  // }
+  if (Platform.OS === 'android') {
+    LoginManager.setLoginBehavior('web_only');
+  }
 
   // Attempt login with permissions
   const result = await LoginManager.logInWithPermissions([
@@ -36,41 +36,34 @@ export const faceBookLogin = async () => {
   );
 
   // Sign-in the user with the credential
-  return auth().signInWithCredential(facebookCredential);
+  const {user} = await auth().signInWithCredential(facebookCredential);
+  return user;
 };
 
 export const appleIdlogin = async () => {
   // Start the sign-in request
+  if (!appleAuth.isSupported)
+    throw new Error(
+      'AppleAuth is not supported on the device. Currently Apple Authentication works on iOS devices running iOS 13 or later',
+    );
   const appleAuthRequestResponse = await appleAuth.performRequest({
     requestedOperation: appleAuth.Operation.LOGIN,
     requestedScopes: [appleAuth.Scope.EMAIL, appleAuth.Scope.FULL_NAME],
   });
-
-  // Ensure Apple returned a user identityToken
-  if (!appleAuthRequestResponse.identityToken) {
+  if (!appleAuthRequestResponse.identityToken)
     throw new Error('Apple Sign-In failed - no identify token returned');
-  }
 
-  // Create a Firebase credential from the response
   const {
     identityToken,
     nonce,
     fullName: {givenName, familyName},
   } = appleAuthRequestResponse;
-  const appleCredential = auth.AppleAuthProvider.credential(
-    identityToken,
-    nonce,
-  );
-  await auth().signInWithCredential(appleCredential.token);
-  console.log({
-    identityToken,
-    appleCredential,
-    name: `${givenName || ''} ${familyName || ''}`,
-  });
+  const token = auth.AppleAuthProvider.credential(identityToken, nonce);
+  await auth().signInWithCredential(token);
   return {
-    ...identityToken,
-    ...appleCredential,
+    token,
     name: `${givenName || ''} ${familyName || ''}`,
+    identityToken,
   };
 
   // Sign the user in with the credential
@@ -130,12 +123,12 @@ export const googleLogin = async () => {
   // Check if your device supports Google Play
   await GoogleSignin.hasPlayServices({showPlayServicesUpdateDialog: true});
   // Get the users ID token
-  const {idToken} = await GoogleSignin.signIn();
+  const {idToken, user} = await GoogleSignin.signIn();
 
   // Create a Google credential with the token
   const googleCredential = auth.GoogleAuthProvider.credential(idToken);
 
-  return {...idToken, ...googleCredential};
+  return {user, googleCredential};
   // Sign-in the user with the credential
   // return auth().signInWithCredential(googleCredential);
 };
@@ -158,12 +151,13 @@ export const verifyCode = async ({confirm, code}) => {
   }
 };
 
-export const emailSignUp = async (email, password) => {
+export const emailSignUp = async ({email, password}) => {
+  console.log('dffs', email, password);
   const data = await auth().createUserWithEmailAndPassword(email, password);
   return data;
 };
 
-export const emailLogin = async (email, password) => {
+export const emailLogin = async ({email, password}) => {
   const data = await auth().signInWithEmailAndPassword(email, password);
   return data;
 };
