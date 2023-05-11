@@ -61,8 +61,6 @@
 	<string>34c263fb68086b59782baba982456043</string>
 	<key>FacebookDisplayName</key>
 	<string>Stound</string>
-	<key>GIDClientID</key>
-	<string>925607838451-8qg5h8k6rsvvhkahp97c3aj3kkc50m9g.apps.googleusercontent.com</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>

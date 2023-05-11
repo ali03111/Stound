@@ -1,4 +1,4 @@
-import {call, put, takeLatest} from 'redux-saga/effects';
+import {call, delay, put, takeLatest} from 'redux-saga/effects';
 import {types} from '../types';
 import {
   appleIdlogin,
@@ -9,6 +9,7 @@ import {
 } from '../../Utils/SocialLogin';
 import API from '../../Utils/helperFunc';
 import {
+  logOutAuth,
   logOutUser,
   loginUser,
   updateAuth,
@@ -25,40 +26,6 @@ import {
   registerService,
 } from '../../Services/AuthServices';
 
-// function* loginSaga(action) {
-//   yield put(loadingTrue());
-//   const {payload} = action;
-//   const {datas} = payload;
-//   const getLoginData = async () => {
-//     try {
-//       const data = await loginObject[payload.type];
-//       const result = await data(datas);
-//       return {data: result, ok: true};
-//     } catch (error) {
-//       return {data: error, ok: false};
-//     }
-//   };
-//   try {
-//     const {ok, data} = yield call(getLoginData);
-//     console.log('ok', ok, data);
-//     if (ok) {
-//       const idTokenResult = yield call(getFbResult);
-//       console.log('idTokenResult', idTokenResult);
-//       const {data, ok} = yield call(loginService, {token: idTokenResult.token});
-//       console.log('data', data);
-//       if (ok) {
-//         console.log('shdfjhsvfhjks', data);
-//         yield put(updateAuth(data));
-//       } else errorMessage('Some xnvkl kl ');
-//     }
-//   } catch (error) {
-//     console.log('errrr', error);
-//     errorMessage(error);
-//   } finally {
-//     yield put(loadingFalse());
-//   }
-// }
-
 const loginObject = {
   Google: () => googleLogin(),
   facebook: () => faceBookLogin(),
@@ -73,32 +40,22 @@ const loginSaga = function* ({payload: {datas, type}}) {
     const getLoginData = loginObject[type];
     const result = yield call(getLoginData, datas);
     const {socialData, ok} = {socialData: result, ok: true};
-
-    console.log('socialData', ok, socialData);
-
     if (ok) {
-      console.log('chvekc if', socialData);
       const idTokenResult = yield call(getFbResult);
-      console.log('idTokenResult', idTokenResult);
       const jwtToken = idTokenResult.token;
       if (jwtToken) {
         const {data, ok} = yield call(loginService, {
           token: jwtToken,
           data: socialData,
         });
-        console.log('data', data);
-
         if (ok) {
-          console.log('shdfjhsvfhjks', data);
           yield put(updateAuth(data));
-        } else {
-          errorMessage('Some xnvkl kl ');
         }
       }
     }
   } catch (error) {
-    console.error('errrr', error);
     errorMessage(error.message.split(' ').slice(1).join(' '));
+    console.log('err', error);
   } finally {
     yield put(loadingFalse());
   }
@@ -112,26 +69,18 @@ function* registerSaga({payload: {datas}}) {
     if (ok) {
       const idTokenResult = yield call(getFbResult);
       const jwtToken = idTokenResult.token;
-      console.log('dsgfsdgsd', jwtToken);
       if (jwtToken) {
-        console.log('datas', datas);
         const {data, ok} = yield call(registerService, {
           token: jwtToken,
           data: datas,
         });
-        console.log('data', data);
-
         if (ok) {
-          console.log('shdfjhsvfhjks', data);
           yield call(emailLogin, datas);
           yield put(updateAuth(data));
-        } else {
-          errorMessage('Some xnvkl kl ');
         }
       }
     }
   } catch (error) {
-    console.error('errrr', error);
     errorMessage(error.message.split(' ').slice(1).join(' '));
   } finally {
     yield put(loadingFalse());
@@ -140,13 +89,9 @@ function* registerSaga({payload: {datas}}) {
 
 function* logOutSaga(action) {
   try {
-    // yield put(loadingTrue());
-    const {ok, data, originalError} = yield call(logoutService);
-    console.log('logout data', ok, originalError, originalError);
-    if (ok) {
-      yield call(logOutFirebase);
-      yield call(logOutUser);
-    } // yield put(loadingFalse());
+    yield call(logoutService);
+    yield call(logOutFirebase);
+    yield put({type: types.LogoutType});
   } catch (error) {
     errorMessage(error.message.split(' ').slice(1).join(' '));
   } finally {
@@ -156,7 +101,7 @@ function* logOutSaga(action) {
 
 function* authSaga() {
   yield takeLatest(types.LoginType, loginSaga);
-  yield takeLatest(types.LogoutType, logOutSaga);
+  yield takeLatest(types.LogoutFirebaseType, logOutSaga);
   yield takeLatest(types.RegisterUser, registerSaga);
 }
 

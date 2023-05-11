@@ -19,9 +19,7 @@ const useAccountScreen = ({navigate}) => {
 
   const onConfirm = () => {
     updateState({logOut: false});
-    setTimeout(() => {
-      dispatch(logOutUser());
-    }, 1000);
+    dispatch(logOutUser());
   };
   const onCancel = (state, stateName) => {
     updateState({[stateName]: !state});

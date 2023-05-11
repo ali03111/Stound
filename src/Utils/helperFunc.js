@@ -26,6 +26,7 @@ API.addRequestTransform(config => {
   const {Auth} = store.getState();
   console.log('aurth', Auth.token);
   config.headers = {
+    // Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RpbmdAZ21haWwuY29tIiwiaWF0IjoxNjgzODA1MTEwLCJleHAiOjE2ODM4OTE1MTB9.uiL1mpZlu4Q-wwUvK8jENDG-Lp5TO79hLloXIeccUjs`,
     Authorization: `Bearer ${Auth.token}`,
   };
   return config;

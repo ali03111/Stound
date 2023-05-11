@@ -1,8 +1,9 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {Dimensions} from 'react-native';
 // import useReduxStore from '../../Hooks/useReduxStore';
 // import {types} from '../../Redux/types';
 import {onBoardinData} from '../../Utils/localDB';
+import API from '../../Utils/helperFunc';
 
 const useHomeScreen = ({navigate, params}) => {
   //   const {dispatch} = useReduxStore();
@@ -23,6 +24,12 @@ const useHomeScreen = ({navigate, params}) => {
     //   type: types.onBoardFinished,
     // });
   };
+
+  useEffect(async () => {
+    const {ok, data} = await API.get('https://dummyjson.com/products/1');
+    console.log('ok');
+  }, []);
+
   return {
     onBoardinData,
     onSnapToItem,

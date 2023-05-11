@@ -12,12 +12,7 @@ const actionMap = {
       token: act.payload.token,
     };
   },
-  [types.LogoutType]: (state, act) => {
-    return {
-      userData: {},
-      token: '',
-    };
-  },
+  [types.LogoutType]: () => initial_state,
   [types.UpdateProfile]: (state, act) => ({
     ...state,
     userData: act.payload.data,

@@ -4,6 +4,7 @@ export const types = {
   isLoadingFalse: 'isLoadingFalse',
   LoginType: 'LoginType',
   LogoutType: 'LogoutType',
+  LogoutFirebaseType: 'LogoutFirebaseType',
   UpdateProfile: 'UpdateProfile',
   UpdateAuth: 'UpdateAuth',
   RegisterUser: 'RegisterUser',

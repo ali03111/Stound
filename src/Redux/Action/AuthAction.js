@@ -10,8 +10,12 @@ export const updateUser = payload => ({
   payload,
 });
 
-export const logOutUser = payload => ({
+export const logOutAuth = () => ({
   type: types.LogoutType,
+});
+
+export const logOutUser = payload => ({
+  type: types.LogoutFirebaseType,
   payload,
 });
 
