@@ -20,6 +20,8 @@
 	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>GIDClientID</key>
+	<string>925607838451-8qg5h8k6rsvvhkahp97c3aj3kkc50m9g.apps.googleusercontent.com</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -136,5 +138,9 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>To add profile picture , you need to allow access to your photo gallery</string>
+	<key>NSLocationWhenInUseUsageDescription - 2</key>
+	<string></string>
 </dict>
 </plist>

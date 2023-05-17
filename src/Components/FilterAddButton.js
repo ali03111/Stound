@@ -3,6 +3,7 @@ import {Text, Image, StyleSheet} from 'react-native';
 import {Colors, FontFamily} from '../Theme/Variables';
 import {Touchable} from './Touchable';
 import {hp, wp} from '../Config/responsive';
+import {TextComponent} from './TextComponent';
 
 const FilterAddButton = ({
   title,
@@ -12,6 +13,7 @@ const FilterAddButton = ({
   textStyle,
   imgStyle,
   disabledValue,
+  tintColor,
 }) => {
   return (
     // <ShadowButton>
@@ -23,8 +25,14 @@ const FilterAddButton = ({
         styles.button,
         {justifyContent: image ? 'center' : 'space-between', ...style},
       ]}>
-      {image && <Image source={image} style={[styles.image, {...imgStyle}]} />}
-      <Text style={[styles.text, {...textStyle}]}>{title}</Text>
+      {image && (
+        <Image
+          tintColor={tintColor}
+          source={image}
+          style={[styles.image, {...imgStyle}]}
+        />
+      )}
+      <TextComponent styles={{...styles.text, ...textStyle}} text={title} />
     </Touchable>
     // </ShadowButton>
   );

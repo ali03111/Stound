@@ -111,7 +111,7 @@ export const appleIdlogin = async () => {
 export const googleLogin = async () => {
   GoogleSignin.configure({
     webClientId:
-      // '925607838451-7o04nlji1tt0v5k15fr8oo6bgdqqgc91.apps.googleusercontent.com',
+      // '925607838451-2cbsfsq0oenaj93jdivbnm7k8qhv4emu.apps.googleusercontent.com',
       '925607838451-2cbsfsq0oenaj93jdivbnm7k8qhv4emu.apps.googleusercontent.com',
   });
 

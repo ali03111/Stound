@@ -2,13 +2,16 @@ import {useEffect, useState} from 'react';
 import {Dimensions} from 'react-native';
 // import useReduxStore from '../../Hooks/useReduxStore';
 // import {types} from '../../Redux/types';
-import {onBoardinData} from '../../Utils/localDB';
 import API from '../../Utils/helperFunc';
+import {getAdsUrl} from '../../Utils/Urls';
+import {errorMessage} from '../../Config/NotificationMessage';
 
 const useHomeScreen = ({navigate, params}) => {
   //   const {dispatch} = useReduxStore();
   const [currentIndex, setCurrentIndex] = useState(0);
   const width = Dimensions.get('window').width;
+
+  const [homeData, setHomeData] = useState([]);
 
   const onSnapToItem = e => {
     const contentOffsetX = e.nativeEvent.contentOffset.x;
@@ -18,24 +21,24 @@ const useHomeScreen = ({navigate, params}) => {
 
   const goToDetails = () => navigate('PackageDetailsScreen');
 
-  const getStart = () => {
-    console.log('check');
-    // dispatch({
-    //   type: types.onBoardFinished,
-    // });
+  const getHomeData = async () => {
+    const {ok, data, originalError} = await API.get(getAdsUrl);
+    if (ok) setHomeData(data);
+    else errorMessage(originalError);
   };
 
-  useEffect(async () => {
-    const {ok, data} = await API.get('https://dummyjson.com/products/1');
-    console.log('ok');
-  }, []);
+  const useEffectFun = () => {
+    getHomeData();
+  };
+  useEffect(useEffectFun, []);
 
   return {
     onBoardinData,
     onSnapToItem,
     currentIndex,
-    getStart,
+    getStart: () => {},
     goToDetails,
+    homeData,
   };
 };
 

@@ -30,8 +30,14 @@ import {Colors} from '../../Theme/Variables';
 const HomeScreen = ({navigation}) => {
   const [text, onChangeText] = React.useState('');
 
-  const {onBoardinData, currentIndex, onSnapToItem, getStart, goToDetails} =
-    useHomeScreen(navigation);
+  const {
+    onBoardinData,
+    currentIndex,
+    onSnapToItem,
+    getStart,
+    goToDetails,
+    homeData,
+  } = useHomeScreen(navigation);
 
   const renderItem = useCallback(({item, index}) => {
     return (
@@ -74,6 +80,7 @@ const HomeScreen = ({navigation}) => {
         </View>
       </View>
       <View style={styles.cardMainView}>
+        {/* {homeCard.length > 0 && ( */}
         <Swiper
           cards={homeCardData}
           useViewOverflow={true}
@@ -99,6 +106,7 @@ const HomeScreen = ({navigation}) => {
           }}
           stackSize={2}
         />
+        {/* )} */}
       </View>
     </View>
   );

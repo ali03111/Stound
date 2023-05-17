@@ -57,6 +57,10 @@ const StackNavigatior = () => {
           />
           <Stack.Screen name="FilterScreen" component={Screens.FilterScreen} />
           <Stack.Screen
+            name="GeneralScreen"
+            component={Screens.GeneralScreen}
+          />
+          <Stack.Screen
             name="SomeComponent"
             component={Screens.SomeComponent}
           />

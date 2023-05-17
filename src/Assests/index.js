@@ -79,7 +79,7 @@ export {default as DetailDeceased} from './Icons/deceased.png';
 export {default as DetailSquareFoot} from './Icons/d-square_foot.png';
 export {default as arrowDown} from './Icons/arrowDown.png';
 export {default as chat} from './Icons/chat.png';
-export {default as cat} from './Icons/cat.png';
+export {default as catImage} from './Icons/cat.png';
 export {default as adTitle} from './Icons/ad-title.png';
 export {default as bedblue} from './Icons/bedblue.png';
 export {default as bluebath} from './Icons/bathtubblue.png';

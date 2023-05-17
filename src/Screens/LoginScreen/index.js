@@ -31,6 +31,7 @@ const LoginScreen = ({navigation}) => {
     register,
     loginWithEmail,
     goBack,
+    appleIdAuth,
   } = useLogin(navigation);
   return (
     <View style={styles.mainView}>
@@ -61,7 +62,7 @@ const LoginScreen = ({navigation}) => {
             placeholder: 'example@example.com',
             viewStyle: styles.loginInput,
             isImage: sms,
-            defaultValue: 'testing@gmail.com',
+            // defaultValue: 'testing@gmail.com',
           }}
         />
         <InputComponent
@@ -75,7 +76,7 @@ const LoginScreen = ({navigation}) => {
             placeholder: 'Password',
             isSecure: true,
             isImage: lock,
-            defaultValue: 'i53rdgen@',
+            // defaultValue: 'i53rdgen@',
           }}
         />
         <TextComponent text={'Forget Password?'} styles={styles.forgetPass} />
@@ -104,13 +105,13 @@ const LoginScreen = ({navigation}) => {
         </View>
 
         <View style={styles.mainSocialIcon}>
-          <Touchable>
+          <Touchable onPress={facebookLoginFunc}>
             <Image source={facebookIcon} style={styles.socialIcon} />
           </Touchable>
-          <Touchable>
+          <Touchable onPress={appleIdAuth}>
             <Image source={appleIcon} style={styles.socialIcon} />
           </Touchable>
-          <Touchable>
+          <Touchable onPress={googleLoginFunc}>
             <Image source={googleIcon} style={styles.socialIcon} />
           </Touchable>
         </View>

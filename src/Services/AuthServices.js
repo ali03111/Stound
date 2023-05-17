@@ -8,7 +8,7 @@ const loginService = param => API.post(loginUrl, param);
 
 const registerService = param => API.post(registerUrl, param);
 
-const logoutService = () => API.get(logoutUrl);
+const logoutService = async () => await API.get(logoutUrl);
 
 const logOutFirebase = () => auth().signOut();
 

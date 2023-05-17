@@ -1,6 +1,7 @@
 // import {errorMessage} from '../../Components/NotificationMessage';
 import useReduxStore from '../../Hooks/UseReduxStore';
 import {loginUser} from '../../Redux/Action/AuthAction';
+import {faceBookLogin} from '../../Utils/SocialLogin';
 // import {loginUser} from '../../Redux/Actions/AuthAction';
 // import API from '../../Utils/helperFunction';
 // import {
@@ -20,47 +21,19 @@ const useLogin = ({navigate, goBack}) => {
   );
   const {dispatch} = useReduxStore();
 
-  //   const facebookLoginFunc = () => {
-  //     faceBookLogin()
-  //       .then(res => {
-  //         if (res.additionalUserInfo.isNewUser == false) {
-  //           let data = {
-  //             email: res.additionalUserInfo.profile.email,
-  //             password: '',
-  //             providerId: res.additionalUserInfo.providerId,
-  //           };
-  //           loginWithEmail(data);
-  //         } else navigate('RegisterScreen', {...res.additionalUserInfo});
-  //       })
-  //       .catch(err => console.log('error', err));
-  //   };
-  //   const googleLoginFunc = () => {
-  //     googleLogin()
-  //       .then(res => navigate('RegisterScreen', {...res.additionalUserInfo}))
-  //       .catch(err => console.log('error', err));
-  //   };
+  const appleIdAuth = () => dispatch(loginUser({type: 'appleID', datas: {}}));
 
-  //   const PhoneNumberLoginFuc = async ({number}) => {
-  //     try {
-  //       const confirm = await PhoneNumberLogin(number);
-  //       navigate('OtpScreen', {number, confirm});
-  //     } catch (error) {
-  //       console.log('err', error);
-  //     }
-  //   };
-
-  //   const loginWithEmail = async ({email, password, providerId}) => {
-  //     const {ok, data} = await API.post(loginUrl, {
-  //       email,
-  //       password,
-  //       providerId: providerId || 'email.com',
-  //     });
-  //     if (ok) dispatch(loginUser(data));
-  //     else {
-  //       errorMessage(data?.data || 'Network request failed');
-  //     }
-  //   };
-
+  const googleAuth = async () => {
+    dispatch(loginUser({type: 'Google', datas: {}}));
+  };
+  const facebookAuth = async () => {
+    try {
+      const data = await faceBookLogin();
+      console.log('data', data);
+    } catch (error) {
+      console.log('err', error);
+    }
+  };
   const register = () => navigate('RegisterScreen');
   const loginWithEmail = ({email, password}) => {
     dispatch(loginUser({type: 'email', datas: {email, password}}));
@@ -74,12 +47,12 @@ const useLogin = ({navigate, goBack}) => {
     reset,
     control,
     getValues,
-    facebookLoginFunc: () => {},
-    googleLoginFunc: () => {},
-    PhoneNumberLoginFuc: () => {},
+    facebookLoginFunc: facebookAuth,
+    googleLoginFunc: googleAuth,
     register,
     loginWithEmail,
     goBack,
+    appleIdAuth,
   };
 };
 

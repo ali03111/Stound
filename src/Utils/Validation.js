@@ -127,14 +127,9 @@ const editProfileScheme = yup.object().shape({
   number: yup.string().required('Please enter your number'),
 });
 const addPostScheme = yup.object().shape({
-  name: yup
-    .string()
-    .required('Please Enter your fullname')
-    .max(200, 'Name must be less than 200 characters')
-    .matches(/^[A-Za-z ]*$/, 'Please Enter valid name')
-    .min(2, 'Name must be atleast 2 characters')
-    .max(50, 'Name must be of 50 characters'),
-  number: yup.string().required('Please enter your number'),
+  title: yup.string().required('Please enter your title'),
+  desc: yup.string().required('Please enter description'),
+  number: yup.string().required('Please enter the price'),
 });
 
 const Schemas = {

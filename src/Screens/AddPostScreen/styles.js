@@ -14,6 +14,15 @@ export const styles = StyleSheet.create({
     paddingTop: hp('2'),
     paddingBottom: hp('4'),
   },
+  flatListMain: {
+    // paddingHorizontal: wp('1'),
+    flexDirection: 'row',
+    width: '100%',
+    display: 'flex',
+    flexWrap: 'wrap',
+    // backgroundColor: 'yellow',
+    // justifyContent: 'space-evenly',
+  },
   switcher: {
     borderWidth: 1,
     borderRadius: 10,
@@ -52,8 +61,9 @@ export const styles = StyleSheet.create({
     borderColor: 'rgba(11, 180, 255, 0.3)',
     borderRadius: 10,
     backgroundColor: 'white',
-    paddingHorizontal: wp('3'),
+    // paddingHorizontal: wp('3'),
     paddingVertical: hp('1'),
+    // flexDirection: 'row',
   },
   filterButton: {
     width: wp('20'),
@@ -169,5 +179,18 @@ export const styles = StyleSheet.create({
   },
   addImage: {
     marginRight: wp('2'),
+  },
+  tags: {
+    // height: hp('6'),
+    paddingHorizontal: wp('2'),
+    marginHorizontal: wp('1'),
+    marginBottom: hp('1'),
+  },
+  imagesStyle: {
+    width: wp('45'),
+    height: hp('11'),
+    borderRadius: 10,
+    marginVertical: hp('0.5'),
+    marginHorizontal: wp('1'),
   },
 });
