@@ -19,7 +19,7 @@ const OnboardScreen = ({navigation}) => {
           <View style={styles.centerMainView}>
             <Image
               style={styles.bannerImg}
-              resizeMode="contain"
+              // resizeMode="contain"
               source={item?.image}
             />
             <TextComponent text={item?.heading} styles={styles.centerHeading} />
@@ -38,7 +38,7 @@ const OnboardScreen = ({navigation}) => {
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
-      style={{backgroundColor: 'white', flex: 1, paddingBottom: hp('10')}}>
+      style={{backgroundColor: 'white',  paddingBottom: hp('10')}}>
       <FlatList
         refreshing={false}
         data={onBoardinData}
