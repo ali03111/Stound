@@ -39,17 +39,20 @@ const HomeScreen = ({navigation}) => {
     homeData,
   } = useHomeScreen(navigation);
 
-  const renderItem = useCallback(({item, index}) => {
+  // console.log('cccc',onBoardinData);
+  const renderItem = useCallback((item) => {
+    console.log('item',item)
     return (
       <HomeCard
-        userName={'test'}
+        userName={`${item?.userDetail?.name}`}
         image={homeCard}
         profile={profile}
-        bath={'3 Baths'}
-        Beds={'4 Beds'}
-        locationText={'1050 Old Nichols Rd Islandia, NY 11749'}
+        bath={`${item?.bathrooms} Baths`}
+        Beds={`${item?.rooms} Rooms`}
+        locationText={`${item?.location}`}
         forRent={'For Rent'}
-        price={'$1500'}
+        price={  `$ ${item?.price}`
+        }
         duration={'month'}
       />
     );
@@ -80,9 +83,9 @@ const HomeScreen = ({navigation}) => {
         </View>
       </View>
       <View style={styles.cardMainView}>
-        {/* {homeCard.length > 0 && ( */}
+        {onBoardinData.length > 0 && (
         <Swiper
-          cards={homeCardData}
+          cards={onBoardinData }
           useViewOverflow={true}
           cardVerticalMargin={0}
           cardHorizontalMargin={0}
@@ -95,7 +98,8 @@ const HomeScreen = ({navigation}) => {
             successMessage('You like this property');
           }}
           onSwipedTop={ca => {
-            goToDetails();
+            console.log('callllllll',ca);
+            goToDetails(ca);
           }}
           onSwipedBottom={ca => {
             successMessage('This property has been added to favourite ');
@@ -106,7 +110,7 @@ const HomeScreen = ({navigation}) => {
           }}
           stackSize={2}
         />
-        {/* )} */}
+        )}
       </View>
     </View>
   );

@@ -111,6 +111,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 18,
     fontWeight: '500',
+    width:wp('25'),
   },
   bath: {
     color: 'white',

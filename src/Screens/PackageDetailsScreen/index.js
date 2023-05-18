@@ -32,11 +32,12 @@ import {
 } from 'accordion-collapse-react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MsgSendButton from '../../Components/MsgSendButton';
-
-const PackageDetailsScreen = () => {
+import { imageUrl } from '../../Utils/Urls';
+const PackageDetailsScreen = ({navigation,route}) => {
   const {PackageDetailData} = usePackageDetailsScreen();
   const imageLenght = detailsImages.length;
-
+  const {items:{userDetail,outsidePrefDetail,price,insidePrefDetail,generalPrefDetail,title}}=route.params;
+  console.log('itemsssss',generalPrefDetail)
   const renderItem = useCallback(({item, index}) => {
     return (
       index > 0 &&
@@ -47,6 +48,7 @@ const PackageDetailsScreen = () => {
           style={styles.secondImage(index)}>
           {index == 3 && (
             <View style={styles.overlayView}>
+              
               <TextComponent
                 text={`+${imageLenght - 4}`}
                 styles={styles.overlayText}
@@ -64,7 +66,7 @@ const PackageDetailsScreen = () => {
         backText={'Back'}
         icon={favEmpty}
         style={styles.headerStyle}
-        goBack={goBack}
+        goBack={navigation.goBack}
       />
       <View style={styles.imageHeaderView}>
         <Image
@@ -85,7 +87,7 @@ const PackageDetailsScreen = () => {
 
       <View style={styles.detail}>
         <View style={styles.detailTitle}>
-          <TextComponent text={PackageDetailData.title} styles={styles.title} />
+          <TextComponent text={title} styles={styles.title} />
           <TextComponent
             text={PackageDetailData.forRent}
             styles={styles.forRent}
@@ -122,9 +124,9 @@ const PackageDetailsScreen = () => {
                     />
                   </View>
                   <View style={styles.profileData}>
-                    <TextComponent text={'Jhon Doe'} styles={styles.pTitle} />
+                    <TextComponent text={userDetail?.name} styles={styles.pTitle} />
                     <TextComponent
-                      text={'jhondoe@gmail.com'}
+                      text={userDetail?.email}
                       styles={styles.pEmail}
                     />
                   </View>
@@ -143,12 +145,12 @@ const PackageDetailsScreen = () => {
               </CollapseHeader>
               <CollapseBody>
                 <View style={styles.btns}>
-                  {PackageDetailData.tags.map(item => {
+                  {generalPrefDetail?.map(item => {
                     return (
                       <FilterAddButton
                         disabledValue={true}
-                        title={item.text}
-                        image={item.icon}
+                        title={item?.name}
+                        image={imageUrl(item.image[0].path)}
                         style={styles.btn}
                       />
                     );
@@ -165,13 +167,13 @@ const PackageDetailsScreen = () => {
               </CollapseHeader>
               <CollapseBody>
                 <View style={styles.btns}>
-                  {PackageDetailData.tags.map(item => {
+                  {outsidePrefDetail?.map(item => {
                     return (
                       <FilterAddButton
-                        disabledValue={true}
-                        title={item.text}
-                        image={item.icon}
-                        style={styles.btn}
+                      disabledValue={true}
+                      title={item?.name}
+                      image={imageUrl(item.image[0].path)}
+                      style={styles.btn}
                       />
                     );
                   })}
@@ -187,12 +189,12 @@ const PackageDetailsScreen = () => {
               </CollapseHeader>
               <CollapseBody>
                 <View style={styles.btns}>
-                  {PackageDetailData.tags.map(item => {
+                  {insidePrefDetail?.map(item => {
                     return (
                       <FilterAddButton
-                        disabledValue={true}
-                        title={item.text}
-                        image={item.icon}
+                      disabledValue={true}
+                        title={item?.name}
+                        image={imageUrl(item.image[0].path)}
                         style={styles.btn}
                       />
                     );
@@ -204,7 +206,7 @@ const PackageDetailsScreen = () => {
         </ScrollView>
         <View style={styles.priceMain}>
           <View style={styles.priceLeft}>
-            <TextComponent text={'$4,500'} styles={styles.price} />
+            <TextComponent text={'$'+price} styles={styles.price} />
             <TextComponent text={'Total price'} styles={styles.priceText} />
           </View>
           <MsgSendButton

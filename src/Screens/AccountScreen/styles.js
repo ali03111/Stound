@@ -18,7 +18,10 @@ export const styles = StyleSheet.create({
     textAlign: 'left',
   },
   iconLeft: {
-    flex: 0.4,
+    height:hp('4'),
+    width:wp('6'),
+    marginHorizontal:wp('4.5'),
+    // flex: 0.3,
     resizeMode: 'contain',
   },
   iconRight: {
@@ -38,7 +41,10 @@ export const styles = StyleSheet.create({
     textAlign: 'left',
   },
   deActivateAccIcon: {
-    flex: 0.4,
+    height:hp('4'),
+    width:wp('6'),
+    marginHorizontal:wp('4.5'),
+    // flex: 0.3,
     resizeMode: 'contain',
   },
   porfileContainer: {
@@ -104,6 +110,13 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     resizeMode: 'contain',
     paddingRight: wp('3'),
+  },
+  coin:{
+    height:hp('4'),
+    width:wp('6'),
+    marginHorizontal:wp('2'),
+    // flex: 0.3,
+    resizeMode: 'contain',
   },
   coinsBtn: {
     flex: 1,

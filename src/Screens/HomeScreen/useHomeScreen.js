@@ -5,6 +5,7 @@ import {Dimensions} from 'react-native';
 import API from '../../Utils/helperFunc';
 import {getAdsUrl} from '../../Utils/Urls';
 import {errorMessage} from '../../Config/NotificationMessage';
+import {onBoardinData} from '../../Utils/localDB';
 
 const useHomeScreen = ({navigate, params}) => {
   //   const {dispatch} = useReduxStore();
@@ -19,11 +20,11 @@ const useHomeScreen = ({navigate, params}) => {
     setCurrentIndex(currentIndex);
   };
 
-  const goToDetails = () => navigate('PackageDetailsScreen');
+  const goToDetails = (index) => navigate('PackageDetailsScreen',{items:homeData[index]});
 
   const getHomeData = async () => {
     const {ok, data, originalError} = await API.get(getAdsUrl);
-    if (ok) setHomeData(data);
+    if (ok) setHomeData(data?.data);
     else errorMessage(originalError);
   };
 
@@ -33,7 +34,7 @@ const useHomeScreen = ({navigate, params}) => {
   useEffect(useEffectFun, []);
 
   return {
-    onBoardinData,
+    onBoardinData:homeData,
     onSnapToItem,
     currentIndex,
     getStart: () => {},

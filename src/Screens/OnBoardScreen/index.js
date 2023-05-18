@@ -38,7 +38,7 @@ const OnboardScreen = ({navigation}) => {
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
-      style={{backgroundColor: 'white',  paddingBottom: hp('10')}}>
+      style={{backgroundColor: 'white', flex: 1, paddingBottom: hp('10')}}>
       <FlatList
         refreshing={false}
         data={onBoardinData}

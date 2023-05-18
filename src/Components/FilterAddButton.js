@@ -28,7 +28,7 @@ const FilterAddButton = ({
       {image && (
         <Image
           tintColor={tintColor}
-          source={image}
+          source={{uri:image}}
           style={[styles.image, {...imgStyle}]}
         />
       )}

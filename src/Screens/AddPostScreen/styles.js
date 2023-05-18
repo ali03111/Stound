@@ -27,7 +27,8 @@ export const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 10,
     borderColor: Colors.primaryColor,
-    marginTop: hp('1.5'),
+    // marginTop: hp('1.5'),
+    marginBottom:hp('1.5')
   },
   filterHeader: {
     marginTop: hp('2'),

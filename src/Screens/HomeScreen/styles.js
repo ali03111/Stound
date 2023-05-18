@@ -7,7 +7,8 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-evenly',
     paddingHorizontal: wp('3'),
-    paddingVertical: hp('1.5'),
+    paddingVertical: hp('1'),
+    paddingTop:hp('3.5')
   },
   searchMain: {
     flexDirection: 'row',

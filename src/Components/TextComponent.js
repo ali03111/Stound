@@ -6,6 +6,7 @@ import {Colors} from '../Theme/Variables';
 export const TextComponent = ({text, styles, onPress}) => {
   return (
     <Text
+      numberOfLines={1}
       onPress={onPress}
       style={{color: Colors.black, fontSize: hp('2'), ...styles}}>
       {text}
