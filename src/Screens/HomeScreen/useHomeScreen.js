@@ -5,6 +5,7 @@ import {Dimensions} from 'react-native';
 import API from '../../Utils/helperFunc';
 import {getAdsUrl} from '../../Utils/Urls';
 import {errorMessage} from '../../Config/NotificationMessage';
+import {onBoardinData} from '../../Utils/localDB';
 
 const useHomeScreen = ({navigate, params}) => {
   //   const {dispatch} = useReduxStore();
