@@ -9,19 +9,20 @@ import {hp} from '../../Config/responsive';
 
 const FavouriteScreen = ({navigation}) => {
   const [selectedLanguage, setSelectedLanguage] = useState();
-  const {favouriteData, onPress} = useFavourateScreen(navigation);
-  const renderItem = useCallback(({item}) => {
+  const {onPress,onFavouriteData} = useFavourateScreen(navigation);
+  const renderItem = useCallback((item) => {
+    // console.log("121321312231",item.item.adDetail)
     return (
       <View>
         <FavouriteComp
-          backgroundImage={item?.backgroundImage}
-          title={item?.title}
-          locationText={item?.locationText}
-          price={item?.price}
-          duration={item?.duration}
-          beds={item?.beds}
-          baths={item?.baths}
-          size={item?.size}
+          backgroundImage={item.item.adDetail.backgroundImage}
+          title={item.item.adDetail[0].title}
+          locationText={item.item.adDetail.description}
+          price={item.item.adDetail.price}
+          duration={item.item.adDetail.duration}
+          beds={item.item.adDetail.beds}
+          baths={item.item.adDetail.baths}
+          size={item.item.adDetail.size}
           onPress={onPress}
         />
       </View>
@@ -32,7 +33,7 @@ const FavouriteScreen = ({navigation}) => {
       <Header styles={styles.topHeader} headerTitle={'Favourite'} />
       <FlatList
         refreshing={false}
-        data={favouriteData}
+        data={onFavouriteData}
         renderItem={renderItem}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{paddingBottom: hp('6')}}

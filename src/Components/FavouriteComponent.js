@@ -33,7 +33,7 @@ const FavouriteComp = ({
     // <ShadowButton>
     <View style={styles.HomeCardMain}>
       <ImageBackground
-        source={backgroundImage}
+      source={backgroundImage}
         resizeMode="cover"
         style={styles.image}>
         <ImageBackground

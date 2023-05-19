@@ -19,8 +19,7 @@ export const {baseURL,imageURL} = getCredentials();
 export const apendUrl = url => {
   return baseURL + url;
 };
-export const imageUrl = url => {
-  console.log("jsbdfjkbdjklbf",url)
+export const appendImageUrl = url => {
   return imageURL + url;
 };
 

@@ -44,8 +44,8 @@ import SwitchSelector from 'react-native-switch-selector';
 const AddPostScreen = ({navigation}) => {
   const [selectedLanguage, setSelectedLanguage] = useState();
   const options = [
-    {label: 'Rent', value: '1'},
-    {label: 'Buy  ', value: '2'},
+    {label: 'Rent', value: 'Rent'},
+    {label: 'Buy  ', value: "Buy"},
   ];
   const {
     handleSubmit,
@@ -120,7 +120,7 @@ const AddPostScreen = ({navigation}) => {
         <SwitchSelector
             options={options}
             initial={0}
-            onPress={value => console.log(`Call onPress with value: ${value}`)}
+            onPress={value => onSelecteTag(value,"type")}
             backgroundColor="rgba(11, 180, 255, 0.03);"
             buttonColor={Colors.primaryColor}
             borderRadius={10}

@@ -26,7 +26,7 @@ const HomeCard = ({
   return (
     // <ShadowButton>
     <View style={styles.HomeCardMain}>
-      <ImageBackground source={image} resizeMode="cover" style={styles.image}>
+      <ImageBackground source={{uri:image}} resizeMode="cover" style={styles.image}>
         <ImageBackground
           source={cardOverlay}
           resizeMode="cover"
@@ -34,7 +34,7 @@ const HomeCard = ({
           <View style={styles.cardMain}>
             <View style={styles.cardTopbar}>
               <View style={styles.cardTopLeft}>
-                <Image style={styles.profileImg} source={profile} />
+                <Image style={styles.profileImg} source={{uri:profile}} />
                 <TextComponent text={userName} styles={styles.userName} />
               </View>
               <View style={styles.cardTopRight}>

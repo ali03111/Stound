@@ -26,6 +26,7 @@ import SomeComponent from '../GestureScreenTest';
 import {successMessage} from '../../Config/NotificationMessage';
 import {homeCardData} from '../../Utils/localDB';
 import {Colors} from '../../Theme/Variables';
+import { appendImageUrl,  } from '../../Utils/Urls';
 
 const HomeScreen = ({navigation}) => {
   const [text, onChangeText] = React.useState('');
@@ -41,17 +42,17 @@ const HomeScreen = ({navigation}) => {
 
   // console.log('cccc',onBoardinData);
   const renderItem = useCallback((item) => {
-    console.log('item',item)
+    console.log('123asd12 ',item[0].adPhotos)
     return (
       <HomeCard
-        userName={`${item?.userDetail?.name}`}
-        image={homeCard}
-        profile={profile}
-        bath={`${item?.bathrooms} Baths`}
-        Beds={`${item?.rooms} Rooms`}
-        locationText={`${item?.location}`}
+        userName={`${item[0]?.userDetail?.name}`}
+        image={appendImageUrl(item[0].adPhotos[0])}
+        profile={appendImageUrl(item[0].userDetail.profilePicture)}
+        bath={`${item[0]?.bathrooms} Baths`}
+        Beds={`${item[0]?.rooms} Rooms`}
+        locationText={`${item[0]?.location}`}
         forRent={'For Rent'}
-        price={  `$ ${item?.price}`
+        price={  `$ ${item[0]?.price}`
         }
         duration={'month'}
       />

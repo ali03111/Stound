@@ -37,7 +37,6 @@ const PackageDetailsScreen = ({navigation,route}) => {
   const {PackageDetailData} = usePackageDetailsScreen();
   const imageLenght = detailsImages.length;
   const {items:{userDetail,outsidePrefDetail,price,insidePrefDetail,generalPrefDetail,title}}=route.params;
-  console.log('itemsssss',generalPrefDetail)
   const renderItem = useCallback(({item, index}) => {
     return (
       index > 0 &&

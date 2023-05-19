@@ -161,7 +161,7 @@ export const styles = StyleSheet.create({
   price: {
     color: Colors.primaryColor,
     fontSize: hp('2.5'),
-    fontWeight: 600,
+    fontWeight: "600",
   },
   priceText: {
     color: 'black',

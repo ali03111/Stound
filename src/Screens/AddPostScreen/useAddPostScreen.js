@@ -21,9 +21,10 @@ const useAddPostScreen = ({navigate}) => {
     rooms: null,
     bathRoom: null,
     images: [],
+    type:''
   });
 
-  const {gp, ip, op, bathRoom, rooms, cat, images} = preferencesVal;
+  const {gp, ip, op, bathRoom, rooms, cat, images,type} = preferencesVal;
 
   const updateState = data => setPreferencesVal(prev => ({...prev, ...data}));
 
@@ -59,7 +60,6 @@ const useAddPostScreen = ({navigate}) => {
   const dynamicNav = data => navigate('GeneralScreen', {...data, onSelecteTag});
 
   const getAllID = data => {
-    console.log('ALl data ', data);
     const newArry = [];
     data.map(res =>
       newArry.push(res.generalPrefId || res.insidePrefId || res.outsidePrefId),
@@ -91,6 +91,7 @@ const useAddPostScreen = ({navigate}) => {
         category: cat,
         photos: images,
         price: number,
+        type
       };
       Object.entries(body).forEach(([key, val]) => {
         if (key === 'photos' && Array.isArray(val)) {
