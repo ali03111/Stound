@@ -16,7 +16,7 @@ import {
   updateUser,
 } from '../Action/AuthAction';
 import {loadingFalse, loadingTrue} from '../Action/isloadingAction';
-import {errorMessage} from '../../Config/NotificationMessage';
+import {errorMessage, successMessage} from '../../Config/NotificationMessage';
 import {loginUrl} from '../../Utils/Urls';
 import {
   getFbResult,
@@ -24,6 +24,7 @@ import {
   loginService,
   logoutService,
   registerService,
+  updateProfileServices,
 } from '../../Services/AuthServices';
 
 const loginObject = {
@@ -99,10 +100,26 @@ function* logOutSaga(action) {
   }
 }
 
+function* updateProfileSaga({payload: profileData}) {
+  yield put(loadingTrue());
+  try {
+    const {data, ok} = yield call(updateProfileServices, {data: profileData});
+    if (ok) {
+      yield put({type: types.UpdateProfile, payload: data.data});
+      successMessage('Your profile has been updated');
+    }
+  } catch (error) {
+    errorMessage(error.message.split(' ').slice(1).join(' '));
+  } finally {
+    yield put(loadingFalse());
+  }
+}
+
 function* authSaga() {
   yield takeLatest(types.LoginType, loginSaga);
   yield takeLatest(types.LogoutFirebaseType, logOutSaga);
   yield takeLatest(types.RegisterUser, registerSaga);
+  yield takeLatest(types.UpdateProfile, updateProfileSaga);
 }
 
 export default authSaga;

@@ -1,13 +1,10 @@
 import {useEffect, useState} from 'react';
 import {Dimensions} from 'react-native';
-// import useReduxStore from '../../Hooks/useReduxStore';
-// import {types} from '../../Redux/types';
 import API from '../../Utils/helperFunc';
 import {getAdsUrl} from '../../Utils/Urls';
 import {errorMessage} from '../../Config/NotificationMessage';
-import {onBoardinData} from '../../Utils/localDB';
 
-const useHomeScreen = ({navigate, params}) => {
+const useHomeScreen = ({navigate, params, addListener}) => {
   //   const {dispatch} = useReduxStore();
   const [currentIndex, setCurrentIndex] = useState(0);
   const width = Dimensions.get('window').width;
@@ -20,26 +17,30 @@ const useHomeScreen = ({navigate, params}) => {
     setCurrentIndex(currentIndex);
   };
 
-  const goToDetails = (index) => navigate('PackageDetailsScreen',{items:homeData[index]});
+  const goToDetails = index =>
+    navigate('PackageDetailsScreen', {items: homeData[index]});
 
   const getHomeData = async () => {
-    const {ok, data, originalError} = await API.get(getAdsUrl);
+    const {ok, originalError, data} = await API.get(getAdsUrl);
+    // console.log('sasd', ok, originalError, data);
     if (ok) setHomeData(data?.data);
-    else errorMessage(originalError);
+    else errorMessage(originalError.message.split(' ').slice(1).join(' '));
   };
 
   const useEffectFun = () => {
-    getHomeData();
+    const event = addListener('focus', getHomeData);
+    return event;
   };
   useEffect(useEffectFun, []);
 
   return {
-    onBoardinData:homeData,
+    onBoardinData: homeData,
     onSnapToItem,
     currentIndex,
     getStart: () => {},
     goToDetails,
     homeData,
+    onRefresh: getHomeData,
   };
 };
 

@@ -26,7 +26,10 @@ const HomeCard = ({
   return (
     // <ShadowButton>
     <View style={styles.HomeCardMain}>
-      <ImageBackground source={image} resizeMode="cover" style={styles.image}>
+      <ImageBackground
+        source={{uri: image}}
+        resizeMode="cover"
+        style={styles.image}>
         <ImageBackground
           source={cardOverlay}
           resizeMode="cover"
@@ -111,7 +114,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 18,
     fontWeight: '500',
-    width:wp('25'),
+    width: wp('25'),
   },
   bath: {
     color: 'white',

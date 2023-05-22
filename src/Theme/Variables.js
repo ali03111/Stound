@@ -11,7 +11,7 @@ const Colors = {
   searchFaded: 'rgba(60,75,119,0.78)',
   lightFaded: 'rgba(29, 134, 202, 0.31)',
   darkFaded: 'rgba(5, 33, 65, 0.9)',
-  primaryFaded: 'rgba(29, 134, 202, 0.31)',
+  primaryFaded: 'rgba(11, 180, 255, 0.5)',
   downloadFaded: 'rgba(29, 134, 202)',
   primaryColor2: '#4A7DD4',
   primaryColor3: '#13396E',

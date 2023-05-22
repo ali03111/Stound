@@ -39,14 +39,11 @@ import useAddPostScreen from './useAddPostScreen';
 import {wp} from '../../Config/responsive';
 import {Touchable} from '../../Components/Touchable';
 import SwitchSelector from 'react-native-switch-selector';
-
+import {imageUrl} from '../../Utils/Urls';
 
 const AddPostScreen = ({navigation}) => {
   const [selectedLanguage, setSelectedLanguage] = useState();
-  const options = [
-    {label: 'Rent', value: '1'},
-    {label: 'Buy  ', value: '2'},
-  ];
+
   const {
     handleSubmit,
     reset,
@@ -65,14 +62,17 @@ const AddPostScreen = ({navigation}) => {
     rooms,
     bathRoom,
     cat,
+    options,
   } = useAddPostScreen(navigation);
 
   const renderItem = ({item, index}) => {
+    console.log('item.image[0].path', item.image[0].path);
     return (
       <FilterAddButton
         style={styles.tags}
         title={item?.name}
-        image={accessibleforward}
+        image={imageUrl(item.image[0].path)}
+        required={true}
       />
     );
   };
@@ -116,11 +116,10 @@ const AddPostScreen = ({navigation}) => {
 
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.filterMain}>
-          
-        <SwitchSelector
+          <SwitchSelector
             options={options}
             initial={0}
-            onPress={value => console.log(`Call onPress with value: ${value}`)}
+            onPress={value => onSelecteTag(value, 'type')}
             backgroundColor="rgba(11, 180, 255, 0.03);"
             buttonColor={Colors.primaryColor}
             borderRadius={10}

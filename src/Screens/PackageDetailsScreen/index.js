@@ -32,12 +32,21 @@ import {
 } from 'accordion-collapse-react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MsgSendButton from '../../Components/MsgSendButton';
-import { imageUrl } from '../../Utils/Urls';
-const PackageDetailsScreen = ({navigation,route}) => {
+import {imageUrl} from '../../Utils/Urls';
+const PackageDetailsScreen = ({navigation, route}) => {
   const {PackageDetailData} = usePackageDetailsScreen();
   const imageLenght = detailsImages.length;
-  const {items:{userDetail,outsidePrefDetail,price,insidePrefDetail,generalPrefDetail,title}}=route.params;
-  console.log('itemsssss',generalPrefDetail)
+  const {
+    items: {
+      userDetail,
+      outsidePrefDetail,
+      price,
+      insidePrefDetail,
+      generalPrefDetail,
+      title,
+    },
+  } = route.params;
+  console.log('itemsssss', route.params);
   const renderItem = useCallback(({item, index}) => {
     return (
       index > 0 &&
@@ -48,7 +57,6 @@ const PackageDetailsScreen = ({navigation,route}) => {
           style={styles.secondImage(index)}>
           {index == 3 && (
             <View style={styles.overlayView}>
-              
               <TextComponent
                 text={`+${imageLenght - 4}`}
                 styles={styles.overlayText}
@@ -124,7 +132,10 @@ const PackageDetailsScreen = ({navigation,route}) => {
                     />
                   </View>
                   <View style={styles.profileData}>
-                    <TextComponent text={userDetail?.name} styles={styles.pTitle} />
+                    <TextComponent
+                      text={userDetail?.name}
+                      styles={styles.pTitle}
+                    />
                     <TextComponent
                       text={userDetail?.email}
                       styles={styles.pEmail}
@@ -146,12 +157,14 @@ const PackageDetailsScreen = ({navigation,route}) => {
               <CollapseBody>
                 <View style={styles.btns}>
                   {generalPrefDetail?.map(item => {
+                    console.log('sdfsdfsdfsdfsdfsdfd', item);
                     return (
                       <FilterAddButton
                         disabledValue={true}
                         title={item?.name}
-                        image={imageUrl(item.image[0].path)}
+                        image={imageUrl(item.newImage)}
                         style={styles.btn}
+                        required={true}
                       />
                     );
                   })}
@@ -170,10 +183,11 @@ const PackageDetailsScreen = ({navigation,route}) => {
                   {outsidePrefDetail?.map(item => {
                     return (
                       <FilterAddButton
-                      disabledValue={true}
-                      title={item?.name}
-                      image={imageUrl(item.image[0].path)}
-                      style={styles.btn}
+                        disabledValue={true}
+                        title={item?.name}
+                        image={imageUrl(item.newImage)}
+                        style={styles.btn}
+                        required={true}
                       />
                     );
                   })}
@@ -192,10 +206,11 @@ const PackageDetailsScreen = ({navigation,route}) => {
                   {insidePrefDetail?.map(item => {
                     return (
                       <FilterAddButton
-                      disabledValue={true}
+                        disabledValue={true}
                         title={item?.name}
-                        image={imageUrl(item.image[0].path)}
+                        image={imageUrl(item.newImage)}
                         style={styles.btn}
+                        required={true}
                       />
                     );
                   })}
@@ -206,7 +221,7 @@ const PackageDetailsScreen = ({navigation,route}) => {
         </ScrollView>
         <View style={styles.priceMain}>
           <View style={styles.priceLeft}>
-            <TextComponent text={'$'+price} styles={styles.price} />
+            <TextComponent text={'$' + price} styles={styles.price} />
             <TextComponent text={'Total price'} styles={styles.priceText} />
           </View>
           <MsgSendButton

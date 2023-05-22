@@ -1,5 +1,5 @@
 import auth from '@react-native-firebase/auth';
-import {loginUrl, logoutUrl, registerUrl} from '../Utils/Urls';
+import {loginUrl, logoutUrl, registerUrl, updateUserUrl} from '../Utils/Urls';
 import API from '../Utils/helperFunc';
 
 const getFbResult = () => auth().currentUser.getIdTokenResult();
@@ -10,6 +10,9 @@ const registerService = param => API.post(registerUrl, param);
 
 const logoutService = async () => await API.get(logoutUrl);
 
+const updateProfileServices = async params =>
+  await API.put(updateUserUrl, params);
+
 const logOutFirebase = () => auth().signOut();
 
 export {
@@ -18,4 +21,5 @@ export {
   logOutFirebase,
   registerService,
   logoutService,
+  updateProfileServices,
 };

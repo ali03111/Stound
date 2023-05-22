@@ -12,6 +12,11 @@ const useAddPostScreen = ({navigate}) => {
     Schemas.addPost,
   );
 
+  const options = [
+    {label: 'Sell', value: 'Sell'},
+    {label: 'Rent', value: 'Rent'},
+  ];
+
   const [preferencesData, setPreferencesData] = useState([]);
   const [preferencesVal, setPreferencesVal] = useState({
     gp: [],
@@ -21,16 +26,17 @@ const useAddPostScreen = ({navigate}) => {
     rooms: null,
     bathRoom: null,
     images: [],
+    type: options[0].value,
   });
 
-  const {gp, ip, op, bathRoom, rooms, cat, images} = preferencesVal;
+  const {gp, ip, op, bathRoom, rooms, cat, images, type} = preferencesVal;
 
   const updateState = data => setPreferencesVal(prev => ({...prev, ...data}));
 
   const getPreferences = async () => {
     const {ok, data, originalError} = await API.get(getPreUrl);
     if (ok) setPreferencesData(data);
-    else errorMessage(originalError);
+    else errorMessage(originalError.message.split(' ').slice(1).join(' '));
   };
 
   const onSelecteTag = (item, key) => {
@@ -91,6 +97,7 @@ const useAddPostScreen = ({navigate}) => {
         category: cat,
         photos: images,
         price: number,
+        adType: type,
       };
       Object.entries(body).forEach(([key, val]) => {
         if (key === 'photos' && Array.isArray(val)) {
@@ -119,11 +126,12 @@ const useAddPostScreen = ({navigate}) => {
           cat: null,
           rooms: null,
           bathRoom: null,
+          type: options[0].value,
         });
         reset();
-        successMessage(data);
+        successMessage(data?.message);
       } else {
-        errorMessage(originalError);
+        errorMessage(originalError.message.split(' ').slice(1).join(' '));
       }
     } else {
       errorMessage('please comeplete all fields');
@@ -155,6 +163,7 @@ const useAddPostScreen = ({navigate}) => {
     postData,
     uploadFromGalary,
     images,
+    options,
     // goBack,
   };
 };

@@ -8,6 +8,7 @@ import {Colors} from '../../Theme/Variables';
 import FilterAddButton from '../../Components/FilterAddButton';
 import useGeneralScreen from './useGeneralScreen';
 import {keyExtractor} from '../../Utils';
+import {imageUrl} from '../../Utils/Urls';
 const GeneralScreen = ({navigation, route}) => {
   const {data, title, selecteValue, selectedValue, onSave} = useGeneralScreen(
     navigation,
@@ -18,11 +19,12 @@ const GeneralScreen = ({navigation, route}) => {
     return (
       <FilterAddButton
         title={item?.name}
-        image={accessibleforward}
+        image={imageUrl(item.image[0].path)}
         style={styles.filterBtn(selectedValue, item)}
         textStyle={styles.innerText(selectedValue, item)}
         onPress={() => selecteValue(item)}
         tintColor={selectedValue.includes(item) ? Colors.white : Colors.black}
+        required={true}
       />
     );
   };

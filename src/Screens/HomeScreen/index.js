@@ -7,6 +7,8 @@ import {
   Image,
   TextInput,
   Platform,
+  RefreshControl,
+  ScrollView,
 } from 'react-native';
 import useHomeScreen from './useHomeScreen';
 import {styles} from './styles';
@@ -26,6 +28,8 @@ import SomeComponent from '../GestureScreenTest';
 import {successMessage} from '../../Config/NotificationMessage';
 import {homeCardData} from '../../Utils/localDB';
 import {Colors} from '../../Theme/Variables';
+import {imageUrl} from '../../Utils/Urls';
+import {EmptyViewComp} from '../../Components/EmptyViewComp';
 
 const HomeScreen = ({navigation}) => {
   const [text, onChangeText] = React.useState('');
@@ -37,22 +41,22 @@ const HomeScreen = ({navigation}) => {
     getStart,
     goToDetails,
     homeData,
+    onRefresh,
   } = useHomeScreen(navigation);
 
-  // console.log('cccc',onBoardinData);
-  const renderItem = useCallback((item) => {
-    console.log('item',item)
+  console.log('cccc', onBoardinData);
+  const renderItem = useCallback(item => {
+    console.log('item', item);
     return (
       <HomeCard
         userName={`${item?.userDetail?.name}`}
-        image={homeCard}
+        image={imageUrl(item.adPhotos[0])}
         profile={profile}
         bath={`${item?.bathrooms} Baths`}
         Beds={`${item?.rooms} Rooms`}
         locationText={`${item?.location}`}
         forRent={'For Rent'}
-        price={  `$ ${item?.price}`
-        }
+        price={`$ ${item?.price}`}
         duration={'month'}
       />
     );
@@ -82,36 +86,44 @@ const HomeScreen = ({navigation}) => {
           </Touchable>
         </View>
       </View>
-      <View style={styles.cardMainView}>
-        {onBoardinData.length > 0 && (
-        <Swiper
-          cards={onBoardinData }
-          useViewOverflow={true}
-          cardVerticalMargin={0}
-          cardHorizontalMargin={0}
-          marginBottom={0}
-          renderCard={renderItem}
-          onSwipedLeft={ca => {
-            successMessage('You cancel this property');
-          }}
-          onSwipedRight={ca => {
-            successMessage('You like this property');
-          }}
-          onSwipedTop={ca => {
-            console.log('callllllll',ca);
-            goToDetails(ca);
-          }}
-          onSwipedBottom={ca => {
-            successMessage('This property has been added to favourite ');
-          }}
-          cardIndex={0}
-          containerStyle={{
-            backgroundColor: 'transparent',
-          }}
-          stackSize={2}
-        />
+      <ScrollView
+        scrollEnabled={false}
+        refreshControl={
+          <RefreshControl refreshing={false} onRefresh={onRefresh} />
+        }
+        contentContainerStyle={styles.cardMainView}>
+        {console.log('onBoardinData', onBoardinData)}
+        {onBoardinData.length > 0 ? (
+          <Swiper
+            cards={onBoardinData}
+            useViewOverflow={true}
+            cardVerticalMargin={0}
+            cardHorizontalMargin={0}
+            marginBottom={0}
+            renderCard={renderItem}
+            onSwipedLeft={ca => {
+              successMessage('You cancel this property');
+            }}
+            onSwipedRight={ca => {
+              successMessage('You like this property');
+            }}
+            onSwipedTop={ca => {
+              console.log('callllllll', ca);
+              goToDetails(ca);
+            }}
+            onSwipedBottom={ca => {
+              successMessage('This property has been added to favourite ');
+            }}
+            cardIndex={0}
+            containerStyle={{
+              backgroundColor: 'transparent',
+            }}
+            stackSize={2}
+          />
+        ) : (
+          <EmptyViewComp />
         )}
-      </View>
+      </ScrollView>
     </View>
   );
 };

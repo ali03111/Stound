@@ -14,20 +14,21 @@ const getCredentials = () => {
   }
 };
 
-export const {baseURL,imageURL} = getCredentials();
+export const {baseURL, imageURL} = getCredentials();
 
 export const apendUrl = url => {
   return baseURL + url;
 };
 export const imageUrl = url => {
-  console.log("jsbdfjkbdjklbf",url)
+  console.log('jsbdfjkbdjklbf', url);
   return imageURL + url;
 };
 
-export const registerUrl = apendUrl('auth/register');
-export const loginUrl = apendUrl('auth/login');
-export const logoutUrl = apendUrl('auth/logout');
-export const getPreUrl = apendUrl('get-preferences');
-export const getAdsUrl = apendUrl('get-ads');
-export const createAdsUrl = apendUrl('create-ad');
-export const getfavourites = apendUrl('get-favourites');
+export const registerUrl = 'auth/register';
+export const loginUrl = 'auth/login';
+export const logoutUrl = 'auth/logout';
+export const updateUserUrl = 'auth/update-user';
+export const getPreUrl = 'get-preferences';
+export const getAdsUrl = 'get-ads';
+export const createAdsUrl = 'create-ad';
+export const getfavourites = 'get-favourites';
