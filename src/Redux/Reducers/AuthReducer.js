@@ -15,7 +15,7 @@ const actionMap = {
   [types.LogoutType]: () => initial_state,
   [types.UpdateProfile]: (state, act) => ({
     ...state,
-    userData: act.payload.data,
+    userData: act.payload,
   }),
 };
 

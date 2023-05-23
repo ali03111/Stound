@@ -9,6 +9,7 @@ export const styles = StyleSheet.create({
     height: hp('32n'),
     borderRadius: 10,
     marginVertical: hp('0.5'),
+    overflow: 'hidden',
   }),
   secondImage: index => ({
     width: wp('20'),
@@ -140,6 +141,7 @@ export const styles = StyleSheet.create({
     width: wp('15'),
     height: hp('7.2'),
     borderRadius: 7,
+    overflow: 'hidden',
   },
   priceMain: {
     flexDirection: 'row',

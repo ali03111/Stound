@@ -13,7 +13,7 @@ const useAddPostScreen = ({navigate}) => {
   );
 
   const options = [
-    {label: 'Sell', value: 'Sell'},
+    {label: 'sale', value: 'Sale'},
     {label: 'Rent', value: 'Rent'},
   ];
 
@@ -49,6 +49,8 @@ const useAddPostScreen = ({navigate}) => {
         selectionLimit: 10,
         mediaType: 'photo',
         quality: 0.5,
+        maxWidth: 300,
+        maxHeight: 300,
       },
       res => {
         if (!res?.didCancel) {
@@ -67,9 +69,7 @@ const useAddPostScreen = ({navigate}) => {
   const getAllID = data => {
     console.log('ALl data ', data);
     const newArry = [];
-    data.map(res =>
-      newArry.push(res.generalPrefId || res.insidePrefId || res.outsidePrefId),
-    );
+    data.map(res => newArry.push(res.id));
     return newArry;
   };
 
@@ -131,6 +131,7 @@ const useAddPostScreen = ({navigate}) => {
         reset();
         successMessage(data?.message);
       } else {
+        console.log('dfdf', originalError);
         errorMessage(originalError.message.split(' ').slice(1).join(' '));
       }
     } else {
@@ -164,6 +165,7 @@ const useAddPostScreen = ({navigate}) => {
     uploadFromGalary,
     images,
     options,
+    onRefresh: getPreferences,
     // goBack,
   };
 };

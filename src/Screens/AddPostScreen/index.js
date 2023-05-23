@@ -7,6 +7,7 @@ import {
   SafeAreaView,
   Image,
   TextInput,
+  RefreshControl,
 } from 'react-native';
 import useFilterScreen from './useAddPostScreen';
 import {styles} from './styles';
@@ -52,6 +53,7 @@ const AddPostScreen = ({navigation}) => {
     onSelecteTag,
     postData,
     uploadFromGalary,
+    onRefresh,
     images,
     control,
     errors,
@@ -66,12 +68,11 @@ const AddPostScreen = ({navigation}) => {
   } = useAddPostScreen(navigation);
 
   const renderItem = ({item, index}) => {
-    console.log('item.image[0].path', item.image[0].path);
     return (
       <FilterAddButton
         style={styles.tags}
         title={item?.name}
-        image={imageUrl(item.image[0].path)}
+        image={imageUrl(item.path)}
         required={true}
       />
     );
@@ -114,7 +115,12 @@ const AddPostScreen = ({navigation}) => {
         goBack={navigation.goBack}
       />
 
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView
+        r
+        refreshControl={
+          <RefreshControl refreshing={false} onRefresh={onRefresh} />
+        }
+        showsVerticalScrollIndicator={false}>
         <View style={styles.filterMain}>
           <SwitchSelector
             options={options}

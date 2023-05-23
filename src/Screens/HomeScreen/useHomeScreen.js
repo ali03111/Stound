@@ -1,8 +1,8 @@
 import {useEffect, useState} from 'react';
 import {Dimensions} from 'react-native';
 import API from '../../Utils/helperFunc';
-import {getAdsUrl} from '../../Utils/Urls';
-import {errorMessage} from '../../Config/NotificationMessage';
+import {getAdsUrl, updateFavUrl} from '../../Utils/Urls';
+import {errorMessage, successMessage} from '../../Config/NotificationMessage';
 
 const useHomeScreen = ({navigate, params, addListener}) => {
   //   const {dispatch} = useReduxStore();
@@ -31,6 +31,14 @@ const useHomeScreen = ({navigate, params, addListener}) => {
     const event = addListener('focus', getHomeData);
     return event;
   };
+
+  const updateFav = async index => {
+    const url = updateFavUrl + homeData[index].adId;
+    const {ok, originalError, data} = await API.put(url);
+    if (ok) successMessage(data?.message);
+    else errorMessage(originalError.message.split(' ').slice(1).join(' '));
+  };
+
   useEffect(useEffectFun, []);
 
   return {
@@ -41,6 +49,7 @@ const useHomeScreen = ({navigate, params, addListener}) => {
     goToDetails,
     homeData,
     onRefresh: getHomeData,
+    updateFav,
   };
 };
 

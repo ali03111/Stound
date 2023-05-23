@@ -6,23 +6,29 @@ import {TextComponent} from '../../Components/TextComponent';
 import FavouriteComp from '../../Components/FavouriteComponent';
 import Header from '../../Components/Header';
 import {hp} from '../../Config/responsive';
+import {imageUrl} from '../../Utils/Urls';
 
 const FavouriteScreen = ({navigation}) => {
   const [selectedLanguage, setSelectedLanguage] = useState();
-  const {favouriteData, onPress} = useFavourateScreen(navigation);
+  const {favouriteData, onPress, favData, getFav, updateFav} =
+    useFavourateScreen(navigation);
+
+  console.log('favData', favData);
+
   const renderItem = useCallback(({item}) => {
     return (
       <View>
         <FavouriteComp
-          backgroundImage={item?.backgroundImage}
+          backgroundImage={imageUrl(item?.photos[0])}
           title={item?.title}
-          locationText={item?.locationText}
+          locationText={item?.location}
           price={item?.price}
           duration={item?.duration}
-          beds={item?.beds}
-          baths={item?.baths}
+          beds={item?.rooms}
+          baths={item?.bathrooms}
           size={item?.size}
-          onPress={onPress}
+          onPress={() => onPress(item)}
+          onFav={() => updateFav(item)}
         />
       </View>
     );
@@ -36,6 +42,7 @@ const FavouriteScreen = ({navigation}) => {
         renderItem={renderItem}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{paddingBottom: hp('6')}}
+        onRefresh={getFav}
       />
     </View>
   );

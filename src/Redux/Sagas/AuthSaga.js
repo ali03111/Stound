@@ -103,12 +103,15 @@ function* logOutSaga(action) {
 function* updateProfileSaga({payload: profileData}) {
   yield put(loadingTrue());
   try {
-    const {data, ok} = yield call(updateProfileServices, {data: profileData});
+    // console.log('dbnjdf', profileData);
+    const {ok, data} = yield call(updateProfileServices, profileData);
+    console.log('user', data);
     if (ok) {
       yield put({type: types.UpdateProfile, payload: data.data});
       successMessage('Your profile has been updated');
     }
   } catch (error) {
+    console.log('error ', error);
     errorMessage(error.message.split(' ').slice(1).join(' '));
   } finally {
     yield put(loadingFalse());
@@ -119,7 +122,7 @@ function* authSaga() {
   yield takeLatest(types.LoginType, loginSaga);
   yield takeLatest(types.LogoutFirebaseType, logOutSaga);
   yield takeLatest(types.RegisterUser, registerSaga);
-  yield takeLatest(types.UpdateProfile, updateProfileSaga);
+  yield takeLatest(types.UpdateUser, updateProfileSaga);
 }
 
 export default authSaga;

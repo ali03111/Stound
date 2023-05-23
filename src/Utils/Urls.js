@@ -31,4 +31,5 @@ export const updateUserUrl = 'auth/update-user';
 export const getPreUrl = 'get-preferences';
 export const getAdsUrl = 'get-ads';
 export const createAdsUrl = 'create-ad';
-export const getfavourites = 'get-favourites';
+export const getfavouritesUrl = 'get-favourites';
+export const updateFavUrl = 'update-favourites/';

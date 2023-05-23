@@ -42,6 +42,7 @@ const HomeScreen = ({navigation}) => {
     goToDetails,
     homeData,
     onRefresh,
+    updateFav,
   } = useHomeScreen(navigation);
 
   console.log('cccc', onBoardinData);
@@ -50,12 +51,12 @@ const HomeScreen = ({navigation}) => {
     return (
       <HomeCard
         userName={`${item?.userDetail?.name}`}
-        image={imageUrl(item.adPhotos[0])}
+        image={imageUrl(item.photos[0])}
         profile={profile}
         bath={`${item?.bathrooms} Baths`}
         Beds={`${item?.rooms} Rooms`}
         locationText={`${item?.location}`}
-        forRent={'For Rent'}
+        forRent={`For ${item?.adType}`}
         price={`$ ${item?.price}`}
         duration={'month'}
       />
@@ -100,6 +101,8 @@ const HomeScreen = ({navigation}) => {
             cardVerticalMargin={0}
             cardHorizontalMargin={0}
             marginBottom={0}
+            infinite={true}
+            onSwipedAll={e => onRefresh()}
             renderCard={renderItem}
             onSwipedLeft={ca => {
               successMessage('You cancel this property');
@@ -112,7 +115,7 @@ const HomeScreen = ({navigation}) => {
               goToDetails(ca);
             }}
             onSwipedBottom={ca => {
-              successMessage('This property has been added to favourite ');
+              updateFav(ca);
             }}
             cardIndex={0}
             containerStyle={{

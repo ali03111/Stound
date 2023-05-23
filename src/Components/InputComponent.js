@@ -144,5 +144,7 @@ const styles = StyleSheet.create({
   },
   inputIcon: {
     marginLeft: hp('2'),
+    height: hp('4'),
+    width: wp('6'),
   },
 });

@@ -7,6 +7,8 @@ import {hp, wp} from '../Config/responsive';
 import {cardOverlay, profile, bed, bathtub, location} from '../Assests';
 import {TextComponent} from './TextComponent';
 import {white} from 'react-native-paper/lib/typescript/src/styles/themes/v2/colors';
+import BlurImage from './BlurImage';
+import BlurBackground from './BlurBackground';
 // import {white} from 'react-native-paper/lib/typescript/src/styles/themes/v2/colors';
 
 const HomeCard = ({
@@ -26,13 +28,20 @@ const HomeCard = ({
   return (
     // <ShadowButton>
     <View style={styles.HomeCardMain}>
-      <ImageBackground
-        source={{uri: image}}
+      <BlurBackground
+        uri={image}
+        mainView={{
+          height: hp('75'),
+        }}
+        blurImageStyle={{
+          height: hp('75'),
+        }}
         resizeMode="cover"
-        style={styles.image}>
+        styles={styles.image}>
         <ImageBackground
           source={cardOverlay}
           resizeMode="cover"
+          borderRadius={10}
           style={styles.overlay}>
           <View style={styles.cardMain}>
             <View style={styles.cardTopbar}>
@@ -60,7 +69,7 @@ const HomeCard = ({
             </View>
           </View>
         </ImageBackground>
-      </ImageBackground>
+      </BlurBackground>
     </View>
     // </ShadowButton>
   );
@@ -81,9 +90,13 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   overlay: {
-    flex: 1,
+    height: hp('100'),
+    width: wp('94'),
+    // flex: 1,
     overflow: 'hidden',
     borderRadius: 10,
+    // bottom: 0,
+    // backgroundColor: 'yellow',
   },
   cardMain: {
     justifyContent: 'flex-end',
@@ -98,7 +111,7 @@ const styles = StyleSheet.create({
   cardTopLeft: {
     flexDirection: 'row',
     alignItems: 'center',
-    width: wp('43'),
+    width: wp('37'),
   },
   cardTopRight: {
     flexDirection: 'row',

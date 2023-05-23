@@ -67,7 +67,11 @@ function App({navigation}) {
   return (
     <>
       {isloading && <Overlay />}
-      <StatusBar hidden={isVisible} barStyle={'dark-content'} />
+      <StatusBar
+        hidden={isVisible}
+        // backgroundColor={Platform.OS == 'ios' ? 'white' : 'transparent'}
+        barStyle={Platform.OS == 'ios' ? 'dark-content' : 'light-content'}
+      />
       {isVisible === true ? (
         Splash_Screen
       ) : (

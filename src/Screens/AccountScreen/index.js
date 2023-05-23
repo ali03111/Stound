@@ -41,6 +41,7 @@ const AccountScreen = ({navigation}) => {
             UserEmail={userData?.email}
             EditProfile={EditProfile}
             onPress={() => dynamicNav('EditProfileScreen')}
+            userData={userData}
           />
           <CoinsComponent RemainingCoins={'25'} />
           <ProfileButton

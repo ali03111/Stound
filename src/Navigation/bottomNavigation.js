@@ -57,7 +57,7 @@ function MybottomTabs() {
         tabBarBackground: () => {
           return (
             <Svg
-              width={wp(isIOS ? '88' : '90')}
+              width={wp(isIOS ? '100' : '100')}
               height={hp('10')}
               viewBox="0 0 374 74"
               fill="none"

@@ -49,7 +49,7 @@ API.get = async (url, params, axiosConfig) => {
   }
 };
 
-const formDataFunc = body => {
+const formDataFunc = (url, body) => {
   const {Auth} = store.getState();
 
   var myHeaders = new Headers();
@@ -79,7 +79,7 @@ const formDataFunc = body => {
     redirect: 'follow',
   };
 
-  return fetch(createAdsUrl, requestOptions)
+  return fetch(url, requestOptions)
     .then(res => res.json())
     .then(res => res)
     .catch(err => err);
