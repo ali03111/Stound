@@ -1,4 +1,4 @@
-import React, {memo, useCallback} from 'react';
+import React, { memo, useCallback } from 'react';
 import {
   View,
   Text,
@@ -9,26 +9,26 @@ import {
   Platform,
 } from 'react-native';
 import useHomeScreen from './useHomeScreen';
-import {styles} from './styles';
-import {keyExtractor} from '../../Utils';
-import {TextComponent} from '../../Components/TextComponent';
+import { styles } from './styles';
+import { keyExtractor } from '../../Utils';
+import { TextComponent } from '../../Components/TextComponent';
 import HomeCard from '../../Components/HomeCard';
-import {homeCard, notification, profile, search, setting} from '../../Assests';
+import { homeCard, notification, profile, search, setting } from '../../Assests';
 
 import * as Animatable from 'react-native-animatable';
-import {InputComponent} from '../../Components/InputComponent';
+import { InputComponent } from '../../Components/InputComponent';
 // import {TextInput} from 'react-native-paper';
-import {Touchable} from '../../Components/Touchable';
+import { Touchable } from '../../Components/Touchable';
 import Notification from '../../Components/Notification';
 import Swiper from 'react-native-deck-swiper';
-import {hp, wp} from '../../Config/responsive';
+import { hp, wp } from '../../Config/responsive';
 import SomeComponent from '../GestureScreenTest';
-import {successMessage} from '../../Config/NotificationMessage';
-import {homeCardData} from '../../Utils/localDB';
-import {Colors} from '../../Theme/Variables';
-import { appendImageUrl,  } from '../../Utils/Urls';
+import { successMessage } from '../../Config/NotificationMessage';
+import { homeCardData } from '../../Utils/localDB';
+import { Colors } from '../../Theme/Variables';
+import { appendImageUrl, } from '../../Utils/Urls';
 
-const HomeScreen = ({navigation}) => {
+const HomeScreen = ({ navigation }) => {
   const [text, onChangeText] = React.useState('');
 
   const {
@@ -42,17 +42,16 @@ const HomeScreen = ({navigation}) => {
 
   // console.log('cccc',onBoardinData);
   const renderItem = useCallback((item) => {
-    console.log('123asd12 ',item[0].adPhotos)
     return (
       <HomeCard
-        userName={`${item[0]?.userDetail?.name}`}
-        image={appendImageUrl(item[0].adPhotos[0])}
-        profile={appendImageUrl(item[0].userDetail.profilePicture)}
-        bath={`${item[0]?.bathrooms} Baths`}
-        Beds={`${item[0]?.rooms} Rooms`}
-        locationText={`${item[0]?.location}`}
+        userName={`${item?.userDetail?.name}`}
+        image={appendImageUrl(item?.photos[0])}
+        profile={appendImageUrl(item?.userDetail.profilePicture)}
+        bath={`${item?.bathrooms} Baths`}
+        Beds={`${item?.rooms} Rooms`}
+        locationText={`${item?.location}`}
         forRent={'For Rent'}
-        price={  `$ ${item[0]?.price}`
+        price={`$ ${item?.price}`
         }
         duration={'month'}
       />
@@ -60,7 +59,7 @@ const HomeScreen = ({navigation}) => {
   }, []);
 
   return (
-    <View style={{paddingTop: Platform.OS == 'ios' ? hp('3') : hp('0')}}>
+    <View style={{ paddingTop: Platform.OS == 'ios' ? hp('3') : hp('0') }}>
       <View style={styles.searchBarMain}>
         <View style={styles.searchMain}>
           <Image style={styles.search} source={search} />
@@ -85,32 +84,32 @@ const HomeScreen = ({navigation}) => {
       </View>
       <View style={styles.cardMainView}>
         {onBoardinData.length > 0 && (
-        <Swiper
-          cards={onBoardinData }
-          useViewOverflow={true}
-          cardVerticalMargin={0}
-          cardHorizontalMargin={0}
-          marginBottom={0}
-          renderCard={renderItem}
-          onSwipedLeft={ca => {
-            successMessage('You cancel this property');
-          }}
-          onSwipedRight={ca => {
-            successMessage('You like this property');
-          }}
-          onSwipedTop={ca => {
-            console.log('callllllll',ca);
-            goToDetails(ca);
-          }}
-          onSwipedBottom={ca => {
-            successMessage('This property has been added to favourite ');
-          }}
-          cardIndex={0}
-          containerStyle={{
-            backgroundColor: 'transparent',
-          }}
-          stackSize={2}
-        />
+          <Swiper
+            cards={onBoardinData}
+            useViewOverflow={true}
+            cardVerticalMargin={0}
+            cardHorizontalMargin={0}
+            marginBottom={0}
+            renderCard={renderItem}
+            onSwipedLeft={ca => {
+              successMessage('You cancel this property');
+            }}
+            onSwipedRight={ca => {
+              successMessage('You like this property');
+            }}
+            onSwipedTop={ca => {
+              console.log('callllllll', ca);
+              goToDetails(ca);
+            }}
+            onSwipedBottom={ca => {
+              successMessage('This property has been added to favourite ');
+            }}
+            cardIndex={0}
+            containerStyle={{
+              backgroundColor: 'transparent',
+            }}
+            stackSize={2}
+          />
         )}
       </View>
     </View>

@@ -1,10 +1,10 @@
 import React from 'react';
-import {StyleSheet, Text, Image, View, Platform} from 'react-native';
-import {TextComponent} from './TextComponent';
-import {Touchable} from './Touchable';
-import {arrowback} from '../Assests';
-import {hp, wp} from '../Config/responsive';
-import {Colors} from '../Theme/Variables';
+import { StyleSheet, Text, Image, View, Platform } from 'react-native';
+import { TextComponent } from './TextComponent';
+import { Touchable } from './Touchable';
+import { arrowback } from '../Assests';
+import { hp, wp } from '../Config/responsive';
+import { Colors } from '../Theme/Variables';
 
 const NotificationHeader = ({
   headerTitle,
@@ -19,7 +19,7 @@ const NotificationHeader = ({
   onSave,
 }) => {
   return (
-    <View style={[styles.TopHeader, {...style}]}>
+    <View style={[styles.TopHeader, { ...style }]}>
       <View style={styles.HeaderLeft}>
         <Touchable onPress={goBack} style={styles.backMain}>
           <Image
@@ -32,7 +32,7 @@ const NotificationHeader = ({
           <TextComponent
             text={backText}
             onPress={goBack}
-            styles={{...styles.backBtn, ...backTextStyle}}
+            styles={{ ...styles.backBtn, ...backTextStyle }}
           />
         </Touchable>
       </View>
@@ -50,7 +50,7 @@ const NotificationHeader = ({
           />
           <TextComponent
             text={saveReset}
-            styles={{...styles.backBtn, ...saveResetStyle}}
+            styles={{ ...styles.backBtn, ...saveResetStyle }}
             onPress={onSave}
           />
         </Touchable>

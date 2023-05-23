@@ -1,5 +1,5 @@
 import React from 'react';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as Screens from '../Screens/index';
 import useReduxStore from '../Hooks/UseReduxStore';
 import MybottomTabs from './bottomNavigation';
@@ -7,9 +7,9 @@ import MybottomTabs from './bottomNavigation';
 const Stack = createNativeStackNavigator();
 
 const StackNavigatior = () => {
-  const {getState} = useReduxStore();
-  const {onboarding} = getState('onboarding');
-  const {token} = getState('Auth');
+  const { getState } = useReduxStore();
+  const { onboarding } = getState('onboarding');
+  const { token } = getState('Auth');
   console.log('AIUth token', token);
   return (
     <Stack.Navigator
@@ -36,6 +36,7 @@ const StackNavigatior = () => {
       )}
       {token != '' && (
         <>
+
           <Stack.Screen name="MybottomTabs" component={MybottomTabs} />
           <Stack.Screen name="ChatScreen" component={Screens.ChatScreen} />
           <Stack.Screen
@@ -56,6 +57,8 @@ const StackNavigatior = () => {
             component={Screens.AccountScreen}
           />
           <Stack.Screen name="FilterScreen" component={Screens.FilterScreen} />
+          <Stack.Screen name="LocationScreen" component={Screens.LocationScreen} />
+
           <Stack.Screen
             name="GeneralScreen"
             component={Screens.GeneralScreen}

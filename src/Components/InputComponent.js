@@ -1,10 +1,10 @@
-import React, {useState} from 'react';
-import {View, Text, TextInput, StyleSheet, Image} from 'react-native';
-import {Controller} from 'react-hook-form';
-import {Colors} from '../Theme/Variables';
-import {Touchable} from './Touchable';
-import {hp, wp} from '../Config/responsive';
-import {eye, eyeOff} from '../Assests';
+import React, { useState } from 'react';
+import { View, Text, TextInput, StyleSheet, Image } from 'react-native';
+import { Controller } from 'react-hook-form';
+import { Colors } from '../Theme/Variables';
+import { Touchable } from './Touchable';
+import { hp, wp } from '../Config/responsive';
+import { eye, eyeOff } from '../Assests';
 
 export const InputComponent = ({
   minLength,
@@ -36,8 +36,8 @@ export const InputComponent = ({
   return (
     <>
       <Controller
-        render={({field: {onChange, value}}) => (
-          <View style={{...styles.textfield, ...viewStyle}}>
+        render={({ field: { onChange, value } }) => (
+          <View style={{ ...styles.textfield, ...viewStyle }}>
             {isImage && (
               <Image
                 source={isImage}
@@ -51,7 +51,7 @@ export const InputComponent = ({
             <TextInput
               type={type}
               maxLength={maxLength}
-              style={{...forPasswordStyle}}
+              style={{ ...forPasswordStyle }}
               numberOfLines={inputLines}
               multiline={multiline}
               {...{
@@ -60,7 +60,7 @@ export const InputComponent = ({
                 selectionColor: Colors.gray,
                 placeholder,
                 keyboardType,
-                style: {...styles.input(isSecure), ...textStyle},
+                style: { ...styles.input(isSecure), ...textStyle },
                 secureTextEntry: !show,
                 onChangeText: onChange,
                 placeholderTextColor: Colors.gray,
@@ -88,7 +88,7 @@ export const InputComponent = ({
           name,
           control,
           defaultValue,
-          rules: {required: Boolean(isRequired), minLength},
+          rules: { required: Boolean(isRequired), minLength },
         }}
       />
       {errors[name]?.message && (
