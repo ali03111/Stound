@@ -79,7 +79,8 @@ const styles = StyleSheet.create({
   },
   HeaderTitle: {
     fontSize: hp('2.6'),
-    color: Colors.black,
+    color: Colors.primaryTextColor,
+
     fontWeight: 'bold',
   },
   HeaderLeft: {

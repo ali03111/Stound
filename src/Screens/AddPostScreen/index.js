@@ -42,6 +42,8 @@ import SwitchSelector from 'react-native-switch-selector';
 
 
 const AddPostScreen = ({ navigation }) => {
+
+
   const [selectedLanguage, setSelectedLanguage] = useState();
   const options = [
     { label: 'Rent', value: 'Rent' },
@@ -65,8 +67,11 @@ const AddPostScreen = ({ navigation }) => {
     rooms,
     bathRoom,
     cat,
+    recentLocation,
+    location,
+    sendLocation
   } = useAddPostScreen(navigation);
-
+  console.log("recentLocatio]", recentLocation.length - 1)
   const renderItem = ({ item, index }) => {
     return (
       <FilterAddButton
@@ -198,12 +203,13 @@ const AddPostScreen = ({ navigation }) => {
           </View>
           <TextComponent styles={styles.itemHeading} text={'Location '} />
           <View style={{ ...styles.addButton, paddingHorizontal: wp('3') }}>
+            {console.log('searchsearch', search)}
             <FilterAddButton
-              onPress={() => navigation.navigate('LocationScreen')}
+              onPress={sendLocation}
               style={styles.locationBtn}
               textStyle={styles.locationBtnText}
               image={search}
-              title={'Search location here...'}
+              title={location == "" ? 'Search location here...' : location}
               imgStyle={styles.locationBtnImg}
             />
           </View>

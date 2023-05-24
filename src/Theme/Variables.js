@@ -1,6 +1,6 @@
-import {Dimensions, Platform, Image, Text} from 'react-native';
-import {CardStyleInterpolators} from '@react-navigation/stack';
-const {width, height} = Dimensions.get('window');
+import { Dimensions, Platform, Image, Text } from 'react-native';
+import { CardStyleInterpolators } from '@react-navigation/stack';
+const { width, height } = Dimensions.get('window');
 
 const Colors = {
   primaryColor: '#0BB4FF',
@@ -88,6 +88,7 @@ const Colors = {
   grayborder: '#292D32',
   redfaded: '#EA4335',
   blue: '#1877F2',
+  primaryTextColor: '#212759'
 };
 
 const NavigationColors = {
