@@ -117,13 +117,13 @@ const Index = ({ navigation, route }) => {
                         <View style={styles.innerRecentContainer}>
                             <FlatList
                                 data={recentLocation}
-
+                                inverted
                                 showsVerticalScrollIndicator={false}
                                 renderItem={({ item }) => {
                                     return (
                                         <>
-                                            <TextComponent styles={styles.recentText} text={item.description} />
                                             <DividerLine />
+                                            <TextComponent styles={styles.recentText} text={item.description} />
                                         </>
 
                                     )
