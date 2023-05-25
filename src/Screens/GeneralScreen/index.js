@@ -24,7 +24,6 @@ const GeneralScreen = ({navigation, route}) => {
         textStyle={styles.innerText(selectedValue, item)}
         onPress={() => selecteValue(item)}
         tintColor={selectedValue.includes(item) ? Colors.white : Colors.black}
-        required={true}
       />
     );
   };

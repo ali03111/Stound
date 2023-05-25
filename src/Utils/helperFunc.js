@@ -8,7 +8,7 @@ import {Platform} from 'react-native';
 
 const API = create({
   baseURL,
-  // timeout: 15000,
+  timeout: 15000,
   //   timeoutErrorMessage: 'Please try Again...',
 });
 

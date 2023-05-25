@@ -46,7 +46,7 @@ const HomeCard = ({
           <View style={styles.cardMain}>
             <View style={styles.cardTopbar}>
               <View style={styles.cardTopLeft}>
-                <Image style={styles.profileImg} source={profile} />
+                <Image style={styles.profileImg} source={{uri: profile}} />
                 <TextComponent text={userName} styles={styles.userName} />
               </View>
               <View style={styles.cardTopRight}>

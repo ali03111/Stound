@@ -7,8 +7,6 @@ import {
   Image,
   TextInput,
   Platform,
-  RefreshControl,
-  ScrollView,
 } from 'react-native';
 import useHomeScreen from './useHomeScreen';
 import {styles} from './styles';
@@ -29,7 +27,6 @@ import {successMessage} from '../../Config/NotificationMessage';
 import {homeCardData} from '../../Utils/localDB';
 import {Colors} from '../../Theme/Variables';
 import {imageUrl} from '../../Utils/Urls';
-import {EmptyViewComp} from '../../Components/EmptyViewComp';
 
 const HomeScreen = ({navigation}) => {
   const [text, onChangeText] = React.useState('');
@@ -45,14 +42,13 @@ const HomeScreen = ({navigation}) => {
     updateFav,
   } = useHomeScreen(navigation);
 
-  console.log('cccc', onBoardinData);
+  // console.log('cccc',onBoardinData);
   const renderItem = useCallback(item => {
-    console.log('item', item);
     return (
       <HomeCard
         userName={`${item?.userDetail?.name}`}
         image={imageUrl(item.photos[0])}
-        profile={profile}
+        profile={imageUrl(item.userDetail.profilePicture)}
         bath={`${item?.bathrooms} Baths`}
         Beds={`${item?.rooms} Rooms`}
         locationText={`${item?.location}`}
@@ -87,14 +83,8 @@ const HomeScreen = ({navigation}) => {
           </Touchable>
         </View>
       </View>
-      <ScrollView
-        scrollEnabled={false}
-        refreshControl={
-          <RefreshControl refreshing={false} onRefresh={onRefresh} />
-        }
-        contentContainerStyle={styles.cardMainView}>
-        {console.log('onBoardinData', onBoardinData)}
-        {onBoardinData.length > 0 ? (
+      <View style={styles.cardMainView}>
+        {onBoardinData.length > 0 && (
           <Swiper
             cards={onBoardinData}
             useViewOverflow={true}
@@ -123,10 +113,8 @@ const HomeScreen = ({navigation}) => {
             }}
             stackSize={2}
           />
-        ) : (
-          <EmptyViewComp />
         )}
-      </ScrollView>
+      </View>
     </View>
   );
 };

@@ -1,5 +1,7 @@
 import {useEffect, useState} from 'react';
 import {Dimensions} from 'react-native';
+// import useReduxStore from '../../Hooks/useReduxStore';
+// import {types} from '../../Redux/types';
 import API from '../../Utils/helperFunc';
 import {getAdsUrl, updateFavUrl} from '../../Utils/Urls';
 import {errorMessage, successMessage} from '../../Config/NotificationMessage';
@@ -21,10 +23,9 @@ const useHomeScreen = ({navigate, params, addListener}) => {
     navigate('PackageDetailsScreen', {items: homeData[index]});
 
   const getHomeData = async () => {
-    const {ok, originalError, data} = await API.get(getAdsUrl);
-    // console.log('sasd', ok, originalError, data);
+    const {ok, data, originalError} = await API.get(getAdsUrl);
     if (ok) setHomeData(data?.data);
-    else errorMessage(originalError.message.split(' ').slice(1).join(' '));
+    else errorMessage(originalError);
   };
 
   const useEffectFun = () => {

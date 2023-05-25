@@ -21,16 +21,22 @@
 	<key>STORAGE_BUCKET</key>
 	<string>stound-adfdb.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
-	<false></false>
+	<false/>
 	<key>IS_ANALYTICS_ENABLED</key>
-	<false></false>
+	<false/>
 	<key>IS_APPINVITE_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>IS_GCM_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>IS_SIGNIN_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>GOOGLE_APP_ID</key>
 	<string>1:925607838451:ios:0796183a07ef954fda6d86</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Ask The Permission Current Location</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Ask The Permission Current Location</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Ask The Permission Current Location</string>
 </dict>
 </plist>

@@ -44,7 +44,10 @@ import {imageUrl} from '../../Utils/Urls';
 
 const AddPostScreen = ({navigation}) => {
   const [selectedLanguage, setSelectedLanguage] = useState();
-
+  const options = [
+    {label: 'Rent', value: 'Rent'},
+    {label: 'Buy  ', value: 'Buy'},
+  ];
   const {
     handleSubmit,
     reset,
@@ -64,7 +67,9 @@ const AddPostScreen = ({navigation}) => {
     rooms,
     bathRoom,
     cat,
-    options,
+    recentLocation,
+    location,
+    sendLocation,
   } = useAddPostScreen(navigation);
 
   const renderItem = ({item, index}) => {
@@ -97,6 +102,7 @@ const AddPostScreen = ({navigation}) => {
             <FilterAddButton
               style={styles.filterButton}
               image={addcircle}
+              isRequired={true}
               title={'add'}
               onPress={onPress}
             />
@@ -204,10 +210,12 @@ const AddPostScreen = ({navigation}) => {
           <TextComponent styles={styles.itemHeading} text={'Location '} />
           <View style={{...styles.addButton, paddingHorizontal: wp('3')}}>
             <FilterAddButton
+              onPress={sendLocation}
               style={styles.locationBtn}
               textStyle={styles.locationBtnText}
               image={search}
-              title={'Search location here...'}
+              isRequired={true}
+              title={location == '' ? 'Search location here...' : location}
               imgStyle={styles.locationBtnImg}
             />
           </View>

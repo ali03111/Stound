@@ -7,6 +7,7 @@ import FavouriteComp from '../../Components/FavouriteComponent';
 import Header from '../../Components/Header';
 import {hp} from '../../Config/responsive';
 import {imageUrl} from '../../Utils/Urls';
+import {EmptyViewComp} from '../../Components/EmptyViewComp';
 
 const FavouriteScreen = ({navigation}) => {
   const [selectedLanguage, setSelectedLanguage] = useState();
@@ -43,6 +44,15 @@ const FavouriteScreen = ({navigation}) => {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{paddingBottom: hp('6')}}
         onRefresh={getFav}
+        ListEmptyComponent={
+          <View
+            style={{
+              justifyContent: 'center',
+              height: hp('80'),
+            }}>
+            <EmptyViewComp onRefresh={getFav} />
+          </View>
+        }
       />
     </View>
   );

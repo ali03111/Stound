@@ -164,7 +164,6 @@ const PackageDetailsScreen = ({navigation, route}) => {
                         title={item?.name}
                         image={imageUrl(item.image)}
                         style={styles.btn}
-                        required={true}
                       />
                     );
                   })}
@@ -210,7 +209,6 @@ const PackageDetailsScreen = ({navigation, route}) => {
                         title={item?.name}
                         image={imageUrl(item.image)}
                         style={styles.btn}
-                        required={true}
                       />
                     );
                   })}

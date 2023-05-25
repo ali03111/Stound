@@ -8,7 +8,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
     paddingHorizontal: wp('3'),
     paddingVertical: hp('1'),
-    paddingTop: hp('3.5'),
+    paddingTop:hp('3.5')
   },
   searchMain: {
     flexDirection: 'row',
@@ -57,11 +57,11 @@ export const styles = StyleSheet.create({
     height: hp('10'),
   },
   cardMainView: {
-    // flex: 1,
+    flex: 1,
     width: wp('100'),
     justifyContent: 'center',
     alignItems: 'center',
     paddingTop: hp('-10'),
-    height: hp('100'),
+    height: hp('21'),
   },
 });

@@ -16,7 +16,7 @@ import {
   updateUser,
 } from '../Action/AuthAction';
 import {loadingFalse, loadingTrue} from '../Action/isloadingAction';
-import {errorMessage, successMessage} from '../../Config/NotificationMessage';
+import {errorMessage} from '../../Config/NotificationMessage';
 import {loginUrl} from '../../Utils/Urls';
 import {
   getFbResult,

@@ -14,7 +14,7 @@ const FilterAddButton = ({
   imgStyle,
   disabledValue,
   tintColor,
-  required,
+  isRequired,
 }) => {
   return (
     // <ShadowButton>
@@ -29,7 +29,7 @@ const FilterAddButton = ({
       {image && (
         <Image
           tintColor={tintColor}
-          source={required ? {uri: image} : image}
+          source={isRequired ? image : {uri: image}}
           style={[styles.image, {...imgStyle}]}
         />
       )}

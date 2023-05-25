@@ -4,10 +4,14 @@ import {createAdsUrl, getPreUrl} from '../../Utils/Urls';
 import API, {formDataFunc} from '../../Utils/helperFunc';
 import {errorMessage, successMessage} from '../../Config/NotificationMessage';
 import {launchImageLibrary} from 'react-native-image-picker';
+import useReduxStore from '../../Hooks/UseReduxStore';
 
 const {default: Schemas} = require('../../Utils/Validation');
 
 const useAddPostScreen = ({navigate}) => {
+  const {dispatch, getState} = useReduxStore();
+
+  const {recentLocation} = getState('recentlocation');
   const {handleSubmit, errors, reset, control, getValues} = useFormHook(
     Schemas.addPost,
   );
@@ -26,17 +30,19 @@ const useAddPostScreen = ({navigate}) => {
     rooms: null,
     bathRoom: null,
     images: [],
-    type: options[0].value,
+    type: '',
+    location: '',
   });
 
-  const {gp, ip, op, bathRoom, rooms, cat, images, type} = preferencesVal;
+  const {gp, ip, op, bathRoom, rooms, cat, images, type, location} =
+    preferencesVal;
 
   const updateState = data => setPreferencesVal(prev => ({...prev, ...data}));
 
   const getPreferences = async () => {
     const {ok, data, originalError} = await API.get(getPreUrl);
     if (ok) setPreferencesData(data);
-    else errorMessage(originalError.message.split(' ').slice(1).join(' '));
+    else errorMessage(originalError);
   };
 
   const onSelecteTag = (item, key) => {
@@ -67,7 +73,6 @@ const useAddPostScreen = ({navigate}) => {
   const dynamicNav = data => navigate('GeneralScreen', {...data, onSelecteTag});
 
   const getAllID = data => {
-    console.log('ALl data ', data);
     const newArry = [];
     data.map(res => newArry.push(res.id));
     return newArry;
@@ -90,14 +95,14 @@ const useAddPostScreen = ({navigate}) => {
         description: desc,
         rooms: rooms,
         bathrooms: bathRoom,
-        location: 'sjkdbjksb',
+        location,
         generalPref: getAllID(gp),
         insidePref: getAllID(ip),
         outsidePref: getAllID(op),
         category: cat,
         photos: images,
         price: number,
-        adType: type,
+        type,
       };
       Object.entries(body).forEach(([key, val]) => {
         if (key === 'photos' && Array.isArray(val)) {
@@ -126,13 +131,13 @@ const useAddPostScreen = ({navigate}) => {
           cat: null,
           rooms: null,
           bathRoom: null,
-          type: options[0].value,
+          location: '',
         });
         reset();
-        successMessage(data?.message);
+        successMessage(data?.message || 'Your Ad has been created ');
       } else {
         console.log('dfdf', originalError);
-        errorMessage(originalError.message.split(' ').slice(1).join(' '));
+        errorMessage(originalError?.message?.split(' ')?.slice(1)?.join(' '));
       }
     } else {
       errorMessage('please comeplete all fields');
@@ -143,6 +148,14 @@ const useAddPostScreen = ({navigate}) => {
     getPreferences();
   };
 
+  const getLocation = data => {
+    updateState({location: data});
+
+    console.log(data);
+  };
+  const sendLocation = () => {
+    navigate('LocationScreen', {getLocation});
+  };
   useEffect(useEffectFun, []);
 
   return {
@@ -166,6 +179,9 @@ const useAddPostScreen = ({navigate}) => {
     images,
     options,
     onRefresh: getPreferences,
+    recentLocation,
+    sendLocation,
+    location,
     // goBack,
   };
 };

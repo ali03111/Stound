@@ -9,4 +9,6 @@ export const types = {
   UpdateUser: 'UpdateUser',
   UpdateAuth: 'UpdateAuth',
   RegisterUser: 'RegisterUser',
+  RecentLocation: 'RecentLocation',
+  SetRecentLocation: 'SetRecentLocation',
 };
