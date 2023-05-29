@@ -46,7 +46,11 @@ const HomeCard = ({
           <View style={styles.cardMain}>
             <View style={styles.cardTopbar}>
               <View style={styles.cardTopLeft}>
-                <Image style={styles.profileImg} source={{uri: profile}} />
+                <BlurImage
+                  styles={styles.profileImg}
+                  radius={60}
+                  uri={profile}
+                />
                 <TextComponent text={userName} styles={styles.userName} />
               </View>
               <View style={styles.cardTopRight}>
@@ -121,13 +125,15 @@ const styles = StyleSheet.create({
     width: wp('12'),
     height: hp('6'),
     borderRadius: 60,
-    marginRight: wp('2'),
+    // marginRight: wp('3'),
+    aspectRatio: 1,
   },
   userName: {
     color: 'white',
     fontSize: 18,
     fontWeight: '500',
     width: wp('25'),
+    marginLeft: wp('2'),
   },
   bath: {
     color: 'white',

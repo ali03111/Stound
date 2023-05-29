@@ -18,9 +18,9 @@ export const styles = StyleSheet.create({
     textAlign: 'left',
   },
   iconLeft: {
-    height:hp('4'),
-    width:wp('6'),
-    marginHorizontal:wp('4.5'),
+    height: hp('4'),
+    width: wp('6'),
+    marginHorizontal: wp('4.5'),
     // flex: 0.3,
     resizeMode: 'contain',
   },
@@ -29,7 +29,7 @@ export const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   logOutText: {
-    flex: 2.3,
+    flex: 2,
     textAlign: 'left',
   },
   logOutIcon: {
@@ -41,9 +41,9 @@ export const styles = StyleSheet.create({
     textAlign: 'left',
   },
   deActivateAccIcon: {
-    height:hp('4'),
-    width:wp('6'),
-    marginHorizontal:wp('4.5'),
+    height: hp('4'),
+    width: wp('6'),
+    marginHorizontal: wp('4.5'),
     // flex: 0.3,
     resizeMode: 'contain',
   },
@@ -111,10 +111,10 @@ export const styles = StyleSheet.create({
     resizeMode: 'contain',
     paddingRight: wp('3'),
   },
-  coin:{
-    height:hp('4'),
-    width:wp('6'),
-    marginHorizontal:wp('2'),
+  coin: {
+    height: hp('4'),
+    width: wp('6'),
+    marginHorizontal: wp('2'),
     // flex: 0.3,
     resizeMode: 'contain',
   },

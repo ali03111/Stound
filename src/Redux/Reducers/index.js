@@ -1,13 +1,14 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { configureStore } from '@reduxjs/toolkit';
-import { persistStore, persistReducer } from 'redux-persist';
+import {configureStore} from '@reduxjs/toolkit';
+import {persistStore, persistReducer} from 'redux-persist';
 import AuthReducer from './AuthReducer';
 import loadingReducer from './loadingReducer';
 import onboardingReducer from './onboardingReducer';
 import createSagaMiddleware from 'redux-saga';
 import mySaga from './../Sagas/index';
-import { createStore, applyMiddleware, combineReducers } from 'redux';
+import {createStore, applyMiddleware, combineReducers} from 'redux';
 import RecentLocationReducer from './RecentLocationReducer';
+import questionReducer from './questionReducer';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -23,11 +24,10 @@ const AuthPersistConfig = {
   whitelist: ['userData', 'token'],
 };
 
-
 const LocationPersistConfig = {
   key: 'recentlocation',
   storage: AsyncStorage,
-  whitelist: 'recentLocation'
+  whitelist: 'recentLocation',
 };
 
 const reducers = {
@@ -35,10 +35,9 @@ const reducers = {
   Auth: persistReducer(AuthPersistConfig, AuthReducer),
   recentlocation: persistReducer(LocationPersistConfig, RecentLocationReducer),
   isloading: loadingReducer,
+  isQuestion: questionReducer,
   // sagas: applyMiddleware(sagaMiddleware),
 };
-
-
 
 export const store = createStore(
   combineReducers(reducers),

@@ -58,6 +58,7 @@ export const styles = StyleSheet.create({
     color: 'gray',
     marginLeft: wp('2'),
     fontSize: hp('1.9'),
+    width: wp('83'),
   },
   title: {
     flex: 0.8,
@@ -65,7 +66,7 @@ export const styles = StyleSheet.create({
     fontSize: hp('2.5'),
   },
   forRent: {
-    flex: 0.2,
+    flex: 0.3,
     fontWeight: 'bold',
     fontSize: hp('1.8'),
     textAlign: 'right',
@@ -117,10 +118,11 @@ export const styles = StyleSheet.create({
     marginBottom: hp('2'),
   },
   accProfile: {
-    flex: 0.3,
+    // flex: 0.3,
   },
   profileData: {
     flex: 1,
+    marginLeft: wp('1'),
   },
   accChat: {
     flex: 0.1,
@@ -141,7 +143,8 @@ export const styles = StyleSheet.create({
     width: wp('15'),
     height: hp('7.2'),
     borderRadius: 7,
-    overflow: 'hidden',
+    // overflow: 'hidden',
+    aspectRatio: 1,
   },
   priceMain: {
     flexDirection: 'row',
@@ -163,7 +166,7 @@ export const styles = StyleSheet.create({
   price: {
     color: Colors.primaryColor,
     fontSize: hp('2.5'),
-    fontWeight: "600",
+    fontWeight: '600',
   },
   priceText: {
     color: 'black',

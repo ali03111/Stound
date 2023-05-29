@@ -34,7 +34,6 @@ const useEditProfileScreen = ({navigate, goBack}) => {
       {
         selectionLimit: 1,
         mediaType: 'photo',
-        quality: 0.5,
         maxWidth: 300,
         maxHeight: 300,
       },

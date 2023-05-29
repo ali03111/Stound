@@ -6466,6 +6466,11 @@ react-native-paper@^5.3.1:
     color "^3.1.2"
     use-event-callback "^0.1.0"
 
+react-native-radio-buttons-group@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/react-native-radio-buttons-group/-/react-native-radio-buttons-group-3.0.1.tgz#d78edf90e67c99394da674129f93da4a3dd467be"
+  integrity sha512-F54i/tt5+BUoZwwbo+9zCf4tKGz9KahcH5g6P+bLwkWC0BC07da5cwGU+8Akru981HaMzx6f7Jgl3ZAhR1Fd4Q==
+
 react-native-responsive-screen@^1.4.2:
   version "1.4.2"
   resolved "https://registry.yarnpkg.com/react-native-responsive-screen/-/react-native-responsive-screen-1.4.2.tgz#45280826d24f9accbfdf46a36cb8e6d780f76f28"

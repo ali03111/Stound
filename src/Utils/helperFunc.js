@@ -1,10 +1,10 @@
 import {create} from 'apisauce';
 // import {store} from '@/store/store';
-import {logOutUser, updateAuth} from '@/store/actions/auth-action';
 import {baseURL, createAdsUrl} from './Urls';
 import {store} from '../Redux/Reducers';
 import {loadingFalse, loadingTrue} from '../Redux/Action/isloadingAction';
 import {Platform} from 'react-native';
+import {logOutUser} from '../Redux/Action/AuthAction';
 
 const API = create({
   baseURL,
@@ -33,10 +33,15 @@ API.addRequestTransform(config => {
 
 API.addResponseTransform(response => {
   setTimeout(() => store.dispatch(loadingFalse()), 500);
-  if (response?.originalError?.message == 'Request failed with status code 401')
-    // store.dispatch(logOutUser());
+  const {Auth} = store.getState();
+  console.log('response?.originalError?.message', response?.originalError);
+  if (
+    response?.originalError?.message == 'Request failed with status code 401' &&
+    Auth.token != ''
+  )
+    store.dispatch(logOutUser());
 
-    return response;
+  return response;
 });
 
 const {get} = API;
@@ -44,9 +49,9 @@ const {get} = API;
 //^ altering the get()
 API.get = async (url, params, axiosConfig) => {
   const response = await get(url, params, axiosConfig);
-  if (response.ok) {
-    return response;
-  }
+  // if (response.ok) {
+  return response;
+  // }
 };
 
 const formDataFunc = (url, body) => {

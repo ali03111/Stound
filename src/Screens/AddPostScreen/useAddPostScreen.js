@@ -30,7 +30,7 @@ const useAddPostScreen = ({navigate}) => {
     rooms: null,
     bathRoom: null,
     images: [],
-    type: '',
+    type: options[0].value,
     location: '',
   });
 
@@ -102,7 +102,7 @@ const useAddPostScreen = ({navigate}) => {
         category: cat,
         photos: images,
         price: number,
-        type,
+        adType: type,
       };
       Object.entries(body).forEach(([key, val]) => {
         if (key === 'photos' && Array.isArray(val)) {
@@ -118,7 +118,7 @@ const useAddPostScreen = ({navigate}) => {
         }
       });
 
-      const {ok, data, status, originalError} = await API.post(
+      const {ok, data, status, originalError, problem} = await API.post(
         createAdsUrl,
         formData,
       );
@@ -136,7 +136,7 @@ const useAddPostScreen = ({navigate}) => {
         reset();
         successMessage(data?.message || 'Your Ad has been created ');
       } else {
-        console.log('dfdf', originalError);
+        console.log('dfdf', originalError, status, problem, data?.message);
         errorMessage(originalError?.message?.split(' ')?.slice(1)?.join(' '));
       }
     } else {

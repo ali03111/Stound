@@ -11,6 +11,9 @@ const registerService = param => API.post(registerUrl, param);
 
 const logoutService = async () => await API.get(logoutUrl);
 
+const randomService = async ({url, params}) =>
+  await API.post(url, {answer: params});
+
 const updateProfileServices = async params => {
   console.log('params ========>>>>', params);
   const formData = new FormData();
@@ -23,7 +26,9 @@ const updateProfileServices = async params => {
       });
     else formData.append(key, val);
   });
-  return await API.put(updateUserUrl, formData);
+  return await API.post(updateUserUrl, formData, {
+    maxBodyLength: 'infinite',
+  });
 };
 const logOutFirebase = () => auth().signOut();
 
@@ -34,4 +39,5 @@ export {
   registerService,
   logoutService,
   updateProfileServices,
+  randomService,
 };

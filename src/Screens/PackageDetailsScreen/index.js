@@ -103,7 +103,11 @@ const PackageDetailsScreen = ({navigation, route}) => {
         </View>
         <View style={styles.locationMain}>
           <Image source={locationBlueIcon} />
-          <TextComponent text={location} styles={styles.locationText} />
+          <TextComponent
+            text={location}
+            numberOfLines={2}
+            styles={styles.locationText}
+          />
         </View>
         <TextComponent
           text={'Property Details'}
@@ -122,15 +126,13 @@ const PackageDetailsScreen = ({navigation, route}) => {
               </CollapseHeader>
               <CollapseBody>
                 <View style={styles.profileDetails}>
-                  <View style={styles.accProfile}>
-                    <BlurImage
-                      uri={
-                        imageUrl(userDetail.profilePicture) ??
-                        userDetail.profilePicture
-                      }
-                      styles={styles.accProfileImg}
-                    />
-                  </View>
+                  <BlurImage
+                    uri={
+                      imageUrl(userDetail.profilePicture) ??
+                      userDetail.profilePicture
+                    }
+                    styles={styles.accProfileImg}
+                  />
                   <View style={styles.profileData}>
                     <TextComponent
                       text={userDetail?.name}

@@ -16,7 +16,7 @@ import {
   updateUser,
 } from '../Action/AuthAction';
 import {loadingFalse, loadingTrue} from '../Action/isloadingAction';
-import {errorMessage} from '../../Config/NotificationMessage';
+import {errorMessage, successMessage} from '../../Config/NotificationMessage';
 import {loginUrl} from '../../Utils/Urls';
 import {
   getFbResult,
@@ -90,9 +90,11 @@ function* registerSaga({payload: {datas}}) {
 
 function* logOutSaga(action) {
   try {
+    yield put({type: types.CleanRecentLocation});
     yield call(logoutService);
     yield call(logOutFirebase);
     yield put({type: types.LogoutType});
+    console.log('okokok');
   } catch (error) {
     errorMessage(error.message.split(' ').slice(1).join(' '));
   } finally {
@@ -104,8 +106,11 @@ function* updateProfileSaga({payload: profileData}) {
   yield put(loadingTrue());
   try {
     // console.log('dbnjdf', profileData);
-    const {ok, data} = yield call(updateProfileServices, profileData);
-    console.log('user', data);
+    const {ok, data, originalError} = yield call(
+      updateProfileServices,
+      profileData,
+    );
+    console.log('user', originalError, data);
     if (ok) {
       yield put({type: types.UpdateProfile, payload: data.data});
       successMessage('Your profile has been updated');

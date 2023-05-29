@@ -9,7 +9,7 @@ import {
 
 const useSocialLoginScreen = ({navigate}) => {
   const contWithEmail = () => {
-    navigate('LoginScreen');
+    navigate('RegisteScreen');
   };
   const {dispatch} = useReduxStore();
 

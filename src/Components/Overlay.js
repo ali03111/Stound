@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, ActivityIndicator} from 'react-native';
 
-const Overlay = () => (
+const Overlay = ({childern}) => (
   <View
     style={{
       width: '100%',
@@ -12,7 +12,7 @@ const Overlay = () => (
       alignItems: 'center',
       backgroundColor: 'rgba(0,0,0,0.4)',
     }}>
-    <ActivityIndicator size={'large'} color="#fff" />
+    {childern ? childern : <ActivityIndicator size={'large'} color="#fff" />}
   </View>
 );
 

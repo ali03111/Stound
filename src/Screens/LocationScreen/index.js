@@ -140,7 +140,7 @@ const Index = ({navigation, route}) => {
                         onPress={() => setSelectedLocation(item.description)}>
                         <TextComponent
                           styles={styles.recentText}
-                          text={item.description}
+                          text={item?.description}
                         />
                         <DividerLine />
                       </Touchable>

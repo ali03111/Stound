@@ -32,3 +32,4 @@ export const getAdsUrl = 'get-ads';
 export const createAdsUrl = 'create-ad';
 export const getfavouritesUrl = 'get-favourites';
 export const updateFavUrl = 'update-favourites/';
+export const addQuesUrl = '/add-question';

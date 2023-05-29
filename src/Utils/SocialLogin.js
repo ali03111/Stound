@@ -109,13 +109,6 @@ export const appleIdlogin = async () => {
 // };
 
 export const googleLogin = async () => {
-  GoogleSignin.configure({
-    webClientId:
-      // '925607838451-8qg5h8k6rsvvhkahp97c3aj3kkc50m9g.apps.googleusercontent.com',
-      '925607838451-2cbsfsq0oenaj93jdivbnm7k8qhv4emu.apps.googleusercontent.com',
-    // '925607838451-2cbsfsq0oenaj93jdivbnm7k8qhv4emu.apps.googleusercontent.com',
-  });
-
   const logOutWithGoogle = async () => {
     await GoogleSignin.revokeAccess();
     await GoogleSignin.signOut();

@@ -52,7 +52,11 @@ const FavouriteComp = ({
               <View style={styles.cardTopLeft}>
                 <TextComponent text={title} styles={styles.userName} />
               </View>
-              <View style={{flexDirection: 'row', alignItems: 'baseline'}}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'baseline',
+                }}>
                 <TextComponent text={price} styles={styles.price} />
                 <TextComponent text={duration} styles={styles.month} />
               </View>
@@ -124,6 +128,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     borderRadius: 10,
     height: hp('40'),
+    width: wp('95'),
   },
   cardMain: {
     justifyContent: 'flex-end',
@@ -175,6 +180,7 @@ const styles = StyleSheet.create({
     color: 'white',
     marginLeft: wp('3'),
     fontSize: hp('2'),
+    width: wp('80'),
   },
   cardFooter: {
     flexDirection: 'row',
