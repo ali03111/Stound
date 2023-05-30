@@ -137,7 +137,7 @@ const RegisterScreen = ({navigation}) => {
           />
           <TextComponent
             onPress={register}
-            text={'Sign In'}
+            text={'Log In'}
             styles={{color: Colors.primaryColor}}
           />
         </View>

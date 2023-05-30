@@ -6,24 +6,30 @@ import {TextComponent} from '../../Components/TextComponent';
 import FavouriteComp from '../../Components/FavouriteComponent';
 import Header from '../../Components/Header';
 import {hp} from '../../Config/responsive';
+import {imageUrl} from '../../Utils/Urls';
+import {EmptyViewComp} from '../../Components/EmptyViewComp';
 
 const FavouriteScreen = ({navigation}) => {
   const [selectedLanguage, setSelectedLanguage] = useState();
-  const {onPress,onFavouriteData} = useFavourateScreen(navigation);
-  const renderItem = useCallback((item) => {
-    // console.log("121321312231",item.item.adDetail)
+  const {favouriteData, onPress, favData, getFav, updateFav} =
+    useFavourateScreen(navigation);
+
+  console.log('favData', favData);
+
+  const renderItem = useCallback(({item}) => {
     return (
       <View>
         <FavouriteComp
-          backgroundImage={item.item.adDetail.backgroundImage}
-          title={item.item.adDetail[0].title}
-          locationText={item.item.adDetail.description}
-          price={item.item.adDetail.price}
-          duration={item.item.adDetail.duration}
-          beds={item.item.adDetail.beds}
-          baths={item.item.adDetail.baths}
-          size={item.item.adDetail.size}
-          onPress={onPress}
+          backgroundImage={imageUrl(item?.photos[0])}
+          title={item?.title}
+          locationText={item?.location}
+          price={item?.price}
+          duration={item?.duration}
+          beds={item?.rooms}
+          baths={item?.bathrooms}
+          size={item?.size}
+          onPress={() => onPress(item)}
+          onFav={() => updateFav(item)}
         />
       </View>
     );
@@ -33,10 +39,20 @@ const FavouriteScreen = ({navigation}) => {
       <Header styles={styles.topHeader} headerTitle={'Favourite'} />
       <FlatList
         refreshing={false}
-        data={onFavouriteData}
+        data={favouriteData}
         renderItem={renderItem}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{paddingBottom: hp('6')}}
+        onRefresh={getFav}
+        ListEmptyComponent={
+          <View
+            style={{
+              justifyContent: 'center',
+              height: hp('80'),
+            }}>
+            <EmptyViewComp onRefresh={getFav} />
+          </View>
+        }
       />
     </View>
   );

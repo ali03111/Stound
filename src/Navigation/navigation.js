@@ -10,7 +10,7 @@ const StackNavigatior = () => {
   const { getState } = useReduxStore();
   const { onboarding } = getState('onboarding');
   const { token } = getState('Auth');
-  console.log('AIUth token', token);
+  // console.log('AIUth token', token);
   return (
     <Stack.Navigator
       screenOptions={{
@@ -36,7 +36,6 @@ const StackNavigatior = () => {
       )}
       {token != '' && (
         <>
-
           <Stack.Screen name="MybottomTabs" component={MybottomTabs} />
           <Stack.Screen name="ChatScreen" component={Screens.ChatScreen} />
           <Stack.Screen
@@ -57,7 +56,10 @@ const StackNavigatior = () => {
             component={Screens.AccountScreen}
           />
           <Stack.Screen name="FilterScreen" component={Screens.FilterScreen} />
-          <Stack.Screen name="LocationScreen" component={Screens.LocationScreen} />
+          <Stack.Screen
+            name="LocationScreen"
+            component={Screens.LocationScreen}
+          />
 
           <Stack.Screen
             name="GeneralScreen"
@@ -78,6 +80,14 @@ const StackNavigatior = () => {
           <Stack.Screen
             name="NotificationScreen"
             component={Screens.NotificationScreen}
+          />
+          <Stack.Screen
+            name="BuyCoinScreen"
+            component={Screens.BuyCoinScreen}
+          />
+          <Stack.Screen
+            name="HeaderDetailScreen"
+            component={Screens.HeaderDetailScreen}
           />
         </>
       )}

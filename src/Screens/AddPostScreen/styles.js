@@ -28,7 +28,7 @@ export const styles = StyleSheet.create({
     borderRadius: 10,
     borderColor: Colors.primaryColor,
     // marginTop: hp('1.5'),
-    marginBottom:hp('1.5')
+    marginBottom: hp('1.5'),
   },
   filterHeader: {
     marginTop: hp('2'),
@@ -80,6 +80,7 @@ export const styles = StyleSheet.create({
   locationBtnText: {
     fontSize: hp('2'),
     color: Colors.grayBackground,
+    width: wp('80'),
   },
   locationBtnImg: {
     width: 22,

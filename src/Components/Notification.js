@@ -1,12 +1,12 @@
-import React, {useState} from 'react';
-import {StyleSheet, Text, Image, View} from 'react-native';
-import {TextComponent} from './TextComponent';
-import {hp, wp} from '../Config/responsive';
-import {Colors} from '../Theme/Variables';
+import React, { useState } from 'react';
+import { StyleSheet, Text, Image, View, Touchable, TouchableOpacity } from 'react-native';
+import { TextComponent } from './TextComponent';
+import { hp, wp } from '../Config/responsive';
+import { Colors } from '../Theme/Variables';
 
-const NotificationComp = ({image, name, description, time}) => {
+const NotificationComp = ({ image, name, description, time, onPress }) => {
   return (
-    <View style={styles.notificationMian}>
+    <TouchableOpacity onPress={onPress} style={styles.notificationMian}>
       <View style={styles.mainBannerImg}>
         <Image style={styles.bannerImg} resizeMode="contain" source={image} />
       </View>
@@ -21,7 +21,7 @@ const NotificationComp = ({image, name, description, time}) => {
         <TextComponent text={time} styles={styles.timing} />
       </View>
       {/* <TextComponent text={item?.description} styles={styles.centerDes} /> */}
-    </View>
+    </TouchableOpacity>
   );
 };
 

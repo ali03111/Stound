@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useState } from 'react';
+import React, {memo, useCallback, useState} from 'react';
 import {
   View,
   FlatList,
@@ -7,12 +7,13 @@ import {
   SafeAreaView,
   Image,
   TextInput,
+  RefreshControl,
 } from 'react-native';
 import useFilterScreen from './useAddPostScreen';
-import { styles } from './styles';
-import { TextComponent } from '../../Components/TextComponent';
+import {styles} from './styles';
+import {TextComponent} from '../../Components/TextComponent';
 import Header from '../../Components/Header';
-import { Picker } from '@react-native-picker/picker';
+import {Picker} from '@react-native-picker/picker';
 import {
   arrowback,
   addcircle,
@@ -29,25 +30,23 @@ import {
   addGalleryImage,
   accessibleforward,
 } from '../../Assests';
-import { Colors } from '../../Theme/Variables';
+import {Colors} from '../../Theme/Variables';
 import FilterAddButton from '../../Components/FilterAddButton';
 import ThemeButtonComp from '../../Components/ThemeButtonComp';
 import Slider from '@react-native-community/slider';
-import { goBack, keyExtractor } from '../../Utils';
-import { InputComponent } from '../../Components/InputComponent';
+import {goBack, keyExtractor} from '../../Utils';
+import {InputComponent} from '../../Components/InputComponent';
 import useAddPostScreen from './useAddPostScreen';
-import { wp } from '../../Config/responsive';
-import { Touchable } from '../../Components/Touchable';
+import {wp} from '../../Config/responsive';
+import {Touchable} from '../../Components/Touchable';
 import SwitchSelector from 'react-native-switch-selector';
+import {imageUrl} from '../../Utils/Urls';
 
-
-const AddPostScreen = ({ navigation }) => {
-
-
+const AddPostScreen = ({navigation}) => {
   const [selectedLanguage, setSelectedLanguage] = useState();
   const options = [
-    { label: 'Rent', value: 'Rent' },
-    { label: 'Buy  ', value: "Buy" },
+    {label: 'Rent', value: 'Rent'},
+    {label: 'Buy  ', value: 'Buy'},
   ];
   const {
     handleSubmit,
@@ -57,6 +56,7 @@ const AddPostScreen = ({ navigation }) => {
     onSelecteTag,
     postData,
     uploadFromGalary,
+    onRefresh,
     images,
     control,
     errors,
@@ -69,24 +69,25 @@ const AddPostScreen = ({ navigation }) => {
     cat,
     recentLocation,
     location,
-    sendLocation
+    sendLocation,
   } = useAddPostScreen(navigation);
-  console.log("recentLocatio]", recentLocation.length - 1)
-  const renderItem = ({ item, index }) => {
+
+  const renderItem = ({item, index}) => {
     return (
       <FilterAddButton
         style={styles.tags}
         title={item?.name}
-        image={accessibleforward}
+        image={imageUrl(item.path)}
+        required={true}
       />
     );
   };
 
-  const renderItemImages = ({ item, index }) => {
-    return <Image source={{ uri: item?.uri }} style={styles.imagesStyle} />;
+  const renderItemImages = ({item, index}) => {
+    return <Image source={{uri: item?.uri}} style={styles.imagesStyle} />;
   };
 
-  const FlatListComp = ({ data, onPress }) => {
+  const FlatListComp = ({data, onPress}) => {
     return (
       <FlatList
         refreshing={false}
@@ -95,12 +96,13 @@ const AddPostScreen = ({ navigation }) => {
         keyExtractor={keyExtractor}
         contentContainerStyle={styles.flatListMain}
         horizontal
-        ListFooterComponentStyle={{ marginLeft: wp('2') }}
+        ListFooterComponentStyle={{marginLeft: wp('2')}}
         ListFooterComponent={() => {
           return (
             <FilterAddButton
               style={styles.filterButton}
               image={addcircle}
+              isRequired={true}
               title={'add'}
               onPress={onPress}
             />
@@ -111,7 +113,7 @@ const AddPostScreen = ({ navigation }) => {
   };
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{flex: 1}}>
       <Header
         headerTitle={'Ads details'}
         arrowBackIcon={arrowback}
@@ -119,13 +121,17 @@ const AddPostScreen = ({ navigation }) => {
         goBack={navigation.goBack}
       />
 
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView
+        r
+        refreshControl={
+          <RefreshControl refreshing={false} onRefresh={onRefresh} />
+        }
+        showsVerticalScrollIndicator={false}>
         <View style={styles.filterMain}>
-
           <SwitchSelector
             options={options}
             initial={0}
-            onPress={value => onSelecteTag(value, "type")}
+            onPress={value => onSelecteTag(value, 'type')}
             backgroundColor="rgba(11, 180, 255, 0.03);"
             buttonColor={Colors.primaryColor}
             borderRadius={10}
@@ -202,14 +208,14 @@ const AddPostScreen = ({ navigation }) => {
             />
           </View>
           <TextComponent styles={styles.itemHeading} text={'Location '} />
-          <View style={{ ...styles.addButton, paddingHorizontal: wp('3') }}>
-            {console.log('searchsearch', search)}
+          <View style={{...styles.addButton, paddingHorizontal: wp('3')}}>
             <FilterAddButton
               onPress={sendLocation}
               style={styles.locationBtn}
               textStyle={styles.locationBtnText}
               image={search}
-              title={location == "" ? 'Search location here...' : location}
+              isRequired={true}
+              title={location == '' ? 'Search location here...' : location}
               imgStyle={styles.locationBtnImg}
             />
           </View>

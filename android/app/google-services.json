@@ -7,22 +7,22 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:925607838451:android:eca69f533fc22ee6da6d86",
+        "mobilesdk_app_id": "1:925607838451:android:2020f611c96a3a7dda6d86",
         "android_client_info": {
-          "package_name": "com.stound"
+          "package_name": "com.anideos.stound"
         }
       },
       "oauth_client": [
         {
-          "client_id": "925607838451-78r5q593erniv0rian0v8f7l1dkd3s6q.apps.googleusercontent.com",
+          "client_id": "925607838451-2oun4flcl4dlep46tti0uj6rlqirk606.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.stound",
-            "certificate_hash": "0d395375199cfdddeff53706a473e50d5316ef4e"
+            "package_name": "com.anideos.stound",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
           }
         },
         {
-          "client_id": "925607838451-2i4fd6777bbpn30i228rjsjnsupkodn6.apps.googleusercontent.com",
+          "client_id": "925607838451-7o04nlji1tt0v5k15fr8oo6bgdqqgc91.apps.googleusercontent.com",
           "client_type": 3
         }
       ],

@@ -18,6 +18,8 @@ import ShareButton from '../../Components/ShareButton';
 import KeyBoardWrapper from '../../Components/KeyboardWrapper';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import {Touchable} from '../../Components/Touchable';
+import BlurImage from '../../Components/BlurImage';
+import {imageUrl} from '../../Utils/Urls';
 
 const EditProfileScreen = ({navigation}) => {
   const {
@@ -26,6 +28,9 @@ const EditProfileScreen = ({navigation}) => {
     isDatePickerVisible,
     goBack,
     userData,
+    images,
+    updateProfile,
+    uploadFromGalary,
     reset,
     handleSubmit,
     getValues,
@@ -48,20 +53,29 @@ const EditProfileScreen = ({navigation}) => {
         <KeyBoardWrapper>
           <View style={styles.porfileInfo}>
             <View style={styles.porfileTopImages}>
-              <Image source={editProfile} style={styles.ProfileImage} />
+              <BlurImage
+                styles={styles.ProfileImage}
+                uri={
+                  images.uri ||
+                  imageUrl(userData.profilePicture) ||
+                  'https://res.cloudinary.com/dd6tdswt5/image/upload/v1684830799/UserImages/mhysa2zj0sbmvnw69b35.jpg'
+                }
+              />
               <Image
                 source={editProfileShadow}
                 style={styles.ProfileImageShadow}
               />
-              <View style={styles.UploadProfile}>
+              <Touchable
+                onPress={uploadFromGalary}
+                style={styles.UploadProfile}>
                 <Image
                   source={UploadProfileImage}
                   style={styles.UploadProfileIcon}
                 />
-              </View>
+              </Touchable>
             </View>
             <TextComponent
-              text={userData.name ?? 'Nabeel Naeem'}
+              text={userData?.name ?? 'Nabeel Naeem'}
               styles={styles.userName}
             />
             <TextComponent text={userData?.email} styles={styles.userEmail} />
@@ -77,10 +91,10 @@ const EditProfileScreen = ({navigation}) => {
               getValues,
               viewStyle: styles.loginInput,
               isImage: user,
-              defaultValue: userData.name ?? 'Nabeel Naeem',
+              defaultValue: userData?.name ?? 'Nabeel Naeem',
             }}
           />
-          <View>
+          {/* <View>
             <View style={styles.datePickerBtn}>
               <Image source={calendar} style={styles.calenderImg} />
               <Touchable
@@ -96,7 +110,7 @@ const EditProfileScreen = ({navigation}) => {
               onConfirm={handleConfirm}
               onCancel={hideDatePicker}
             />
-          </View>
+          </View> */}
           <InputComponent
             {...{
               name: 'number',
@@ -113,7 +127,11 @@ const EditProfileScreen = ({navigation}) => {
         </KeyBoardWrapper>
       </View>
       <View style={styles.saveBtnMain}>
-        <ShareButton title={'Save'} style={styles.saveBtn} onPress={goBack} />
+        <ShareButton
+          title={'Save'}
+          style={styles.saveBtn}
+          onPress={handleSubmit(updateProfile)}
+        />
       </View>
     </View>
   );

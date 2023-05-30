@@ -6,7 +6,7 @@ export const loginUser = payload => ({
 });
 
 export const updateUser = payload => ({
-  type: types.UpdateProfile,
+  type: types.UpdateUser,
   payload,
 });
 

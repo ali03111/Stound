@@ -1,20 +1,25 @@
-import { useEffect, useRef, useState } from 'react';
+import {useEffect, useRef, useState} from 'react';
 import useFormHook from '../../Hooks/UseFormHooks';
-import { createAdsUrl, getPreUrl } from '../../Utils/Urls';
-import API, { formDataFunc } from '../../Utils/helperFunc';
-import { errorMessage, successMessage } from '../../Config/NotificationMessage';
-import { launchImageLibrary } from 'react-native-image-picker';
+import {createAdsUrl, getPreUrl} from '../../Utils/Urls';
+import API, {formDataFunc} from '../../Utils/helperFunc';
+import {errorMessage, successMessage} from '../../Config/NotificationMessage';
+import {launchImageLibrary} from 'react-native-image-picker';
 import useReduxStore from '../../Hooks/UseReduxStore';
 
-const { default: Schemas } = require('../../Utils/Validation');
+const {default: Schemas} = require('../../Utils/Validation');
 
-const useAddPostScreen = ({ navigate }) => {
-  const { dispatch, getState } = useReduxStore();
+const useAddPostScreen = ({navigate}) => {
+  const {dispatch, getState} = useReduxStore();
 
-  const { recentLocation } = getState("recentlocation");
-  const { handleSubmit, errors, reset, control, getValues } = useFormHook(
+  const {recentLocation} = getState('recentlocation');
+  const {handleSubmit, errors, reset, control, getValues} = useFormHook(
     Schemas.addPost,
   );
+
+  const options = [
+    {label: 'sale', value: 'Sale'},
+    {label: 'Rent', value: 'Rent'},
+  ];
 
   const [preferencesData, setPreferencesData] = useState([]);
   const [preferencesVal, setPreferencesVal] = useState({
@@ -25,22 +30,23 @@ const useAddPostScreen = ({ navigate }) => {
     rooms: null,
     bathRoom: null,
     images: [],
-    type: '',
-    location: ""
+    type: options[0].value,
+    location: '',
   });
 
-  const { gp, ip, op, bathRoom, rooms, cat, images, type, location } = preferencesVal;
+  const {gp, ip, op, bathRoom, rooms, cat, images, type, location} =
+    preferencesVal;
 
-  const updateState = data => setPreferencesVal(prev => ({ ...prev, ...data }));
+  const updateState = data => setPreferencesVal(prev => ({...prev, ...data}));
 
   const getPreferences = async () => {
-    const { ok, data, originalError } = await API.get(getPreUrl);
+    const {ok, data, originalError} = await API.get(getPreUrl);
     if (ok) setPreferencesData(data);
     else errorMessage(originalError);
   };
 
   const onSelecteTag = (item, key) => {
-    updateState({ [key]: item });
+    updateState({[key]: item});
   };
 
   const uploadFromGalary = () => {
@@ -49,30 +55,30 @@ const useAddPostScreen = ({ navigate }) => {
         selectionLimit: 10,
         mediaType: 'photo',
         quality: 0.5,
+        maxWidth: 300,
+        maxHeight: 300,
       },
       res => {
         if (!res?.didCancel) {
           if (images.length == 0) {
-            updateState({ images: res?.assets });
+            updateState({images: res?.assets});
           } else {
-            updateState({ images: [...images, ...res?.assets] });
+            updateState({images: [...images, ...res?.assets]});
           }
         }
       },
     );
   };
 
-  const dynamicNav = data => navigate('GeneralScreen', { ...data, onSelecteTag });
+  const dynamicNav = data => navigate('GeneralScreen', {...data, onSelecteTag});
 
   const getAllID = data => {
     const newArry = [];
-    data.map(res =>
-      newArry.push(res.generalPrefId || res.insidePrefId || res.outsidePrefId),
-    );
+    data.map(res => newArry.push(res.id));
     return newArry;
   };
 
-  const postData = async ({ title, desc, number }) => {
+  const postData = async ({title, desc, number}) => {
     if (
       images.length &&
       cat != null &&
@@ -96,7 +102,7 @@ const useAddPostScreen = ({ navigate }) => {
         category: cat,
         photos: images,
         price: number,
-        type
+        adType: type,
       };
       Object.entries(body).forEach(([key, val]) => {
         if (key === 'photos' && Array.isArray(val)) {
@@ -112,7 +118,7 @@ const useAddPostScreen = ({ navigate }) => {
         }
       });
 
-      const { ok, data, status, originalError } = await API.post(
+      const {ok, data, status, originalError, problem} = await API.post(
         createAdsUrl,
         formData,
       );
@@ -125,12 +131,13 @@ const useAddPostScreen = ({ navigate }) => {
           cat: null,
           rooms: null,
           bathRoom: null,
-          location: ''
+          location: '',
         });
         reset();
-        successMessage(data);
+        successMessage(data?.message || 'Your Ad has been created ');
       } else {
-        errorMessage(originalError);
+        console.log('dfdf', originalError, status, problem, data?.message);
+        errorMessage(originalError?.message?.split(' ')?.slice(1)?.join(' '));
       }
     } else {
       errorMessage('please comeplete all fields');
@@ -141,17 +148,15 @@ const useAddPostScreen = ({ navigate }) => {
     getPreferences();
   };
 
-  const getLocation = (data) => {
-    updateState({ location: data });
+  const getLocation = data => {
+    updateState({location: data});
 
-    console.log(data)
-  }
+    console.log(data);
+  };
   const sendLocation = () => {
-
-    navigate('LocationScreen', { getLocation })
-  }
+    navigate('LocationScreen', {getLocation});
+  };
   useEffect(useEffectFun, []);
-
 
   return {
     handleSubmit,
@@ -172,9 +177,11 @@ const useAddPostScreen = ({ navigate }) => {
     postData,
     uploadFromGalary,
     images,
+    options,
+    onRefresh: getPreferences,
     recentLocation,
     sendLocation,
-    location
+    location,
     // goBack,
   };
 };

@@ -7,6 +7,8 @@ import {hp, wp} from '../Config/responsive';
 import {cardOverlay, profile, bed, bathtub, location} from '../Assests';
 import {TextComponent} from './TextComponent';
 import {white} from 'react-native-paper/lib/typescript/src/styles/themes/v2/colors';
+import BlurImage from './BlurImage';
+import BlurBackground from './BlurBackground';
 // import {white} from 'react-native-paper/lib/typescript/src/styles/themes/v2/colors';
 
 const HomeCard = ({
@@ -26,15 +28,29 @@ const HomeCard = ({
   return (
     // <ShadowButton>
     <View style={styles.HomeCardMain}>
-      <ImageBackground source={{uri:image}} resizeMode="cover" style={styles.image}>
+      <BlurBackground
+        uri={image}
+        mainView={{
+          height: hp('75'),
+        }}
+        blurImageStyle={{
+          height: hp('75'),
+        }}
+        resizeMode="cover"
+        styles={styles.image}>
         <ImageBackground
           source={cardOverlay}
           resizeMode="cover"
+          borderRadius={10}
           style={styles.overlay}>
           <View style={styles.cardMain}>
             <View style={styles.cardTopbar}>
               <View style={styles.cardTopLeft}>
-                <Image style={styles.profileImg} source={{uri:profile}} />
+                <BlurImage
+                  styles={styles.profileImg}
+                  radius={60}
+                  uri={profile}
+                />
                 <TextComponent text={userName} styles={styles.userName} />
               </View>
               <View style={styles.cardTopRight}>
@@ -57,7 +73,7 @@ const HomeCard = ({
             </View>
           </View>
         </ImageBackground>
-      </ImageBackground>
+      </BlurBackground>
     </View>
     // </ShadowButton>
   );
@@ -78,9 +94,13 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   overlay: {
-    flex: 1,
+    height: hp('100'),
+    width: wp('94'),
+    // flex: 1,
     overflow: 'hidden',
     borderRadius: 10,
+    // bottom: 0,
+    // backgroundColor: 'yellow',
   },
   cardMain: {
     justifyContent: 'flex-end',
@@ -95,7 +115,7 @@ const styles = StyleSheet.create({
   cardTopLeft: {
     flexDirection: 'row',
     alignItems: 'center',
-    width: wp('43'),
+    width: wp('37'),
   },
   cardTopRight: {
     flexDirection: 'row',
@@ -105,13 +125,15 @@ const styles = StyleSheet.create({
     width: wp('12'),
     height: hp('6'),
     borderRadius: 60,
-    marginRight: wp('2'),
+    // marginRight: wp('3'),
+    aspectRatio: 1,
   },
   userName: {
     color: 'white',
     fontSize: 18,
     fontWeight: '500',
-    width:wp('25'),
+    width: wp('25'),
+    marginLeft: wp('2'),
   },
   bath: {
     color: 'white',

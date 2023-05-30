@@ -16,7 +16,7 @@ import {
   updateUser,
 } from '../Action/AuthAction';
 import {loadingFalse, loadingTrue} from '../Action/isloadingAction';
-import {errorMessage} from '../../Config/NotificationMessage';
+import {errorMessage, successMessage} from '../../Config/NotificationMessage';
 import {loginUrl} from '../../Utils/Urls';
 import {
   getFbResult,
@@ -24,6 +24,7 @@ import {
   loginService,
   logoutService,
   registerService,
+  updateProfileServices,
 } from '../../Services/AuthServices';
 
 const loginObject = {
@@ -89,10 +90,33 @@ function* registerSaga({payload: {datas}}) {
 
 function* logOutSaga(action) {
   try {
+    yield put({type: types.CleanRecentLocation});
     yield call(logoutService);
     yield call(logOutFirebase);
     yield put({type: types.LogoutType});
+    console.log('okokok');
   } catch (error) {
+    errorMessage(error.message.split(' ').slice(1).join(' '));
+  } finally {
+    yield put(loadingFalse());
+  }
+}
+
+function* updateProfileSaga({payload: profileData}) {
+  yield put(loadingTrue());
+  try {
+    // console.log('dbnjdf', profileData);
+    const {ok, data, originalError} = yield call(
+      updateProfileServices,
+      profileData,
+    );
+    console.log('user', originalError, data);
+    if (ok) {
+      yield put({type: types.UpdateProfile, payload: data.data});
+      successMessage('Your profile has been updated');
+    }
+  } catch (error) {
+    console.log('error ', error);
     errorMessage(error.message.split(' ').slice(1).join(' '));
   } finally {
     yield put(loadingFalse());
@@ -103,6 +127,7 @@ function* authSaga() {
   yield takeLatest(types.LoginType, loginSaga);
   yield takeLatest(types.LogoutFirebaseType, logOutSaga);
   yield takeLatest(types.RegisterUser, registerSaga);
+  yield takeLatest(types.UpdateUser, updateProfileSaga);
 }
 
 export default authSaga;

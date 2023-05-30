@@ -1,7 +1,7 @@
 // import {errorMessage} from '../../Components/NotificationMessage';
 import useReduxStore from '../../Hooks/UseReduxStore';
-import {loginUser} from '../../Redux/Action/AuthAction';
-import {faceBookLogin} from '../../Utils/SocialLogin';
+import { loginUser } from '../../Redux/Action/AuthAction';
+import { faceBookLogin } from '../../Utils/SocialLogin';
 // import {loginUser} from '../../Redux/Actions/AuthAction';
 // import API from '../../Utils/helperFunction';
 // import {
@@ -12,19 +12,19 @@ import {faceBookLogin} from '../../Utils/SocialLogin';
 // } from '../../Utils/SocialLogin';
 // import {loginUrl} from '../../Utils/Url';
 
-const {default: useFormHook} = require('../../Hooks/UseFormHooks');
-const {default: Schemas} = require('../../Utils/Validation');
+const { default: useFormHook } = require('../../Hooks/UseFormHooks');
+const { default: Schemas } = require('../../Utils/Validation');
 
-const useLogin = ({navigate, goBack}) => {
-  const {handleSubmit, errors, reset, control, getValues} = useFormHook(
+const useLogin = ({ navigate, goBack }) => {
+  const { handleSubmit, errors, reset, control, getValues } = useFormHook(
     Schemas.logIn,
   );
-  const {dispatch} = useReduxStore();
+  const { dispatch } = useReduxStore();
 
-  const appleIdAuth = () => dispatch(loginUser({type: 'appleID', datas: {}}));
+  const appleIdAuth = () => dispatch(loginUser({ type: 'appleID', datas: {} }));
 
   const googleAuth = async () => {
-    dispatch(loginUser({type: 'Google', datas: {}}));
+    dispatch(loginUser({ type: 'Google', datas: {} }));
   };
   const facebookAuth = async () => {
     try {
@@ -35,10 +35,10 @@ const useLogin = ({navigate, goBack}) => {
     }
   };
   const register = () => navigate('RegisterScreen');
-  const loginWithEmail = ({email, password}) => {
-    dispatch(loginUser({type: 'email', datas: {email, password}}));
+  const loginWithEmail = ({ email, password }) => {
+    dispatch(loginUser({ type: 'email', datas: { email, password } }));
 
-    // navigate('MybottomTabs')
+
   };
 
   return {

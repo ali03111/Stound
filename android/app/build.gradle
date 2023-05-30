@@ -93,9 +93,9 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace 'com.stound'
+    namespace 'com.anideos.stound'
     defaultConfig {
-        applicationId 'com.stound'
+        applicationId 'com.anideos.stound'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

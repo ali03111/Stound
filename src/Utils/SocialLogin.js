@@ -1,12 +1,12 @@
 import auth from '@react-native-firebase/auth';
-import { LoginManager, AccessToken } from 'react-native-fbsdk-next';
+import {LoginManager, AccessToken} from 'react-native-fbsdk-next';
 import {
   GoogleSignin,
   statusCodes,
 } from '@react-native-google-signin/google-signin';
-import { appleAuth } from '@invertase/react-native-apple-authentication';
-import { sha256 } from 'react-native-sha256';
-import { Platform } from 'react-native';
+import {appleAuth} from '@invertase/react-native-apple-authentication';
+import {sha256} from 'react-native-sha256';
+import {Platform} from 'react-native';
 
 export const faceBookLogin = async () => {
   if (Platform.OS === 'android') {
@@ -36,7 +36,7 @@ export const faceBookLogin = async () => {
   );
 
   // Sign-in the user with the credential
-  const { user } = await auth().signInWithCredential(facebookCredential);
+  const {user} = await auth().signInWithCredential(facebookCredential);
   return user;
 };
 
@@ -56,7 +56,7 @@ export const appleIdlogin = async () => {
   const {
     identityToken,
     nonce,
-    fullName: { givenName, familyName },
+    fullName: {givenName, familyName},
   } = appleAuthRequestResponse;
   const token = auth.AppleAuthProvider.credential(identityToken, nonce);
   await auth().signInWithCredential(token);
@@ -109,13 +109,6 @@ export const appleIdlogin = async () => {
 // };
 
 export const googleLogin = async () => {
-  GoogleSignin.configure({
-    webClientId:
-      // '925607838451-2cbsfsq0oenaj93jdivbnm7k8qhv4emu.apps.googleusercontent.com',
-      // '925607838451-2cbsfsq0oenaj93jdivbnm7k8qhv4emu.apps.googleusercontent.com',
-      '925607838451-2i4fd6777bbpn30i228rjsjnsupkodn6.apps.googleusercontent.com',
-  });
-
   const logOutWithGoogle = async () => {
     await GoogleSignin.revokeAccess();
     await GoogleSignin.signOut();
@@ -128,23 +121,23 @@ export const googleLogin = async () => {
   if (!hasPlayService) throw new Error('play services not available');
   const isSignIn = await GoogleSignin.isSignedIn();
   if (isSignIn) await logOutWithGoogle();
-  const { idToken, user } = await GoogleSignin.signIn();
+  const {idToken, user} = await GoogleSignin.signIn();
   const token = auth.GoogleAuthProvider.credential(idToken);
   await auth().signInWithCredential(token);
-  return { ...token, ...user };
+  return {...token, ...user};
 };
 
 export const PhoneNumberLogin = async phoneNumber => {
   // Handle the button press
   try {
-    const { confirm } = await auth().signInWithPhoneNumber(phoneNumber);
+    const {confirm} = await auth().signInWithPhoneNumber(phoneNumber);
     return confirm;
   } catch (error) {
     console.log('eror', error);
   }
 };
 
-export const verifyCode = async ({ confirm, code }) => {
+export const verifyCode = async ({confirm, code}) => {
   try {
     await confirm(code);
   } catch (error) {
@@ -152,13 +145,13 @@ export const verifyCode = async ({ confirm, code }) => {
   }
 };
 
-export const emailSignUp = async ({ email, password }) => {
+export const emailSignUp = async ({email, password}) => {
   console.log('dffs', email, password);
   const data = await auth().createUserWithEmailAndPassword(email, password);
   return data;
 };
 
-export const emailLogin = async ({ email, password }) => {
+export const emailLogin = async ({email, password}) => {
   const data = await auth().signInWithEmailAndPassword(email, password);
   return data;
 };
