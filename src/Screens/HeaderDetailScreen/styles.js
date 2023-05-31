@@ -3,6 +3,25 @@ import { hp, wp } from '../../Config/responsive';
 import { Colors } from '../../Theme/Variables';
 
 export const styles = StyleSheet.create({
+  SocialBoxContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly'
+  },
+  socialbox: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    borderRadius: 10,
+    padding: 2,
+    paddingHorizontal: wp('4'),
+    borderWidth: 0.2,
+    borderColor: Colors.primaryColor,
+    alignItems: 'center', width: wp('28'),
+    backgroundColor: 'rgba(11, 180, 255, 0.03)'
+  },
+  imageTextStyle: {
+    fontSize: hp('1.5')
+  },
+  imageStyle: { tintColor: Colors.primaryColor, width: wp('5'), resizeMode: 'contain', height: hp('5') },
   topContainer: { marginTop: hp('2'), marginLeft: wp('3'), paddingBottom: hp('5') },
   headingStyle: { fontSize: hp('1.8'), marginBottom: hp('1') },
   firstImage: length => ({
@@ -49,12 +68,15 @@ export const styles = StyleSheet.create({
     paddingHorizontal: wp('1'),
     marginTop: hp('1.4'),
     alignItems: 'center',
+    justifyContent: 'space-between'
   },
   locationMain: {
     flexDirection: 'row',
     alignItems: 'center',
     marginTop: hp('1.5'),
     marginBottom: hp('3.5'),
+    paddingHorizontal: wp('1'),
+
   },
   locationText: {
     color: 'gray',
@@ -71,7 +93,8 @@ export const styles = StyleSheet.create({
     flex: 0.3,
     fontWeight: 'bold',
     fontSize: hp('1.8'),
-    textAlign: 'right',
+    textAlign: 'left',
+    marginLeft: wp('1.5'),
     color: Colors.primaryColor,
   },
   btn: {

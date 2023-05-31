@@ -1,15 +1,14 @@
 import React from 'react';
-import {View, Text, Image, StyleSheet, ImageBackground} from 'react-native';
-import {Colors, FontFamily} from '../Theme/Variables';
-import {Touchable} from './Touchable';
-import {share} from '@/Assets/Images';
-import {hp, wp} from '../Config/responsive';
-import {cardOverlay, profile, bed, bathtub, location} from '../Assests';
-import {TextComponent} from './TextComponent';
-import {white} from 'react-native-paper/lib/typescript/src/styles/themes/v2/colors';
+import { View, Text, Image, StyleSheet, ImageBackground } from 'react-native';
+import { Colors, FontFamily } from '../Theme/Variables';
+import { Touchable } from './Touchable';
+import { share } from '@/Assets/Images';
+import { hp, wp } from '../Config/responsive';
+import { cardOverlay, profile, bed, bathtub, location } from '../Assests';
+import { TextComponent } from './TextComponent';
+import { white } from 'react-native-paper/lib/typescript/src/styles/themes/v2/colors';
 import BlurImage from './BlurImage';
 import BlurBackground from './BlurBackground';
-// import {white} from 'react-native-paper/lib/typescript/src/styles/themes/v2/colors';
 
 const HomeCard = ({
   onPress,
@@ -66,7 +65,7 @@ const HomeCard = ({
             </View>
             <View style={styles.cardFooter}>
               <TextComponent text={forRent} styles={styles.forRent} />
-              <View style={{flexDirection: 'row', alignItems: 'baseline'}}>
+              <View style={{ flexDirection: 'row', alignItems: 'baseline' }}>
                 <TextComponent text={price + '/'} styles={styles.price} />
                 <TextComponent text={duration} styles={styles.month} />
               </View>

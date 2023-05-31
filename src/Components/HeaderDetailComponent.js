@@ -6,6 +6,7 @@ import { Touchable } from './Touchable';
 import { hp, wp } from '../Config/responsive';
 import { Colors } from '../Theme/Variables';
 import { goBack } from '../Utils';
+import BlurImage from './BlurImage';
 
 
 const BuyCoinHeader = ({
@@ -40,7 +41,10 @@ const BuyCoinHeader = ({
             <View
 
                 style={[styles.TopHeader, { ...style }]}>
-                <View style={{ flexDirection: 'row' }}>
+                <View style={{
+                    flexDirection: 'row',
+                    alignItems: 'center'
+                }}>
                     <View style={styles.HeaderLeft}>
                         <Touchable onPress={onPress} style={styles.backMain}>
                             <Image
@@ -83,10 +87,15 @@ const BuyCoinHeader = ({
 
             <View style={styles.imageContainer}>
 
-                <Image
+                {/* <Image
                     resizeMode='contain'
                     style={styles.centerImageStyle}
                     source={centerImage}
+                /> */}
+                <BlurImage
+                    styles={styles.profileImg1}
+                    radius={10}
+                    uri={'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'}
                 />
             </View>
             <View style={styles.nameContainer}>
@@ -140,7 +149,7 @@ const styles = StyleSheet.create({
     },
     nameContainer: {
         alignItems: 'center',
-        marginTop: hp('10')
+        marginTop: hp('8')
     },
     coinText: {
         fontSize: hp('2'),
@@ -172,15 +181,14 @@ const styles = StyleSheet.create({
         fontWeight: '500'
     },
     TopHeader: {
-        paddingTop: hp('6'),
         width: wp('100'),
-        // marginTop: Platform.OS == 'ios' ? hp('5') : hp('1.5'),
+        paddingTop: Platform.OS == 'ios' ? hp('6') : hp('1.5'),
         backgroundColor: Colors.primaryColor,
         alignItems: 'center',
         borderBottomLeftRadius: 20,
         borderBottomRightRadius: 20,
         overflow: 'hidden',
-        paddingBottom: hp('8')
+        paddingBottom: hp('8'),
 
 
     },
@@ -199,7 +207,8 @@ const styles = StyleSheet.create({
         fontSize: hp('2.3'),
         color: Colors.primaryTextColor,
         fontWeight: '500',
-        marginTop: hp('0.2')
+        marginTop: hp('0.2'),
+
     },
     HeaderLeft: {
         width: wp('20'),
@@ -209,6 +218,7 @@ const styles = StyleSheet.create({
     HeaderCenter: {
         width: wp('52'),
         alignItems: 'center',
+
     },
     HeaderRight: {
         width: wp('20'),
@@ -220,6 +230,12 @@ const styles = StyleSheet.create({
         width: wp('9'),
         height: hp('4.5'),
         marginLeft: wp('5'),
+    },
+    profileImg1: {
+        height: hp('12'),
+        borderRadius: 5,
+        // marginRight: wp('3'),
+        aspectRatio: 1,
     },
     dayBarStyle: {
         flexDirection: 'row',
@@ -237,7 +253,7 @@ const styles = StyleSheet.create({
     imageContainer: {
         alignSelf: 'center',
         position: 'absolute',
-        top: 100,
+        top: Platform.OS == 'ios' ? 100 : 60,
         alignItems: 'center',
     }
 });

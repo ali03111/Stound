@@ -34,6 +34,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import MsgSendButton from '../../Components/MsgSendButton';
 import useHeaderDetailScreen from './useHeaderDetailScreen';
 import HeaderDetailComponent from '../../Components/HeaderDetailComponent';
+import { Colors } from '../../Theme/Variables';
 
 const index = ({ navigation }) => {
     const { PackageDetailData } = useHeaderDetailScreen();
@@ -60,6 +61,17 @@ const index = ({ navigation }) => {
         );
     }, []);
 
+
+    const SocialBoxNotification = ({ image, imageText }) => {
+        return (
+
+            <View style={styles.socialbox}>
+                <Image source={image} style={styles.imageStyle} />
+                <TextComponent text={'3 Baths'} styles={styles.imageTextStyle} />
+
+            </View>
+        )
+    }
     return (
         <>
             <HeaderDetailComponent
@@ -97,11 +109,14 @@ const index = ({ navigation }) => {
                 <View style={styles.detail}>
                     <View style={styles.detailTitle}>
                         <TextComponent text={PackageDetailData.title} styles={styles.title} />
-                        <TextComponent
-                            text={PackageDetailData.forRent}
-                            styles={styles.forRent}
-                        />
+                        <TextComponent text={'$4,500'} styles={styles.price} />
                     </View>
+
+                    <TextComponent
+                        text={PackageDetailData.forRent}
+                        styles={styles.forRent}
+                    />
+
                     <View style={styles.locationMain}>
                         <Image source={locationBlueIcon} />
                         <TextComponent
@@ -109,11 +124,17 @@ const index = ({ navigation }) => {
                             styles={styles.locationText}
                         />
                     </View>
-                    <TextComponent
+                    <View style={styles.SocialBoxContainer}>
+                        <SocialBoxNotification image={require('../../Assests/Icons/chat.png')} imageText={'Message'} />
+                        <SocialBoxNotification image={require('../../Assests/Icons/phone.png')} imageText={'Call'} />
+                        <SocialBoxNotification image={require('../../Assests/Icons/send.png')} imageText={'Mail'} />
+
+                    </View>
+                    {/* <TextComponent
                         text={'Property Details'}
                         styles={styles.detailsHeading}
-                    />
-                    <ScrollView
+                    /> */}
+                    {/* <ScrollView
                         style={styles.propertyDetails}
                         showsVerticalScrollIndicator={false}>
                         <View style={{ paddingBottom: hp('6') }}>
@@ -212,10 +233,9 @@ const index = ({ navigation }) => {
                                 </CollapseBody>
                             </Collapse>
                         </View>
-                    </ScrollView>
-                    <View style={styles.priceMain}>
+                    </ScrollView> */}
+                    {/* <View style={styles.priceMain}>
                         <View style={styles.priceLeft}>
-                            <TextComponent text={'$4,500'} styles={styles.price} />
                             <TextComponent text={'Total price'} styles={styles.priceText} />
                         </View>
                         <MsgSendButton
@@ -223,7 +243,7 @@ const index = ({ navigation }) => {
                             style={styles.sendBtnStyle}
                             textStyle={styles.sendTextStyle}
                         />
-                    </View>
+                    </View> */}
                 </View>
             </ScrollView>
 
