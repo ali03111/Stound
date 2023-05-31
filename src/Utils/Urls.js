@@ -8,7 +8,7 @@ const getCredentials = () => {
   else {
     console.log = () => {};
     return {
-      baseURL: 'https://virtualrealitycreators.com/stound/api',
+      baseURL: 'https://virtualrealitycreators.com/stound/api/',
       imageURL: 'https://virtualrealitycreators.com/stound/',
     };
   }
@@ -32,4 +32,6 @@ export const getAdsUrl = 'get-ads';
 export const createAdsUrl = 'create-ad';
 export const getfavouritesUrl = 'get-favourites';
 export const updateFavUrl = 'update-favourites/';
-export const addQuesUrl = '/add-question';
+export const addQuesUrl = 'add-question';
+export const deviceIdUrl = 'auth/update-device-id/';
+export const notifyUserUrl = 'buyer-interested/';

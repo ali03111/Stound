@@ -1,9 +1,12 @@
 //  Images
 
 export {default as SplashScreen} from './Images/SplashScreen.png';
-export {default as onBoard1} from './Images/onBoard1.png';
-export {default as onBoard2} from './Images/onBoard2.png';
-export {default as onBoard3} from './Images/onBoard3.png';
+export {default as onBoard1} from './Images/Component1.png';
+export {default as onBoard2} from './Images/Component2.png';
+export {default as onBoard3} from './Images/Component3.png';
+// export {default as onBoard1} from './Images/onBoard1.png';
+// export {default as onBoard2} from './Images/onBoard2.png';
+// export {default as onBoard3} from './Images/onBoard3.png';
 export {default as logo} from './Images/logo.png';
 export {default as homeCard} from './Images/homeCard.png';
 export {default as cardOverlay} from './Images/cardOverlay.png';

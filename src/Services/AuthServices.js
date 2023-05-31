@@ -1,5 +1,11 @@
 import auth from '@react-native-firebase/auth';
-import {loginUrl, logoutUrl, registerUrl, updateUserUrl} from '../Utils/Urls';
+import {
+  deviceIdUrl,
+  loginUrl,
+  logoutUrl,
+  registerUrl,
+  updateUserUrl,
+} from '../Utils/Urls';
 import API from '../Utils/helperFunc';
 import {Platform} from 'react-native';
 
@@ -11,11 +17,12 @@ const registerService = param => API.post(registerUrl, param);
 
 const logoutService = async () => await API.get(logoutUrl);
 
+const fcmRegService = async params => await API.put(deviceIdUrl + params);
+
 const randomService = async ({url, params}) =>
   await API.post(url, {answer: params});
 
 const updateProfileServices = async params => {
-  console.log('params ========>>>>', params);
   const formData = new FormData();
   Object.entries(params.profileData).forEach(([key, val]) => {
     if (key == 'image' && val?.type)
@@ -40,4 +47,5 @@ export {
   logoutService,
   updateProfileServices,
   randomService,
+  fcmRegService,
 };

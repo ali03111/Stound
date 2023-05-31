@@ -19,6 +19,7 @@ import {loadingFalse, loadingTrue} from '../Action/isloadingAction';
 import {errorMessage, successMessage} from '../../Config/NotificationMessage';
 import {loginUrl} from '../../Utils/Urls';
 import {
+  fcmRegService,
   getFbResult,
   logOutFirebase,
   loginService,
@@ -34,6 +35,9 @@ const loginObject = {
   appleID: () => appleIdlogin(),
 };
 
+/* `const loginSaga` is a generator function that is used as a saga in a Redux-Saga middleware. It
+takes an action object as an argument, destructures its `payload` property to get `datas` and `type`
+properties, and then performs a series of asynchronous operations using the `yield` keyword. */
 const loginSaga = function* ({payload: {datas, type}}) {
   yield put(loadingTrue());
 
@@ -62,6 +66,9 @@ const loginSaga = function* ({payload: {datas, type}}) {
   }
 };
 
+/* `registerSaga` is a generator function that is used as a saga in a Redux-Saga middleware. It takes
+an action object as an argument, destructures its `payload` property to get `datas`, and then
+performs a series of asynchronous operations using the `yield` keyword. */
 function* registerSaga({payload: {datas}}) {
   yield put(loadingTrue());
   try {
@@ -88,6 +95,9 @@ function* registerSaga({payload: {datas}}) {
   }
 }
 
+/* `logOutSaga` is a generator function that is used as a saga in a Redux-Saga middleware. It takes an
+action object as an argument, but it is not used in the function. The function performs a series of
+asynchronous operations using the `yield` keyword. */
 function* logOutSaga(action) {
   try {
     yield put({type: types.CleanRecentLocation});
@@ -101,6 +111,9 @@ function* logOutSaga(action) {
     yield put(loadingFalse());
   }
 }
+/* The `updateProfileSaga` function is a generator function that is used as a saga in a Redux-Saga
+middleware. It takes an action object as an argument, destructures its `payload` property to get
+`profileData`, and then performs a series of asynchronous operations using the `yield` keyword. */
 
 function* updateProfileSaga({payload: profileData}) {
   yield put(loadingTrue());
@@ -123,11 +136,17 @@ function* updateProfileSaga({payload: profileData}) {
   }
 }
 
+/* This function is used to add the fcm token to the database. */
+function* fcmTokenSaga(action) {
+  yield call(fcmRegService, action.payload);
+}
+
 function* authSaga() {
   yield takeLatest(types.LoginType, loginSaga);
   yield takeLatest(types.LogoutFirebaseType, logOutSaga);
   yield takeLatest(types.RegisterUser, registerSaga);
   yield takeLatest(types.UpdateUser, updateProfileSaga);
+  yield takeLatest(types.fcmRegType, fcmTokenSaga);
 }
 
 export default authSaga;
