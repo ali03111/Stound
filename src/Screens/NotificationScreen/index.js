@@ -19,21 +19,21 @@ import { AlertDesign } from '../../Components/AlertDesign';
 import { Colors } from '../../Theme/Variables';
 
 const Notification = ({ navigation }) => {
-  const { notificationData, getStart, onCancel, onConfirm, logOut, coinAlert } = useNotificationScreen(navigation);
-  const renderItem = useCallback(({ item, index }) => {
+  const { notificationData, getStart, onCancel, onConfirm, logOut, coinAlert, notificationDataState, } = useNotificationScreen(navigation);
+  const renderItem = useCallback(({ item: { displayNotification }, item, index }) => {
     return (
       <View style={styles.notification}>
         <NotificationComp
-          image={item?.image}
-          name={item?.name}
-          description={item?.description}
-          time={item?.time}
-          onPress={() => onCancel(coinAlert, 'coinAlert')}
+          image={displayNotification?.profilePicture}
+          name={displayNotification?.name}
+          description={displayNotification?.answer}
+          time={item?.createdAt}
+          onPress={() => { onCancel(coinAlert, 'coinAlert', index) }}
 
         />
       </View>
     );
-  });
+  }, [notificationDataState]);
   return (
     <>
       <View style={styles.notificationMain}>
@@ -48,19 +48,17 @@ const Notification = ({ navigation }) => {
         <View>
           <FlatList
             refreshing={false}
-            data={notificationData}
+            data={notificationDataState}
             renderItem={renderItem}
             showsHorizontalScrollIndicator={false}
             contentContainerStyle={{
               paddingBottom: 0,
               paddingHorizontal: wp('4'),
 
-              // height: 'auto',
             }}
             style={{ paddingBottom: 0 }}
           />
         </View>
-        {console.log('LOGOUT', logOut)}
       </View>
       <AlertDesign
         buttonColor={'#0BB4FF'}

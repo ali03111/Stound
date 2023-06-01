@@ -9,7 +9,7 @@ const Stack = createNativeStackNavigator();
 const StackNavigatior = () => {
   const { getState } = useReduxStore();
   const { onboarding } = getState('onboarding');
-  const { token } = getState('Auth');
+  const { isLogin } = getState('Auth');
   // console.log('AIUth token', token);
   return (
     <Stack.Navigator
@@ -21,7 +21,7 @@ const StackNavigatior = () => {
       {!onboarding && (
         <Stack.Screen name="OnboardScreen" component={Screens.OnboardScreen} />
       )}
-      {token == '' && (
+      {!isLogin && (
         <>
           <Stack.Screen
             name="SocialLoginScreen"
@@ -34,7 +34,7 @@ const StackNavigatior = () => {
           <Stack.Screen name="LoginScreen" component={Screens.LoginScreen} />
         </>
       )}
-      {token != '' && (
+      {isLogin && (
         <>
           <Stack.Screen name="MybottomTabs" component={MybottomTabs} />
           <Stack.Screen name="ChatScreen" component={Screens.ChatScreen} />

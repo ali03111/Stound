@@ -1,15 +1,9 @@
-import SocialLoginScreen from '.';
 import useReduxStore from '../../Hooks/UseReduxStore';
 import { loginUser } from '../../Redux/Action/AuthAction';
-import {
-  appleIdlogin,
-  faceBookLogin,
-  googleLogin,
-} from '../../Utils/SocialLogin';
+import { faceBookLogin } from '../../Utils/SocialLogin';
 
 const useSocialLoginScreen = ({ navigate }) => {
   const contWithEmail = () => {
-    console.log('adsj ')
     navigate('RegisterScreen');
   };
   const { dispatch } = useReduxStore();

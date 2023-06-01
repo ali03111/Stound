@@ -8,13 +8,13 @@ const NotificationComp = ({ image, name, description, time, onPress }) => {
   return (
     <TouchableOpacity onPress={onPress} style={styles.notificationMian}>
       <View style={styles.mainBannerImg}>
-        <Image style={styles.bannerImg} resizeMode="contain" source={image} />
+        <Image style={styles.bannerImg} resizeMode="contain" source={{ uri: image }} />
       </View>
       <View style={styles.nameDescriptionMain}>
         <Text style={styles.nameDescription}>
           <TextComponent text={name} styles={styles.username} />
-          <TextComponent text={' '} />
-          <TextComponent text={description} styles={styles.description} />
+          <TextComponent text={' Interested IN'} />
+          <TextComponent text={' your property and want to talk. '} styles={styles.description} />
         </Text>
       </View>
       <View style={styles.mainTiming}>
@@ -27,7 +27,10 @@ const NotificationComp = ({ image, name, description, time, onPress }) => {
 
 const styles = StyleSheet.create({
   mainBannerImg: {
-    width: wp('14'),
+    width: wp('16'),
+    alignItems: 'center',
+    resizeMode: 'contain'
+
   },
   notificationMian: {
     flexDirection: 'row',
@@ -38,8 +41,9 @@ const styles = StyleSheet.create({
   },
   bannerImg: {
     borderRadius: 50,
-    width: wp('12'),
     height: hp('6'),
+    aspectRatio: 1,
+    backgroundColor: 'gray'
   },
   nameDescriptionMain: {
     width: wp('55'),

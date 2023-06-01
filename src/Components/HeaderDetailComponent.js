@@ -16,23 +16,26 @@ const BuyCoinHeader = ({
     icon,
     arrowBackIcon,
     backText,
-    saveResetStyle,
     backTextStyle,
+    saveResetStyle,
     centerTextStyle,
     centerImage,
     navigation,
-    onPress
+    onPress,
+    profileName,
+    onPressMessage,
+    onPressCall,
+    onPressEMail
 }) => {
 
 
-    const SocialBox = ({ image, imageText }) => {
+    const SocialBox = ({ image, imageText, onPress }) => {
         return (
-
-            <View style={styles.socialbox}>
+            <TouchableOpacity onPress={onPress} style={styles.socialbox}>
                 <Image source={image} style={{ tintColor: Colors.primaryColor, width: wp('5'), resizeMode: 'contain', height: hp('5') }} />
                 <TextComponent text={imageText} styles={styles.imageTextStyle} />
 
-            </View>
+            </TouchableOpacity>
         )
     }
 
@@ -100,12 +103,12 @@ const BuyCoinHeader = ({
             </View>
             <View style={styles.nameContainer}>
 
-                <TextComponent text={'Liam Andrew'} styles={styles.HeaderTitle} />
+                <TextComponent text={profileName} styles={styles.HeaderTitle} />
                 <View style={{ flexDirection: 'row', justifyContent: 'space-around', width: wp('95'), marginTop: hp('3'), }}>
 
-                    <SocialBox image={require('../Assests/Icons/chat.png')} imageText={'Message'} />
-                    <SocialBox image={require('../Assests/Icons/phone.png')} imageText={'Call'} />
-                    <SocialBox image={require('../Assests/Icons/send.png')} imageText={'Mail'} />
+                    <SocialBox onPress={onPressMessage} image={require('../Assests/Icons/chat.png')} imageText={'Message'} />
+                    <SocialBox onPress={onPressCall} image={require('../Assests/Icons/phone.png')} imageText={'Call'} />
+                    <SocialBox onPress={onPressEMail} image={require('../Assests/Icons/send.png')} imageText={'Mail'} />
                 </View>
             </View>
 
@@ -149,7 +152,8 @@ const styles = StyleSheet.create({
     },
     nameContainer: {
         alignItems: 'center',
-        marginTop: hp('8')
+        marginTop: hp('8'),
+        marginBottom: hp('2')
     },
     coinText: {
         fontSize: hp('2'),

@@ -1,6 +1,5 @@
 import {create} from 'apisauce';
-// import {store} from '@/store/store';
-import {baseURL, createAdsUrl} from './Urls';
+import {baseURL, notifyUserUrl} from './Urls';
 import {store} from '../Redux/Reducers';
 import {loadingFalse, loadingTrue} from '../Redux/Action/isloadingAction';
 import {Platform} from 'react-native';
@@ -12,18 +11,11 @@ const API = create({
   //   timeoutErrorMessage: 'Please try Again...',
 });
 
-const hideLoaderAPIs = [
-  '/playcount',
-  '/playlist',
-  '/count-streak',
-  '/favorite',
-  '/goals',
-  '/get-all-achievements',
-];
+const hideLoaderAPIs = [notifyUserUrl];
 // const hideLoaderAPIs = ['/playcount', '/playlist', '/home-content'];
 
 API.addRequestTransform(config => {
-  store.dispatch(loadingTrue());
+  if (!hideLoaderAPIs.includes(config.url)) store.dispatch(loadingTrue());
   const {Auth} = store.getState();
   config.headers = {
     Authorization: `Bearer ${Auth.token}`,
@@ -34,7 +26,7 @@ API.addRequestTransform(config => {
 API.addResponseTransform(response => {
   setTimeout(() => store.dispatch(loadingFalse()), 500);
   const {Auth} = store.getState();
-  console.log('response?.originalError?.message', response?.originalError);
+  console.log('token', Auth.token);
   if (
     response?.originalError?.message == 'Request failed with status code 401' &&
     Auth.token != ''

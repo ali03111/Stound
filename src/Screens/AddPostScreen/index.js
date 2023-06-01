@@ -147,11 +147,21 @@ const AddPostScreen = ({ navigation }) => {
               onValueChange={(itemValue, itemIndex) =>
                 onSelecteTag(itemValue, 'cat')
               }>
-              <Picker.Item label="Select Category..." value={null} />
+              <Picker.Item
+                color="gray"
+                style={{color: 'gray'}}
+                label="Select Category..."
+                value={null}
+              />
               {preferencesData.cat &&
                 preferencesData.cat.map(res => {
                   return (
-                    <Picker.Item label={res.name} value={res.categoryId} />
+                    <Picker.Item
+                      label={res.name}
+                      color="black"
+                      style={{color: 'black'}}
+                      value={res.categoryId}
+                    />
                   );
                 })}
             </Picker>
@@ -165,7 +175,7 @@ const AddPostScreen = ({ navigation }) => {
                 reset,
                 control,
                 getValues,
-                placeholder: 'Ad tittle here...',
+                placeholder: 'Ad title here...',
                 viewStyle: styles.inputTitle,
                 textStyle: styles.inputText,
                 inputIconStyle: styles.inputIcon,

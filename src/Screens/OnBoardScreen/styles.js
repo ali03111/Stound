@@ -36,7 +36,7 @@ export const styles = StyleSheet.create({
   },
   centerHeading: {
     fontSize: hp('3'),
-    fontWeight: 'normal',
+    fontWeight: 'bold',
     marginVertical: hp('1.5'),
     marginBottom: hp('2'),
     width: wp('90'),
@@ -62,7 +62,7 @@ export const styles = StyleSheet.create({
     borderWidth: currentIndex == index ? 0 : 1,
   }),
   bannerImg: {
-    // height: hp('100'),
-    // width: wp('100'),
+    height: hp('70'),
+    width: wp('100'),
   },
 });

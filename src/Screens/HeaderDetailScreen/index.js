@@ -35,18 +35,20 @@ import MsgSendButton from '../../Components/MsgSendButton';
 import useHeaderDetailScreen from './useHeaderDetailScreen';
 import HeaderDetailComponent from '../../Components/HeaderDetailComponent';
 import { Colors } from '../../Theme/Variables';
+import { imageURL, imageUrl } from '../../Utils/Urls';
 
-const index = ({ navigation }) => {
-    const { PackageDetailData } = useHeaderDetailScreen();
+const index = ({ navigation, route }) => {
+    const { PackageDetailData, onPressMessage, onPressEMail, onPressCall } = useHeaderDetailScreen();
     const imageLenght = detailsImages.length;
-
+    const Item = route.params;
     const renderItem = useCallback(({ item, index }) => {
+        console.log('Tiemimeiei', item)
         return (
             index > 0 &&
             index < 4 && (
                 <ImageBackground
                     resizeMode="cover"
-                    source={{ uri: item }}
+                    source={{ uri: imageUrl(item) }}
                     style={styles.secondImage(index)}>
                     {index == 3 && (
                         <View style={styles.overlayView}>
@@ -66,22 +68,28 @@ const index = ({ navigation }) => {
         return (
 
             <View style={styles.socialbox}>
-                <Image source={image} style={styles.imageStyle} />
-                <TextComponent text={'3 Baths'} styles={styles.imageTextStyle} />
+                <Image source={{
+                    uri: imageUrl(image)
+                }} style={styles.imageStyle} />
+                <TextComponent text={imageText} styles={styles.imageTextStyle} />
 
             </View>
         )
     }
+
     return (
         <>
             <HeaderDetailComponent
                 onPress={() => navigation.goBack()}
-
+                profileName={Item?.userDetail?.name}
                 headerTitle={'Details'}
                 arrowBackIcon={arrowbackwhite}
                 centerTextStyle={styles.centerHeading}
                 backText={'Back'}
-                centerImage={require('../../Assests/Images/profile5.png')}
+                onPressEMail={() => onPressEMail(Item?.userDetail?.email)}
+                onPressCall={() => onPressCall('03302876406')}
+                // centerImage={require('../../Assests/Images/profile5.png')}
+                centerImage={Item?.userDetail?.profilePicture}
             />
 
             <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.topContainer} >
@@ -91,12 +99,12 @@ const index = ({ navigation }) => {
 
                     <Image
                         style={styles.firstImage(imageLenght)}
-                        source={{ uri: detailsImages[0] }}
+                        source={{ uri: imageUrl(Item?.adDetail.photos[0]) }}
                     />
-                    {detailsImages.length > 0 && (
+                    {Item?.adDetail.photos.length > 0 && (
                         <FlatList
                             refreshing={false}
-                            data={detailsImages}
+                            data={Item?.adDetail.photos}
                             renderItem={renderItem}
                             showsHorizontalScrollIndicator={false}
                             keyExtractor={keyExtractor}
@@ -104,146 +112,76 @@ const index = ({ navigation }) => {
                     )}
                 </View>
 
-                {/* {console.log(PackageDetailData)} */}
 
                 <View style={styles.detail}>
                     <View style={styles.detailTitle}>
-                        <TextComponent text={PackageDetailData.title} styles={styles.title} />
-                        <TextComponent text={'$4,500'} styles={styles.price} />
+                        <TextComponent text={Item?.adDetail?.title} styles={styles.title} />
+                        <TextComponent text={'$' + Item?.adDetail?.price} styles={styles.price} />
                     </View>
 
                     <TextComponent
-                        text={PackageDetailData.forRent}
+                        text={Item?.adDetail?.adType}
                         styles={styles.forRent}
                     />
 
                     <View style={styles.locationMain}>
                         <Image source={locationBlueIcon} />
                         <TextComponent
-                            text={PackageDetailData.location}
+                            text={Item?.adDetail?.location}
                             styles={styles.locationText}
                         />
                     </View>
-                    <View style={styles.SocialBoxContainer}>
-                        <SocialBoxNotification image={require('../../Assests/Icons/chat.png')} imageText={'Message'} />
-                        <SocialBoxNotification image={require('../../Assests/Icons/phone.png')} imageText={'Call'} />
-                        <SocialBoxNotification image={require('../../Assests/Icons/send.png')} imageText={'Mail'} />
+                    <TextComponent text={'General Preferences'} styles={styles.headingStyle} />
 
-                    </View>
-                    {/* <TextComponent
-                        text={'Property Details'}
-                        styles={styles.detailsHeading}
-                    /> */}
-                    {/* <ScrollView
-                        style={styles.propertyDetails}
-                        showsVerticalScrollIndicator={false}>
-                        <View style={{ paddingBottom: hp('6') }}>
-                            <Collapse style={styles.mainToggle}>
-                                <CollapseHeader>
-                                    <View style={styles.toggleHead}>
-                                        <Text style={styles.headTitle}>Profile </Text>
-                                        <Ionicons name={'caret-down'} size={hp(2)} />
+                    <FlatList
+                        horizontal
+                        showsHorizontalScrollIndicator={false}
+
+                        data={Item?.adDetail?.generalPref}
+                        renderItem={({ item }) => {
+                            return (
+                                <>
+                                    <View style={styles.SocialBoxContainer}>
+                                        <SocialBoxNotification image={Item?.adDetail?.generalPref[0].image} imageText={'Message'} />
                                     </View>
-                                </CollapseHeader>
-                                <CollapseBody>
-                                    <View style={styles.profileDetails}>
-                                        <View style={styles.accProfile}>
-                                            <Image
-                                                source={accountprofile}
-                                                style={styles.accProfileImg}
-                                            />
-                                        </View>
-                                        <View style={styles.profileData}>
-                                            <TextComponent text={'Jhon Doe'} styles={styles.pTitle} />
-                                            <TextComponent
-                                                text={'jhondoe@gmail.com'}
-                                                styles={styles.pEmail}
-                                            />
-                                        </View>
-                                        <View style={styles.accChat}>
-                                            <Image source={chat} />
-                                        </View>
+                                </>
+                            )
+                        }}
+                    />
+                    <TextComponent text={'Outside Preferences'} styles={{ ...styles.headingStyle, marginTop: hp('2') }} />
+
+                    <FlatList
+                        horizontal
+                        showsHorizontalScrollIndicator={false}
+
+                        data={Item?.adDetail?.outsidePref}
+                        renderItem={({ item }) => {
+                            return (
+                                <>
+                                    <View style={styles.SocialBoxContainer}>
+                                        <SocialBoxNotification image={Item?.adDetail?.generalPref[0].image} imageText={'Message'} />
                                     </View>
-                                </CollapseBody>
-                            </Collapse>
-                            <Collapse style={styles.mainToggle}>
-                                <CollapseHeader>
-                                    <View style={styles.toggleHead}>
-                                        <Text style={styles.headTitle}>General </Text>
-                                        <Ionicons name={'caret-down'} size={hp(2)} />
+                                </>
+                            )
+                        }}
+                    />
+                    <TextComponent text={'Inside Preferences'} styles={{ ...styles.headingStyle, marginTop: hp('2') }} />
+
+                    <FlatList
+                        showsHorizontalScrollIndicator={false}
+                        horizontal
+                        data={Item?.adDetail?.insidePref}
+                        renderItem={({ item }) => {
+                            return (
+                                <>
+                                    <View style={styles.SocialBoxContainer}>
+                                        <SocialBoxNotification image={Item?.adDetail?.generalPref[0].image} imageText={'Message'} />
                                     </View>
-                                </CollapseHeader>
-                                <CollapseBody>
-                                    <View style={styles.btns}>
-                                        {PackageDetailData.tags.map(item => {
-                                            return (
-                                                <FilterAddButton
-                                                    disabledValue={true}
-                                                    title={item.text}
-                                                    image={item.icon}
-                                                    style={styles.btn}
-                                                />
-                                            );
-                                        })}
-                                    </View>
-                                </CollapseBody>
-                            </Collapse>
-                            <Collapse style={styles.mainToggle}>
-                                <CollapseHeader>
-                                    <View style={styles.toggleHead}>
-                                        <Text style={styles.headTitle}>Outside </Text>
-                                        <Ionicons name={'caret-down'} size={hp(2)} />
-                                    </View>
-                                </CollapseHeader>
-                                <CollapseBody>
-                                    <View style={styles.btns}>
-                                        {PackageDetailData.tags.map(item => {
-                                            return (
-                                                <FilterAddButton
-                                                    disabledValue={true}
-                                                    title={item.text}
-                                                    image={item.icon}
-                                                    style={styles.btn}
-                                                />
-                                            );
-                                        })}
-                                    </View>
-                                </CollapseBody>
-                            </Collapse>
-                            <Collapse style={styles.mainToggle}>
-                                <CollapseHeader>
-                                    <View style={styles.toggleHead}>
-                                        <Text style={styles.headTitle}>Inside </Text>
-                                        <Ionicons name={'caret-down'} size={hp(2)} />
-                                    </View>
-                                </CollapseHeader>
-                                <CollapseBody>
-                                    <View style={styles.btns}>
-                                        {PackageDetailData.tags.map(item => {
-                                            return (
-                                                <FilterAddButton
-                                                    disabledValue={true}
-                                                    title={item.text}
-                                                    image={item.icon}
-                                                    style={styles.btn}
-                                                />
-                                            );
-                                        })}
-                                    </View>
-                                </CollapseBody>
-                            </Collapse>
-                        </View>
-                    </ScrollView> */}
-                    {/* <View style={styles.priceMain}>
-                        <View style={styles.priceLeft}>
-                            <TextComponent text={'Total price'} styles={styles.priceText} />
-                        </View>
-                        <MsgSendButton
-                            title={'Contact Now'}
-                            style={styles.sendBtnStyle}
-                            textStyle={styles.sendTextStyle}
-                        />
-                    </View> */}
+                                </>
+                            )
+                        }}
+                    />
+
                 </View>
             </ScrollView>
 

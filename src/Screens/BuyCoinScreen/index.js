@@ -7,7 +7,8 @@ import BuyCoinHeader from '../../Components/BuyCoinHeader';
 import { TextComponent } from '../../Components/TextComponent';
 import { wp } from '../../Config/responsive';
 import useBuyCoinScreen from './useBuyCoinScreen';
-const index = ({ navigation }) => {
+const index = ({ navigation, route }) => {
+    const { items } = route.params;
 
 
     const { HeaderDetailScreen } = useBuyCoinScreen(navigation);
@@ -52,7 +53,7 @@ const index = ({ navigation }) => {
             </View>
             <View style={styles.midContainer}>
 
-                <BuyCoin onPress={() => HeaderDetailScreen()} coinTitle={'10 Coins'} coinDes={'Validy till 25 - 5 - 2023'} coinPrice={'28.38'} />
+                <BuyCoin onPress={() => HeaderDetailScreen(items)} coinTitle={'10 Coins'} coinDes={'Validy till 25 - 5 - 2023'} coinPrice={'28.38'} />
                 <BuyCoin coinTitle={'10 Coins'} coinDes={'Validy till 25 - 5 - 2023'} coinPrice={'28.38'} />
                 <BuyCoin coinTitle={'10 Coins'} coinDes={'Validy till 25 - 5 - 2023'} coinPrice={'28.38'} />
             </View>

@@ -16,14 +16,15 @@ export const styles = StyleSheet.create({
     borderWidth: 0.2,
     borderColor: Colors.primaryColor,
     alignItems: 'center', width: wp('28'),
-    backgroundColor: 'rgba(11, 180, 255, 0.03)'
+    backgroundColor: 'rgba(11, 180, 255, 0.03)',
+    marginRight: wp('3')
   },
   imageTextStyle: {
     fontSize: hp('1.5')
   },
   imageStyle: { tintColor: Colors.primaryColor, width: wp('5'), resizeMode: 'contain', height: hp('5') },
   topContainer: { marginTop: hp('2'), marginLeft: wp('3'), paddingBottom: hp('5') },
-  headingStyle: { fontSize: hp('1.8'), marginBottom: hp('1') },
+  headingStyle: { fontSize: hp('2.2'), marginBottom: hp('1'), marginLeft: wp('3') },
   firstImage: length => ({
     width: length == 1 ? wp('90') : wp('68'),
     // width: length > 0 ? wp('67') : wp('90'),

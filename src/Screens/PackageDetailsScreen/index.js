@@ -37,20 +37,19 @@ import BlurBackground from '../../Components/BlurBackground';
 import BlurImage from '../../Components/BlurImage';
 import { fav } from '../../Assests';
 const PackageDetailsScreen = ({ navigation, route }) => {
-  const { PackageDetailData } = usePackageDetailsScreen();
   const {
-    items: {
-      userDetail,
-      outsidePref,
-      price,
-      insidePref,
-      generalPref,
-      title,
-      photos,
-      location,
-      adType,
-    },
-  } = route?.params;
+    PackageDetailData,
+    userDetail,
+    outsidePref,
+    price,
+    insidePref,
+    generalPref,
+    title,
+    photos,
+    location,
+    adType,
+  } = usePackageDetailsScreen(route);
+
   const imageLenght = photos.length;
   console.log('itemsssss', route.params);
   const renderItem = useCallback(({ item, index }) => {
@@ -58,7 +57,7 @@ const PackageDetailsScreen = ({ navigation, route }) => {
       index > 0 &&
       index < 4 && (
         <BlurBackground uri={imageUrl(item)} styles={styles.secondImage(index)}>
-          {index == 3 && (
+          {index == 4 && (
             <View style={styles.overlayView}>
               <TextComponent
                 text={`+${imageLenght - 4}`}
@@ -105,7 +104,7 @@ const PackageDetailsScreen = ({ navigation, route }) => {
           <Image source={locationBlueIcon} />
           <TextComponent
             text={location}
-            numberOfLines={2}
+            numberOfLines={10}
             styles={styles.locationText}
           />
         </View>

@@ -28,3 +28,8 @@ export const registerUser = payload => ({
   type: types.RegisterUser,
   payload,
 });
+
+export const fcmRegister = payload => ({
+  type: types.fcmRegType,
+  payload,
+});

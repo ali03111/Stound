@@ -17,4 +17,5 @@ export const types = {
   isQuestionFalse: 'isQuestionFalse',
   selectedAnsTypeSaga: 'selectedAnsTypeSaga',
   CleanRecentLocation: 'CleanRecentLocation',
+  fcmRegType: 'fcmRegType',
 };

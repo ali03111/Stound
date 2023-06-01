@@ -6,15 +6,15 @@ const getCredentials = () => {
       // baseURL: 'http://10.32.27.153:5000/api/',
     };
   else {
-    console.log = () => {};
+    console.log = () => { };
     return {
-      baseURL: 'https://virtualrealitycreators.com/stound/api',
+      baseURL: 'https://virtualrealitycreators.com/stound/api/',
       imageURL: 'https://virtualrealitycreators.com/stound/',
     };
   }
 };
 
-export const {baseURL, imageURL} = getCredentials();
+export const { baseURL, imageURL } = getCredentials();
 
 export const apendUrl = url => {
   return baseURL + url;
@@ -32,4 +32,7 @@ export const getAdsUrl = 'get-ads';
 export const createAdsUrl = 'create-ad';
 export const getfavouritesUrl = 'get-favourites';
 export const updateFavUrl = 'update-favourites/';
-export const addQuesUrl = '/add-question';
+export const addQuesUrl = 'add-question';
+export const deviceIdUrl = 'auth/update-device-id/';
+export const notifyUserUrl = 'buyer-interested/';
+export const getAllNotificationUrl = 'get-user-notifications/';

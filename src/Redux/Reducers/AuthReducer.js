@@ -3,6 +3,7 @@ import {types} from '../types';
 const initial_state = {
   userData: {},
   token: '',
+  isLogin: false,
 };
 
 const actionMap = {
@@ -10,6 +11,7 @@ const actionMap = {
     return {
       userData: act.payload.user,
       token: act.payload.token,
+      isLogin: true,
     };
   },
   [types.LogoutType]: () => initial_state,

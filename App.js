@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   Platform,
   StyleSheet,
@@ -7,33 +7,38 @@ import {
   LogBox,
   View,
   Image,
+  AppState,
 } from 'react-native';
-import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
+import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import StackNavigatior from './src/Navigation/navigation';
-import {SplashScreen, radioEmtpy, radioFill} from './src/Assests';
-import {Settings} from 'react-native-fbsdk-next';
+import { SplashScreen, radioEmtpy, radioFill } from './src/Assests';
+import { Settings } from 'react-native-fbsdk-next';
 import useReduxStore from './src/Hooks/UseReduxStore';
 import Overlay from './src/Components/Overlay';
-import {logOutFirebase} from './src/Services/AuthServices';
-import {GoogleSignin} from '@react-native-google-signin/google-signin';
-import {hp, wp} from './src/Config/responsive';
-import {RadioButtons} from './src/Utils/localDB';
-import {Touchable} from './src/Components/Touchable';
-import {TextComponent} from './src/Components/TextComponent';
+import { logOutFirebase } from './src/Services/AuthServices';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import { hp, wp } from './src/Config/responsive';
+import { RadioButtons } from './src/Utils/localDB';
+import { Touchable } from './src/Components/Touchable';
+import { TextComponent } from './src/Components/TextComponent';
 import {
   questionFalse,
   setAnswer,
 } from './src/Redux/Action/isQuestionAction copy';
-import {Colors} from './src/Theme/Variables';
+import { Colors } from './src/Theme/Variables';
+import { fcmService } from './src/Services/Notifications';
+import { fcmRegister } from './src/Redux/Action/AuthAction';
 
-function App({navigation}) {
+function App({ navigation }) {
   const [isVisible, setIsVisible] = useState(true);
   const Hide_Splash_Screen = () => {
     setIsVisible(false);
   };
-  const {getState, dispatch} = useReduxStore();
-  const {isloading} = getState('isloading');
-  const {isQuestion} = getState('isQuestion');
+  const { getState, dispatch } = useReduxStore();
+  const { isloading } = getState('isloading');
+  const { isQuestion } = getState('isQuestion');
+  const { isLogin } = getState('Auth');
+  const appState = useRef(AppState.currentState);
   const time = () => {
     return 5000;
   };
@@ -68,11 +73,6 @@ function App({navigation}) {
     })();
     GoogleSignin.configure({
       webClientId:
-        // '925607838451-8qg5h8k6rsvvhkahp97c3aj3kkc50m9g.apps.googleusercontent.com',
-        // '925607838451-2cbsfsq0oenaj93jdivbnm7k8qhv4emu.apps.googleusercontent.com',
-        // '925607838451-2cbsfsq0oenaj93jdivbnm7k8qhv4emu.apps.googleusercontent.com',
-        // '925607838451-2i4fd6777bbpn30i228rjsjnsupkodn6.apps.googleusercontent.com',
-        // '925607838451-8qg5h8k6rsvvhkahp97c3aj3kkc50m9g.apps.googleusercontent.com',
         '925607838451-7o04nlji1tt0v5k15fr8oo6bgdqqgc91.apps.googleusercontent.com',
     });
 
@@ -81,6 +81,26 @@ function App({navigation}) {
       Hide_Splash_Screen();
     }, time());
   }, []);
+
+  useEffect(() => {
+    /* It's a function that registers the device to receive push notifications. */
+    if (isLogin)
+      setTimeout(() => {
+        fcmService.register(onRegister, onOpenNotification, appState.current);
+      }, 5000);
+    return () => {
+      /* It's a function that unregisters the device from receiving push notifications. */
+      if (isLogin) fcmService.unRegister();
+    };
+  }, [isLogin]);
+  const onRegister = fcm_token => {
+    console.log("fcm_token", Platform.OS, fcm_token);
+    dispatch(fcmRegister(fcm_token));
+  };
+
+  const onOpenNotification = notify => {
+    console.log('notify', notify);
+  };
 
   let Splash_Screen = (
     <ImageBackground
@@ -116,7 +136,7 @@ function App({navigation}) {
                 children={
                   <TextComponent
                     text={'Confirm'}
-                    styles={{color: Colors.white}}
+                    styles={{ color: Colors.white }}
                   />
                 }
               />
