@@ -39,10 +39,7 @@ const BuyCoinHeader = ({
                                     style: styles.arrowback,
                                 }}
                             />
-                            {/* <CircleImageComp
-                            styles={styles.profileImg}
-                            image={notificationProfile2}
-                        /> */}
+
                             <TextComponent
                                 text={backText}
                                 styles={{ ...styles.backBtn, ...backTextStyle }}

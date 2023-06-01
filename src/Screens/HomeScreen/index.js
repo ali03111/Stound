@@ -69,7 +69,7 @@ const HomeScreen = ({ navigation }) => {
       <HomeCard
         userName={`${item?.userDetail?.name}`}
         image={imageUrl(item.photos[0])}
-        profile={imageUrl(item.userDetail.profilePicture)}
+        profile={item.userDetail.profilePicture}
         bath={`${item?.bathrooms} Baths`}
         Beds={`${item?.rooms} Rooms`}
         locationText={`${item?.location}`}
@@ -80,7 +80,7 @@ const HomeScreen = ({ navigation }) => {
     );
   }, []);
 
-  // const RadioButtonMap = useCallback(() => {
+
   //   return radioButtons.map(res => {
   //     return (
   //       <Touchable style={styles.radioView} onPress={() => (s = res)}>
@@ -167,7 +167,6 @@ const HomeScreen = ({ navigation }) => {
                 successMessage('You like this property');
               }}
               onSwipedTop={ca => {
-                console.log('callllllll', ca);
                 setCurrentIndex(ca);
                 goToDetails(ca);
               }}

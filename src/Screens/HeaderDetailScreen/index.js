@@ -42,7 +42,6 @@ const index = ({ navigation, route }) => {
     const imageLenght = detailsImages.length;
     const Item = route.params;
     const renderItem = useCallback(({ item, index }) => {
-        console.log('Tiemimeiei', item)
         return (
             index > 0 &&
             index < 4 && (

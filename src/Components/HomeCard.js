@@ -61,7 +61,7 @@ const HomeCard = ({
             </View>
             <View style={styles.locationMain}>
               <Image source={location} />
-              <TextComponent text={locationText} styles={styles.locationText} />
+              <TextComponent numberOfLines={1} text={locationText} styles={styles.locationText} />
             </View>
             <View style={styles.cardFooter}>
               <TextComponent text={forRent} styles={styles.forRent} />
@@ -91,6 +91,7 @@ const styles = StyleSheet.create({
     flex: 1,
     borderRadius: 10,
     overflow: 'hidden',
+
   },
   overlay: {
     height: hp('100'),
@@ -104,8 +105,9 @@ const styles = StyleSheet.create({
   cardMain: {
     justifyContent: 'flex-end',
     flex: 1,
-    paddingHorizontal: wp('6'),
+    paddingHorizontal: wp('4'),
     paddingVertical: hp('3'),
+
   },
   cardTopbar: {
     flexDirection: 'row',
@@ -121,20 +123,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   profileImg: {
-    width: wp('12'),
+    width: wp('15'),
     height: hp('6'),
     borderRadius: 60,
-    // marginRight: wp('3'),
     aspectRatio: 1,
   },
   userName: {
     color: 'white',
-    fontSize: 18,
+    fontSize: 15,
     fontWeight: '500',
-    width: wp('25'),
+    width: wp('22'),
     marginLeft: wp('2'),
   },
   bath: {
+
     color: 'white',
     marginLeft: wp('1'),
     marginRight: wp('1.5'),
@@ -149,6 +151,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginTop: hp('1.5'),
+    marginLeft: wp('4'),
+    width: wp('80'),
   },
   locationText: {
     color: 'white',

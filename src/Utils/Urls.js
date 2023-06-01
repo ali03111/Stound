@@ -20,7 +20,7 @@ export const apendUrl = url => {
   return baseURL + url;
 };
 export const imageUrl = url => {
-  return imageURL + url;
+  return url ? imageURL + url : null;
 };
 
 export const registerUrl = 'auth/register';

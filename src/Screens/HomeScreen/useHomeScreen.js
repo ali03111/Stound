@@ -55,6 +55,7 @@ const useHomeScreen = ({ navigate, params, addListener }) => {
   };
 
   const goToDetails = index => {
+    console.log(userData?.isAnswered)
     if (!userData.isAnswered) {
       dispatch(questionTrue());
       setTimeout(() => {

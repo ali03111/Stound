@@ -1,11 +1,11 @@
-import React, {useState} from 'react';
-import {View, Text, Image} from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, Image } from 'react-native';
 import useAccountScreen from './useAccountScreen';
-import {styles} from './styles';
-import {AccountProfile} from '../../Assests';
-import {TextComponent} from '../../Components/TextComponent';
-import {Touchable} from '../../Components/Touchable';
-import {imageUrl} from '../../Utils/Urls';
+import { styles } from './styles';
+import { AccountProfile } from '../../Assests';
+import { TextComponent } from '../../Components/TextComponent';
+import { Touchable } from '../../Components/Touchable';
+import { imageUrl } from '../../Utils/Urls';
 import BlurImage from '../../Components/BlurImage';
 const ProfileArea = ({
   ProfileImage,
@@ -20,7 +20,7 @@ const ProfileArea = ({
       <BlurImage
         styles={styles.porfileImg}
         uri={
-          imageUrl(userData.profilePicture) ||
+          userData.profilePicture ||
           'https://res.cloudinary.com/dd6tdswt5/image/upload/v1684830799/UserImages/mhysa2zj0sbmvnw69b35.jpg'
         }
       />

@@ -3,8 +3,20 @@ import { StyleSheet, Text, Image, View, Touchable, TouchableOpacity } from 'reac
 import { TextComponent } from './TextComponent';
 import { hp, wp } from '../Config/responsive';
 import { Colors } from '../Theme/Variables';
+import moment from 'moment';
 
 const NotificationComp = ({ image, name, description, time, onPress }) => {
+  // const givenTime = time;
+  // const currentTime = moment();
+  // const diffInMinutes = currentTime.diff(moment(givenTime), 'minutes');
+
+  const givenTime = time;
+  const currentTime = moment();
+  const diff = moment.duration(currentTime.diff(moment(givenTime)));
+
+  const minutes = diff.minutes();
+  const hours = diff.hours();
+  const days = diff.days();
   return (
     <TouchableOpacity onPress={onPress} style={styles.notificationMian}>
       <View style={styles.mainBannerImg}>
@@ -13,14 +25,25 @@ const NotificationComp = ({ image, name, description, time, onPress }) => {
       <View style={styles.nameDescriptionMain}>
         <Text style={styles.nameDescription}>
           <TextComponent text={name} styles={styles.username} />
-          <TextComponent text={' Interested IN'} />
-          <TextComponent text={' your property and want to talk. '} styles={styles.description} />
+          {/* <TextComponent text={` ${ans}`} /> */}
+          <TextComponent text={` ${description ?? " interested"} your property and want to talk.`} styles={styles.description} />
         </Text>
       </View>
       <View style={styles.mainTiming}>
-        <TextComponent text={time} styles={styles.timing} />
+        <TextComponent text={days > 0 ? (
+          <Text>{days} day ago</Text>
+        ) : hours > 0 ? (
+          <Text>{hours} hour ago</Text>
+        ) : (
+          <Text>{minutes} min ago</Text>
+        )} styles={styles.timing} />
+
+        {/* <TextComponent text=
+           {days > 0 && <Text>{days} day(s) ago</Text>}
+           {hours > 0 && <Text>{hours} hour(s) ago</Text>}
+           {minutes > 0 && <Text>{minutes} minute(s) ago</Text>}
+        styles={styles.timing} /> */}
       </View>
-      {/* <TextComponent text={item?.description} styles={styles.centerDes} /> */}
     </TouchableOpacity>
   );
 };

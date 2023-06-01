@@ -116,7 +116,7 @@ const AddPostScreen = ({ navigation }) => {
   return (
     <View style={{ flex: 1 }}>
       <Header
-        headerTitle={'Ads details'}
+        headerTitle={'Ad details'}
         arrowBackIcon={arrowback}
         backText={'Back'}
         goBack={navigation.goBack}
@@ -149,7 +149,7 @@ const AddPostScreen = ({ navigation }) => {
               }>
               <Picker.Item
                 color="gray"
-                style={{color: 'gray'}}
+                style={{ color: 'gray' }}
                 label="Select Category..."
                 value={null}
               />
@@ -159,7 +159,7 @@ const AddPostScreen = ({ navigation }) => {
                     <Picker.Item
                       label={res.name}
                       color="black"
-                      style={{color: 'black'}}
+                      style={{ color: 'black' }}
                       value={res.categoryId}
                     />
                   );

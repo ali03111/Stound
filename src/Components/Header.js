@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     paddingBottom: hp('1.5'),
     flexDirection: 'row',
     width: wp('90'),
-    marginTop: Platform.OS == 'ios' ? hp('5') : hp('1.5'),
+    marginTop: Platform.OS == 'ios' ? hp('6') : hp('1.5'),
     paddingHorizontal: wp('5'),
   },
   backMain: {

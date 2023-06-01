@@ -1,10 +1,10 @@
-import React, {memo, useCallback, useState} from 'react';
-import {View, FlatList, Text, ScrollView, SafeAreaView} from 'react-native';
+import React, { memo, useCallback, useState } from 'react';
+import { View, FlatList, Text, ScrollView, SafeAreaView } from 'react-native';
 import useFilterScreen from './useFilterScreen';
-import {styles} from './styles';
-import {TextComponent} from '../../Components/TextComponent';
+import { styles } from './styles';
+import { TextComponent } from '../../Components/TextComponent';
 import Header from '../../Components/Header';
-import {Picker} from '@react-native-picker/picker';
+import { Picker } from '@react-native-picker/picker';
 import {
   arrowback,
   addcircle,
@@ -14,27 +14,27 @@ import {
   maxslider,
 } from '../../Assests';
 import SwitchSelector from 'react-native-switch-selector';
-import {Colors} from '../../Theme/Variables';
+import { Colors } from '../../Theme/Variables';
 import FilterAddButton from '../../Components/FilterAddButton';
 import ThemeButtonComp from '../../Components/ThemeButtonComp';
 import Slider from '@react-native-community/slider';
-import {goBack} from '../../Utils';
-const FilterScreen = () => {
+import { goBack } from '../../Utils';
+const FilterScreen = ({ navigation }) => {
   const [selectedLanguage, setSelectedLanguage] = useState();
   const [sliderValue, setSliderValue] = useState(0);
   const options = [
-    {label: 'Rent', value: '1'},
-    {label: 'Buy  ', value: '2'},
+    { label: 'Rent', value: '1' },
+    { label: 'Buy  ', value: '2' },
   ];
   return (
-    <View style={{flex: 1}}>
+    <View style={{ flex: 1 }}>
       <Header
         headerTitle={'Filters'}
         arrowBackIcon={arrowback}
         backText={'Back'}
         saveReset={'Reset'}
-        goBack={goBack}
-        // style={styles.filterHeader}
+        goBack={() => navigation.goBack()}
+      // style={styles.filterHeader}
       />
 
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -64,6 +64,7 @@ const FilterScreen = () => {
           <TextComponent styles={styles.itemHeading} text={'Location '} />
           <View style={styles.addButton}>
             <FilterAddButton
+              isRequired={true}
               style={styles.locationBtn}
               textStyle={styles.locationBtnText}
               image={search}
@@ -100,6 +101,7 @@ const FilterScreen = () => {
           <View style={styles.addButton}>
             <FilterAddButton
               style={styles.filterButton}
+              isRequired={true}
               image={addcircle}
               title={'add'}
             />
@@ -110,6 +112,7 @@ const FilterScreen = () => {
           />
           <View style={styles.addButton}>
             <FilterAddButton
+              isRequired={true}
               style={styles.filterButton}
               image={addcircle}
               title={'add'}
@@ -121,6 +124,7 @@ const FilterScreen = () => {
           />
           <View style={styles.addButton}>
             <FilterAddButton
+              isRequired={true}
               style={styles.filterButton}
               image={addcircle}
               title={'add'}
