@@ -69,7 +69,7 @@ const HomeScreen = ({ navigation }) => {
       <HomeCard
         userName={`${item?.userDetail?.name}`}
         image={imageUrl(item.photos[0])}
-        profile={item.userDetail.profilePicture}
+        profile={imageUrl(item.userDetail.profilePicture)}
         bath={`${item?.bathrooms} Baths`}
         Beds={`${item?.rooms} Rooms`}
         locationText={`${item?.location}`}

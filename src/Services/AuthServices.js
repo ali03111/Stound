@@ -7,7 +7,7 @@ import {
   updateUserUrl,
 } from '../Utils/Urls';
 import API from '../Utils/helperFunc';
-import {Platform} from 'react-native';
+import { Platform } from 'react-native';
 
 const getFbResult = () => auth().currentUser.getIdTokenResult();
 
@@ -19,8 +19,8 @@ const logoutService = async () => await API.get(logoutUrl);
 
 const fcmRegService = async params => await API.put(deviceIdUrl + params);
 
-const randomService = async ({url, params}) =>
-  await API.post(url, {answer: params});
+const randomService = async ({ url, params }) =>
+  await API.post(url, { answer: params });
 
 const updateProfileServices = async params => {
   const formData = new FormData();
@@ -33,9 +33,23 @@ const updateProfileServices = async params => {
       });
     else formData.append(key, val);
   });
-  return await API.post(updateUserUrl, formData, {
-    maxBodyLength: 'infinite',
-  });
+  return await API.post(
+    updateUserUrl,
+    formData,
+    {
+      maxBodyLength: 'infinite',
+    },
+    {
+      Headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'POST, GET, PUT, OPTIONS, DELETE',
+        'Access-Control-Allow-Headers':
+          'Access-Control-Allow-Methods, Access-Control-Allow-Origin, Origin, Accept, Content-Type',
+        Accept: 'application/x-www-form-urlencoded',
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+    },
+  );
 };
 const logOutFirebase = () => auth().signOut();
 

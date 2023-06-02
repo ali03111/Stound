@@ -42,6 +42,7 @@ const useLogin = ({ navigate, goBack }) => {
 
   };
 
+
   //ForgetPassword Code
   const forgetFunction = async () => {
     const email = 'kesarah747@peogi.com';
@@ -57,6 +58,9 @@ const useLogin = ({ navigate, goBack }) => {
     // An error occurred
   }
 
+  function navigationForgetScreen() {
+    navigate('ForgetPasswordScreen')
+  }
 
   return {
     handleSubmit,
@@ -70,7 +74,8 @@ const useLogin = ({ navigate, goBack }) => {
     loginWithEmail,
     goBack,
     appleIdAuth,
-    forgetFunction
+    forgetFunction,
+    navigationForgetScreen
   };
 };
 

@@ -57,8 +57,7 @@ const EditProfileScreen = ({ navigation }) => {
                 styles={styles.ProfileImage}
                 uri={
                   imageUrl(userData.profilePicture) ||
-                  images?.uri ||
-                  "https://res.cloudinary.com/dd6tdswt5/image/upload/v1684830799/UserImages/mhysa2zj0sbmvnw69b35.jpg"
+                  images?.uri
                 }
               />
               <Image
@@ -75,7 +74,7 @@ const EditProfileScreen = ({ navigation }) => {
               </Touchable>
             </View>
             <TextComponent
-              text={userData?.name ?? 'Nabeel Naeem'}
+              text={userData?.name}
               styles={styles.userName}
             />
             <TextComponent text={userData?.email} styles={styles.userEmail} />
@@ -91,7 +90,7 @@ const EditProfileScreen = ({ navigation }) => {
               getValues,
               viewStyle: styles.loginInput,
               isImage: user,
-              defaultValue: userData?.name ?? 'Nabeel Naeem',
+              defaultValue: userData?.name,
             }}
           />
           {/* <View>
@@ -121,7 +120,7 @@ const EditProfileScreen = ({ navigation }) => {
               getValues,
               viewStyle: styles.loginInput,
               isImage: phoneIcon,
-              defaultValue: userData?.number ?? '800-716-9002',
+              defaultValue: userData?.number ?? 'xxx-xxx-xxxx',
             }}
           />
         </KeyBoardWrapper>

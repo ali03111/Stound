@@ -32,6 +32,10 @@ const StackNavigatior = () => {
             component={Screens.RegisterScreen}
           />
           <Stack.Screen name="LoginScreen" component={Screens.LoginScreen} />
+          <Stack.Screen
+            name="ForgetPasswordScreen"
+            component={Screens.ForgetPasswordScreen}
+          />
         </>
       )}
       {isLogin && (
@@ -89,6 +93,7 @@ const StackNavigatior = () => {
             name="HeaderDetailScreen"
             component={Screens.HeaderDetailScreen}
           />
+
         </>
       )}
     </Stack.Navigator>
