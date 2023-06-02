@@ -13,10 +13,11 @@ import { TextComponent } from '../../Components/TextComponent';
 import { styles } from './styles';
 import useNotificationScreen from './useNotificationScreen';
 import { NotificationHeader } from '../../Components/Header';
-import { wp } from '../../Config/responsive';
+import { hp, wp } from '../../Config/responsive';
 import { arrowback } from '../../Assests';
 import { AlertDesign } from '../../Components/AlertDesign';
 import { Colors } from '../../Theme/Variables';
+import { EmptyViewComp } from '../../Components/EmptyViewComp';
 
 const Notification = ({ navigation }) => {
   const { notificationData, getStart, onCancel, onConfirm, logOut, coinAlert, notificationDataState, } = useNotificationScreen(navigation);
@@ -58,7 +59,17 @@ const Notification = ({ navigation }) => {
 
             }}
             style={{ paddingBottom: 0 }}
+            ListEmptyComponent={
+              <View
+                style={{
+                  justifyContent: 'center',
+                  height: hp('80'),
+                }}>
+                <EmptyViewComp onRefresh={notificationDataState} />
+              </View>
+            }
           />
+
         </View>
       </View>
       <AlertDesign

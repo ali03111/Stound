@@ -1,4 +1,5 @@
 // import {errorMessage} from '../../Components/NotificationMessage';
+import { firebase } from '@react-native-firebase/auth';
 import useReduxStore from '../../Hooks/UseReduxStore';
 import { loginUser } from '../../Redux/Action/AuthAction';
 import { faceBookLogin } from '../../Utils/SocialLogin';
@@ -41,6 +42,22 @@ const useLogin = ({ navigate, goBack }) => {
 
   };
 
+  //ForgetPassword Code
+  const forgetFunction = async () => {
+    const email = 'kesarah747@peogi.com';
+    try {
+
+      await firebase.auth().sendPasswordResetEmail(email)
+      // Password reset email sent successfully
+      console.log('Password reset email sent!');
+    } catch (e) {
+
+      console.error(e);
+    }
+    // An error occurred
+  }
+
+
   return {
     handleSubmit,
     errors,
@@ -53,6 +70,7 @@ const useLogin = ({ navigate, goBack }) => {
     loginWithEmail,
     goBack,
     appleIdAuth,
+    forgetFunction
   };
 };
 

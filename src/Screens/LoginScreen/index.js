@@ -32,6 +32,7 @@ const LoginScreen = ({ navigation }) => {
     loginWithEmail,
     goBack,
     appleIdAuth,
+    forgetFunction
   } = useLogin(navigation);
   return (
     <View style={styles.mainView}>
@@ -79,7 +80,7 @@ const LoginScreen = ({ navigation }) => {
             // defaultValue: 'i53rdgen@',
           }}
         />
-        <TextComponent text={'Forget Password?'} styles={styles.forgetPass} />
+        <TextComponent onPress={forgetFunction} text={'Forget Password?'} styles={styles.forgetPass} />
         <ShareButton
           onPress={handleSubmit(loginWithEmail)}
           title={'Log In'}
