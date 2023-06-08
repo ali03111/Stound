@@ -1,21 +1,21 @@
-import { TextComponent } from '../../Components/TextComponent';
-import { Touchable } from '../../Components/Touchable';
-import { FlatList, Image, Text, TouchableOpacity, View } from 'react-native';
+import {TextComponent} from '../../Components/TextComponent';
+import {Touchable} from '../../Components/Touchable';
+import {FlatList, Image, Text, TouchableOpacity, View} from 'react-native';
 import Header from '../../Components/Header';
-import { wp, hp } from '../../Config/responsive';
+import {wp, hp} from '../../Config/responsive';
 import React from 'react';
-import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
-import { arrowback } from '../../Assests';
-import { styles } from '../LocationScreen/styles';
+import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
+import {arrowback} from '../../Assests';
+import {styles} from '../LocationScreen/styles';
 import useLocationScreen from './useLocationScreen';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { Colors } from '../../Theme/Variables';
+import {Colors} from '../../Theme/Variables';
 import DividerLine from '../../Components/DividerLine';
 
 import ShareButton from '../../Components/ShareButton';
-import { errorMessage } from '../../Config/NotificationMessage';
+import {errorMessage} from '../../Config/NotificationMessage';
 
-const Index = ({ navigation, route }) => {
+const Index = ({navigation, route}) => {
   const {
     addressText,
     handleButtonClick,
@@ -28,14 +28,14 @@ const Index = ({ navigation, route }) => {
   return (
     <>
       {console.log('CurrentLocaoitnqw', location)}
-      <View style={{ flex: 1, marginTop: hp('1') }}>
+      <View style={{flex: 1, marginTop: hp('1')}}>
         <Header
           headerTitle={'Ads details'}
           arrowBackIcon={arrowback}
           backText={'Back'}
           goBack={navigation.goBack}
         />
-        <View style={{ flex: 1 }}>
+        <View style={{flex: 1}}>
           <GooglePlacesAutocomplete
             placeholder="Search location"
             returnKeyType="default"
@@ -86,6 +86,7 @@ const Index = ({ navigation, route }) => {
               },
               description: {
                 width: wp('85'),
+                color: Colors.primaryTextColor,
               },
               loader: {
                 flexDirection: 'row',
@@ -97,7 +98,7 @@ const Index = ({ navigation, route }) => {
                 name="search"
                 size={30}
                 color={Colors.primaryColor}
-                style={{ marginLeft: 10 }}
+                style={{marginLeft: 10}}
               />
             )}
             onPress={(data, details) => {
@@ -134,7 +135,7 @@ const Index = ({ navigation, route }) => {
                   data={recentLocation}
                   showsVerticalScrollIndicator={false}
                   inverted
-                  renderItem={({ item }) => {
+                  renderItem={({item}) => {
                     return (
                       <Touchable
                         onPress={() => setSelectedLocation(item.description)}>

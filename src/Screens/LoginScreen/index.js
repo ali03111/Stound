@@ -1,5 +1,5 @@
-import React, { memo } from 'react';
-import { View, Text, Image } from 'react-native';
+import React, {memo, useCallback} from 'react';
+import {View, Text, Image} from 'react-native';
 import {
   appleIcon,
   arrowback,
@@ -8,17 +8,17 @@ import {
   lock,
   sms,
 } from '../../Assests';
-import { InputComponent } from '../../Components/InputComponent';
+import {InputComponent} from '../../Components/InputComponent';
 import KeyBoardWrapper from '../../Components/KeyboardWrapper';
 import ShareButton from '../../Components/ShareButton';
-import { TextComponent } from '../../Components/TextComponent';
-import { Touchable } from '../../Components/Touchable';
-import { hp } from '../../Config/responsive';
-import { Colors } from '../../Theme/Variables';
-import { styles } from './styles';
+import {TextComponent} from '../../Components/TextComponent';
+import {Touchable} from '../../Components/Touchable';
+import {hp} from '../../Config/responsive';
+import {Colors} from '../../Theme/Variables';
+import {styles} from './styles';
 import useLogin from './useLoginScreen';
 
-const LoginScreen = ({ navigation }) => {
+const LoginScreen = ({navigation}) => {
   const {
     handleSubmit,
     errors,
@@ -32,8 +32,9 @@ const LoginScreen = ({ navigation }) => {
     loginWithEmail,
     goBack,
     appleIdAuth,
-    navigationForgetScreen
+    navigationForgetScreen,
   } = useLogin(navigation);
+
   return (
     <View style={styles.mainView}>
       <KeyBoardWrapper>
@@ -80,7 +81,11 @@ const LoginScreen = ({ navigation }) => {
             // defaultValue: 'i53rdgen@',
           }}
         />
-        <TextComponent onPress={navigationForgetScreen} text={'Forget Password?'} styles={styles.forgetPass} />
+        <TextComponent
+          onPress={navigationForgetScreen}
+          text={'Forgot Password?'}
+          styles={styles.forgetPass}
+        />
         <ShareButton
           onPress={handleSubmit(loginWithEmail)}
           title={'Log In'}
@@ -95,7 +100,7 @@ const LoginScreen = ({ navigation }) => {
           <TextComponent
             onPress={register}
             text={'Sign Up'}
-            styles={{ color: Colors.primaryColor }}
+            styles={{color: Colors.primaryColor}}
           />
         </View>
         <TextComponent text={'Or'} styles={styles.or} />

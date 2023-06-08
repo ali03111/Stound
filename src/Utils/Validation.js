@@ -127,9 +127,9 @@ const editProfileScheme = yup.object().shape({
   number: yup.string().required('Please enter your number'),
 });
 const addPostScheme = yup.object().shape({
-  title: yup.string().required('Please enter your title'),
+  title: yup.string().required('Please enter title'),
   desc: yup.string().required('Please enter description'),
-  number: yup.string().required('Please enter the price'),
+  number: yup.string().required('Please enter price'),
 });
 
 const Schemas = {

@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useState } from 'react';
+import React, {memo, useCallback, useState} from 'react';
 import {
   View,
   FlatList,
@@ -8,12 +8,13 @@ import {
   Image,
   TextInput,
   RefreshControl,
+  TouchableOpacity,
 } from 'react-native';
 import useFilterScreen from './useAddPostScreen';
-import { styles } from './styles';
-import { TextComponent } from '../../Components/TextComponent';
+import {styles} from './styles';
+import {TextComponent} from '../../Components/TextComponent';
 import Header from '../../Components/Header';
-import { Picker } from '@react-native-picker/picker';
+import {Picker} from '@react-native-picker/picker';
 import {
   arrowback,
   addcircle,
@@ -30,23 +31,24 @@ import {
   addGalleryImage,
   accessibleforward,
 } from '../../Assests';
-import { Colors } from '../../Theme/Variables';
+import {Colors} from '../../Theme/Variables';
 import FilterAddButton from '../../Components/FilterAddButton';
 import ThemeButtonComp from '../../Components/ThemeButtonComp';
 import Slider from '@react-native-community/slider';
-import { goBack, keyExtractor } from '../../Utils';
-import { InputComponent } from '../../Components/InputComponent';
+import {goBack, keyExtractor} from '../../Utils';
+import {InputComponent} from '../../Components/InputComponent';
 import useAddPostScreen from './useAddPostScreen';
-import { wp } from '../../Config/responsive';
-import { Touchable } from '../../Components/Touchable';
+import {hp, wp} from '../../Config/responsive';
+import {Touchable} from '../../Components/Touchable';
 import SwitchSelector from 'react-native-switch-selector';
-import { imageUrl } from '../../Utils/Urls';
+import {imageUrl} from '../../Utils/Urls';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
-const AddPostScreen = ({ navigation }) => {
+const AddPostScreen = ({navigation}) => {
   const [selectedLanguage, setSelectedLanguage] = useState();
   const options = [
-    { label: 'Rent', value: 'Rent' },
-    { label: 'Buy  ', value: 'Buy' },
+    {label: 'Rent', value: 'Rent'},
+    {label: 'Buy  ', value: 'Buy'},
   ];
   const {
     handleSubmit,
@@ -70,9 +72,10 @@ const AddPostScreen = ({ navigation }) => {
     recentLocation,
     location,
     sendLocation,
+    deleteImage,
   } = useAddPostScreen(navigation);
 
-  const renderItem = ({ item, index }) => {
+  const renderItem = ({item, index}) => {
     return (
       <FilterAddButton
         style={styles.tags}
@@ -83,11 +86,25 @@ const AddPostScreen = ({ navigation }) => {
     );
   };
 
-  const renderItemImages = ({ item, index }) => {
-    return <Image source={{ uri: item?.uri }} style={styles.imagesStyle} />;
+  const renderItemImages = ({item, index}) => {
+    return (
+      <>
+        <TouchableOpacity
+          style={styles.cancelImage}
+          onPress={() => deleteImage(item)}>
+          <MaterialIcons
+            name="cancel"
+            size={hp('2.5')}
+            color={Colors.primaryColor}
+          />
+        </TouchableOpacity>
+
+        <Image source={{uri: item?.uri}} style={styles.imagesStyle} />
+      </>
+    );
   };
 
-  const FlatListComp = ({ data, onPress }) => {
+  const FlatListComp = ({data, onPress}) => {
     return (
       <FlatList
         refreshing={false}
@@ -96,25 +113,23 @@ const AddPostScreen = ({ navigation }) => {
         keyExtractor={keyExtractor}
         contentContainerStyle={styles.flatListMain}
         horizontal
-        ListFooterComponentStyle={{ marginLeft: wp('2') }}
+        ListFooterComponentStyle={{marginLeft: wp('2')}}
         ListFooterComponent={() => {
           return (
             <FilterAddButton
               style={styles.filterButton}
               image={addcircle}
               isRequired={true}
-              title={'add'}
+              title={'Add'}
               onPress={onPress}
             />
           );
-        }
-        }
+        }}
       />
     );
   };
-
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{flex: 1}}>
       <Header
         headerTitle={'Ad details'}
         arrowBackIcon={arrowback}
@@ -142,14 +157,14 @@ const AddPostScreen = ({ navigation }) => {
           <View style={styles.pickerStyle}>
             <Image source={catImage} />
             <Picker
+              dropdownIconColor={Colors.primaryColor}
               style={styles.pick}
               selectedValue={cat}
               onValueChange={(itemValue, itemIndex) =>
                 onSelecteTag(itemValue, 'cat')
               }>
               <Picker.Item
-                color="gray"
-                style={{ color: 'gray' }}
+                // color="gray"
                 label="Select Category..."
                 value={null}
               />
@@ -158,8 +173,8 @@ const AddPostScreen = ({ navigation }) => {
                   return (
                     <Picker.Item
                       label={res.name}
-                      color="black"
-                      style={{ color: 'black' }}
+                      // color="black"
+                      // style={{color: 'black'}}
                       value={res.categoryId}
                     />
                   );
@@ -182,7 +197,6 @@ const AddPostScreen = ({ navigation }) => {
                 isImage: adTitle,
               }}
             />
-
             <InputComponent
               {...{
                 name: 'desc',
@@ -199,6 +213,7 @@ const AddPostScreen = ({ navigation }) => {
                 inputLines: 4,
                 maxLength: 200,
                 multiline: true,
+                inputLength: true,
               }}
             />
             <InputComponent
@@ -219,7 +234,7 @@ const AddPostScreen = ({ navigation }) => {
             />
           </View>
           <TextComponent styles={styles.itemHeading} text={'Location '} />
-          <View style={{ ...styles.addButton, paddingHorizontal: wp('3') }}>
+          <View style={{...styles.addButton, paddingHorizontal: wp('3')}}>
             <FilterAddButton
               onPress={sendLocation}
               style={styles.locationBtn}
@@ -234,6 +249,8 @@ const AddPostScreen = ({ navigation }) => {
           <View style={styles.pickerStyle}>
             <Image source={bedblue} />
             <Picker
+              dropdownIconColor={Colors.primaryColor}
+              // mode="dropdown"
               style={styles.pick}
               selectedValue={rooms}
               onValueChange={(itemValue, itemIndex) =>
@@ -251,7 +268,9 @@ const AddPostScreen = ({ navigation }) => {
           <View style={styles.pickerStyle}>
             <Image source={bluebath} />
             <Picker
-              style={styles.pick}
+              dropdownIconColor={Colors.primaryColor}
+              // mode="dropdown"
+              style={[styles.pick]}
               selectedValue={bathRoom}
               onValueChange={(itemValue, itemIndex) =>
                 onSelecteTag(itemValue, 'bathRoom')
