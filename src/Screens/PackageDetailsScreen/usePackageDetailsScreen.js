@@ -20,7 +20,7 @@ const usePackageDetailsScreen = ({params}) => {
 
   const useEffectFun = async () => {
     const {ok, data} = await API.put(notifyUserUrl + params.items.adId);
-    console.log('data', data, params.items);
+    console.log('packagedetailScreen', data, params.items);
   };
 
   useEffect(useEffectFun, []);

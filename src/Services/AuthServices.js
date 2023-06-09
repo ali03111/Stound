@@ -42,15 +42,6 @@ const getAllAgoraUser = async token => {
 };
 const AgoraLogout = async () => await ChatClient.getInstance().logout();
 const createAgoraUser = async params => {
-  const appKey = '61979408#1143303';
-  const chatClient = ChatClient.getInstance();
-  let o = new ChatOptions({
-    autoLogin: false,
-    appKey: appKey,
-  });
-  chatClient.removeAllConnectionListener();
-  await chatClient.init(o);
-
   const {token} = await AgoraServerToken({});
   const headers = {
     Authorization: `Bearer ${token.appToken}`,
@@ -70,8 +61,75 @@ const createAgoraUser = async params => {
   return {agorData: res, ok: true};
 };
 
-const loginWithAgora = ({username, password}) => {
-  ChatClient.getInstance().loginWithAgoraToken(username, password);
+const loginWithAgora = async ({username, password}) => {
+  const appKey = '61979408#1143303';
+
+  const init = () => {
+    const chatClient = ChatClient.getInstance();
+    let o = new ChatOptions({
+      autoLogin: false,
+      appKey: appKey,
+    });
+    chatClient.removeAllConnectionListener();
+    chatClient
+      .init(o)
+      .then(() => {
+        console.log('init success');
+        this.isInitialized = true;
+        let listener = {
+          onTokenWillExpire() {
+            console.log('token expire.');
+          },
+          onTokenDidExpire() {
+            console.log('token did expire');
+          },
+          onConnected() {
+            console.log('onConnected');
+            // setMessageListener();
+          },
+          onDisconnected(errorCode) {
+            console.log('onDisconnected:' + errorCode);
+          },
+        };
+        chatClient.addConnectionListener(listener);
+      })
+      .catch(error => {
+        console.log(
+          'init fail: ' +
+            (error instanceof Object ? JSON.stringify(error) : error),
+        );
+      });
+  };
+  init();
+  const t = ChatClient.getInstance().loginWithAgoraToken(username, password);
+
+  // const t = ChatClient.getInstance().loginWithAgoraToken(username, password);
+  // const chatClient = ChatClient.getInstance();
+  // let o = new ChatOptions({
+  //   autoLogin: false,
+  //   appKey: appKey,
+  // });
+  // chatClient.removeAllConnectionListener();
+  // let listener = {
+  //   onTokenWillExpire(res) {
+  //     console.log('token expire.');
+  //   },
+  //   onTokenDidExpire() {
+  //     console.log('token did expire');
+  //   },
+  //   onConnected() {
+  //     console.log('onConnected');
+  //     // setMessageListener();
+  //   },
+  //   onDisconnected(errorCode) {
+  //     console.log('onDisconnected:' + errorCode);
+  //   },
+  // };
+  // const init = await chatClient.init(o);
+  // chatClient.addConnectionListener(listener);
+  // console.log('init the connection', t);
+  // return;
+  return t;
 };
 
 const getFbResult = () => auth().currentUser.getIdTokenResult();

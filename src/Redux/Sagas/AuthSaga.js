@@ -7,7 +7,6 @@ import {
   faceBookLogin,
   googleLogin,
 } from '../../Utils/SocialLogin';
-import API from '../../Utils/helperFunc';
 import {
   logOutAuth,
   logOutUser,
@@ -17,7 +16,6 @@ import {
 } from '../Action/AuthAction';
 import {loadingFalse, loadingTrue} from '../Action/isloadingAction';
 import {errorMessage, successMessage} from '../../Config/NotificationMessage';
-import {loginUrl} from '../../Utils/Urls';
 import {
   AgoraLogout,
   AgoraServerToken,
@@ -48,7 +46,6 @@ takes an action object as an argument, destructures its `payload` property to ge
 properties, and then performs a series of asynchronous operations using the `yield` keyword. */
 const loginSaga = function* ({payload: {datas, type}}) {
   const agoraId = uuid.v4().split('-').join('');
-  console.log(agoraId, 'asldkajldkjalskj');
   yield put(loadingTrue());
 
   try {
@@ -63,19 +60,15 @@ const loginSaga = function* ({payload: {datas, type}}) {
           token: jwtToken,
           data: {...socialData, agoraId},
         });
-        console.log(data, ok, 'yeyeyeyeyeye');
 
         if (ok) {
           const {token} = yield call(AgoraServerToken, {});
-          console.log(token, 'ueueueueu');
           const {ok, res} = yield call(getAllAgoraUser, token.appToken);
           if (ok) {
-            console.log(res, '12312312312');
             if (res.entities.length >= 1) {
               const checkAgoraUser = res.entities.filter(item => {
                 return item.username == data.user.agoraId;
               })[0];
-              console.log('bcejbcejbcejbcbecjbe', checkAgoraUser, data);
               if (checkAgoraUser?.uuid) {
                 const {token} = yield call(AgoraServerToken, {
                   uid: data.user.agoraId,
@@ -84,11 +77,9 @@ const loginSaga = function* ({payload: {datas, type}}) {
                   username: data.user.agoraId,
                   password: token.userToken,
                 });
-                console.log(statusdata, 'aljklfjlskdj');
                 if (!statusdata) {
                   yield put(updateAuth(data));
                 } else {
-                  console.log('statuscodeeeeee', statusdata);
                 }
               } else if (!checkAgoraUser) {
                 //Create Agora User
@@ -97,7 +88,6 @@ const loginSaga = function* ({payload: {datas, type}}) {
                   password: 'Test@123',
                   nickname: data.user.email,
                 });
-                console.log(ok, agorData, 'ok1111');
 
                 if (ok) {
                   const {ok, token} = yield call(AgoraServerToken, {
@@ -107,11 +97,9 @@ const loginSaga = function* ({payload: {datas, type}}) {
                     username: data.user.agoraId,
                     password: token.userToken,
                   });
-                  console.log(statusdata, 'aljklfjlskdj');
                   if (!statusdata) {
                     yield put(updateAuth(data));
                   }
-                  console.log(statusdata, 'Status11111');
                 }
               }
             } else {
@@ -121,7 +109,6 @@ const loginSaga = function* ({payload: {datas, type}}) {
                 password: 'Test@123',
                 nickname: data.user.email,
               });
-              console.log(ok, agorData, 'ok1111');
 
               if (ok) {
                 const {ok, token} = yield call(AgoraServerToken, {
@@ -131,11 +118,9 @@ const loginSaga = function* ({payload: {datas, type}}) {
                   username: data.user.agoraId,
                   password: token.userToken,
                 });
-                console.log(statusdata, 'aljklfjlskdj');
                 if (!statusdata) {
                   yield put(updateAuth(data));
                 }
-                console.log(statusdata, 'Status11111');
               }
             }
           }
@@ -168,8 +153,9 @@ function* registerSaga({payload: {datas}}) {
           token: jwtToken,
           data: {...datas, agoraId},
         });
-
+        console.log(data, ok, 'regesterServices');
         if (ok) {
+          console.log('OKSERVICESSS');
           //Create Agora User
           const {ok, agorData} = yield call(createAgoraUser, {
             username: data.user.agoraId,
@@ -198,7 +184,7 @@ function* registerSaga({payload: {datas}}) {
     }
   } catch (error) {
     console.log(error, 'Error');
-    errorMessage(error.message.split(' ').slice(1).join(' ') ?? error);
+    // errorMessage(error.message.split(' ').slice(1).join(' ') ?? error);
   } finally {
     yield put(loadingFalse());
   }
@@ -215,8 +201,8 @@ function* logOutSaga(action) {
     yield call(AgoraLogout);
 
     yield put({type: types.LogoutType});
-    console.log('okokok');
   } catch (error) {
+    console.log(error, 'logoutErrorrr');
     errorMessage(error.message.split(' ').slice(1).join(' '));
   } finally {
     yield put(loadingFalse());
