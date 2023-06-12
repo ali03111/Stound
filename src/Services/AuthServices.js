@@ -25,17 +25,15 @@ const randomService = async ({url, params}) =>
 const updateProfileServices = async params => {
   const formData = new FormData();
   Object.entries(params.profileData).forEach(([key, val]) => {
-    if (key == 'image' && val?.type)
-      formData.append(key, {
-        name: val?.fileName || val?.name || 'image',
-        type: val?.type,
-        uri: Platform.OS == 'ios' ? val?.uri.replace('file://', '') : val?.uri,
-      });
+    if (key == 'image' && val?.type) formData.append(key, {});
+    // formData.append(key, {
+    //   name: val?.fileName || val?.name || 'image',
+    //   type: val?.type,
+    //   uri: Platform.OS == 'ios' ? val?.uri.replace('file://', '') : val?.uri,
+    // });
     else formData.append(key, val);
   });
-  return await API.post(updateUserUrl, formData, {
-    maxBodyLength: 'infinite',
-  });
+  return await API.post('auth/checking', {});
 };
 const logOutFirebase = () => auth().signOut();
 

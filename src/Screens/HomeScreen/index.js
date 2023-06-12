@@ -60,6 +60,7 @@ const HomeScreen = ({navigation}) => {
     selectedIdRef,
     setCurrentIndex,
     s,
+    askQuestion,
   } = useHomeScreen(navigation);
 
   // console.log('cccc',onBoardinData);
@@ -163,7 +164,7 @@ const HomeScreen = ({navigation}) => {
                 successMessage('You cancel this property');
               }}
               onSwipedRight={ca => {
-                successMessage('You like this property');
+                askQuestion(ca);
               }}
               onSwipedTop={ca => {
                 console.log('callllllll', ca);

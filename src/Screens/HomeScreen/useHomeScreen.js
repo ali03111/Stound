@@ -3,7 +3,12 @@ import {Dimensions} from 'react-native';
 // import useReduxStore from '../../Hooks/useReduxStore';
 // import {types} from '../../Redux/types';
 import API from '../../Utils/helperFunc';
-import {addQuesUrl, getAdsUrl, updateFavUrl} from '../../Utils/Urls';
+import {
+  addQuesUrl,
+  getAdsUrl,
+  notifyUserUrl,
+  updateFavUrl,
+} from '../../Utils/Urls';
 import {errorMessage, successMessage} from '../../Config/NotificationMessage';
 import useReduxStore from '../../Hooks/UseReduxStore';
 import {types} from '../../Redux/types';
@@ -43,6 +48,16 @@ const useHomeScreen = ({navigate, params, addListener}) => {
     setCurrentIndex(currentIndex);
   };
 
+  const askQuestion = async index => {
+    if (!userData.isAnswered) {
+      dispatch(questionTrue());
+      // await API.put(notifyUserUrl + homeData[index].adId);
+    } else {
+      successMessage('You like this property');
+      await API.put(notifyUserUrl + homeData[index].adId);
+    }
+  };
+
   const onConfirmPressed = async () => {
     setShowAlert(false);
     const {ok, data} = await API.post(addQuesUrl, {
@@ -55,14 +70,7 @@ const useHomeScreen = ({navigate, params, addListener}) => {
   };
 
   const goToDetails = index => {
-    if (!userData.isAnswered) {
-      dispatch(questionTrue());
-      setTimeout(() => {
-        navigate('PackageDetailsScreen', {items: homeData[index]});
-      }, 3000);
-    } else {
-      navigate('PackageDetailsScreen', {items: homeData[index]});
-    }
+    navigate('PackageDetailsScreen', {items: homeData[index]});
   };
 
   const getHomeData = async () => {
@@ -104,6 +112,7 @@ const useHomeScreen = ({navigate, params, addListener}) => {
     selectedIdRef,
     s,
     setCurrentIndex,
+    askQuestion,
   };
 };
 

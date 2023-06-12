@@ -124,10 +124,10 @@ function* updateProfileSaga({payload: profileData}) {
       profileData,
     );
     console.log('user', originalError, data);
-    if (ok) {
-      yield put({type: types.UpdateProfile, payload: data.data});
-      successMessage('Your profile has been updated');
-    }
+    // if (ok) {
+    //   yield put({type: types.UpdateProfile, payload: data.data});
+    //   successMessage('Your profile has been updated');
+    // }
   } catch (error) {
     console.log('error ', error);
     errorMessage(error.message.split(' ').slice(1).join(' '));

@@ -64,15 +64,7 @@ const logInUpschema = yup.object().shape({
       /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
       'Please enter valid email',
     ),
-  password: yup
-    .string()
-    .required('Please Enter your password')
-    .min(6, 'Password must be greater then 6 digit')
-    .max(16, 'Password must be less then 16 digit')
-    .matches(
-      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
-      'Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character',
-    ),
+  password: yup.string().required('Please Enter your password'),
 });
 const forgotSchema = yup.object().shape({
   email: yup

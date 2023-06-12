@@ -4,6 +4,7 @@ import {types} from '../types';
 const initial_state = {
   isQuestion: false,
   selectedVal: RadioButtons[0],
+  adId: '',
 };
 const actionMap = {
   [types.isQuestionTrue]: (state, act) => ({
@@ -17,6 +18,10 @@ const actionMap = {
   [types.selectedValType]: (state, act) => ({
     ...state.selectedVal,
     selectedVal: act.payload,
+  }),
+  [types.setAdIdType]: (state, act) => ({
+    ...state.adId,
+    adId: act.payload,
   }),
 };
 export default function (state = initial_state, action) {

@@ -3,7 +3,6 @@ const getCredentials = () => {
     return {
       baseURL: 'https://virtualrealitycreators.com/stound/api/',
       imageURL: 'https://virtualrealitycreators.com/stound/',
-      // baseURL: 'http://10.32.27.153:5000/api/',
     };
   else {
     console.log = () => {};

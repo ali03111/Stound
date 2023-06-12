@@ -18,4 +18,5 @@ export const types = {
   selectedAnsTypeSaga: 'selectedAnsTypeSaga',
   CleanRecentLocation: 'CleanRecentLocation',
   fcmRegType: 'fcmRegType',
+  setAdIdType: 'setAdIdType',
 };

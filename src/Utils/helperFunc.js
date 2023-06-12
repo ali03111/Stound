@@ -4,6 +4,7 @@ import {store} from '../Redux/Reducers';
 import {loadingFalse, loadingTrue} from '../Redux/Action/isloadingAction';
 import {Platform} from 'react-native';
 import {logOutUser} from '../Redux/Action/AuthAction';
+import {types} from '../Redux/types';
 
 const API = create({
   baseURL,
@@ -31,7 +32,7 @@ API.addResponseTransform(response => {
     response?.originalError?.message == 'Request failed with status code 401' &&
     Auth.token != ''
   )
-    store.dispatch(logOutUser());
+    store.dispatch({type: types.LogoutType});
 
   return response;
 });

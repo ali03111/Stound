@@ -10,3 +10,7 @@ export const setAnswer = payload => ({
   type: types.selectedAnsTypeSaga,
   payload,
 });
+export const setAdId = payload => ({
+  type: types.setAdIdType,
+  payload,
+});
