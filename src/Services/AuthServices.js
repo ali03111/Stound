@@ -16,7 +16,7 @@ import {
   ChatMessage,
 } from 'react-native-agora-chat';
 import {useEffect} from 'react';
-
+import firestore from '@react-native-firebase/firestore';
 //Create Agora User For ChatApp
 
 const AgoraServerToken = async params => {
@@ -67,7 +67,7 @@ const loginWithAgora = async ({username, password}) => {
   const init = () => {
     const chatClient = ChatClient.getInstance();
     let o = new ChatOptions({
-      autoLogin: false,
+      autoLogin: true,
       appKey: appKey,
     });
     chatClient.removeAllConnectionListener();
@@ -174,6 +174,18 @@ const updateProfileServices = async params => {
     },
   );
 };
+
+const createUserFirestore = ({datas, data}) => {
+  firestore()
+    .collection('users')
+    .doc(data?.user.agoraId)
+    .set({
+      ...datas,
+      userId: data?.user.agoraId,
+    });
+  console.log('User added!');
+};
+
 const logOutFirebase = () => auth().signOut();
 
 export {
@@ -190,4 +202,5 @@ export {
   AgoraServerToken,
   AgoraLogout,
   getAllAgoraUser,
+  createUserFirestore,
 };

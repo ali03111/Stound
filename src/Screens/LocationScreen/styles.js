@@ -30,6 +30,7 @@ export const styles = StyleSheet.create({
   },
   text: {
     fontSize: hp('1.8'),
+    color: Colors.primaryTextColor,
   },
   recentContainer: {
     position: 'absolute',

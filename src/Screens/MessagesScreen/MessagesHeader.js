@@ -1,18 +1,18 @@
 import React from 'react';
-import { StyleSheet, Text, Image, View, Platform } from 'react-native';
-import { TextComponent } from '../../Components/TextComponent';
-import { Touchable } from '../../Components/Touchable';
+import {StyleSheet, Text, Image, View, Platform} from 'react-native';
+import {TextComponent} from '../../Components/TextComponent';
+import {Touchable} from '../../Components/Touchable';
 import {
   arrowback,
   lineleft,
   lineright,
   notificationProfile2,
 } from '../../Assests';
-import { hp, wp } from '../../Config/responsive';
-import { Colors } from '../../Theme/Variables';
-import { goBack } from '../../Utils';
-import { CircleImageComp } from '../../Components/CircleImageComp';
-import { heightPercentageToDP } from 'react-native-responsive-screen';
+import {hp, wp} from '../../Config/responsive';
+import {Colors} from '../../Theme/Variables';
+// import { goBack } from '../../Utils';
+import {CircleImageComp} from '../../Components/CircleImageComp';
+import {heightPercentageToDP} from 'react-native-responsive-screen';
 
 const MessagesHeader = ({
   headerTitle,
@@ -25,10 +25,11 @@ const MessagesHeader = ({
   backTextStyle,
   centerTextStyle,
   dayStyle,
+  goBack,
 }) => {
   return (
     <View>
-      <View style={[styles.TopHeader, { ...style }]}>
+      <View style={[styles.TopHeader, {...style}]}>
         <View style={styles.HeaderLeft}>
           <Touchable onPress={goBack} style={styles.backMain}>
             <Image
@@ -44,11 +45,11 @@ const MessagesHeader = ({
             />
             <TextComponent
               text={backText}
-              styles={{ ...styles.backBtn, ...backTextStyle }}
+              styles={{...styles.backBtn, ...backTextStyle}}
             />
           </Touchable>
         </View>
-        <View style={{ ...styles.HeaderCenter, ...centerTextStyle }}>
+        <View style={{...styles.HeaderCenter, ...centerTextStyle}}>
           <TextComponent text={headerTitle} styles={styles.HeaderTitle} />
         </View>
         <View style={styles.HeaderRight}>
@@ -62,14 +63,14 @@ const MessagesHeader = ({
             />
             <TextComponent
               text={saveReset}
-              styles={{ ...styles.backBtn, ...saveResetStyle }}
+              styles={{...styles.backBtn, ...saveResetStyle}}
             />
           </Touchable>
         </View>
       </View>
       <View style={styles.dayBarStyle}>
         <Image source={lineleft} />
-        <TextComponent text={'Today'} styles={{ ...styles.day, ...dayStyle }} />
+        <TextComponent text={'Today'} styles={{...styles.day, ...dayStyle}} />
         <Image source={lineright} />
       </View>
     </View>

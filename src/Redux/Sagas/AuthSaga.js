@@ -20,6 +20,7 @@ import {
   AgoraLogout,
   AgoraServerToken,
   createAgoraUser,
+  createUserFirestore,
   fcmRegService,
   getAllAgoraUser,
   getFbResult,
@@ -73,14 +74,15 @@ const loginSaga = function* ({payload: {datas, type}}) {
                 const {token} = yield call(AgoraServerToken, {
                   uid: data.user.agoraId,
                 });
-                const statusdata = yield call(loginWithAgora, {
-                  username: data.user.agoraId,
-                  password: token.userToken,
-                });
-                if (!statusdata) {
-                  yield put(updateAuth(data));
-                } else {
-                }
+                // const statusdata = yield call(loginWithAgora, {
+                //   username: data.user.agoraId,
+                //   password: token.userToken,
+                // });
+                // if (!statusdata) {
+                yield put(updateAuth(data));
+                // } else {
+
+                // }
               } else if (!checkAgoraUser) {
                 //Create Agora User
                 const {ok, agorData} = yield call(createAgoraUser, {
@@ -93,13 +95,13 @@ const loginSaga = function* ({payload: {datas, type}}) {
                   const {ok, token} = yield call(AgoraServerToken, {
                     uid: data.user.agoraId,
                   });
-                  const statusdata = yield call(loginWithAgora, {
-                    username: data.user.agoraId,
-                    password: token.userToken,
-                  });
-                  if (!statusdata) {
-                    yield put(updateAuth(data));
-                  }
+                  // const statusdata = yield call(loginWithAgora, {
+                  //   username: data.user.agoraId,
+                  //   password: token.userToken,
+                  // });
+                  // if (!statusdata) {
+                  yield put(updateAuth(data));
+                  // }
                 }
               }
             } else {
@@ -114,13 +116,13 @@ const loginSaga = function* ({payload: {datas, type}}) {
                 const {ok, token} = yield call(AgoraServerToken, {
                   uid: data.user.agoraId,
                 });
-                const statusdata = yield call(loginWithAgora, {
-                  username: data.user.agoraId,
-                  password: token.userToken,
-                });
-                if (!statusdata) {
-                  yield put(updateAuth(data));
-                }
+                // const statusdata = yield call(loginWithAgora, {
+                //   username: data.user.agoraId,
+                //   password: token.userToken,
+                // });
+                // if (!statusdata) {
+                yield put(updateAuth(data));
+                // }
               }
             }
           }
@@ -139,7 +141,8 @@ const loginSaga = function* ({payload: {datas, type}}) {
 an action object as an argument, destructures its `payload` property to get `datas`, and then
 performs a series of asynchronous operations using the `yield` keyword. */
 function* registerSaga({payload: {datas}}) {
-  const agoraId = uuid.v4().split('-').join('');
+  // const agoraId = uuid.v4().split('-').join('');
+  const agoraId = uuid.v4();
   yield put(loadingTrue());
   try {
     const result = yield call(emailSignUp, datas);
@@ -153,7 +156,12 @@ function* registerSaga({payload: {datas}}) {
           token: jwtToken,
           data: {...datas, agoraId},
         });
+
+        //Add new user to firestore
+        yield call(createUserFirestore, {datas, data});
+
         console.log(data, ok, 'regesterServices');
+
         if (ok) {
           console.log('OKSERVICESSS');
           //Create Agora User
@@ -168,15 +176,15 @@ function* registerSaga({payload: {datas}}) {
             const {ok, token} = yield call(AgoraServerToken, {
               uid: data.user.agoraId,
             });
-            const statusdata = yield call(loginWithAgora, {
-              username: data.user.agoraId,
-              password: token.userToken,
-            });
-            console.log(statusdata, 'aljklfjlskdj');
-            if (!statusdata) {
-              yield call(emailLogin, datas);
-              yield put(updateAuth(data));
-            }
+            // const statusdata = yield call(loginWithAgora, {
+            //   username: data.user.agoraId,
+            //   password: token.userToken,
+            // });
+            // console.log(statusdata, 'aljklfjlskdj');
+            // if (!statusdata) {
+            yield call(emailLogin, datas);
+            yield put(updateAuth(data));
+            // }
             console.log(statusdata, 'Status11111');
           }
         }
@@ -198,7 +206,7 @@ function* logOutSaga(action) {
     yield put({type: types.CleanRecentLocation});
     yield call(logoutService);
     yield call(logOutFirebase);
-    yield call(AgoraLogout);
+    // yield call(AgoraLogout);
 
     yield put({type: types.LogoutType});
   } catch (error) {

@@ -30,14 +30,17 @@ const Index = ({navigation, route}) => {
       {console.log('CurrentLocaoitnqw', location)}
       <View style={{flex: 1, marginTop: hp('1')}}>
         <Header
-          headerTitle={'Ads details'}
+          headerTitle={'Location'}
           arrowBackIcon={arrowback}
           backText={'Back'}
           goBack={navigation.goBack}
         />
         <View style={{flex: 1}}>
           <GooglePlacesAutocomplete
-            placeholder="Search location"
+            textInputProps={{
+              placeholderTextColor: Colors.primaryTextColor,
+            }}
+            placeholder="Search location here..."
             returnKeyType="default"
             fetchDetails={true}
             isRowScrollable={true}
@@ -68,6 +71,8 @@ const Index = ({navigation, route}) => {
                 flexDirection: 'row', // Added to align icon and input
                 alignItems: 'center',
               },
+              // Modified placeholder style
+
               textInput: {
                 color: 'black',
                 fontSize: 16,
@@ -121,7 +126,12 @@ const Index = ({navigation, route}) => {
                 style={styles.image}
                 source={require('../../Assests/Icons/gps.png')}
               />
-            ) : null}
+            ) : (
+              <Image
+                style={{...styles.image, tintColor: 'gray'}}
+                source={require('../../Assests/Icons/gps.png')}
+              />
+            )}
           </TouchableOpacity>
           {recentLocation.length > 0 ? (
             <View style={styles.recentConatainer}>

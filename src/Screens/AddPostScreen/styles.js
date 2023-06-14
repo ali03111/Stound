@@ -82,7 +82,7 @@ export const styles = StyleSheet.create({
     borderBottomWidth: 0.5,
     borderRadius: 0,
     justifyContent: 'flex-start',
-    width: wp('100'),
+    width: wp('88'),
   },
   locationBtnText: {
     fontSize: hp('2'),

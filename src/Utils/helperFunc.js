@@ -27,7 +27,7 @@ API.addRequestTransform(config => {
 API.addResponseTransform(response => {
   setTimeout(() => store.dispatch(loadingFalse()), 500);
   const {Auth} = store.getState();
-  console.log('token111', Auth.token);
+  console.log(Platform.OS + 'token111', Auth.token);
   if (
     response?.originalError?.message == 'Request failed with status code 401' &&
     Auth.token != ''
