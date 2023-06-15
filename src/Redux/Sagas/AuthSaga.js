@@ -30,6 +30,7 @@ import {
   logoutService,
   randomService,
   registerService,
+  updateProfileFirebase,
   updateProfileServices,
 } from '../../Services/AuthServices';
 import uuid from 'react-native-uuid';
@@ -156,7 +157,8 @@ function* registerSaga({payload: {datas}}) {
           token: jwtToken,
           data: {...datas, agoraId},
         });
-
+        console.log(data, 'DAATATAA');
+        console.log(datas, 'DASTASSASA');
         //Add new user to firestore
         yield call(createUserFirestore, {datas, data});
 
@@ -231,6 +233,11 @@ function* updateProfileSaga({payload: profileData}) {
     console.log('user', originalError, data);
     if (ok) {
       yield put({type: types.UpdateProfile, payload: data.data});
+      yield call(updateProfileFirebase, {
+        profilePicture: data.data.profilePicture,
+        name: data.data.name,
+        number: data.data.number,
+      });
       successMessage('Your profile has been updated');
     }
   } catch (error) {

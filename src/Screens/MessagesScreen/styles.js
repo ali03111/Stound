@@ -31,4 +31,10 @@ export const styles = StyleSheet.create({
     color: 'white',
     marginLeft: wp('1.5'),
   },
+  image: {
+    width: 20,
+    height: 20,
+    // marginBottom: 5,
+    resizeMode: 'contain',
+  },
 });

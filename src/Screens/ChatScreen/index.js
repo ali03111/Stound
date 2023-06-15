@@ -18,18 +18,19 @@ import {NotificationHeader} from '../../Components/Header';
 import {hp, wp} from '../../Config/responsive';
 import {arrowback, moredots, search, smsedit} from '../../Assests';
 import {Colors} from '../../Theme/Variables';
+import {imageUrl} from '../../Utils/Urls';
 
 const ChatScreen = ({navigation}) => {
-  const {ChatData, getStart, navigateToMsg} = useChatScreen(navigation);
-
+  const {ChatData, getStart, navigateToMsg, users} = useChatScreen(navigation);
+  console.log(users, 'usersusersusersusers');
   const [text, onChangeText] = React.useState('');
   const renderItem = useCallback(({item, index}) => {
     return (
       <View style={styles.notification}>
         <ChatComponent
-          image={item?.image}
+          image={imageUrl(item?.profilePicture)}
           name={item?.name}
-          description={item?.description}
+          description={item?.email}
           time={item?.time}
           messages={item?.messages}
           onPress={navigateToMsg}
@@ -58,7 +59,7 @@ const ChatScreen = ({navigation}) => {
       </View>
       <FlatList
         refreshing={false}
-        data={ChatData}
+        data={users}
         renderItem={renderItem}
         showsHorizontalScrollIndicator={false}
         showsVerticalScrollIndicator={false}

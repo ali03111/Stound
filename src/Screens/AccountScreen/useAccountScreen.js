@@ -7,7 +7,6 @@ const useAccountScreen = ({navigate}) => {
   const {dispatch, getState} = useReduxStore();
   const {userData} = getState('Auth');
 
-  console.log('use', userData);
   const [alerState, setAlertState] = useState({
     logOut: false,
     deactivate: false,

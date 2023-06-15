@@ -12,12 +12,14 @@ import {hp, wp} from '../Config/responsive';
 import {Colors} from '../Theme/Variables';
 import {CircleImageComp} from './CircleImageComp';
 import {Touchable} from './Touchable';
+import BlurImage from './BlurImage';
 
 const ChatComponent = ({image, name, description, time, messages, onPress}) => {
   return (
     <Touchable style={styles.notificationMian} onPress={onPress}>
       <View style={styles.mainBannerImg}>
-        <CircleImageComp image={image} />
+        {/* <CircleImageComp image={image} /> */}
+        <BlurImage styles={styles.profileImg} radius={50} uri={image} />
         {/* <CircleImageComp styles={styles.bannerImg}  image={image} /> */}
       </View>
       <View style={styles.nameDescriptionMain}>
@@ -97,6 +99,13 @@ const styles = StyleSheet.create({
   messages: {
     fontSize: hp('1.5'),
     color: 'white',
+  },
+  profileImg: {
+    borderRadius: Math.round(
+      Dimensions.get('window').width + Dimensions.get('window').height,
+    ),
+    width: Dimensions.get('window').width * 0.15,
+    height: Dimensions.get('window').width * 0.15,
   },
 });
 

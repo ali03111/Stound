@@ -498,23 +498,32 @@
 // });
 // export default App;
 import React, {useState, useCallback, useEffect, memo} from 'react';
-import {Bubble, GiftedChat} from 'react-native-gifted-chat';
+import {
+  Bubble,
+  Composer,
+  GiftedChat,
+  Send,
+  InputToolbar,
+} from 'react-native-gifted-chat';
 import {firebase} from '@react-native-firebase/firestore';
-import useReduxStore from '../../Hooks/UseReduxStore';
 import useMessagesScreen from './useMessagesScreen';
-import {View} from 'react-native';
+import {Image, Platform, Text, View} from 'react-native';
 import MessagesHeader from './MessagesHeader';
 import {styles} from './styles';
-import {arrowbackwhite, whitedots} from '../../Assests';
+import {arrowbackwhite, send, whitedots} from '../../Assests';
 import {Colors} from '../../Theme/Variables';
-import {hp} from '../../Config/responsive';
+import {hp, wp} from '../../Config/responsive';
+import {TextComponent} from '../../Components/TextComponent';
+import Feather from 'react-native-vector-icons/Feather';
+import useReduxStore from '../../Hooks/UseReduxStore';
 const MessagesScreen = ({route, navigation}) => {
   const {userData} = useMessagesScreen();
   const {
     id,
-    userDetail: {name},
-  } = route.params;
+    userDetail: {name, profilePicture},
+  } = route?.params;
   const [messages, setMessages] = useState([]);
+
   const renderBubble = props => {
     return (
       <Bubble
@@ -525,12 +534,15 @@ const MessagesScreen = ({route, navigation}) => {
             borderRadius: 10,
             padding: 5,
             marginTop: hp('0.5'),
+            marginBottom: hp('3'),
           },
           left: {
             backgroundColor: Colors.white,
             borderRadius: 10,
             padding: 5,
             marginTop: hp('0.5'),
+            marginBottom: hp('3'),
+            marginLeft: wp('-10'), // Remove the left margin
           },
         }}
         textStyle={{
@@ -539,6 +551,54 @@ const MessagesScreen = ({route, navigation}) => {
           },
         }}
       />
+    );
+  };
+
+  const renderSend = props => {
+    return (
+      <Send
+        containerStyle={{marginBottom: hp('2.5'), marginRight: wp('3')}}
+        {...props}>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            backgroundColor: Colors.primaryColor,
+            borderRadius: 10,
+            padding: 11,
+            paddingHorizontal: wp('5'),
+          }}>
+          <Feather
+            name="send"
+            style={{marginRight: wp('2')}}
+            size={hp('2')}
+            color="white"
+          />
+          <TextComponent
+            text={'Send'}
+            styles={{color: 'white', fontSize: hp('1.5')}}
+          />
+        </View>
+      </Send>
+    );
+  };
+  const renderComposer = props => {
+    return (
+      <>
+        <Composer
+          {...props}
+          textInputStyle={{
+            borderWidth: 0,
+            backgroundColor: '#fff',
+            borderRadius: 5,
+            padding: 10,
+            // paddingVertical: 8, // Adjust the vertical padding as needed
+            // paddingHorizontal: 12, // Adjust the horizontal padding as needed
+            borderColor: props.text ? '#6200ED' : '#ccc', // Change the border color based on whether there is text or not
+            marginBottom: Platform.OS === 'ios' ? hp('3') : hp('3'), // Add marginBottom for iOS only
+          }}
+        />
+      </>
     );
   };
 
@@ -577,24 +637,31 @@ const MessagesScreen = ({route, navigation}) => {
       sentBy: userData.agoraId,
       receivedBy: id,
       createdAt: new Date(msg.createdAt),
+      profileImage:
+        profilePicture ??
+        'https://res.cloudinary.com/dd6tdswt5/image/upload/v1684830799/UserImages/mhysa2zj0sbmvnw69b35.jpg',
     };
     setMessages(previousMessages => GiftedChat.append(previousMessages, myMsg));
     firebase
       .firestore()
       .collection('chats')
-      .doc('' + userData?.agoraId + id)
-      .collection('messages')
-      .add(myMsg);
+      .doc('' + userData?.agoraId + '--' + id)
+      .collection(userData?.agoraId)
+      .add({...myMsg, profileImage: userData.profilePicture});
     firebase
       .firestore()
       .collection('chats')
-      .doc('' + id + userData?.agoraId)
-      .collection('messages')
-      .add(myMsg);
+      .doc('' + id + '--' + userData?.agoraId)
+      .collection(userData?.agoraId)
+      .add({...myMsg, profileImage: profilePicture});
   }, []);
   return (
-    <View style={{flex: 1}}>
+    <View
+      style={{
+        flex: 1,
+      }}>
       <MessagesHeader
+        image={profilePicture}
         goBack={() => navigation.goBack()}
         // style={styles.topHeader}
         headerTitle={name}
@@ -603,6 +670,7 @@ const MessagesScreen = ({route, navigation}) => {
         centerTextStyle={styles.centerHeading}
       />
       <GiftedChat
+        alwaysShowSend
         messages={messages}
         showAvatarForEveryMessage={false}
         showUserAvatar={false}
@@ -611,15 +679,15 @@ const MessagesScreen = ({route, navigation}) => {
           borderRadius: 5,
         }}
         textInputStyle={{
-          backgroundColor: 'white',
-
+          paddingHorizontal: 10,
           borderRadius: 5,
         }}
+        renderSend={renderSend}
         user={{
           _id: userData.agoraId,
-          // avatar: 'https://i.pravatar.cc/300',
         }}
         renderBubble={renderBubble}
+        renderComposer={renderComposer}
       />
     </View>
   );
