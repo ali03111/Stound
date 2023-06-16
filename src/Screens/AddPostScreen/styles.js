@@ -6,6 +6,12 @@ export const styles = StyleSheet.create({
   favMain: {
     paddingTop: hp('1.5'),
   },
+  cancelImage: {
+    position: 'absolute',
+    zIndex: 1,
+    right: wp('2'),
+    top: hp('1'),
+  },
   topHeader: {
     paddingTop: hp('1.5'),
   },
@@ -46,6 +52,7 @@ export const styles = StyleSheet.create({
   },
   pick: {
     width: wp('84'),
+    color: Colors.primaryTextColor,
   },
   itemHeading: {
     marginTop: hp('3'),
@@ -75,12 +82,13 @@ export const styles = StyleSheet.create({
     borderBottomWidth: 0.5,
     borderRadius: 0,
     justifyContent: 'flex-start',
-    width: '100%',
+    width: wp('100'),
   },
   locationBtnText: {
     fontSize: hp('2'),
     color: Colors.grayBackground,
     width: wp('80'),
+    textAlign: 'left',
   },
   locationBtnImg: {
     width: 22,

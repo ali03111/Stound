@@ -220,6 +220,7 @@ PODS:
   - GTMSessionFetcher/Core (2.3.0)
   - GTMSessionFetcher/Full (2.3.0):
     - GTMSessionFetcher/Core
+  - HyphenateChat (4.0.0)
   - libevent (2.1.12)
   - libwebp (1.2.4):
     - libwebp/demux (= 1.2.4)
@@ -466,6 +467,9 @@ PODS:
     - glog
   - react-native-blurhash (1.1.10):
     - React-Core
+  - react-native-chat-sdk (1.1.1):
+    - HyphenateChat (= 4.0.0)
+    - React-Core
   - react-native-fbsdk-next (11.2.0):
     - React-Core
     - react-native-fbsdk-next/Core (= 11.2.0)
@@ -681,6 +685,7 @@ DEPENDENCIES:
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
   - react-native-blurhash (from `../node_modules/react-native-blurhash`)
+  - react-native-chat-sdk (from `../node_modules/react-native-agora-chat`)
   - react-native-fbsdk-next (from `../node_modules/react-native-fbsdk-next`)
   - "react-native-geolocation (from `../node_modules/@react-native-community/geolocation`)"
   - react-native-image-picker (from `../node_modules/react-native-image-picker`)
@@ -750,6 +755,7 @@ SPEC REPOS:
     - GoogleUtilities
     - GTMAppAuth
     - GTMSessionFetcher
+    - HyphenateChat
     - libevent
     - libwebp
     - nanopb
@@ -807,6 +813,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/logger"
   react-native-blurhash:
     :path: "../node_modules/react-native-blurhash"
+  react-native-chat-sdk:
+    :path: "../node_modules/react-native-agora-chat"
   react-native-fbsdk-next:
     :path: "../node_modules/react-native-fbsdk-next"
   react-native-geolocation:
@@ -914,6 +922,7 @@ SPEC CHECKSUMS:
   GoogleUtilities: c2bdc4cf2ce786c4d2e6b3bcfd599a25ca78f06f
   GTMAppAuth: 0ff230db599948a9ad7470ca667337803b3fc4dd
   GTMSessionFetcher: 3a63d75eecd6aa32c2fc79f578064e1214dfdec2
+  HyphenateChat: 9f6e4ac3b290e52cc0e52491f85d86097b35c285
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
   libwebp: f62cb61d0a484ba548448a4bd52aabf150ff6eef
   lottie-ios: 48fac6be217c76937e36e340e2d09cf7b10b7f5f
@@ -937,6 +946,7 @@ SPEC CHECKSUMS:
   React-jsinspector: 1f51e775819199d3fe9410e69ee8d4c4161c7b06
   React-logger: 0d58569ec51d30d1792c5e86a8e3b78d24b582c6
   react-native-blurhash: add4df9a937b4e021a24bc67a0714f13e0bd40b7
+  react-native-chat-sdk: 407f40af52cbc9b44bf437c2d94e8a6a503dcb5d
   react-native-fbsdk-next: b2dd3a5cebb2507c09e3ec880e1b94a491dbaece
   react-native-geolocation: 0f7fe8a4c2de477e278b0365cce27d089a8c5903
   react-native-image-picker: ec9b713e248760bfa0f879f0715391de4651a7cb
@@ -976,6 +986,6 @@ SPEC CHECKSUMS:
   Yoga: 79dd7410de6f8ad73a77c868d3d368843f0c93e0
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: b6d6d9e1d92139c332d936e351354167764cddc2
+PODFILE CHECKSUM: 0a57b684616741276947f72fc784a89e09bc0bd1
 
 COCOAPODS: 1.11.3

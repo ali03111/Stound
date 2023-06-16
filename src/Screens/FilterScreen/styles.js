@@ -3,6 +3,11 @@ import {hp, wp} from '../../Config/responsive';
 import {Colors} from '../../Theme/Variables';
 
 export const styles = StyleSheet.create({
+  pick: {
+    // alignSelf: 'center',
+    width: wp('83'),
+    color: Colors.primaryTextColor,
+  },
   favMain: {
     paddingTop: hp('1.5'),
   },
@@ -23,10 +28,30 @@ export const styles = StyleSheet.create({
     marginTop: hp('2'),
   },
   pickerStyle: {
+    // borderWidth: 1,
+    // borderColor: 'rgba(11, 180, 255, 0.3)',
+    // borderRadius: 10,
+    // backgroundColor: 'white',
     borderWidth: 1,
     borderColor: 'rgba(11, 180, 255, 0.3)',
     borderRadius: 10,
     backgroundColor: 'white',
+    flexDirection: 'row',
+    alignItems: 'center',
+    display: 'flex',
+    flexWrap: 'wrap',
+    paddingLeft: wp('3'),
+  },
+  pickerStyle1: {
+    borderWidth: 1,
+    borderColor: 'rgba(11, 180, 255, 0.3)',
+    borderRadius: 10,
+    backgroundColor: 'white',
+    flexDirection: 'row',
+    alignItems: 'center',
+    display: 'flex',
+    flexWrap: 'wrap',
+    paddingLeft: wp('3'),
   },
   itemHeading: {
     marginTop: hp('3'),
@@ -50,11 +75,13 @@ export const styles = StyleSheet.create({
     borderBottomWidth: 0.5,
     borderRadius: 0,
     justifyContent: 'flex-start',
-    width: '100%',
+    width: wp('100'),
   },
   locationBtnText: {
     fontSize: hp('2'),
     color: Colors.grayBackground,
+    width: wp('80'),
+    textAlign: 'left',
   },
   locationBtnImg: {
     width: 22,
@@ -64,6 +91,7 @@ export const styles = StyleSheet.create({
     fontWeight: '600',
     marginTop: hp('3'),
     fontSize: hp('2.5'),
+
     marginBottom: hp('1.5'),
   },
   applyFilter: {
@@ -81,7 +109,6 @@ export const styles = StyleSheet.create({
     fontSize: hp('2'),
   },
   rangeSlider: {
-    // height: 40,
     // paddingBottom: wp('6'),
     paddingHorizontal: hp('0'),
     marginHorizontal: hp('0'),

@@ -70,6 +70,11 @@ const useAddPostScreen = ({navigate}) => {
     );
   };
 
+  const deleteImage = index => {
+    const updatedImages = [...preferencesVal.images];
+    updatedImages.splice(index, 1);
+    setPreferencesVal(prev => ({...prev, images: updatedImages}));
+  };
   const dynamicNav = data => navigate('GeneralScreen', {...data, onSelecteTag});
 
   const getAllID = data => {
@@ -136,7 +141,7 @@ const useAddPostScreen = ({navigate}) => {
         reset();
         successMessage(data?.message || 'Your Ad has been created ');
       } else {
-        console.log('dfdf', originalError, status, problem, data?.message);
+        console.log('dfdfa', originalError, status, problem, data?.message);
         errorMessage(originalError?.message?.split(' ')?.slice(1)?.join(' '));
       }
     } else {
@@ -182,6 +187,7 @@ const useAddPostScreen = ({navigate}) => {
     recentLocation,
     sendLocation,
     location,
+    deleteImage,
     // goBack,
   };
 };

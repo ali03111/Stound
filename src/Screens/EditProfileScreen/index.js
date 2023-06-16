@@ -1,7 +1,7 @@
-import React, {memo} from 'react';
-import {View, Text, Image, Button} from 'react-native';
+import React, { memo } from 'react';
+import { View, Text, Image, Button } from 'react-native';
 import useEditProfileScreen from './useEditProfileScreen';
-import {styles} from './styles';
+import { styles } from './styles';
 import Header from '../../Components/Header';
 import {
   arrowback,
@@ -12,16 +12,16 @@ import {
   user,
   UploadProfileImage,
 } from '../../Assests';
-import {TextComponent} from '../../Components/TextComponent';
-import {InputComponent} from '../../Components/InputComponent';
+import { TextComponent } from '../../Components/TextComponent';
+import { InputComponent } from '../../Components/InputComponent';
 import ShareButton from '../../Components/ShareButton';
 import KeyBoardWrapper from '../../Components/KeyboardWrapper';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
-import {Touchable} from '../../Components/Touchable';
+import { Touchable } from '../../Components/Touchable';
 import BlurImage from '../../Components/BlurImage';
-import {imageUrl} from '../../Utils/Urls';
+import { imageUrl } from '../../Utils/Urls';
 
-const EditProfileScreen = ({navigation}) => {
+const EditProfileScreen = ({ navigation }) => {
   const {
     control,
     errors,
@@ -40,7 +40,7 @@ const EditProfileScreen = ({navigation}) => {
   } = useEditProfileScreen(navigation);
 
   return (
-    <View style={{flex: 1}}>
+    <View style={{ flex: 1 }}>
       <Header
         headerTitle={'Edit Profile'}
         arrowBackIcon={arrowback}
@@ -56,9 +56,8 @@ const EditProfileScreen = ({navigation}) => {
               <BlurImage
                 styles={styles.ProfileImage}
                 uri={
-                  images.uri ||
                   imageUrl(userData.profilePicture) ||
-                  'https://res.cloudinary.com/dd6tdswt5/image/upload/v1684830799/UserImages/mhysa2zj0sbmvnw69b35.jpg'
+                  images?.uri
                 }
               />
               <Image
@@ -75,7 +74,7 @@ const EditProfileScreen = ({navigation}) => {
               </Touchable>
             </View>
             <TextComponent
-              text={userData?.name ?? 'Nabeel Naeem'}
+              text={userData?.name}
               styles={styles.userName}
             />
             <TextComponent text={userData?.email} styles={styles.userEmail} />
@@ -91,7 +90,7 @@ const EditProfileScreen = ({navigation}) => {
               getValues,
               viewStyle: styles.loginInput,
               isImage: user,
-              defaultValue: userData?.name ?? 'Nabeel Naeem',
+              defaultValue: userData?.name,
             }}
           />
           {/* <View>
@@ -121,7 +120,7 @@ const EditProfileScreen = ({navigation}) => {
               getValues,
               viewStyle: styles.loginInput,
               isImage: phoneIcon,
-              defaultValue: userData?.number ?? '800-716-9002',
+              defaultValue: userData?.number ?? 'xxx-xxx-xxxx',
             }}
           />
         </KeyBoardWrapper>

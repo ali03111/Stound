@@ -61,6 +61,7 @@ const HomeScreen = ({navigation}) => {
     setCurrentIndex,
     s,
     askQuestion,
+    navigateToNotificationScreen,
   } = useHomeScreen(navigation);
 
   // console.log('cccc',onBoardinData);
@@ -80,7 +81,6 @@ const HomeScreen = ({navigation}) => {
     );
   }, []);
 
-  // const RadioButtonMap = useCallback(() => {
   //   return radioButtons.map(res => {
   //     return (
   //       <Touchable style={styles.radioView} onPress={() => (s = res)}>
@@ -144,7 +144,9 @@ const HomeScreen = ({navigation}) => {
               style={styles.rightIcon}>
               <Image source={setting} style={styles.setting} />
             </Touchable>
-            <Touchable style={styles.rightIcon}>
+            <Touchable
+              onPress={() => navigateToNotificationScreen()}
+              style={styles.rightIcon}>
               <Image source={notification} style={styles.notification} />
             </Touchable>
           </View>
@@ -167,7 +169,6 @@ const HomeScreen = ({navigation}) => {
                 askQuestion(ca);
               }}
               onSwipedTop={ca => {
-                console.log('callllllll', ca);
                 setCurrentIndex(ca);
                 goToDetails(ca);
               }}

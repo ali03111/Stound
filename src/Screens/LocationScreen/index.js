@@ -3,7 +3,7 @@ import {Touchable} from '../../Components/Touchable';
 import {FlatList, Image, Text, TouchableOpacity, View} from 'react-native';
 import Header from '../../Components/Header';
 import {wp, hp} from '../../Config/responsive';
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
 import {arrowback} from '../../Assests';
 import {styles} from '../LocationScreen/styles';
@@ -11,8 +11,7 @@ import useLocationScreen from './useLocationScreen';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {Colors} from '../../Theme/Variables';
 import DividerLine from '../../Components/DividerLine';
-import Geolocation from '@react-native-community/geolocation';
-import ThemeButtonComp from '../../Components/ThemeButtonComp';
+
 import ShareButton from '../../Components/ShareButton';
 import {errorMessage} from '../../Config/NotificationMessage';
 
@@ -87,6 +86,7 @@ const Index = ({navigation, route}) => {
               },
               description: {
                 width: wp('85'),
+                color: Colors.primaryTextColor,
               },
               loader: {
                 flexDirection: 'row',
@@ -134,15 +134,16 @@ const Index = ({navigation, route}) => {
                 <FlatList
                   data={recentLocation}
                   showsVerticalScrollIndicator={false}
+                  inverted
                   renderItem={({item}) => {
                     return (
                       <Touchable
                         onPress={() => setSelectedLocation(item.description)}>
+                        <DividerLine />
                         <TextComponent
                           styles={styles.recentText}
                           text={item?.description}
                         />
-                        <DividerLine />
                       </Touchable>
                     );
                   }}

@@ -1,7 +1,9 @@
 // import {errorMessage} from '../../Components/NotificationMessage';
+import {firebase} from '@react-native-firebase/auth';
 import useReduxStore from '../../Hooks/UseReduxStore';
 import {loginUser} from '../../Redux/Action/AuthAction';
 import {faceBookLogin} from '../../Utils/SocialLogin';
+import {useState} from 'react';
 // import {loginUser} from '../../Redux/Actions/AuthAction';
 // import API from '../../Utils/helperFunction';
 // import {
@@ -19,6 +21,8 @@ const useLogin = ({navigate, goBack}) => {
   const {handleSubmit, errors, reset, control, getValues} = useFormHook(
     Schemas.logIn,
   );
+
+  // const const useMemo(() => first, [second])
   const {dispatch} = useReduxStore();
 
   const appleIdAuth = () => dispatch(loginUser({type: 'appleID', datas: {}}));
@@ -37,9 +41,24 @@ const useLogin = ({navigate, goBack}) => {
   const register = () => navigate('RegisterScreen');
   const loginWithEmail = ({email, password}) => {
     dispatch(loginUser({type: 'email', datas: {email, password}}));
-
-    // navigate('MybottomTabs')
   };
+
+  //ForgetPassword Code
+  const forgetFunction = async () => {
+    const email = 'kesarah747@peogi.com';
+    try {
+      await firebase.auth().sendPasswordResetEmail(email);
+      // Password reset email sent successfully
+      console.log('Password reset email sent!');
+    } catch (e) {
+      console.error(e);
+    }
+    // An error occurred
+  };
+
+  function navigationForgetScreen() {
+    navigate('ForgetPasswordScreen');
+  }
 
   return {
     handleSubmit,
@@ -53,6 +72,8 @@ const useLogin = ({navigate, goBack}) => {
     loginWithEmail,
     goBack,
     appleIdAuth,
+    forgetFunction,
+    navigationForgetScreen,
   };
 };
 

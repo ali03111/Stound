@@ -93,6 +93,9 @@ const useHomeScreen = ({navigate, params, addListener}) => {
     else errorMessage(data.message || 'request failed');
   };
 
+  const navigateToNotificationScreen = () => {
+    navigate('NotificationScreen');
+  };
   useEffect(useEffectFun, []);
 
   return {
@@ -113,6 +116,7 @@ const useHomeScreen = ({navigate, params, addListener}) => {
     s,
     setCurrentIndex,
     askQuestion,
+    navigateToNotificationScreen,
   };
 };
 

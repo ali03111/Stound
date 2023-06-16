@@ -1,4 +1,4 @@
-import React, {memo} from 'react';
+import React, {memo, useCallback} from 'react';
 import {View, Text, Image} from 'react-native';
 import {
   appleIcon,
@@ -32,7 +32,9 @@ const LoginScreen = ({navigation}) => {
     loginWithEmail,
     goBack,
     appleIdAuth,
+    navigationForgetScreen,
   } = useLogin(navigation);
+
   return (
     <View style={styles.mainView}>
       <KeyBoardWrapper>
@@ -79,7 +81,11 @@ const LoginScreen = ({navigation}) => {
             // defaultValue: 'i53rdgen@',
           }}
         />
-        <TextComponent text={'Forget Password?'} styles={styles.forgetPass} />
+        <TextComponent
+          onPress={navigationForgetScreen}
+          text={'Forgot Password?'}
+          styles={styles.forgetPass}
+        />
         <ShareButton
           onPress={handleSubmit(loginWithEmail)}
           title={'Log In'}

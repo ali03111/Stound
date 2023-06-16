@@ -1,4 +1,4 @@
-import React, {memo, useCallback, useState} from 'react';
+import React, { memo, useCallback, useState } from 'react';
 import {
   View,
   Text,
@@ -7,13 +7,13 @@ import {
   ImageBackground,
   ScrollView,
 } from 'react-native';
-import {hp} from '../../Config/responsive';
-import {goBack, keyExtractor} from '../../Utils';
-import {styles} from './styles';
-import {detailsImages} from '../../Utils/localDB';
-import {TextComponent} from '../../Components/TextComponent';
+import { hp } from '../../Config/responsive';
+import { goBack, keyExtractor } from '../../Utils';
+import { styles } from './styles';
+import { detailsImages } from '../../Utils/localDB';
+import { TextComponent } from '../../Components/TextComponent';
 import AwesomeAlert from 'react-native-awesome-alerts';
-import {Touchable} from '../../Components/Touchable';
+import { Touchable } from '../../Components/Touchable';
 import Header from '../../Components/Header';
 import {
   accountprofile,
@@ -32,11 +32,11 @@ import {
 } from 'accordion-collapse-react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MsgSendButton from '../../Components/MsgSendButton';
-import {imageURL, imageUrl} from '../../Utils/Urls';
+import { imageURL, imageUrl } from '../../Utils/Urls';
 import BlurBackground from '../../Components/BlurBackground';
 import BlurImage from '../../Components/BlurImage';
-import {fav} from '../../Assests';
-const PackageDetailsScreen = ({navigation, route}) => {
+import { fav } from '../../Assests';
+const PackageDetailsScreen = ({ navigation, route }) => {
   const {
     PackageDetailData,
     userDetail,
@@ -52,7 +52,7 @@ const PackageDetailsScreen = ({navigation, route}) => {
 
   const imageLenght = photos.length;
   console.log('itemsssss', route.params);
-  const renderItem = useCallback(({item, index}) => {
+  const renderItem = useCallback(({ item, index }) => {
     return (
       index > 0 &&
       index < 4 && (
@@ -70,7 +70,7 @@ const PackageDetailsScreen = ({navigation, route}) => {
     );
   }, []);
   return (
-    <View style={{flex: 1}}>
+    <View style={{ flex: 1 }}>
       <Header
         arrowBackIcon={arrowback}
         backText={'Back'}
@@ -115,7 +115,7 @@ const PackageDetailsScreen = ({navigation, route}) => {
         <ScrollView
           style={styles.propertyDetails}
           showsVerticalScrollIndicator={false}>
-          <View style={{paddingBottom: hp('6')}}>
+          <View style={{ paddingBottom: hp('6') }}>
             <Collapse style={styles.mainToggle}>
               <CollapseHeader>
                 <View style={styles.toggleHead}>

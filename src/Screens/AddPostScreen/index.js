@@ -8,6 +8,7 @@ import {
   Image,
   TextInput,
   RefreshControl,
+  TouchableOpacity,
 } from 'react-native';
 import useFilterScreen from './useAddPostScreen';
 import {styles} from './styles';
@@ -37,10 +38,11 @@ import Slider from '@react-native-community/slider';
 import {goBack, keyExtractor} from '../../Utils';
 import {InputComponent} from '../../Components/InputComponent';
 import useAddPostScreen from './useAddPostScreen';
-import {wp} from '../../Config/responsive';
+import {hp, wp} from '../../Config/responsive';
 import {Touchable} from '../../Components/Touchable';
 import SwitchSelector from 'react-native-switch-selector';
 import {imageUrl} from '../../Utils/Urls';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 const AddPostScreen = ({navigation}) => {
   const [selectedLanguage, setSelectedLanguage] = useState();
@@ -70,6 +72,7 @@ const AddPostScreen = ({navigation}) => {
     recentLocation,
     location,
     sendLocation,
+    deleteImage,
   } = useAddPostScreen(navigation);
 
   const renderItem = ({item, index}) => {
@@ -84,7 +87,21 @@ const AddPostScreen = ({navigation}) => {
   };
 
   const renderItemImages = ({item, index}) => {
-    return <Image source={{uri: item?.uri}} style={styles.imagesStyle} />;
+    return (
+      <>
+        <TouchableOpacity
+          style={styles.cancelImage}
+          onPress={() => deleteImage(item)}>
+          <MaterialIcons
+            name="cancel"
+            size={hp('2.5')}
+            color={Colors.primaryColor}
+          />
+        </TouchableOpacity>
+
+        <Image source={{uri: item?.uri}} style={styles.imagesStyle} />
+      </>
+    );
   };
 
   const FlatListComp = ({data, onPress}) => {
@@ -103,7 +120,7 @@ const AddPostScreen = ({navigation}) => {
               style={styles.filterButton}
               image={addcircle}
               isRequired={true}
-              title={'add'}
+              title={'Add'}
               onPress={onPress}
             />
           );
@@ -111,11 +128,10 @@ const AddPostScreen = ({navigation}) => {
       />
     );
   };
-
   return (
     <View style={{flex: 1}}>
       <Header
-        headerTitle={'Ads details'}
+        headerTitle={'Ad details'}
         arrowBackIcon={arrowback}
         backText={'Back'}
         goBack={navigation.goBack}
@@ -141,14 +157,14 @@ const AddPostScreen = ({navigation}) => {
           <View style={styles.pickerStyle}>
             <Image source={catImage} />
             <Picker
+              dropdownIconColor={Colors.primaryColor}
               style={styles.pick}
               selectedValue={cat}
               onValueChange={(itemValue, itemIndex) =>
                 onSelecteTag(itemValue, 'cat')
               }>
               <Picker.Item
-                color="gray"
-                style={{color: 'gray'}}
+                // color="gray"
                 label="Select Category..."
                 value={null}
               />
@@ -157,8 +173,8 @@ const AddPostScreen = ({navigation}) => {
                   return (
                     <Picker.Item
                       label={res.name}
-                      color="black"
-                      style={{color: 'black'}}
+                      // color="black"
+                      // style={{color: 'black'}}
                       value={res.categoryId}
                     />
                   );
@@ -181,7 +197,6 @@ const AddPostScreen = ({navigation}) => {
                 isImage: adTitle,
               }}
             />
-
             <InputComponent
               {...{
                 name: 'desc',
@@ -198,6 +213,7 @@ const AddPostScreen = ({navigation}) => {
                 inputLines: 4,
                 maxLength: 200,
                 multiline: true,
+                inputLength: true,
               }}
             />
             <InputComponent
@@ -233,6 +249,8 @@ const AddPostScreen = ({navigation}) => {
           <View style={styles.pickerStyle}>
             <Image source={bedblue} />
             <Picker
+              dropdownIconColor={Colors.primaryColor}
+              // mode="dropdown"
               style={styles.pick}
               selectedValue={rooms}
               onValueChange={(itemValue, itemIndex) =>
@@ -250,7 +268,9 @@ const AddPostScreen = ({navigation}) => {
           <View style={styles.pickerStyle}>
             <Image source={bluebath} />
             <Picker
-              style={styles.pick}
+              dropdownIconColor={Colors.primaryColor}
+              // mode="dropdown"
+              style={[styles.pick]}
               selectedValue={bathRoom}
               onValueChange={(itemValue, itemIndex) =>
                 onSelecteTag(itemValue, 'bathRoom')

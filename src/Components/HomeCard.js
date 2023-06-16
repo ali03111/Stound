@@ -1,15 +1,14 @@
 import React from 'react';
-import {View, Text, Image, StyleSheet, ImageBackground} from 'react-native';
-import {Colors, FontFamily} from '../Theme/Variables';
-import {Touchable} from './Touchable';
-import {share} from '@/Assets/Images';
-import {hp, wp} from '../Config/responsive';
-import {cardOverlay, profile, bed, bathtub, location} from '../Assests';
-import {TextComponent} from './TextComponent';
-import {white} from 'react-native-paper/lib/typescript/src/styles/themes/v2/colors';
+import { View, Text, Image, StyleSheet, ImageBackground } from 'react-native';
+import { Colors, FontFamily } from '../Theme/Variables';
+import { Touchable } from './Touchable';
+import { share } from '@/Assets/Images';
+import { hp, wp } from '../Config/responsive';
+import { cardOverlay, profile, bed, bathtub, location } from '../Assests';
+import { TextComponent } from './TextComponent';
+import { white } from 'react-native-paper/lib/typescript/src/styles/themes/v2/colors';
 import BlurImage from './BlurImage';
 import BlurBackground from './BlurBackground';
-// import {white} from 'react-native-paper/lib/typescript/src/styles/themes/v2/colors';
 
 const HomeCard = ({
   onPress,
@@ -62,11 +61,11 @@ const HomeCard = ({
             </View>
             <View style={styles.locationMain}>
               <Image source={location} />
-              <TextComponent text={locationText} styles={styles.locationText} />
+              <TextComponent numberOfLines={1} text={locationText} styles={styles.locationText} />
             </View>
             <View style={styles.cardFooter}>
               <TextComponent text={forRent} styles={styles.forRent} />
-              <View style={{flexDirection: 'row', alignItems: 'baseline'}}>
+              <View style={{ flexDirection: 'row', alignItems: 'baseline' }}>
                 <TextComponent text={price + '/'} styles={styles.price} />
                 <TextComponent text={duration} styles={styles.month} />
               </View>
@@ -92,6 +91,7 @@ const styles = StyleSheet.create({
     flex: 1,
     borderRadius: 10,
     overflow: 'hidden',
+
   },
   overlay: {
     height: hp('100'),
@@ -105,8 +105,9 @@ const styles = StyleSheet.create({
   cardMain: {
     justifyContent: 'flex-end',
     flex: 1,
-    paddingHorizontal: wp('6'),
+    paddingHorizontal: wp('4'),
     paddingVertical: hp('3'),
+
   },
   cardTopbar: {
     flexDirection: 'row',
@@ -122,20 +123,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   profileImg: {
-    width: wp('12'),
+    width: wp('15'),
     height: hp('6'),
     borderRadius: 60,
-    // marginRight: wp('3'),
     aspectRatio: 1,
   },
   userName: {
     color: 'white',
-    fontSize: 18,
+    fontSize: 15,
     fontWeight: '500',
-    width: wp('25'),
+    width: wp('22'),
     marginLeft: wp('2'),
   },
   bath: {
+
     color: 'white',
     marginLeft: wp('1'),
     marginRight: wp('1.5'),
@@ -150,6 +151,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginTop: hp('1.5'),
+    marginLeft: wp('4'),
+    width: wp('80'),
   },
   locationText: {
     color: 'white',

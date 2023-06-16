@@ -12,6 +12,9 @@ import {
   sliderdot,
   minslider,
   maxslider,
+  bedblue,
+  bluebath,
+  catImage,
 } from '../../Assests';
 import SwitchSelector from 'react-native-switch-selector';
 import {Colors} from '../../Theme/Variables';
@@ -19,7 +22,8 @@ import FilterAddButton from '../../Components/FilterAddButton';
 import ThemeButtonComp from '../../Components/ThemeButtonComp';
 import Slider from '@react-native-community/slider';
 import {goBack} from '../../Utils';
-const FilterScreen = () => {
+import {Image} from 'react-native-animatable';
+const FilterScreen = ({navigation}) => {
   const [selectedLanguage, setSelectedLanguage] = useState();
   const [sliderValue, setSliderValue] = useState(0);
   const options = [
@@ -33,7 +37,7 @@ const FilterScreen = () => {
         arrowBackIcon={arrowback}
         backText={'Back'}
         saveReset={'Reset'}
-        goBack={goBack}
+        goBack={() => navigation.goBack()}
         // style={styles.filterHeader}
       />
 
@@ -52,7 +56,11 @@ const FilterScreen = () => {
 
           <TextComponent styles={styles.itemHeading} text={'Property Type'} />
           <View style={styles.pickerStyle}>
+            <Image source={catImage} />
+
             <Picker
+              style={styles.pick}
+              dropdownIconColor={Colors.primaryColor}
               selectedValue={selectedLanguage}
               onValueChange={(itemValue, itemIndex) =>
                 setSelectedLanguage(itemValue)
@@ -64,6 +72,7 @@ const FilterScreen = () => {
           <TextComponent styles={styles.itemHeading} text={'Location '} />
           <View style={styles.addButton}>
             <FilterAddButton
+              isRequired={true}
               style={styles.locationBtn}
               textStyle={styles.locationBtnText}
               image={search}
@@ -71,26 +80,42 @@ const FilterScreen = () => {
               imgStyle={styles.locationBtnImg}
             />
           </View>
-          <TextComponent styles={styles.itemHeading} text={'Rooms '} />
-          <View style={styles.pickerStyle}>
+          <TextComponent styles={styles.itemHeading} text={'Rooms'} />
+
+          <View style={styles.pickerStyle1}>
+            <Image source={bedblue} />
             <Picker
+              dropdownIconColor={Colors.primaryColor}
+              style={styles.pick}
               selectedValue={selectedLanguage}
               onValueChange={(itemValue, itemIndex) =>
                 setSelectedLanguage(itemValue)
               }>
-              <Picker.Item label="Select" value="Select" />
+              <Picker.Item label="Select" value={null} />
+              <Picker.Item label="1" value="1" />
+              <Picker.Item label="2" value="2" />
+              <Picker.Item label="3" value="3" />
+              <Picker.Item label="4" value="4" />
               <Picker.Item label="5" value="5" />
             </Picker>
           </View>
-          <TextComponent styles={styles.itemHeading} text={'Bathrooms '} />
-          <View style={styles.pickerStyle}>
+          <TextComponent styles={styles.itemHeading} text={'Bathrooms'} />
+          <View style={styles.pickerStyle1}>
+            <Image source={bluebath} />
+
             <Picker
+              dropdownIconColor={Colors.primaryColor}
+              style={[styles.pick]}
               selectedValue={selectedLanguage}
               onValueChange={(itemValue, itemIndex) =>
                 setSelectedLanguage(itemValue)
               }>
               <Picker.Item label="Select" value="Select" />
+              <Picker.Item label="1" value="1" />
+              <Picker.Item label="2" value="2" />
               <Picker.Item label="3" value="3" />
+              <Picker.Item label="4" value="4" />
+              <Picker.Item label="5" value="5" />
             </Picker>
           </View>
           <TextComponent
@@ -100,8 +125,9 @@ const FilterScreen = () => {
           <View style={styles.addButton}>
             <FilterAddButton
               style={styles.filterButton}
+              isRequired={true}
               image={addcircle}
-              title={'add'}
+              title={'Add'}
             />
           </View>
           <TextComponent
@@ -110,9 +136,10 @@ const FilterScreen = () => {
           />
           <View style={styles.addButton}>
             <FilterAddButton
+              isRequired={true}
               style={styles.filterButton}
               image={addcircle}
-              title={'add'}
+              title={'Add'}
             />
           </View>
           <TextComponent
@@ -121,9 +148,10 @@ const FilterScreen = () => {
           />
           <View style={styles.addButton}>
             <FilterAddButton
+              isRequired={true}
               style={styles.filterButton}
               image={addcircle}
-              title={'add'}
+              title={'Add'}
             />
           </View>
           <TextComponent styles={styles.pRange} text={'Price Range '} />

@@ -19,7 +19,10 @@ export const apendUrl = url => {
   return baseURL + url;
 };
 export const imageUrl = url => {
-  return imageURL + url;
+  console.log(url, 'sdfksdfl;jlsdkj');
+  return url
+    ? imageURL + url
+    : 'https://res.cloudinary.com/dd6tdswt5/image/upload/v1684830799/UserImages/mhysa2zj0sbmvnw69b35.jpg';
 };
 
 export const registerUrl = 'auth/register';
@@ -34,3 +37,5 @@ export const updateFavUrl = 'update-favourites/';
 export const addQuesUrl = 'add-question';
 export const deviceIdUrl = 'auth/update-device-id/';
 export const notifyUserUrl = 'buyer-interested/';
+export const getAllNotificationUrl = 'get-user-notifications/';
+export const getAgoraTokenUrl = 'getAccessToken/';

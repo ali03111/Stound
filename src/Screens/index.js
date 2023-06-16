@@ -20,3 +20,6 @@ export { default as MessagesScreen } from './MessagesScreen';
 export { default as PackageDetailsScreen } from './PackageDetailsScreen';
 export { default as AddPostScreen } from './AddPostScreen';
 export { default as LocationScreen } from './LocationScreen';
+export { default as BuyCoinScreen } from './BuyCoinScreen';
+export { default as HeaderDetailScreen } from './HeaderDetailScreen';
+export { default as ForgetPasswordScreen } from './ForgetPasswordScreen';
