@@ -1,4 +1,4 @@
-import React, { memo, useCallback } from 'react';
+import React, {memo, useCallback} from 'react';
 import {
   View,
   Text,
@@ -10,9 +10,9 @@ import {
   TouchableWithoutFeedback,
 } from 'react-native';
 import useHomeScreen from './useHomeScreen';
-import { styles } from './styles';
-import { keyExtractor } from '../../Utils';
-import { TextComponent } from '../../Components/TextComponent';
+import {styles} from './styles';
+import {keyExtractor} from '../../Utils';
+import {TextComponent} from '../../Components/TextComponent';
 import HomeCard from '../../Components/HomeCard';
 import {
   homeCard,
@@ -25,22 +25,23 @@ import {
 } from '../../Assests';
 
 import * as Animatable from 'react-native-animatable';
-import { InputComponent } from '../../Components/InputComponent';
+import {InputComponent} from '../../Components/InputComponent';
 // import {TextInput} from 'react-native-paper';
-import { Touchable } from '../../Components/Touchable';
+import {Touchable} from '../../Components/Touchable';
 import Notification from '../../Components/Notification';
 import Swiper from 'react-native-deck-swiper';
-import { hp, wp } from '../../Config/responsive';
+import {hp, wp} from '../../Config/responsive';
 import SomeComponent from '../GestureScreenTest';
-import { successMessage } from '../../Config/NotificationMessage';
-import { homeCardData } from '../../Utils/localDB';
-import { Colors } from '../../Theme/Variables';
-import { imageUrl } from '../../Utils/Urls';
+import {successMessage} from '../../Config/NotificationMessage';
+import {homeCardData} from '../../Utils/localDB';
+import {Colors} from '../../Theme/Variables';
+import {imageUrl} from '../../Utils/Urls';
 import AwesomeAlert from 'react-native-awesome-alerts';
 import RadioGroup from 'react-native-radio-buttons-group';
 import Overlay from '../../Components/Overlay';
+import {EmptyViewComp} from '../../Components/EmptyViewComp';
 
-const HomeScreen = ({ navigation }) => {
+const HomeScreen = ({navigation}) => {
   const [text, onChangeText] = React.useState('');
 
   const {
@@ -60,7 +61,8 @@ const HomeScreen = ({ navigation }) => {
     selectedIdRef,
     setCurrentIndex,
     s,
-    navigateToNotificationScreen
+    isloading,
+    navigateToNotificationScreen,
   } = useHomeScreen(navigation);
 
   // console.log('cccc',onBoardinData);
@@ -79,7 +81,6 @@ const HomeScreen = ({ navigation }) => {
       />
     );
   }, []);
-
 
   //   return radioButtons.map(res => {
   //     return (
@@ -126,7 +127,7 @@ const HomeScreen = ({ navigation }) => {
 
   return (
     <>
-      <View style={{ paddingTop: Platform.OS == 'ios' ? hp('3') : hp('0') }}>
+      <View style={{paddingTop: Platform.OS == 'ios' ? hp('3') : hp('0')}}>
         <View style={styles.searchBarMain}>
           <View style={styles.searchMain}>
             <Image style={styles.search} source={search} />
@@ -144,13 +145,15 @@ const HomeScreen = ({ navigation }) => {
               style={styles.rightIcon}>
               <Image source={setting} style={styles.setting} />
             </Touchable>
-            <Touchable onPress={() => navigateToNotificationScreen()} style={styles.rightIcon}>
+            <Touchable
+              onPress={() => navigateToNotificationScreen()}
+              style={styles.rightIcon}>
               <Image source={notification} style={styles.notification} />
             </Touchable>
           </View>
         </View>
         <View style={styles.cardMainView}>
-          {onBoardinData.length > 0 && (
+          {onBoardinData.length > 0 ? (
             <Swiper
               cards={onBoardinData}
               useViewOverflow={true}
@@ -179,6 +182,16 @@ const HomeScreen = ({ navigation }) => {
               }}
               stackSize={2}
             />
+          ) : (
+            !isloading &&
+            onBoardinData.length == 0 && (
+              <View
+                style={{
+                  marginTop: hp('50'),
+                }}>
+                <EmptyViewComp onRefresh={onRefresh} />
+              </View>
+            )
           )}
         </View>
         {/* {showAlert && <AlertView />} */}

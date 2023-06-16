@@ -1,15 +1,15 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
-import { Dimensions } from 'react-native';
+import {useEffect, useMemo, useRef, useState} from 'react';
+import {Dimensions} from 'react-native';
 // import useReduxStore from '../../Hooks/useReduxStore';
 // import {types} from '../../Redux/types';
 import API from '../../Utils/helperFunc';
-import { addQuesUrl, getAdsUrl, updateFavUrl } from '../../Utils/Urls';
-import { errorMessage, successMessage } from '../../Config/NotificationMessage';
+import {addQuesUrl, getAdsUrl, updateFavUrl} from '../../Utils/Urls';
+import {errorMessage, successMessage} from '../../Config/NotificationMessage';
 import useReduxStore from '../../Hooks/UseReduxStore';
-import { types } from '../../Redux/types';
-import { questionTrue } from '../../Redux/Action/isQuestionAction copy';
+import {types} from '../../Redux/types';
+import {questionTrue} from '../../Redux/Action/isQuestionAction copy';
 
-const useHomeScreen = ({ navigate, params, addListener }) => {
+const useHomeScreen = ({navigate, params, addListener}) => {
   //   const {dispatch} = useReduxStore();
   const [currentIndex, setCurrentIndex] = useState(0);
   const width = Dimensions.get('window').width;
@@ -33,9 +33,10 @@ const useHomeScreen = ({ navigate, params, addListener }) => {
     value: 'Just looking',
   };
 
-  const { getState, dispatch } = useReduxStore();
-  const { userData } = getState('Auth');
-  const { isQuestion } = getState('isQuestion');
+  const {getState, dispatch} = useReduxStore();
+  const {userData} = getState('Auth');
+  const {isQuestion} = getState('isQuestion');
+  const {isloading} = getState('isloading');
 
   const onSnapToItem = e => {
     const contentOffsetX = e.nativeEvent.contentOffset.x;
@@ -45,31 +46,31 @@ const useHomeScreen = ({ navigate, params, addListener }) => {
 
   const onConfirmPressed = async () => {
     setShowAlert(false);
-    const { ok, data } = await API.post(addQuesUrl, {
+    const {ok, data} = await API.post(addQuesUrl, {
       answer: selectedId.label,
     });
     if (ok) {
-      dispatch({ type: types.UpdateProfile, payload: data.data });
-      navigate('PackageDetailsScreen', { items: homeData[currentIndex] });
+      dispatch({type: types.UpdateProfile, payload: data.data});
+      navigate('PackageDetailsScreen', {items: homeData[currentIndex]});
     } else errorMessage(data.message);
   };
 
   const goToDetails = index => {
-    console.log(userData?.isAnswered)
+    console.log(userData?.isAnswered);
     if (!userData.isAnswered) {
       dispatch(questionTrue());
       setTimeout(() => {
-        navigate('PackageDetailsScreen', { items: homeData[index] });
+        navigate('PackageDetailsScreen', {items: homeData[index]});
       }, 3000);
     } else {
-      navigate('PackageDetailsScreen', { items: homeData[index] });
+      navigate('PackageDetailsScreen', {items: homeData[index]});
     }
   };
 
   const getHomeData = async () => {
-    const { ok, data } = await API.get(getAdsUrl);
+    const {ok, data} = await API.get(getAdsUrl);
     if (ok) {
-      dispatch({ type: types.UpdateProfile, payload: data.user });
+      dispatch({type: types.UpdateProfile, payload: data.user});
       setHomeData(data?.data);
     } else errorMessage(data.message || 'request failed');
   };
@@ -81,23 +82,21 @@ const useHomeScreen = ({ navigate, params, addListener }) => {
 
   const updateFav = async index => {
     const url = updateFavUrl + homeData[index].adId;
-    const { ok, originalError, data } = await API.put(url);
+    const {ok, originalError, data} = await API.put(url);
     if (ok) successMessage(data?.message);
     else errorMessage(data.message || 'request failed');
   };
 
-
   const navigateToNotificationScreen = () => {
-    navigate('NotificationScreen')
-
-  }
+    navigate('NotificationScreen');
+  };
   useEffect(useEffectFun, []);
 
   return {
     onBoardinData: homeData,
     onSnapToItem,
     currentIndex,
-    getStart: () => { },
+    getStart: () => {},
     goToDetails,
     homeData,
     onRefresh: getHomeData,
@@ -110,7 +109,8 @@ const useHomeScreen = ({ navigate, params, addListener }) => {
     selectedIdRef,
     s,
     setCurrentIndex,
-    navigateToNotificationScreen
+    navigateToNotificationScreen,
+    isloading,
   };
 };
 

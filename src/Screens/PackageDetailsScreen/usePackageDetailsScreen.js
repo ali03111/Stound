@@ -18,7 +18,7 @@ const usePackageDetailsScreen = ({params}, {navigate}) => {
       userDetail: {agoraId},
     },
   } = params;
-
+  console.log(agoraId, userDetail, 'skldfjklsdfjlkjsdfkl');
   const useEffectFun = async () => {
     const {ok, data} = await API.put(notifyUserUrl + params.items.adId);
   };
@@ -27,6 +27,7 @@ const usePackageDetailsScreen = ({params}, {navigate}) => {
 
   const navigationChatScreen = () => {
     navigate('MessagesScreen', {id: agoraId, userDetail});
+    // navigate('MessagesScreen', {id: users[0]?.userId, userDetail: users[0]});
   };
 
   return {

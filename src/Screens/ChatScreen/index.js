@@ -21,19 +21,24 @@ import {Colors} from '../../Theme/Variables';
 import {imageUrl} from '../../Utils/Urls';
 
 const ChatScreen = ({navigation}) => {
-  const {ChatData, getStart, navigateToMsg, users} = useChatScreen(navigation);
-  console.log(users, 'usersusersusersusers');
+  const {ChatData, getStart, navigateToMsg, users, userData} =
+    useChatScreen(navigation);
+
   const [text, onChangeText] = React.useState('');
   const renderItem = useCallback(({item, index}) => {
+    console.log(item, 'hshjashhs');
     return (
       <View style={styles.notification}>
         <ChatComponent
           image={imageUrl(item?.profilePicture)}
-          name={item?.name}
-          description={item?.email}
+          name={item?.email}
+          description={
+            item.chatUsers.find(res => res.otherUserId == userData?.agoraId)
+              .lastMsg
+          }
           time={item?.time}
           messages={item?.messages}
-          onPress={navigateToMsg}
+          onPress={() => navigateToMsg(item)}
         />
       </View>
     );

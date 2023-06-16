@@ -194,7 +194,7 @@ function* registerSaga({payload: {datas}}) {
     }
   } catch (error) {
     console.log(error, 'Error');
-    // errorMessage(error.message.split(' ').slice(1).join(' ') ?? error);
+    errorMessage(error.message.split(' ').slice(1).join(' ') ?? error);
   } finally {
     yield put(loadingFalse());
   }

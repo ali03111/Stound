@@ -225,7 +225,7 @@ const PackageDetailsScreen = ({navigation, route}) => {
             <TextComponent text={'Total price'} styles={styles.priceText} />
           </View>
           <MsgSendButton
-            onPress={navigationChatScreen}
+            // onPress={navigationChatScreen}
             title={'Contact Now'}
             style={styles.sendBtnStyle}
             textStyle={styles.sendTextStyle}

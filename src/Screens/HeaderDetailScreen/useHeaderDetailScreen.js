@@ -1,18 +1,17 @@
-import { Alert, Linking } from 'react-native';
-import { PackageDetailData } from '../../Utils/localDB';
+import {Alert, Linking} from 'react-native';
+import {PackageDetailData} from '../../Utils/localDB';
 
-const useHeaderDetailScreen = () => {
-  const onPressEMail = (email) => {
-    console.log(email)
-    Linking.openURL('mailto:' + email)
-  }
+const useHeaderDetailScreen = ({navigate}) => {
+  const onPressEMail = email => {
+    console.log(email);
+    Linking.openURL('mailto:' + email);
+  };
   const onPressCall = phone => {
     console.log('callNumber ----> ', phone);
     let phoneNumber = phone;
     if (Platform.OS !== 'android') {
       phoneNumber = `telprompt:${phone}`;
-    }
-    else {
+    } else {
       phoneNumber = `tel:${phone}`;
     }
     Linking.canOpenURL(phoneNumber)
@@ -25,7 +24,16 @@ const useHeaderDetailScreen = () => {
       })
       .catch(err => console.log(err));
   };
-  return { PackageDetailData, onPressEMail, onPressCall };
+
+  const navigationChatScreen = item => {
+    navigate('MessagesScreen', {
+      id: item.userDetail.agoraId,
+      userDetail: item.userDetail,
+    });
+    // navigate('MessagesScreen', {id: users[0]?.userId, userDetail: users[0]});
+  };
+
+  return {PackageDetailData, onPressEMail, onPressCall, navigationChatScreen};
 };
 
 export default useHeaderDetailScreen;

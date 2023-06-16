@@ -645,15 +645,121 @@ const MessagesScreen = ({route, navigation}) => {
     firebase
       .firestore()
       .collection('chats')
-      .doc('' + userData?.agoraId + '--' + id)
-      .collection(userData?.agoraId)
+      .doc('' + userData?.agoraId + id)
+      .collection('messages')
       .add({...myMsg, profileImage: userData.profilePicture});
     firebase
       .firestore()
       .collection('chats')
-      .doc('' + id + '--' + userData?.agoraId)
-      .collection(userData?.agoraId)
+      .doc('' + id + userData?.agoraId)
+      .collection('messages')
       .add({...myMsg, profileImage: profilePicture});
+
+    //Add last Message in same userdata
+    // firebase
+    //   .firestore()
+    //   .collection('users')
+    //   .doc(userData?.agoraId)
+    //   .set(
+    //     {
+    //       userId: userData?.agoraId,
+    //       profilePicture: userData.profilePicture,
+    //       chatUsers: [
+    //         {
+    //           lastMsg: msg.text,
+    //           otherUserId: id,
+    //           createdAt: new Date(msg.createdAt),
+    //         },
+    //       ], // Update the last message object with the new createdAt value
+
+    //       // Update the otherUserId field
+    //     },
+    //     {merge: true}, // Use merge option to merge with existing data in the document
+    //   );
+
+    firebase
+      .firestore()
+      .collection('users')
+      .doc(userData?.agoraId)
+      .get()
+      .then(docSnapshot => {
+        if (docSnapshot.exists) {
+          const existingData = docSnapshot.data();
+          const chatUsers = existingData.chatUsers || [];
+
+          // Check if the chatUsers array already contains the otherUserId
+          const existingIndex = chatUsers.findIndex(
+            user => user.otherUserId === id,
+          );
+
+          if (existingIndex !== -1) {
+            // Merge the existing object
+            chatUsers[existingIndex] = {
+              ...chatUsers[existingIndex],
+              lastMsg: msg.text,
+              createdAt: new Date(msg.createdAt),
+            };
+          } else {
+            // Add a new object to the chatUsers array
+            chatUsers.push({
+              lastMsg: msg.text,
+              otherUserId: id,
+              createdAt: new Date(msg.createdAt),
+            });
+          }
+
+          // Update the Firestore document with the modified chatUsers array
+          firebase.firestore().collection('users').doc(userData?.agoraId).set(
+            {
+              chatUsers: chatUsers,
+              profilePicture: userData.profilePicture,
+            },
+            {merge: true},
+          );
+        }
+      });
+
+    firebase
+      .firestore()
+      .collection('users')
+      .doc(id)
+      .get()
+      .then(docSnapshot => {
+        if (docSnapshot.exists) {
+          const existingData = docSnapshot.data();
+          const chatUsers = existingData.chatUsers || [];
+
+          // Check if the chatUsers array already contains the otherUserId
+          const existingIndex = chatUsers.findIndex(
+            user => user.otherUserId === userData?.agoraId,
+          );
+
+          if (existingIndex !== -1) {
+            // Merge the existing object
+            chatUsers[existingIndex] = {
+              ...chatUsers[existingIndex],
+              lastMsg: msg.text,
+              createdAt: new Date(msg.createdAt),
+            };
+          } else {
+            // Add a new object to the chatUsers array
+            chatUsers.push({
+              lastMsg: msg.text,
+              otherUserId: userData?.agoraId,
+              createdAt: new Date(msg.createdAt),
+            });
+          }
+
+          // Update the Firestore document with the modified chatUsers array
+          firebase.firestore().collection('users').doc(id).set(
+            {
+              chatUsers: chatUsers,
+              profilePicture: userData.profilePicture,
+            },
+            {merge: true},
+          );
+        }
+      });
   }, []);
   return (
     <View
