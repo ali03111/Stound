@@ -195,9 +195,7 @@ const HomeScreen = ({navigation}) => {
             )
           )}
         </View>
-        {/* {showAlert && <AlertView />} */}
       </View>
-      {/* <AlertView /> */}
     </>
   );
 };

@@ -47,13 +47,19 @@ const loginObject = {
 takes an action object as an argument, destructures its `payload` property to get `datas` and `type`
 properties, and then performs a series of asynchronous operations using the `yield` keyword. */
 const loginSaga = function* ({payload: {datas, type}}) {
-  const agoraId = uuid.v4().split('-').join('');
+  const agoraId = uuid.v4();
   yield put(loadingTrue());
 
   try {
     const getLoginData = loginObject[type];
     const result = yield call(getLoginData, datas);
-    const {socialData, ok} = {socialData: result, ok: true};
+    const {socialData, ok} = {
+      socialData: result,
+      ok: true,
+      isNewUser: result.isNewUser,
+    };
+
+    console.log(socialData, 'socialDatasocialData');
     if (ok) {
       const idTokenResult = yield call(getFbResult);
       const jwtToken = idTokenResult.token;
@@ -62,6 +68,17 @@ const loginSaga = function* ({payload: {datas, type}}) {
           token: jwtToken,
           data: {...socialData, agoraId},
         });
+        if (socialData.isNewUser) {
+          yield call(createUserFirestore, {
+            data: {
+              user: {
+                agoraId: data.user.agoraId,
+                profilePicture: data.user.profilePicture,
+              },
+            },
+            datas: data.user,
+          });
+        }
 
         if (ok) {
           const {token} = yield call(AgoraServerToken, {});
@@ -75,15 +92,8 @@ const loginSaga = function* ({payload: {datas, type}}) {
                 const {token} = yield call(AgoraServerToken, {
                   uid: data.user.agoraId,
                 });
-                // const statusdata = yield call(loginWithAgora, {
-                //   username: data.user.agoraId,
-                //   password: token.userToken,
-                // });
-                // if (!statusdata) {
-                yield put(updateAuth(data));
-                // } else {
 
-                // }
+                yield put(updateAuth(data));
               } else if (!checkAgoraUser) {
                 //Create Agora User
                 const {ok, agorData} = yield call(createAgoraUser, {
@@ -142,7 +152,6 @@ const loginSaga = function* ({payload: {datas, type}}) {
 an action object as an argument, destructures its `payload` property to get `datas`, and then
 performs a series of asynchronous operations using the `yield` keyword. */
 function* registerSaga({payload: {datas}}) {
-  // const agoraId = uuid.v4().split('-').join('');
   const agoraId = uuid.v4();
   yield put(loadingTrue());
   try {

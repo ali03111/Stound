@@ -40,22 +40,22 @@ const EditProfileScreen = ({navigation}) => {
   } = useEditProfileScreen(navigation);
 
   return (
-    <View style={{flex: 1}}>
-      <Header
-        headerTitle={'Edit Profile'}
-        arrowBackIcon={arrowback}
-        backText={'Back'}
-        goBack={goBack}
-        // style={styles.filterHeader}
-        saveResetStyle={styles.save}
-      />
-      <View style={styles.editProfileContainer}>
-        <KeyBoardWrapper>
+    <KeyBoardWrapper>
+      <View style={{flex: 1}}>
+        <Header
+          headerTitle={'Edit Profile'}
+          arrowBackIcon={arrowback}
+          backText={'Back'}
+          goBack={goBack}
+          // style={styles.filterHeader}
+          saveResetStyle={styles.save}
+        />
+        <View style={styles.editProfileContainer}>
           <View style={styles.porfileInfo}>
             <View style={styles.porfileTopImages}>
               <BlurImage
                 styles={styles.ProfileImage}
-                uri={images?.uri || imageUrl(userData.profilePicture)}
+                uri={images?.uri || imageUrl(userData?.profilePicture)}
               />
               <Image
                 source={editProfileShadow}
@@ -117,16 +117,16 @@ const EditProfileScreen = ({navigation}) => {
               defaultValue: userData?.number ?? 'xxx-xxx-xxxx',
             }}
           />
-        </KeyBoardWrapper>
+        </View>
+        <View style={styles.saveBtnMain}>
+          <ShareButton
+            title={'Save'}
+            style={styles.saveBtn}
+            onPress={handleSubmit(updateProfile)}
+          />
+        </View>
       </View>
-      <View style={styles.saveBtnMain}>
-        <ShareButton
-          title={'Save'}
-          style={styles.saveBtn}
-          onPress={handleSubmit(updateProfile)}
-        />
-      </View>
-    </View>
+    </KeyBoardWrapper>
   );
 };
 export default memo(EditProfileScreen);

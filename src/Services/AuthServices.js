@@ -9,12 +9,7 @@ import {
 } from '../Utils/Urls';
 import API from '../Utils/helperFunc';
 import {Platform} from 'react-native';
-import {
-  ChatClient,
-  ChatOptions,
-  ChatMessageChatType,
-  ChatMessage,
-} from 'react-native-agora-chat';
+
 import {useEffect} from 'react';
 import firestore from '@react-native-firebase/firestore';
 import {store} from '../Redux/Reducers';
@@ -162,15 +157,16 @@ const updateProfileFirebase = params => {
 const updateProfileServices = async params => {
   const formData = new FormData();
   Object.entries(params.profileData).forEach(([key, val]) => {
-    if (key == 'image' && val?.type) formData.append(key, {});
-    // formData.append(key, {
-    //   name: val?.fileName || val?.name || 'image',
-    //   type: val?.type,
-    //   uri: Platform.OS == 'ios' ? val?.uri.replace('file://', '') : val?.uri,
-    // });
+    if (key == 'image' && val?.type)
+      // formData.append(key, {});
+      formData.append(key, {
+        name: val?.fileName || val?.name || 'image',
+        type: val?.type,
+        uri: Platform.OS == 'ios' ? val?.uri.replace('file://', '') : val?.uri,
+      });
     else formData.append(key, val);
   });
-  return await API.post('auth/checking', {});
+  return await API.post(updateUserUrl, formData);
 };
 
 const createUserFirestore = ({datas, data}) => {
@@ -180,7 +176,7 @@ const createUserFirestore = ({datas, data}) => {
     .set({
       ...datas,
       userId: data?.user.agoraId,
-      profilePicture: data?.user.profilePicture,
+      profilePicture: data?.user.profilePicture ?? '',
     });
   console.log('User added!');
 };

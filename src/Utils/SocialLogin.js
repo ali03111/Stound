@@ -59,11 +59,12 @@ export const appleIdlogin = async () => {
     fullName: {givenName, familyName},
   } = appleAuthRequestResponse;
   const token = auth.AppleAuthProvider.credential(identityToken, nonce);
-  await auth().signInWithCredential(token);
+  const {additionalUserInfo} = await auth().signInWithCredential(token);
   return {
     token,
     name: `${givenName || ''} ${familyName || ''}`,
     identityToken,
+    isNewUser: additionalUserInfo.isNewUser,
   };
 
   // Sign the user in with the credential
@@ -123,8 +124,9 @@ export const googleLogin = async () => {
   if (isSignIn) await logOutWithGoogle();
   const {idToken, user} = await GoogleSignin.signIn();
   const token = auth.GoogleAuthProvider.credential(idToken);
-  await auth().signInWithCredential(token);
-  return {...token, ...user};
+  const {additionalUserInfo} = await auth().signInWithCredential(token);
+
+  return {...token, ...user, isNewUser: additionalUserInfo.isNewUser};
 };
 
 export const PhoneNumberLogin = async phoneNumber => {

@@ -30,6 +30,8 @@ const useEditProfileScreen = ({navigate, goBack}) => {
   const updateState = data => setProfileData(prev => ({...prev, ...data}));
 
   const uploadFromGalary = () => {
+    console.log(images, 'alsdkjfasdsaklasjf');
+
     launchImageLibrary(
       {
         selectionLimit: 1,
