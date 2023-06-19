@@ -41,6 +41,7 @@ const useHomeScreen = ({navigate, params, addListener}) => {
   const {getState, dispatch} = useReduxStore();
   const {userData} = getState('Auth');
   const {isQuestion} = getState('isQuestion');
+  const {isloading} = getState('isloading');
 
   const onSnapToItem = e => {
     const contentOffsetX = e.nativeEvent.contentOffset.x;
@@ -117,6 +118,8 @@ const useHomeScreen = ({navigate, params, addListener}) => {
     setCurrentIndex,
     askQuestion,
     navigateToNotificationScreen,
+    navigateToNotificationScreen,
+    isloading,
   };
 };
 

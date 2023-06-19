@@ -1,4 +1,4 @@
-import React, { memo, useCallback } from 'react';
+import React, {memo, useCallback} from 'react';
 import {
   View,
   FlatList,
@@ -11,27 +11,34 @@ import {
 } from 'react-native';
 import Header from '../../Components/Header';
 import ChatComponent from '../../Components/ChatComponent';
-import { TextComponent } from '../../Components/TextComponent';
-import { styles } from './styles';
+import {TextComponent} from '../../Components/TextComponent';
+import {styles} from './styles';
 import useChatScreen from './useChatScreen';
-import { NotificationHeader } from '../../Components/Header';
-import { hp, wp } from '../../Config/responsive';
-import { arrowback, moredots, search, smsedit } from '../../Assests';
-import { Colors } from '../../Theme/Variables';
+import {NotificationHeader} from '../../Components/Header';
+import {hp, wp} from '../../Config/responsive';
+import {arrowback, moredots, search, smsedit} from '../../Assests';
+import {Colors} from '../../Theme/Variables';
+import {imageUrl} from '../../Utils/Urls';
 
-const ChatScreen = ({ navigation }) => {
-  const { ChatData, getStart, navigateToMsg } = useChatScreen(navigation);
+const ChatScreen = ({navigation}) => {
+  const {ChatData, getStart, navigateToMsg, users, userData} =
+    useChatScreen(navigation);
+
   const [text, onChangeText] = React.useState('');
-  const renderItem = useCallback(({ item, index }) => {
+  const renderItem = useCallback(({item, index}) => {
+    console.log(item, 'hshjashhs');
     return (
       <View style={styles.notification}>
         <ChatComponent
-          image={item?.image}
-          name={item?.name}
-          description={item?.description}
+          image={imageUrl(item?.profilePicture)}
+          name={item?.email}
+          description={
+            item.chatUsers.find(res => res.otherUserId == userData?.agoraId)
+              .lastMsg
+          }
           time={item?.time}
           messages={item?.messages}
-          onPress={navigateToMsg}
+          onPress={() => navigateToMsg(item)}
         />
       </View>
     );
@@ -51,13 +58,13 @@ const ChatScreen = ({ navigation }) => {
           style={styles.searchinput}
           onChangeText={onChangeText}
           value={text}
-          placeholder={'Search property here...'}
+          placeholder={'Search messages here...'}
           placeholderTextColor={Colors.gray}
         />
       </View>
       <FlatList
         refreshing={false}
-        data={ChatData}
+        data={users}
         renderItem={renderItem}
         showsHorizontalScrollIndicator={false}
         showsVerticalScrollIndicator={false}
@@ -66,7 +73,7 @@ const ChatScreen = ({ navigation }) => {
           paddingHorizontal: wp('4'),
           // height: 'auto',
         }}
-      // style={{paddingBottom: 0}}
+        // style={{paddingBottom: 0}}
       />
     </View>
   );

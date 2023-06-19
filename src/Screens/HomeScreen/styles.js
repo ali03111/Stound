@@ -104,4 +104,10 @@ export const styles = StyleSheet.create({
     backgroundColor: Colors.primaryColor,
     height: hp('5'),
   },
+  refres: {
+    // flex: 1,
+    // justifyContent: 'center ',
+    // alignItems: 'center',
+    // backgroundColor: 'red',
+  },
 });

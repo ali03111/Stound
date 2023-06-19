@@ -3,7 +3,7 @@ import {PackageDetailData} from '../../Utils/localDB';
 import API from '../../Utils/helperFunc';
 import {notifyUserUrl} from '../../Utils/Urls';
 
-const usePackageDetailsScreen = ({params}) => {
+const usePackageDetailsScreen = ({params}, {navigate}) => {
   const {
     items: {
       userDetail,
@@ -15,15 +15,20 @@ const usePackageDetailsScreen = ({params}) => {
       photos,
       location,
       adType,
+      userDetail: {agoraId},
     },
   } = params;
-
-  // const useEffectFun = async () => {
-  //   const {ok, data} = await API.put(notifyUserUrl + params.items.adId);
-  //   // console.log('data', data, params.items);
-  // };
+  console.log(agoraId, userDetail, 'skldfjklsdfjlkjsdfkl');
+  const useEffectFun = async () => {
+    const {ok, data} = await API.put(notifyUserUrl + params.items.adId);
+  };
 
   // useEffect(useEffectFun, []);
+
+  const navigationChatScreen = () => {
+    navigate('MessagesScreen', {id: agoraId, userDetail});
+    // navigate('MessagesScreen', {id: users[0]?.userId, userDetail: users[0]});
+  };
 
   return {
     PackageDetailData,
@@ -36,6 +41,7 @@ const usePackageDetailsScreen = ({params}) => {
     photos,
     location,
     adType,
+    navigationChatScreen,
   };
 };
 

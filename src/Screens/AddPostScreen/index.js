@@ -73,6 +73,7 @@ const AddPostScreen = ({navigation}) => {
     location,
     sendLocation,
     deleteImage,
+    checkAuthentication,
   } = useAddPostScreen(navigation);
 
   const renderItem = ({item, index}) => {
@@ -91,7 +92,7 @@ const AddPostScreen = ({navigation}) => {
       <>
         <TouchableOpacity
           style={styles.cancelImage}
-          onPress={() => deleteImage(item)}>
+          onPress={() => deleteImage(index)}>
           <MaterialIcons
             name="cancel"
             size={hp('2.5')}
@@ -362,6 +363,7 @@ const AddPostScreen = ({navigation}) => {
             style={styles.applyFilter}
             textStyle={styles.filterText}
             onPress={handleSubmit(postData)}
+            // onPress={checkAuthentication}
           />
         </View>
       </ScrollView>

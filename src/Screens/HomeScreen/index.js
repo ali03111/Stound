@@ -39,6 +39,7 @@ import {imageUrl} from '../../Utils/Urls';
 import AwesomeAlert from 'react-native-awesome-alerts';
 import RadioGroup from 'react-native-radio-buttons-group';
 import Overlay from '../../Components/Overlay';
+import {EmptyViewComp} from '../../Components/EmptyViewComp';
 
 const HomeScreen = ({navigation}) => {
   const [text, onChangeText] = React.useState('');
@@ -61,6 +62,7 @@ const HomeScreen = ({navigation}) => {
     setCurrentIndex,
     s,
     askQuestion,
+    isloading,
     navigateToNotificationScreen,
   } = useHomeScreen(navigation);
 
@@ -152,7 +154,7 @@ const HomeScreen = ({navigation}) => {
           </View>
         </View>
         <View style={styles.cardMainView}>
-          {onBoardinData.length > 0 && (
+          {onBoardinData.length > 0 ? (
             <Swiper
               cards={onBoardinData}
               useViewOverflow={true}
@@ -181,6 +183,16 @@ const HomeScreen = ({navigation}) => {
               }}
               stackSize={2}
             />
+          ) : (
+            !isloading &&
+            onBoardinData.length == 0 && (
+              <View
+                style={{
+                  marginTop: hp('50'),
+                }}>
+                <EmptyViewComp onRefresh={onRefresh} />
+              </View>
+            )
           )}
         </View>
         {/* {showAlert && <AlertView />} */}

@@ -1,7 +1,7 @@
-import React, { memo, useCallback, useState } from 'react';
-import { View, FlatList, Text, ScrollView, SafeAreaView } from 'react-native';
+import React, {memo, useCallback, useState} from 'react';
+import {View, FlatList, Text, ScrollView, SafeAreaView} from 'react-native';
 import useFavourateScreen from './useAccountScreen';
-import { styles } from './styles';
+import {styles} from './styles';
 import Header from '../../Components/Header';
 import {
   AccountProfile,
@@ -16,27 +16,28 @@ import {
   star,
   tasksquare,
 } from '../../Assests';
-import { Colors } from '../../Theme/Variables';
+import {Colors} from '../../Theme/Variables';
 import ProfileButton from '../../Components/ProfileButton';
 import ProfileArea from './ProfileComponent';
 import CoinsComponent from './CoinsComponent';
-import { hp } from '../../Config/responsive';
+import {hp} from '../../Config/responsive';
 import useAccountScreen from './useAccountScreen';
-import AwesomeAlert from 'react-native-awesome-alerts';
-import { Touchable } from '../../Components/Touchable';
-import { AlertDesign } from '../../Components/AlertDesign';
-const AccountScreen = ({ navigation }) => {
-  const { dynamicNav, deactivate, logOut, onCancel, onConfirm, userData } =
+
+import {AlertDesign} from '../../Components/AlertDesign';
+import {imageUrl} from '../../Utils/Urls';
+const AccountScreen = ({navigation}) => {
+  const {dynamicNav, deactivate, logOut, onCancel, onConfirm, userData} =
     useAccountScreen(navigation);
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{flex: 1}}>
       <Header headerTitle={'Account'} />
       <ScrollView
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: hp('6') }}>
+        contentContainerStyle={{paddingBottom: hp('6')}}>
         <View style={styles.accountMain}>
           <ProfileArea
-            ProfileImage={accountprofile}
+            ProfileImage={imageUrl(userData?.profilePicture)}
+            // ProfileImage={images?.uri || imageUrl(userData.profilePicture)}
             ProfileName={userData?.name ?? 'Jhon Doe'}
             UserEmail={userData?.email}
             EditProfile={EditProfile}

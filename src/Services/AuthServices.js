@@ -16,7 +16,8 @@ import {
   ChatMessage,
 } from 'react-native-agora-chat';
 import {useEffect} from 'react';
-
+import firestore from '@react-native-firebase/firestore';
+import {store} from '../Redux/Reducers';
 //Create Agora User For ChatApp
 
 const AgoraServerToken = async params => {
@@ -68,7 +69,7 @@ const loginWithAgora = async ({username, password}) => {
   const chatClient = ChatClient.getInstance();
   const init = () => {
     let o = new ChatOptions({
-      autoLogin: false,
+      autoLogin: true,
       appKey: appKey,
     });
     chatClient.removeAllConnectionListener();
@@ -152,6 +153,12 @@ const fcmRegService = async params => await API.put(deviceIdUrl + params);
 const randomService = async ({url, params}) =>
   await API.post(url, {answer: params});
 
+//updateProfile in Firebase
+const updateProfileFirebase = params => {
+  const {Auth} = store.getState();
+  firestore().collection('users').doc(Auth.userData.agoraId).update(params);
+};
+
 const updateProfileServices = async params => {
   const formData = new FormData();
   Object.entries(params.profileData).forEach(([key, val]) => {
@@ -165,6 +172,19 @@ const updateProfileServices = async params => {
   });
   return await API.post('auth/checking', {});
 };
+
+const createUserFirestore = ({datas, data}) => {
+  firestore()
+    .collection('users')
+    .doc(data?.user.agoraId)
+    .set({
+      ...datas,
+      userId: data?.user.agoraId,
+      profilePicture: data?.user.profilePicture,
+    });
+  console.log('User added!');
+};
+
 const logOutFirebase = () => auth().signOut();
 
 export {
@@ -181,4 +201,6 @@ export {
   AgoraServerToken,
   AgoraLogout,
   getAllAgoraUser,
+  createUserFirestore,
+  updateProfileFirebase,
 };

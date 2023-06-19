@@ -1,5 +1,5 @@
 import React from 'react';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import * as Screens from '../Screens/index';
 import useReduxStore from '../Hooks/UseReduxStore';
 import MybottomTabs from './bottomNavigation';
@@ -7,9 +7,9 @@ import MybottomTabs from './bottomNavigation';
 const Stack = createNativeStackNavigator();
 
 const StackNavigatior = () => {
-  const { getState } = useReduxStore();
-  const { onboarding } = getState('onboarding');
-  const { isLogin } = getState('Auth');
+  const {getState} = useReduxStore();
+  const {onboarding} = getState('onboarding');
+  const {isLogin} = getState('Auth');
   // console.log('AIUth token', token);
   return (
     <Stack.Navigator
@@ -93,7 +93,6 @@ const StackNavigatior = () => {
             name="HeaderDetailScreen"
             component={Screens.HeaderDetailScreen}
           />
-
         </>
       )}
     </Stack.Navigator>

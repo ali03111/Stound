@@ -1,18 +1,20 @@
 import React from 'react';
-import { StyleSheet, Text, Image, View, Platform } from 'react-native';
-import { TextComponent } from '../../Components/TextComponent';
-import { Touchable } from '../../Components/Touchable';
+import {StyleSheet, Text, Image, View, Platform} from 'react-native';
+import {TextComponent} from '../../Components/TextComponent';
+import {Touchable} from '../../Components/Touchable';
 import {
   arrowback,
   lineleft,
   lineright,
   notificationProfile2,
 } from '../../Assests';
-import { hp, wp } from '../../Config/responsive';
-import { Colors } from '../../Theme/Variables';
-import { goBack } from '../../Utils';
-import { CircleImageComp } from '../../Components/CircleImageComp';
-import { heightPercentageToDP } from 'react-native-responsive-screen';
+import {hp, wp} from '../../Config/responsive';
+import {Colors} from '../../Theme/Variables';
+// import { goBack } from '../../Utils';
+import {CircleImageComp} from '../../Components/CircleImageComp';
+import {heightPercentageToDP} from 'react-native-responsive-screen';
+import BlurImage from '../../Components/BlurImage';
+import {imageUrl} from '../../Utils/Urls';
 
 const MessagesHeader = ({
   headerTitle,
@@ -25,10 +27,12 @@ const MessagesHeader = ({
   backTextStyle,
   centerTextStyle,
   dayStyle,
+  goBack,
+  image,
 }) => {
   return (
     <View>
-      <View style={[styles.TopHeader, { ...style }]}>
+      <View style={[styles.TopHeader, {...style}]}>
         <View style={styles.HeaderLeft}>
           <Touchable onPress={goBack} style={styles.backMain}>
             <Image
@@ -38,17 +42,18 @@ const MessagesHeader = ({
                 style: styles.arrowback,
               }}
             />
-            <CircleImageComp
+            {/* <CircleImageComp
               styles={styles.profileImg}
               image={notificationProfile2}
-            />
+            /> */}
+            <BlurImage uri={imageUrl(image)} styles={styles.profileImg} />
             <TextComponent
               text={backText}
-              styles={{ ...styles.backBtn, ...backTextStyle }}
+              styles={{...styles.backBtn, ...backTextStyle}}
             />
           </Touchable>
         </View>
-        <View style={{ ...styles.HeaderCenter, ...centerTextStyle }}>
+        <View style={{...styles.HeaderCenter, ...centerTextStyle}}>
           <TextComponent text={headerTitle} styles={styles.HeaderTitle} />
         </View>
         <View style={styles.HeaderRight}>
@@ -62,14 +67,14 @@ const MessagesHeader = ({
             />
             <TextComponent
               text={saveReset}
-              styles={{ ...styles.backBtn, ...saveResetStyle }}
+              styles={{...styles.backBtn, ...saveResetStyle}}
             />
           </Touchable>
         </View>
       </View>
       <View style={styles.dayBarStyle}>
         <Image source={lineleft} />
-        <TextComponent text={'Today'} styles={{ ...styles.day, ...dayStyle }} />
+        <TextComponent text={'Today'} styles={{...styles.day, ...dayStyle}} />
         <Image source={lineright} />
       </View>
     </View>
@@ -131,6 +136,13 @@ const styles = StyleSheet.create({
   day: {
     paddingHorizontal: wp('5'),
     paddingVertical: hp('2.5'),
+  },
+  profileImg: {
+    width: wp('15'),
+    height: hp('6'),
+    borderRadius: 60,
+    aspectRatio: 1,
+    marginLeft: wp('2'),
   },
 });
 export default MessagesHeader;
