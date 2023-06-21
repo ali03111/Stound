@@ -49,6 +49,7 @@ const PackageDetailsScreen = ({navigation, route}) => {
     location,
     adType,
     navigationChatScreen,
+    askQuestion,
   } = usePackageDetailsScreen(route, navigation);
 
   const imageLenght = photos.length;
@@ -225,7 +226,7 @@ const PackageDetailsScreen = ({navigation, route}) => {
             <TextComponent text={'Total price'} styles={styles.priceText} />
           </View>
           <MsgSendButton
-            // onPress={navigationChatScreen}
+            onPress={askQuestion}
             title={'Contact Now'}
             style={styles.sendBtnStyle}
             textStyle={styles.sendTextStyle}

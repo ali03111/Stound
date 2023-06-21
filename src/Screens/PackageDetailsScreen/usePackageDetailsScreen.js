@@ -2,9 +2,13 @@ import {useEffect} from 'react';
 import {PackageDetailData} from '../../Utils/localDB';
 import API from '../../Utils/helperFunc';
 import {notifyUserUrl} from '../../Utils/Urls';
+import {questionTrue} from '../../Redux/Action/isQuestionAction copy';
+import useReduxStore from '../../Hooks/UseReduxStore';
+import {successMessage} from '../../Config/NotificationMessage';
 
 const usePackageDetailsScreen = ({params}, {navigate}) => {
   const {
+    Index,
     items: {
       userDetail,
       outsidePref,
@@ -15,13 +19,16 @@ const usePackageDetailsScreen = ({params}, {navigate}) => {
       photos,
       location,
       adType,
+      adId,
       userDetail: {agoraId},
     },
   } = params;
-  console.log(agoraId, userDetail, 'skldfjklsdfjlkjsdfkl');
+  const {getState, dispatch} = useReduxStore();
+  const {userData} = getState('Auth');
   const useEffectFun = async () => {
     const {ok, data} = await API.put(notifyUserUrl + params.items.adId);
   };
+  console.log(userDetail, Index, 'aaa');
 
   // useEffect(useEffectFun, []);
 
@@ -30,6 +37,15 @@ const usePackageDetailsScreen = ({params}, {navigate}) => {
     // navigate('MessagesScreen', {id: users[0]?.userId, userDetail: users[0]});
   };
 
+  const askQuestion = async index => {
+    if (!userData.isAnswered) {
+      dispatch(questionTrue());
+      // await API.put(notifyUserUrl + homeData[index].adId);
+    } else {
+      successMessage('You like this property');
+      await API.put(notifyUserUrl + adId);
+    }
+  };
   return {
     PackageDetailData,
     userDetail,
@@ -42,6 +58,7 @@ const usePackageDetailsScreen = ({params}, {navigate}) => {
     location,
     adType,
     navigationChatScreen,
+    askQuestion,
   };
 };
 

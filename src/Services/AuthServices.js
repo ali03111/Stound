@@ -7,12 +7,13 @@ import {
   registerUrl,
   updateUserUrl,
 } from '../Utils/Urls';
-import API from '../Utils/helperFunc';
+import API, {formDataFunc} from '../Utils/helperFunc';
 import {Platform} from 'react-native';
 
 import {useEffect} from 'react';
 import firestore from '@react-native-firebase/firestore';
 import {store} from '../Redux/Reducers';
+import mime from 'mime';
 //Create Agora User For ChatApp
 
 const AgoraServerToken = async params => {
@@ -154,19 +155,36 @@ const updateProfileFirebase = params => {
   firestore().collection('users').doc(Auth.userData.agoraId).update(params);
 };
 
+// const updateProfileServices = async params => {
+//   // return data;
+//   console.log('ksfjlks5adja', params.profileData);
+//   const formData = new FormData();
+
+//   Object.entries(params.profileData).forEach(([key, val]) => {
+//     if (key == 'image' && val?.type) {
+//       formData.append('image', {
+//         uri: params.profileData.uri,
+//         type: params.profileData.type,
+//         name: params.profileData.fileName || 'image.jpg',
+//       });
+//     } else formData.append(key, val);
+//   });
+//   return await API.post(updateUserUrl, formData, {
+//     headers: {
+//       'Content-Type': 'multipart/form-data',
+//       // Authorization: `Bearer ${token}`, // Include bearer token in the request header
+//     },
+//   });
+// };
+
 const updateProfileServices = async params => {
-  const formData = new FormData();
-  Object.entries(params.profileData).forEach(([key, val]) => {
-    if (key == 'image' && val?.type)
-      // formData.append(key, {});
-      formData.append(key, {
-        name: val?.fileName || val?.name || 'image',
-        type: val?.type,
-        uri: Platform.OS == 'ios' ? val?.uri.replace('file://', '') : val?.uri,
-      });
-    else formData.append(key, val);
-  });
-  return await API.post(updateUserUrl, formData);
+  console.log(params.profileData, 'iiiiiidididiaid');
+  const {ok, data} = await formDataFunc(
+    updateUserUrl,
+    params.profileData,
+    'image',
+  );
+  return {ok, data};
 };
 
 const createUserFirestore = ({datas, data}) => {

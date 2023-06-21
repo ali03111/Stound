@@ -28,7 +28,8 @@ const EditProfileScreen = ({navigation}) => {
     isDatePickerVisible,
     goBack,
     userData,
-    images,
+    profileData,
+    // images,
     updateProfile,
     uploadFromGalary,
     reset,
@@ -55,7 +56,7 @@ const EditProfileScreen = ({navigation}) => {
             <View style={styles.porfileTopImages}>
               <BlurImage
                 styles={styles.ProfileImage}
-                uri={images?.uri || imageUrl(userData?.profilePicture)}
+                uri={profileData?.uri || imageUrl(userData?.profilePicture)}
               />
               <Image
                 source={editProfileShadow}

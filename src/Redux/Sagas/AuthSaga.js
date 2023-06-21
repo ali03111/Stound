@@ -234,11 +234,9 @@ function* updateProfileSaga({payload: profileData}) {
   yield put(loadingTrue());
   try {
     // console.log('dbnjdf', profileData);
-    const {ok, data, originalError} = yield call(
-      updateProfileServices,
-      profileData,
-    );
-    console.log('user', originalError, data);
+    const {ok, data} = yield call(updateProfileServices, profileData);
+    console.log('asasdasdasdasdasdasadasd', data, ok);
+
     if (ok) {
       yield put({type: types.UpdateProfile, payload: data.data});
       yield call(updateProfileFirebase, {

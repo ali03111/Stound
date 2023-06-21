@@ -47,9 +47,9 @@ API.get = async (url, params, axiosConfig) => {
   // }
 };
 
-const formDataFunc = (url, body) => {
+const formDataFunc = (url, body, imageKey) => {
   const {Auth} = store.getState();
-
+  console.log('bjdv dv hj hj dhjs dshj bdh∫√ dhjksbvsdhj', body);
   var myHeaders = new Headers();
   myHeaders.append('Accept', 'application/json');
   myHeaders.append('Authorization', `Bearer ${Auth.token}`);
@@ -57,15 +57,17 @@ const formDataFunc = (url, body) => {
 
   const formData = new FormData();
   Object.entries(body).forEach(([key, val]) => {
-    if (key === 'photos' && Array.isArray(val)) {
-      val.forEach((res, index) => {
-        formData.append(`photos`, {
-          name: res?.fileName,
-          type: res?.type,
-          uri:
-            Platform.OS == 'ios' ? res?.uri.replace('file://', '') : res?.uri,
-        });
+    if (key == imageKey) {
+      // val.forEach((res, index) => {
+      formData.append(imageKey, {
+        name: body?.image?.fileName,
+        type: body?.image?.type,
+        uri:
+          Platform.OS == 'ios'
+            ? body?.image?.uri.replace('file://', '')
+            : body?.image?.uri,
       });
+      // });
     } else {
       formData.append(key, val);
     }
@@ -76,11 +78,15 @@ const formDataFunc = (url, body) => {
     body: formData,
     redirect: 'follow',
   };
-
-  return fetch(url, requestOptions)
+  let newUrl = baseURL + url;
+  return fetch(newUrl, requestOptions)
     .then(res => res.json())
-    .then(res => res)
-    .catch(err => err);
+    .then(res => {
+      return {data: res, ok: true};
+    })
+    .catch(err => {
+      return {data: err, ok: false};
+    });
 };
 
 export {formDataFunc};

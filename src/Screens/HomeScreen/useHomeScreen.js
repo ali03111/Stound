@@ -50,6 +50,8 @@ const useHomeScreen = ({navigate, params, addListener}) => {
   };
 
   const askQuestion = async index => {
+    console.log(homeData, 'ahahahaha');
+    console.log(index, 'aasadasdasdasda');
     if (!userData.isAnswered) {
       dispatch(questionTrue());
       // await API.put(notifyUserUrl + homeData[index].adId);
