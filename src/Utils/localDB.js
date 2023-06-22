@@ -16,6 +16,8 @@ import {
   profile,
 } from '../Assests';
 
+export const APP_STORE_SECRET = '80263efda96949308ef41ea36ff7b72c';
+
 export const onBoardinData = [
   {
     id: 0,

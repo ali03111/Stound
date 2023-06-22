@@ -3,6 +3,7 @@ import React, {useEffect, useReducer, useRef, useState} from 'react';
 import useReduxStore from '../../Hooks/UseReduxStore';
 import Geolocation from '@react-native-community/geolocation';
 import {setRecentLocation} from '../../Redux/Action/recentLocationAction';
+import {loadingFalse, loadingTrue} from '../../Redux/Action/isloadingAction';
 
 const useLocationScreen = ({goBack}, {params}) => {
   const [location, setLocation] = useState([]);
@@ -43,6 +44,7 @@ const useLocationScreen = ({goBack}, {params}) => {
     };
   }, []);
   const getCurrentLocation = () => {
+    dispatch(loadingTrue());
     Geolocation.getCurrentPosition(info => {
       getLocationName(info?.coords?.latitude, info?.coords?.longitude),
         setLocation(info);
@@ -66,6 +68,7 @@ const useLocationScreen = ({goBack}, {params}) => {
 
   const setSelectedLocation = locationName => {
     params.getLocation(locationName);
+    dispatch(loadingFalse());
     goBack();
   };
 

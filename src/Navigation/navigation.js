@@ -4,8 +4,24 @@ import * as Screens from '../Screens/index';
 import useReduxStore from '../Hooks/UseReduxStore';
 import MybottomTabs from './bottomNavigation';
 
-const Stack = createNativeStackNavigator();
+import {withIAPContext} from 'react-native-iap';
 
+const Stack = createNativeStackNavigator();
+export const screens = [
+  {
+    name: 'Subscriptions',
+    title: 'Subscriptions',
+    component: withIAPContext(Screens.Subscriptions),
+    section: 'Context',
+    color: '#cebf38',
+  },
+  {
+    name: 'Home',
+    component: Screens.Home,
+    section: 'Context',
+    color: '#cebf38',
+  },
+];
 const StackNavigatior = () => {
   const {getState} = useReduxStore();
   const {onboarding} = getState('onboarding');
@@ -93,6 +109,23 @@ const StackNavigatior = () => {
             name="HeaderDetailScreen"
             component={Screens.HeaderDetailScreen}
           />
+          <Stack.Screen
+            name="SubscriptionsScreen"
+            component={Screens.Subscriptions}
+          />
+          {screens.map(({name, component, title}) => (
+            <Stack.Screen
+              key={name}
+              name={name}
+              component={component}
+              //hide the header on these screens
+              options={{
+                title: title,
+                headerShown:
+                  name === 'Home' || name === 'Subscriptions' ? false : true,
+              }}
+            />
+          ))}
         </>
       )}
     </Stack.Navigator>

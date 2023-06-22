@@ -7,6 +7,7 @@ import {launchImageLibrary} from 'react-native-image-picker';
 import useReduxStore from '../../Hooks/UseReduxStore';
 import {updateAdImage} from '../../Utils/Urls';
 import {Platform} from 'react-native';
+import {loadingFalse, loadingTrue} from '../../Redux/Action/isloadingAction';
 
 const {default: Schemas} = require('../../Utils/Validation');
 
@@ -86,23 +87,8 @@ const useAddPostScreen = ({navigate}) => {
     return newArry;
   };
 
-  const postDataWithOutText = async body => {
-    const {ok, data, status, originalError, problem} = await API.post(
-      createAdsUrl,
-      body,
-    );
-    return {ok, data, originalError};
-  };
-
-  const postDataWithImage = async formData => {
-    const {ok, data, status, originalError, problem} = await API.post(
-      updateAdImage,
-      formData,
-    );
-    return {status: ok, result: data, error: originalError};
-  };
-
   const postData = async ({title, desc, number}) => {
+    dispatch(loadingTrue());
     if (
       images.length &&
       cat != null &&
@@ -112,8 +98,6 @@ const useAddPostScreen = ({navigate}) => {
       ip.length &&
       op.length
     ) {
-      const formData = new FormData();
-
       const body = {
         title: title,
         description: desc,
@@ -124,89 +108,40 @@ const useAddPostScreen = ({navigate}) => {
         insidePref: getAllID(ip),
         outsidePref: getAllID(op),
         category: cat,
+        photos: images,
         price: number,
         adType: type,
       };
-      const body1 = {
-        photos: [],
-      };
-
-      // console.log(body1, 'alkjlsdjkflaksjdfkljsal');
-      // Object.entries(body1).forEach(([key, val]) => {
-      //   if (key === 'photos' && Array.isArray(val)) {
-      //     val.forEach((res, index) => {
-      //       formData.append(`photos`, {
-      //         name: res?.fileName,
-      //         type: res?.type,
-      //         uri: res?.uri,
-      //       });
-      //     });
-      //   }
-      //   //  else {
-      //   //   formData.append(key, val);
-      //   // }
-      // });
-
-      try {
-        const {ok, data, originalError} = await postDataWithOutText(body);
-        console.log(data.data, ok, originalError, '787877');
-        if (ok) {
-          console.log(data.data.adId, 'aaaaaaaaaaaaa22aaAAAaaa');
-
-          formData.append('adId', data.data?.adId);
-          images.map(item => {
-            formData.append('photos', {
-              name: item?.uri.split('/').pop(),
-              type: item?.type,
-              uri: item?.uri,
-            });
-            console.log(
-              item?.uri.split('/').pop(),
-              item?.uri,
-              'ajajaaaaaaa11jaj',
-            );
-          });
-          console.log(
-            formData._parts[1],
-            data?.data?.adId,
-            'formdataasasdasaaaaaaaa',
-          );
-          const {status, result, error} = await postDataWithImage(formData);
-          console.log('aldjsflaaaakjsdf', result, status, error);
-
-          if (status) {
-            console.log('aldjsflkjsdf', status);
-            updateState({
-              images: [],
-              gp: null,
-              op: null,
-              ip: null,
-              cat: null,
-              rooms: null,
-              bathRoom: null,
-              location: '',
-            });
-            reset();
-            successMessage(result?.message || 'Your Ad has been created ');
-            console.log(result, 'dlkjdkjdkaaajdkjdkj');
-          } else {
-            console.log('dfdfaaaaaaaaaaa', originalError, status);
-            errorMessage(
-              originalError?.message?.split(' ')?.slice(1)?.join(' '),
-            );
-          }
-        } else {
-          console.log('dfdfa', originalError, status, problem, data?.message);
-          errorMessage(originalError?.message?.split(' ')?.slice(1)?.join(' '));
-        }
-      } catch (e) {
-        console.log(e, 'Erororororooror');
+      const {ok, data, status, originalError, problem} = await formDataFunc(
+        createAdsUrl,
+        body,
+        'photos',
+        true,
+      );
+      if (ok) {
+        updateState({
+          images: [],
+          gp: null,
+          op: null,
+          ip: null,
+          cat: null,
+          rooms: null,
+          bathRoom: null,
+          location: '',
+        });
+        reset();
+        dispatch(loadingFalse());
+        successMessage(data?.message || 'Your Ad has been created ');
+      } else {
+        dispatch(loadingFalse());
+        console.log('dfdfa', originalError, status, problem, data?.message);
+        errorMessage(originalError?.message?.split(' ')?.slice(1)?.join(' '));
       }
     } else {
+      dispatch(loadingFalse());
       errorMessage('please comeplete all fields');
     }
   };
-
   const useEffectFun = () => {
     getPreferences();
   };

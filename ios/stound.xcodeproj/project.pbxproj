@@ -13,6 +13,7 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		62AD16530DD604A8E197D014 /* libPods-stound.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E0D56CB35587737186B62EC6 /* libPods-stound.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		A69A5CDA2A448DB000968D41 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A69A5CD92A448DB000968D41 /* StoreKit.framework */; };
 		A6BDFFF529DC702F0078426E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A6BDFFF429DC702E0078426E /* GoogleService-Info.plist */; };
 		B5202851F257EE55621FE491 /* libPods-stound-stoundTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B5035B5DD4816EFD3C678E5B /* libPods-stound-stoundTests.a */; };
 /* End PBXBuildFile section */
@@ -97,6 +98,7 @@
 		A65C0A3E29C20DA900E9D067 /* Proxima-Nova-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Proxima-Nova-Thin.otf"; sourceTree = "<group>"; };
 		A65C0A3F29C20DA900E9D067 /* ProximaNova-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "ProximaNova-Regular.otf"; path = "../../../../../Downloads/proxima_ssv/ProximaNova-Regular.otf"; sourceTree = "<group>"; };
 		A65C0A4029C20DAA00E9D067 /* Proxima-Nova-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Proxima-Nova-Bold.otf"; sourceTree = "<group>"; };
+		A69A5CD92A448DB000968D41 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		A6BDFFF129DC4D720078426E /* stound.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = stound.entitlements; path = stound/stound.entitlements; sourceTree = "<group>"; };
 		A6BDFFF429DC702E0078426E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B5035B5DD4816EFD3C678E5B /* libPods-stound-stoundTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-stound-stoundTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -119,6 +121,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				62AD16530DD604A8E197D014 /* libPods-stound.a in Frameworks */,
+				A69A5CDA2A448DB000968D41 /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -159,6 +162,7 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A69A5CD92A448DB000968D41 /* StoreKit.framework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				E0D56CB35587737186B62EC6 /* libPods-stound.a */,
 				B5035B5DD4816EFD3C678E5B /* libPods-stound-stoundTests.a */,
@@ -655,7 +659,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = stound/stound.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 56A6484PFH;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = stound/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -684,7 +688,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = stound/stound.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 56A6484PFH;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = stound/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
