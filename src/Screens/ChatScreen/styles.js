@@ -32,6 +32,7 @@ export const styles = StyleSheet.create({
     paddingHorizontal: wp('2.5'),
     width: wp('50'),
     fontSize: 15,
+    color: 'black',
   },
   centerHeading: {
     marginRight: wp('3'),

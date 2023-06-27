@@ -110,6 +110,10 @@ const StackNavigatior = () => {
             component={Screens.HeaderDetailScreen}
           />
           <Stack.Screen
+            name="FilterPackageScreen"
+            component={Screens.FilterPackageScreen}
+          />
+          <Stack.Screen
             name="SubscriptionsScreen"
             component={Screens.Subscriptions}
           />

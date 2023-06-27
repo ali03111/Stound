@@ -780,7 +780,7 @@ const MessagesScreen = ({route, navigation}) => {
         centerTextStyle={styles.centerHeading}
       />
       <GiftedChat
-        alwaysShowSend
+        alwaysShowSend={false}
         messages={messages}
         showAvatarForEveryMessage={false}
         showUserAvatar={false}

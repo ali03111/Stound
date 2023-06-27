@@ -21,17 +21,24 @@ import {Colors} from '../../Theme/Variables';
 import {imageUrl} from '../../Utils/Urls';
 
 const ChatScreen = ({navigation}) => {
-  const {ChatData, getStart, navigateToMsg, users, userData} =
-    useChatScreen(navigation);
+  const {
+    ChatData,
+    getStart,
+    navigateToMsg,
+    users,
+    userData,
+    onChangeText,
+    changeText,
+    filteredUserData,
+  } = useChatScreen(navigation);
 
-  const [text, onChangeText] = React.useState('');
   const renderItem = useCallback(({item, index}) => {
     console.log(item, 'hshjashhs');
     return (
       <View style={styles.notification}>
         <ChatComponent
           image={imageUrl(item?.profilePicture)}
-          name={item?.email}
+          name={item?.name}
           description={
             item.chatUsers.find(res => res.otherUserId == userData?.agoraId)
               .lastMsg
@@ -56,8 +63,8 @@ const ChatScreen = ({navigation}) => {
         <Image style={styles.search} source={search} />
         <TextInput
           style={styles.searchinput}
+          value={changeText}
           onChangeText={onChangeText}
-          value={text}
           placeholder={'Search messages here...'}
           placeholderTextColor={Colors.gray}
         />

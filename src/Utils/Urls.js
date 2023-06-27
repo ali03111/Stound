@@ -39,3 +39,4 @@ export const notifyUserUrl = 'buyer-interested/';
 export const getAllNotificationUrl = 'get-user-notifications/';
 export const getAgoraTokenUrl = 'getAccessToken/';
 export const updateAdImage = 'update-ad-photos';
+export const FilterAdsUrl = 'filter-ads';

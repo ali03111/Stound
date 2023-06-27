@@ -27,9 +27,9 @@ const isIos = Platform.OS === 'ios';
 
 //product id from appstoreconnect app->subscriptions
 const subscriptionSkus = Platform.select({
-  ios: ['stoundlifttime10usd'],
+  ios: ['stoundlifttime100usd'],
 });
-
+console.log(subscriptionSkus, 'sdklfjklsdj');
 const Subscriptions = ({navigation}) => {
   //useIAP - easy way to access react-native-iap methods to
   //get your products, purchases, subscriptions, callback
@@ -110,7 +110,7 @@ const Subscriptions = ({navigation}) => {
               const appleReceiptResponse = await validateReceiptIos(
                 {
                   'receipt-data': receipt,
-                  password: APP_STORE_SECRET,
+                  password: '80263efda96949308ef41ea36ff7b72c',
                 },
                 isTestEnvironment,
               );

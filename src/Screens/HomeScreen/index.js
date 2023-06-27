@@ -83,49 +83,6 @@ const HomeScreen = ({navigation}) => {
     );
   }, []);
 
-  //   return radioButtons.map(res => {
-  //     return (
-  //       <Touchable style={styles.radioView} onPress={() => (s = res)}>
-  //         <TextComponent styles={styles.radioLabel} text={res.label} />
-  //         <Image
-  //           source={selectedIdRef.current.id == res.id ? radioFill : radioEmtpy}
-  //         />
-  //       </Touchable>
-  //     );
-  //   });
-  // }, [s]);
-
-  // const AlertView = useCallback(() => {
-  //   return (
-  //     <AwesomeAlert
-  //       show={showAlert}
-  //       showProgress={false}
-  //       useNativeDriver={true}
-  //       title="Are You!"
-  //       closeOnTouchOutside={false}
-  //       closeOnHardwareBackPress={false}
-  //       showCancelButton={false}
-  //       showConfirmButton={true}
-  //       confirmText="Confirm"
-  //       titleStyle={styles.alertTitle}
-  //       actionContainerStyle={styles.actionViewStyle}
-  //       customView={
-  //         <View
-  //           style={{
-  //             width: wp('75'),
-  //           }}>
-  //           <RadioButtonMap />
-  //         </View>
-  //       }
-  //       confirmButtonStyle={styles.confirmButtonStyle}
-  //       confirmButtonTextStyle={{
-  //         fontWeight: 'bold',
-  //       }}
-  //       onConfirmPressed={onConfirmPressed}
-  //     />
-  //   );
-  // }, [showAlert]);
-
   return (
     <>
       <View style={{paddingTop: Platform.OS == 'ios' ? hp('3') : hp('0')}}>

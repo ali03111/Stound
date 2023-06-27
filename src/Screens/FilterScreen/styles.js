@@ -75,7 +75,7 @@ export const styles = StyleSheet.create({
     borderBottomWidth: 0.5,
     borderRadius: 0,
     justifyContent: 'flex-start',
-    width: wp('100'),
+    width: wp('85'),
   },
   locationBtnText: {
     fontSize: hp('2'),
@@ -127,5 +127,16 @@ export const styles = StyleSheet.create({
   },
   max: {
     backgroundColor: 'red',
+  },
+  flatListMain: {
+    flexDirection: 'row',
+    width: '100%',
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  tags: {
+    paddingHorizontal: wp('2'),
+    marginHorizontal: wp('1'),
+    marginBottom: hp('1'),
   },
 });

@@ -23,13 +23,66 @@ import ThemeButtonComp from '../../Components/ThemeButtonComp';
 import Slider from '@react-native-community/slider';
 import {goBack} from '../../Utils';
 import {Image} from 'react-native-animatable';
+import {imageUrl, keyExtractor} from '../../Utils/Urls';
+import {wp} from '../../Config/responsive';
 const FilterScreen = ({navigation}) => {
+  const {
+    filterAdsDataFunction,
+    onSelecteTag,
+    options,
+    preferencesData,
+    locations,
+    cat,
+    rooms,
+    bathRoom,
+    gp,
+    op,
+    ip,
+    dynamicNav,
+    setSliderValue,
+    sliderValue,
+    resetFunction,
+  } = useFilterScreen(navigation);
   const [selectedLanguage, setSelectedLanguage] = useState();
-  const [sliderValue, setSliderValue] = useState(0);
-  const options = [
-    {label: 'Rent', value: '1'},
-    {label: 'Buy  ', value: '2'},
-  ];
+
+  //Render Preferences dynamics
+
+  const renderItem = ({item, index}) => {
+    console.log('itmemmemem', item);
+    return (
+      <FilterAddButton
+        style={styles.tags}
+        title={item?.name}
+        image={imageUrl(item.path)}
+        required={true}
+      />
+    );
+  };
+  const FlatListComp = ({data, onPress}) => {
+    return (
+      <FlatList
+        refreshing={false}
+        data={data}
+        renderItem={renderItem}
+        keyExtractor={keyExtractor}
+        contentContainerStyle={styles.flatListMain}
+        horizontal
+        ListFooterComponentStyle={{marginLeft: wp('2')}}
+        ListFooterComponent={() => {
+          return (
+            <FilterAddButton
+              style={styles.filterButton}
+              image={addcircle}
+              isRequired={true}
+              title={'Add'}
+              onPress={onPress}
+            />
+          );
+        }}
+      />
+    );
+  };
+
   return (
     <View style={{flex: 1}}>
       <Header
@@ -37,8 +90,8 @@ const FilterScreen = ({navigation}) => {
         arrowBackIcon={arrowback}
         backText={'Back'}
         saveReset={'Reset'}
+        onSave={() => resetFunction()}
         goBack={() => navigation.goBack()}
-        // style={styles.filterHeader}
       />
 
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -46,7 +99,9 @@ const FilterScreen = ({navigation}) => {
           <SwitchSelector
             options={options}
             initial={0}
-            onPress={value => console.log(`Call onPress with value: ${value}`)}
+            onPress={value => {
+              onSelecteTag(value, 'type');
+            }}
             backgroundColor="rgba(11, 180, 255, 0.03);"
             buttonColor={Colors.primaryColor}
             borderRadius={10}
@@ -61,23 +116,40 @@ const FilterScreen = ({navigation}) => {
             <Picker
               style={styles.pick}
               dropdownIconColor={Colors.primaryColor}
-              selectedValue={selectedLanguage}
-              onValueChange={(itemValue, itemIndex) =>
-                setSelectedLanguage(itemValue)
-              }>
-              <Picker.Item label="Select" value="Select" />
-              <Picker.Item label="Apartment" value="Apartment" />
+              selectedValue={cat}
+              onValueChange={value => onSelecteTag(value, 'cat')}>
+              <Picker.Item label="Select" value={null} />
+              {preferencesData?.cat &&
+                preferencesData?.cat?.map(res => {
+                  return (
+                    <Picker.Item
+                      label={res.name}
+                      // color="black"
+                      // style={{color: 'black'}}
+                      value={res.categoryId}
+                    />
+                  );
+                })}
             </Picker>
           </View>
           <TextComponent styles={styles.itemHeading} text={'Location '} />
           <View style={styles.addButton}>
             <FilterAddButton
+              locations={locations}
               isRequired={true}
               style={styles.locationBtn}
               textStyle={styles.locationBtnText}
               image={search}
               title={'Search location here...'}
               imgStyle={styles.locationBtnImg}
+              onPress={() =>
+                dynamicNav({
+                  title: 'Locations',
+                  data: preferencesData?.locations,
+                  key: 'locations',
+                  value: locations,
+                })
+              }
             />
           </View>
           <TextComponent styles={styles.itemHeading} text={'Rooms'} />
@@ -87,11 +159,10 @@ const FilterScreen = ({navigation}) => {
             <Picker
               dropdownIconColor={Colors.primaryColor}
               style={styles.pick}
-              selectedValue={selectedLanguage}
+              selectedValue={rooms}
               onValueChange={(itemValue, itemIndex) =>
-                setSelectedLanguage(itemValue)
+                onSelecteTag(itemValue, 'rooms')
               }>
-              <Picker.Item label="Select" value={null} />
               <Picker.Item label="1" value="1" />
               <Picker.Item label="2" value="2" />
               <Picker.Item label="3" value="3" />
@@ -106,11 +177,10 @@ const FilterScreen = ({navigation}) => {
             <Picker
               dropdownIconColor={Colors.primaryColor}
               style={[styles.pick]}
-              selectedValue={selectedLanguage}
+              selectedValue={bathRoom}
               onValueChange={(itemValue, itemIndex) =>
-                setSelectedLanguage(itemValue)
+                onSelecteTag(itemValue, 'bathRoom')
               }>
-              <Picker.Item label="Select" value="Select" />
               <Picker.Item label="1" value="1" />
               <Picker.Item label="2" value="2" />
               <Picker.Item label="3" value="3" />
@@ -123,11 +193,16 @@ const FilterScreen = ({navigation}) => {
             text={'General Preferences '}
           />
           <View style={styles.addButton}>
-            <FilterAddButton
-              style={styles.filterButton}
-              isRequired={true}
-              image={addcircle}
-              title={'Add'}
+            <FlatListComp
+              data={gp}
+              onPress={() =>
+                dynamicNav({
+                  title: 'General',
+                  data: preferencesData.gp,
+                  key: 'gp',
+                  value: gp,
+                })
+              }
             />
           </View>
           <TextComponent
@@ -135,11 +210,16 @@ const FilterScreen = ({navigation}) => {
             text={'Outside Preferences '}
           />
           <View style={styles.addButton}>
-            <FilterAddButton
-              isRequired={true}
-              style={styles.filterButton}
-              image={addcircle}
-              title={'Add'}
+            <FlatListComp
+              data={op}
+              onPress={() =>
+                dynamicNav({
+                  title: 'Outside',
+                  data: preferencesData.op,
+                  key: 'op',
+                  value: op,
+                })
+              }
             />
           </View>
           <TextComponent
@@ -147,13 +227,19 @@ const FilterScreen = ({navigation}) => {
             text={'Inside Preferences '}
           />
           <View style={styles.addButton}>
-            <FilterAddButton
-              isRequired={true}
-              style={styles.filterButton}
-              image={addcircle}
-              title={'Add'}
+            <FlatListComp
+              data={ip}
+              onPress={() =>
+                dynamicNav({
+                  title: 'Inside',
+                  data: preferencesData.ip,
+                  key: 'ip',
+                  value: ip,
+                })
+              }
             />
           </View>
+
           <TextComponent styles={styles.pRange} text={'Price Range '} />
           <View style={styles.rangeTextMain}>
             <TextComponent
@@ -165,7 +251,7 @@ const FilterScreen = ({navigation}) => {
           <Slider
             style={styles.rangeSlider}
             minimumValue={0}
-            maximumValue={1200}
+            maximumValue={3000}
             minimumTrackTintColor={Colors.primaryColor2}
             maximumTrackTintStyle={Colors.primaryColor2}
             thumbTintColor="red"
@@ -174,11 +260,12 @@ const FilterScreen = ({navigation}) => {
             maximumTrackImage={maxslider}
             trackImage={minslider}
             value={sliderValue}
-            onValueChange={sliderValue =>
-              setSliderValue(Math.trunc(sliderValue))
-            }
+            onValueChange={sliderValue => {
+              setSliderValue(Math.trunc(sliderValue).toString());
+            }}
           />
           <ThemeButtonComp
+            onPress={filterAdsDataFunction}
             title={'Apply Filter'}
             style={styles.applyFilter}
             textStyle={styles.filterText}

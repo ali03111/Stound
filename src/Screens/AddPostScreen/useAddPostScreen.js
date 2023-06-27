@@ -18,9 +18,8 @@ const useAddPostScreen = ({navigate}) => {
   const {handleSubmit, errors, reset, control, getValues} = useFormHook(
     Schemas.addPost,
   );
-
   const options = [
-    {label: 'sale', value: 'Sale'},
+    {label: 'Sale', value: 'Sale'},
     {label: 'Rent', value: 'Rent'},
   ];
 

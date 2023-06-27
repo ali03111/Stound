@@ -19,7 +19,7 @@ const GeneralScreen = ({navigation, route}) => {
     return (
       <FilterAddButton
         title={item?.name}
-        image={imageUrl(item.path)}
+        image={item?.path ? imageUrl(item?.path) : null}
         style={styles.filterBtn(selectedValue, item)}
         textStyle={styles.innerText(selectedValue, item)}
         onPress={() => selecteValue(item)}

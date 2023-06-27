@@ -171,6 +171,7 @@ const AddPostScreen = ({navigation}) => {
               />
               {preferencesData.cat &&
                 preferencesData.cat.map(res => {
+                  console.log('res.name', res);
                   return (
                     <Picker.Item
                       label={res.name}

@@ -13,10 +13,6 @@ const Home = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.title}>Welcome to my app</Text>
-      {/* <Image
-        style={styles.image}
-        source={require('../assets/trail-laguna.png')}
-      /> */}
 
       <Text style={styles.paragraph}>
         Get access to 100s of delicious low calorie nutritious and easy to make
