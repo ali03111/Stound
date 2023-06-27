@@ -29,6 +29,7 @@ const Notification = ({navigation}) => {
     logOut,
     coinAlert,
     notificationDataState,
+    getAllNotificationFunc,
   } = useNotificationScreen(navigation);
   const renderItem = useCallback(
     ({item: {displayNotification}, item, index}) => {
@@ -77,7 +78,7 @@ const Notification = ({navigation}) => {
                   justifyContent: 'center',
                   height: hp('80'),
                 }}>
-                <EmptyViewComp onRefresh={notificationDataState} />
+                <EmptyViewComp onRefresh={getAllNotificationFunc} />
               </View>
             }
           />

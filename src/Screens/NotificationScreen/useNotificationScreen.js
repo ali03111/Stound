@@ -38,10 +38,12 @@ const useNotificationScreen = ({navigate, addListener}) => {
   };
   useEffect(useEffectFun, []);
 
-  const navigationChatScreen = () => {
-    navigate('MessagesScreen', {id: agoraId, userDetail});
-    // navigate('MessagesScreen', {id: users[0]?.userId, userDetail: users[0]});
-  };
+  // Navigate to Message Screen
+
+  // const navigationChatScreen = () => {
+  //   navigate('MessagesScreen', {id: agoraId, userDetail});
+  //   // navigate('MessagesScreen', {id: users[0]?.userId, userDetail: users[0]});
+  // };
 
   return {
     notificationData,
@@ -50,6 +52,7 @@ const useNotificationScreen = ({navigate, addListener}) => {
     coinAlert,
     logOut,
     notificationDataState,
+    getAllNotificationFunc,
   };
 };
 export default useNotificationScreen;

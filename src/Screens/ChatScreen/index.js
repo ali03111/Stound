@@ -80,7 +80,6 @@ const ChatScreen = ({navigation}) => {
           paddingHorizontal: wp('4'),
           // height: 'auto',
         }}
-        // style={{paddingBottom: 0}}
       />
     </View>
   );

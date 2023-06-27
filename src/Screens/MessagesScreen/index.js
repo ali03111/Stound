@@ -659,28 +659,6 @@ const MessagesScreen = ({route, navigation}) => {
       .collection('messages')
       .add({...myMsg, profileImage: profilePicture});
 
-    //Add last Message in same userdata
-    // firebase
-    //   .firestore()
-    //   .collection('users')
-    //   .doc(userData?.agoraId)
-    //   .set(
-    //     {
-    //       userId: userData?.agoraId,
-    //       profilePicture: userData.profilePicture,
-    //       chatUsers: [
-    //         {
-    //           lastMsg: msg.text,
-    //           otherUserId: id,
-    //           createdAt: new Date(msg.createdAt),
-    //         },
-    //       ], // Update the last message object with the new createdAt value
-
-    //       // Update the otherUserId field
-    //     },
-    //     {merge: true}, // Use merge option to merge with existing data in the document
-    //   );
-
     firebase
       .firestore()
       .collection('users')
@@ -716,7 +694,7 @@ const MessagesScreen = ({route, navigation}) => {
           firebase.firestore().collection('users').doc(userData?.agoraId).set(
             {
               chatUsers: chatUsers,
-              profilePicture: userData.profilePicture,
+              // profilePicture: userData.profilePicture,
             },
             {merge: true},
           );
@@ -758,7 +736,7 @@ const MessagesScreen = ({route, navigation}) => {
           firebase.firestore().collection('users').doc(id).set(
             {
               chatUsers: chatUsers,
-              profilePicture: userData.profilePicture,
+              // profilePicture: userData.profilePicture,
             },
             {merge: true},
           );
