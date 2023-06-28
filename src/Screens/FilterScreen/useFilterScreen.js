@@ -79,22 +79,22 @@ const useFilterScreen = ({navigate}) => {
         insidePrefIds: getAllID(ip),
         outsidePrefIds: getAllID(op),
         location: getAllName(locations),
-        priceRange: ['0', sliderValue],
-
+        priceRange: [250, sliderValue],
         // propertyType: 'cat_ac91df8e-abcb-4a51-aa85-3fb63d533e20',
         // adType: 'Sale',
-        // generalPrefIds: ['gp_67268670-110b-4c91-afca-1d3e666497e9'],
-        // insidePrefIds: ['ip_6839a9b0-26d5-49d0-abde-2e8346f58a84'],
-        // outsidePrefIds: ['op_0ed9fea4-295e-4fc5-819f-59a25be49eed'],
-        // rooms: '3',
-        // bathrooms: '3',
-        // location: ['New York, NY, USA'],
-        // priceRange: ['0', '2500'],
+        // generalPrefIds: [],
+        // insidePrefIds: [],
+        // outsidePrefIds: [],
+        // rooms: '5',
+        // bathrooms: '2',
+        // location: ['1800 Ellis St, San Francisco, CA 94115, USA'],
+        // priceRange: ['0', '5500'],
       };
       console.log('h12312eheh;', body);
       const {ok, data, originalError} = await API.post(FilterAdsUrl, body);
+      console.log('h12312eh121121eh;', data);
+
       if (ok) {
-        console.log(data, 'klsjdflkdjs22fklajsdlkfj');
         navigate('FilterPackageScreen', {items: data});
         successMessage(data?.message || 'Your Ad has been created ');
       } else {

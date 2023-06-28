@@ -27,9 +27,9 @@ const isIos = Platform.OS === 'ios';
 
 //product id from appstoreconnect app->subscriptions
 const subscriptionSkus = Platform.select({
-  ios: ['stoundlifttime100usd'],
+  ios: ['10UsdtoCoin'],
 });
-console.log(subscriptionSkus, 'sdklfjklsdj');
+// console.log(subscriptionSkus, 'sdklfjklsdj');
 const Subscriptions = ({navigation}) => {
   //useIAP - easy way to access react-native-iap methods to
   //get your products, purchases, subscriptions, callback

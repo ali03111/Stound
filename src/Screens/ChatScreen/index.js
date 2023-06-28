@@ -30,6 +30,8 @@ const ChatScreen = ({navigation}) => {
     onChangeText,
     changeText,
     filteredUserData,
+    filtered,
+    searchData,
   } = useChatScreen(navigation);
 
   const renderItem = useCallback(({item, index}) => {
@@ -65,13 +67,13 @@ const ChatScreen = ({navigation}) => {
           style={styles.searchinput}
           value={changeText}
           onChangeText={onChangeText}
-          placeholder={'Search messages here...'}
+          placeholder={'Search user here...'}
           placeholderTextColor={Colors.gray}
         />
       </View>
       <FlatList
         refreshing={false}
-        data={users}
+        data={searchData}
         renderItem={renderItem}
         showsHorizontalScrollIndicator={false}
         showsVerticalScrollIndicator={false}

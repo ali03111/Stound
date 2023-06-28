@@ -9,7 +9,7 @@ const useFilterPackageScreen = ({navigate, addListener}, {params}) => {
   console.log(items, 'lakjsfkljalk');
   const onPress = data => navigate('PackageDetailsScreen', {items: data});
 
-  const [favData, setFavData] = useState(items?.ads || []);
+  const [favData, setFavData] = useState(items?.data || []);
 
   //   const getFav = async () => {
   //     try {

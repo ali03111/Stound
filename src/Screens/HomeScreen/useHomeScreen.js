@@ -7,6 +7,7 @@ import {
   addQuesUrl,
   getAdsUrl,
   notifyUserUrl,
+  searchAdsUrl,
   updateFavUrl,
 } from '../../Utils/Urls';
 import {errorMessage, successMessage} from '../../Config/NotificationMessage';
@@ -96,6 +97,25 @@ const useHomeScreen = ({navigate, params, addListener}) => {
     else errorMessage(data.message || 'request failed');
   };
 
+  //Search Property Lists With Api
+  const searchPropertyFunction = async text => {
+    console.log(text, 'asldkfjklsdjfkl');
+    const body = {
+      text,
+    };
+
+    const {ok, data, originalError} = await API.post(searchAdsUrl, body);
+    try {
+      console.log(ok, data, 'iehyfjeyejy');
+      if (ok) {
+        navigate('FilterPackageScreen', {items: data});
+      }
+    } catch (e) {
+      console.log('dfdfa', originalError, data);
+      errorMessage(originalError?.message?.split(' ')?.slice(1)?.join(' '));
+    }
+  };
+
   const navigateToNotificationScreen = () => {
     navigate('NotificationScreen');
   };
@@ -122,6 +142,7 @@ const useHomeScreen = ({navigate, params, addListener}) => {
     navigateToNotificationScreen,
     navigateToNotificationScreen,
     isloading,
+    searchPropertyFunction,
   };
 };
 

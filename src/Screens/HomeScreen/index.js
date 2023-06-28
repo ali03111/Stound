@@ -64,6 +64,7 @@ const HomeScreen = ({navigation}) => {
     askQuestion,
     isloading,
     navigateToNotificationScreen,
+    searchPropertyFunction,
   } = useHomeScreen(navigation);
 
   // console.log('cccc',onBoardinData);
@@ -90,6 +91,7 @@ const HomeScreen = ({navigation}) => {
           <View style={styles.searchMain}>
             <Image style={styles.search} source={search} />
             <TextInput
+              onSubmitEditing={() => searchPropertyFunction(text)}
               style={styles.searchinput}
               onChangeText={onChangeText}
               value={text}

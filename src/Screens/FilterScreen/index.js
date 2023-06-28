@@ -25,6 +25,7 @@ import {goBack} from '../../Utils';
 import {Image} from 'react-native-animatable';
 import {imageUrl, keyExtractor} from '../../Utils/Urls';
 import {wp} from '../../Config/responsive';
+import {TextInput} from 'react-native-paper';
 const FilterScreen = ({navigation}) => {
   const {
     filterAdsDataFunction,
@@ -43,7 +44,6 @@ const FilterScreen = ({navigation}) => {
     sliderValue,
     resetFunction,
   } = useFilterScreen(navigation);
-  const [selectedLanguage, setSelectedLanguage] = useState();
 
   //Render Preferences dynamics
 
@@ -246,12 +246,15 @@ const FilterScreen = ({navigation}) => {
               styles={styles.rangeTextLeft}
               text={`$${sliderValue}`}
             />
-            <TextComponent styles={styles.rangeTextRight} text={`$${'1200'}`} />
+            <TextComponent
+              styles={styles.rangeTextRight}
+              text={`$${'1000000'}`}
+            />
           </View>
           <Slider
             style={styles.rangeSlider}
             minimumValue={0}
-            maximumValue={3000}
+            maximumValue={1000000}
             minimumTrackTintColor={Colors.primaryColor2}
             maximumTrackTintStyle={Colors.primaryColor2}
             thumbTintColor="red"
@@ -261,8 +264,23 @@ const FilterScreen = ({navigation}) => {
             trackImage={minslider}
             value={sliderValue}
             onValueChange={sliderValue => {
-              setSliderValue(Math.trunc(sliderValue).toString());
+              setSliderValue(Math.trunc(sliderValue));
             }}
+          />
+          <TextInput
+            theme={{
+              colors: {
+                placeholder: 'gray', // Change this to the desired color for the placeholder
+                primary: Colors.primaryColor, // Change this to the desired color for the border
+              },
+            }}
+            label="Enter price ranges"
+            mode="outlined"
+            style={styles.priceRange}
+            value={sliderValue}
+            onChangeText={text => setSliderValue(Number(text))}
+            placeholder="Enter price ranges..."
+            defaultValue={sliderValue == null && 0}
           />
           <ThemeButtonComp
             onPress={filterAdsDataFunction}

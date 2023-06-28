@@ -40,3 +40,4 @@ export const getAllNotificationUrl = 'get-user-notifications/';
 export const getAgoraTokenUrl = 'getAccessToken/';
 export const updateAdImage = 'update-ad-photos';
 export const FilterAdsUrl = 'filter-ads';
+export const searchAdsUrl = 'search-ads';

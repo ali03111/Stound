@@ -6,7 +6,6 @@ import {firebase} from '@react-native-firebase/firestore';
 import useReduxStore from '../../Hooks/UseReduxStore';
 import {loadingFalse, loadingTrue} from '../../Redux/Action/isloadingAction';
 const useChatScreen = ({navigate, goBack, addListener}) => {
-  const [storUser, setStoreUsers] = React.useState([]);
   const [users, setUsers] = React.useState([]);
   const [changeText, onChangeText] = React.useState('');
 

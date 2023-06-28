@@ -139,4 +139,7 @@ export const styles = StyleSheet.create({
     marginHorizontal: wp('1'),
     marginBottom: hp('1'),
   },
+  priceRange: {
+    // backgroundColor: 'transparent', // This works
+  },
 });
