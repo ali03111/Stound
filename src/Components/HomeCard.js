@@ -1,12 +1,12 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, ImageBackground } from 'react-native';
-import { Colors, FontFamily } from '../Theme/Variables';
-import { Touchable } from './Touchable';
-import { share } from '@/Assets/Images';
-import { hp, wp } from '../Config/responsive';
-import { cardOverlay, profile, bed, bathtub, location } from '../Assests';
-import { TextComponent } from './TextComponent';
-import { white } from 'react-native-paper/lib/typescript/src/styles/themes/v2/colors';
+import {View, Text, Image, StyleSheet, ImageBackground} from 'react-native';
+import {Colors, FontFamily} from '../Theme/Variables';
+import {Touchable} from './Touchable';
+import {share} from '@/Assets/Images';
+import {hp, wp} from '../Config/responsive';
+import {cardOverlay, profile, bed, bathtub, location} from '../Assests';
+import {TextComponent} from './TextComponent';
+import {white} from 'react-native-paper/lib/typescript/src/styles/themes/v2/colors';
 import BlurImage from './BlurImage';
 import BlurBackground from './BlurBackground';
 
@@ -42,7 +42,7 @@ const HomeCard = ({
           resizeMode="cover"
           borderRadius={10}
           style={styles.overlay}>
-          <View style={styles.cardMain}>
+          {/* <View style={styles.cardMain}>
             <View style={styles.cardTopbar}>
               <View style={styles.cardTopLeft}>
                 <BlurImage
@@ -61,13 +61,51 @@ const HomeCard = ({
             </View>
             <View style={styles.locationMain}>
               <Image source={location} />
-              <TextComponent numberOfLines={1} text={locationText} styles={styles.locationText} />
+              <TextComponent
+                numberOfLines={1}
+                text={locationText}
+                styles={styles.locationText}
+              />
             </View>
             <View style={styles.cardFooter}>
               <TextComponent text={forRent} styles={styles.forRent} />
-              <View style={{ flexDirection: 'row', alignItems: 'baseline' }}>
-                <TextComponent text={price + '/'} styles={styles.price} />
+              <View style={{flexDirection: 'row', alignItems: 'baseline'}}>
+                <TextComponent text={price} styles={styles.price} />
+                <TextComponent text={'/'} styles={styles.pillar} />
+
                 <TextComponent text={duration} styles={styles.month} />
+              </View>
+            </View>
+          </View> */}
+          <View style={styles.cardMain}>
+            <View style={styles.bottomNav}>
+              <View style={styles.locationMain}>
+                <View style={styles.locationInner}>
+                  <Image source={location} />
+                  <TextComponent
+                    numberOfLines={1}
+                    text={locationText}
+                    styles={styles.locationText}
+                  />
+                </View>
+                <View style={styles.cardTopbar}>
+                  <View style={styles.cardTopRight}>
+                    <Image source={bathtub} style={styles.bathImg} />
+                    <TextComponent text={bath} styles={styles.bath} />
+                    <Image source={bed} style={styles.bathImg} />
+                    <TextComponent text={Beds} styles={styles.bed} />
+                  </View>
+                </View>
+              </View>
+
+              <View style={styles.cardFooter}>
+                <TextComponent text={forRent} styles={styles.forRent} />
+                <View style={{flexDirection: 'row', alignItems: 'baseline'}}>
+                  <TextComponent text={price} styles={styles.price} />
+                  <TextComponent text={'/'} styles={styles.pillar} />
+
+                  <TextComponent text={duration} styles={styles.month} />
+                </View>
               </View>
             </View>
           </View>
@@ -82,7 +120,7 @@ export default HomeCard;
 
 const styles = StyleSheet.create({
   HomeCardMain: {
-    height: hp('75'),
+    height: hp('73'),
     paddingHorizontal: wp('3'),
     overflow: 'hidden',
     borderRadius: 10,
@@ -91,7 +129,6 @@ const styles = StyleSheet.create({
     flex: 1,
     borderRadius: 10,
     overflow: 'hidden',
-
   },
   overlay: {
     height: hp('100'),
@@ -105,9 +142,7 @@ const styles = StyleSheet.create({
   cardMain: {
     justifyContent: 'flex-end',
     flex: 1,
-    paddingHorizontal: wp('4'),
-    paddingVertical: hp('3'),
-
+    padding: 15,
   },
   cardTopbar: {
     flexDirection: 'row',
@@ -136,48 +171,60 @@ const styles = StyleSheet.create({
     marginLeft: wp('2'),
   },
   bath: {
-
     color: 'white',
     marginLeft: wp('1'),
     marginRight: wp('1.5'),
-    fontSize: hp('1.8'),
+    fontSize: hp('1.4'),
   },
   bed: {
     color: 'white',
     marginLeft: wp('1'),
-    fontSize: hp('1.8'),
+    fontSize: hp('1.4'),
   },
   locationMain: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: hp('1.5'),
-    marginLeft: wp('4'),
-    width: wp('80'),
+    justifyContent: 'space-between',
+  },
+  locationInner: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   locationText: {
     color: 'white',
-    marginLeft: wp('3'),
-    fontSize: hp('1.9'),
+    marginLeft: wp('1.5 '),
+    fontSize: hp('2'),
+    fontWeight: 'bold',
+    width: wp('30'),
   },
   cardFooter: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: hp('4'),
     justifyContent: 'space-between',
+    marginTop: hp('1.0'),
   },
   forRent: {
     color: 'white',
-    fontWeight: '600',
     fontSize: hp('2.9'),
+    marginLeft: wp('1'),
   },
   price: {
     color: 'white',
-    fontWeight: '500',
-    fontSize: hp('2.9'),
+    fontSize: hp('2.8'),
+    textAlignVertical: 'bottom',
   },
   month: {
     color: 'white',
-    fontWeight: '400',
     fontSize: hp('2'),
+  },
+  pillar: {
+    color: 'white',
+    fontSize: hp('3.5'),
+  },
+  bottomNav: {
+    justifyContent: 'space-between',
+  },
+  bathImg: {
+    width: wp('5'),
   },
 });

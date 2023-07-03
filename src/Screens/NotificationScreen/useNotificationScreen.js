@@ -11,6 +11,7 @@ const useNotificationScreen = ({navigate, addListener}) => {
     notificationDataState: [],
     currentIndex: 0,
   });
+  const [isNotification, setIsNotification] = useState(false);
 
   const {coinAlert, logOut, notificationDataState, currentIndex} = alerState;
 
@@ -28,10 +29,15 @@ const useNotificationScreen = ({navigate, addListener}) => {
   // console.log(notificationDataState[0].userDetail, 'Data');
   const getAllNotificationFunc = async () => {
     const {ok, data} = await API.get(getAllNotificationUrl);
+
     if (ok) {
       updateState({notificationDataState: data.data.notifications});
     }
+    setTimeout(() => {
+      setIsNotification(true);
+    }, 1000 / 2.2);
   };
+
   const useEffectFun = () => {
     const event = addListener('focus', getAllNotificationFunc);
     return event;
@@ -53,6 +59,7 @@ const useNotificationScreen = ({navigate, addListener}) => {
     logOut,
     notificationDataState,
     getAllNotificationFunc,
+    isNotification,
   };
 };
 export default useNotificationScreen;

@@ -110,7 +110,7 @@ const AccountScreen = ({navigation}) => {
             onPress={() => onCancel(logOut, 'logOut')}
           />
           <ProfileButton
-            title={'Deactivate Account'}
+            title={'Delete Account'}
             iconLeft={profileremove}
             style={styles.button}
             textStyle={styles.deActivateAccText}
@@ -127,8 +127,8 @@ const AccountScreen = ({navigation}) => {
             onConfirm={() => onConfirm(logOut)}
           />
           <AlertDesign
-            show={deactivate}
-            title="Deactivate Account?"
+            isVisible={deactivate}
+            title="Delete Account?"
             message="You’ll permanently lose all your data."
             confirmText="Deactivate"
             onCancel={() => onCancel(deactivate, 'deactivate')}
