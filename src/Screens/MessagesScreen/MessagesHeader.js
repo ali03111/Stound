@@ -42,11 +42,12 @@ const MessagesHeader = ({
                 style: styles.arrowback,
               }}
             />
-            {/* <CircleImageComp
+            <Text style={{width: 5}} />
+            <BlurImage
+              uri={imageUrl(image)}
+              radius={50}
               styles={styles.profileImg}
-              image={notificationProfile2}
-            /> */}
-            <BlurImage uri={imageUrl(image)} styles={styles.profileImg} />
+            />
             <TextComponent
               text={backText}
               styles={{...styles.backBtn, ...backTextStyle}}
@@ -93,6 +94,7 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 20,
     paddingHorizontal: wp('4'),
   },
+  arrowback: {},
   backMain: {
     alignItems: 'center',
     flexDirection: 'row',
@@ -100,7 +102,7 @@ const styles = StyleSheet.create({
     marginTop: hp('0.2'),
   },
   backBtn: {
-    // marginLeft: wp('1'),
+    marginRight: wp('1'),
     color: Colors.gray2,
   },
   HeaderTitle: {
@@ -110,7 +112,7 @@ const styles = StyleSheet.create({
   },
   HeaderLeft: {
     width: wp('20'),
-    justifyContent: 'flex-start',
+    justifyContent: 'space-between',
     textAlign: 'left',
   },
   HeaderCenter: {
@@ -123,11 +125,7 @@ const styles = StyleSheet.create({
     textAlign: 'right',
     alignItems: 'flex-end',
   },
-  profileImg: {
-    width: wp('9'),
-    height: hp('4.5'),
-    marginLeft: wp('5'),
-  },
+
   dayBarStyle: {
     flexDirection: 'row',
     justifyContent: 'center',
@@ -139,10 +137,8 @@ const styles = StyleSheet.create({
   },
   profileImg: {
     width: wp('15'),
-    height: hp('6'),
-    borderRadius: 60,
+    height: hp('7'),
     aspectRatio: 1,
-    marginLeft: wp('2'),
   },
 });
 export default MessagesHeader;

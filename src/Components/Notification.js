@@ -15,10 +15,6 @@ import moment from 'moment';
 import BlurImage from './BlurImage';
 
 const NotificationComp = ({image, name, description, time, onPress}) => {
-  // const givenTime = time;
-  // const currentTime = moment();
-  // const diffInMinutes = currentTime.diff(moment(givenTime), 'minutes');
-
   const givenTime = time;
   const currentTime = moment();
   const diff = moment.duration(currentTime.diff(moment(givenTime)));

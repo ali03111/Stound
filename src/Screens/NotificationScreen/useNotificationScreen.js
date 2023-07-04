@@ -29,7 +29,7 @@ const useNotificationScreen = ({navigate, addListener}) => {
   // console.log(notificationDataState[0].userDetail, 'Data');
   const getAllNotificationFunc = async () => {
     const {ok, data} = await API.get(getAllNotificationUrl);
-
+    console.log(data, 'akjsdlkajsdlkajsdkl');
     if (ok) {
       updateState({notificationDataState: data.data.notifications});
     }

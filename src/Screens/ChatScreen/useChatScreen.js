@@ -27,7 +27,6 @@ const useChatScreen = ({navigate, goBack, addListener}) => {
 
     if (userData.agoraId) {
       var usersData = []; // Create an array to store the user data
-
       await db
         .collection('users')
         .where('userId', '==', userData.agoraId)
@@ -59,7 +58,6 @@ const useChatScreen = ({navigate, goBack, addListener}) => {
       dispatch(loadingFalse());
     }
   };
-
   const useEffectFun = () => {
     const event = addListener('focus', getUsers);
     return event;

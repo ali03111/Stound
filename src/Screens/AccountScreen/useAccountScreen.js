@@ -4,7 +4,8 @@ import {logOutUser} from '../../Redux/Action/AuthAction';
 import API from '../../Utils/helperFunc';
 import {deleteAccUrl} from '../../Utils/Urls';
 import {errorMessage, successMessage} from '../../Config/NotificationMessage';
-
+import {initializeApp} from '@react-native-firebase/app';
+import auth from '@react-native-firebase/auth';
 const useAccountScreen = ({navigate}) => {
   const dynamicNav = res => navigate(res);
   const {dispatch, getState} = useReduxStore();
@@ -42,6 +43,21 @@ const useAccountScreen = ({navigate}) => {
     }
   };
 
+  //CHANGE PASSWORD IN FIREBASE
+
+  const ChangePassword = () => {
+    const user = auth().currentUser; // or fetch the user by email
+    const newPassword = 'Test@1234';
+
+    user
+      .updatePassword(newPassword)
+      .then(() => {
+        console.log('Password updated successfully.');
+      })
+      .catch(error => {
+        console.log('Error updating password:', error);
+      });
+  };
   return {
     dynamicNav,
     logOut,

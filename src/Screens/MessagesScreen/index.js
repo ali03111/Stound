@@ -533,16 +533,20 @@ const MessagesScreen = ({route, navigation}) => {
             backgroundColor: Colors.primaryColor,
             borderRadius: 10,
             padding: 5,
-            marginTop: hp('0.5'),
-            marginBottom: hp('3'),
           },
           left: {
             backgroundColor: Colors.white,
             borderRadius: 10,
             padding: 5,
-            marginTop: hp('0.5'),
-            marginBottom: hp('3'),
             marginLeft: wp('-10'), // Remove the left margin
+          },
+        }}
+        containerStyle={{
+          right: {
+            marginBottom: hp('1.5%'),
+          },
+          left: {
+            marginBottom: hp('1.5%'),
           },
         }}
         textStyle={{
@@ -591,13 +595,12 @@ const MessagesScreen = ({route, navigation}) => {
       <>
         <Composer
           {...props}
+          composerHeight={'50%'}
           textInputStyle={{
             borderWidth: 0,
             backgroundColor: '#fff',
             borderRadius: 5,
             padding: 10,
-            // paddingVertical: 8, // Adjust the vertical padding as needed
-            // paddingHorizontal: 12, // Adjust the horizontal padding as needed
             borderColor: props.text ? '#6200ED' : '#ccc', // Change the border color based on whether there is text or not
             marginBottom: Platform.OS === 'ios' ? hp('3') : hp('3'), // Add marginBottom for iOS only
           }}

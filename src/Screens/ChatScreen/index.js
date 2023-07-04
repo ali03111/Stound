@@ -36,6 +36,10 @@ const ChatScreen = ({navigation}) => {
 
   const renderItem = useCallback(({item, index}) => {
     console.log(item, 'hshjashhs');
+    const createdAtt = item.chatUsers.find(
+      res => res.otherUserId == userData?.agoraId,
+    ).createdAt;
+    const createdAt = new Date(createdAtt.seconds * 1000);
     return (
       <View style={styles.notification}>
         <ChatComponent
@@ -45,7 +49,7 @@ const ChatScreen = ({navigation}) => {
             item.chatUsers.find(res => res.otherUserId == userData?.agoraId)
               .lastMsg
           }
-          time={item?.time}
+          time={createdAt}
           messages={item?.messages}
           onPress={() => navigateToMsg(item)}
         />
@@ -73,7 +77,7 @@ const ChatScreen = ({navigation}) => {
       </View>
       <FlatList
         refreshing={false}
-        data={searchData}
+        data={users}
         renderItem={renderItem}
         showsHorizontalScrollIndicator={false}
         showsVerticalScrollIndicator={false}
