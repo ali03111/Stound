@@ -1,9 +1,8 @@
 import {useEffect, useState} from 'react';
 import API from '../../Utils/helperFunc';
 import {FilterAdsUrl, getPreUrl} from '../../Utils/Urls';
-import {errorMessage} from '../../Components/NotificationMessage';
 import useReduxStore from '../../Hooks/UseReduxStore';
-import {successMessage} from '../../Config/NotificationMessage';
+import {successMessage, errorMessage} from '../../Config/NotificationMessage';
 import {loadingFalse} from '../../Redux/Action/isloadingAction';
 
 const useFilterScreen = ({navigate}) => {

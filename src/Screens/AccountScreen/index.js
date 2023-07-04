@@ -26,8 +26,15 @@ import useAccountScreen from './useAccountScreen';
 import {AlertDesign} from '../../Components/AlertDesign';
 import {imageUrl} from '../../Utils/Urls';
 const AccountScreen = ({navigation}) => {
-  const {dynamicNav, deactivate, logOut, onCancel, onConfirm, userData} =
-    useAccountScreen(navigation);
+  const {
+    dynamicNav,
+    deactivate,
+    logOut,
+    onCancel,
+    onConfirm,
+    userData,
+    onDeleteConfirm,
+  } = useAccountScreen(navigation);
   return (
     <View style={{flex: 1}}>
       <Header headerTitle={'Account'} />
@@ -132,7 +139,7 @@ const AccountScreen = ({navigation}) => {
             message="You’ll permanently lose all your data."
             confirmText="Deactivate"
             onCancel={() => onCancel(deactivate, 'deactivate')}
-            onConfirm={() => onConfirm(deactivate)}
+            onConfirm={() => onDeleteConfirm(deactivate)}
           />
         </View>
       </ScrollView>

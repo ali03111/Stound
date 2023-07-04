@@ -42,3 +42,4 @@ export const getAgoraTokenUrl = 'getAccessToken/';
 export const updateAdImage = 'update-ad-photos';
 export const FilterAdsUrl = 'filter-ads';
 export const searchAdsUrl = 'search-ads';
+export const deleteAccUrl = 'auth/delete-user/';

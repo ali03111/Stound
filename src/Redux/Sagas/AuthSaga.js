@@ -59,7 +59,6 @@ const loginSaga = function* ({payload: {datas, type}}) {
       isNewUser: result.isNewUser,
     };
 
-    console.log(socialData, 'socialDatasocialData');
     if (ok) {
       const idTokenResult = yield call(getFbResult);
       const jwtToken = idTokenResult.token;
@@ -68,6 +67,7 @@ const loginSaga = function* ({payload: {datas, type}}) {
           token: jwtToken,
           data: {...socialData, agoraId},
         });
+        console.log(data, 'yeyeyeyeyeyey');
         if (socialData.isNewUser) {
           yield call(createUserFirestore, {
             data: {
@@ -80,64 +80,64 @@ const loginSaga = function* ({payload: {datas, type}}) {
           });
         }
 
+        // if (ok) {
+        //   // const {token} = yield call(AgoraServerToken, {});
+        //   // const {ok, res} = yield call(getAllAgoraUser, token.appToken);
+        //   if (ok) {
+        //     if (res.entities.length >= 1) {
+        //       const checkAgoraUser = res.entities.filter(item => {
+        //         return item.username == data.user.agoraId;
+        //       })[0];
+        //       if (checkAgoraUser?.uuid) {
+        //         const {token} = yield call(AgoraServerToken, {
+        //           uid: data.user.agoraId,
+        //         });
+
+        //         yield put(updateAuth(data));
+        //       } else if (!checkAgoraUser) {
+        //         //Create Agora User
+        //         const {ok, agorData} = yield call(createAgoraUser, {
+        //           username: data.user.agoraId,
+        //           password: 'Test@123',
+        //           nickname: data.user.email,
+        //         });
+
+        //         if (ok) {
+        //           const {ok, token} = yield call(AgoraServerToken, {
+        //             uid: data.user.agoraId,
+        //           });
+        //           // const statusdata = yield call(loginWithAgora, {
+        //           //   username: data.user.agoraId,
+        //           //   password: token.userToken,
+        //           // });
+        //           // if (!statusdata) {
+        //           yield put(updateAuth(data));
+        //           // }
+        //         }
+        //       }
+        //     } else {
+        //       //Create Agora User
+        //       const {ok, agorData} = yield call(createAgoraUser, {
+        //         username: data.user.agoraId,
+        //         password: 'Test@123',
+        //         nickname: data.user.email,
+        //       });
+
         if (ok) {
-          const {token} = yield call(AgoraServerToken, {});
-          const {ok, res} = yield call(getAllAgoraUser, token.appToken);
-          if (ok) {
-            if (res.entities.length >= 1) {
-              const checkAgoraUser = res.entities.filter(item => {
-                return item.username == data.user.agoraId;
-              })[0];
-              if (checkAgoraUser?.uuid) {
-                const {token} = yield call(AgoraServerToken, {
-                  uid: data.user.agoraId,
-                });
-
-                yield put(updateAuth(data));
-              } else if (!checkAgoraUser) {
-                //Create Agora User
-                const {ok, agorData} = yield call(createAgoraUser, {
-                  username: data.user.agoraId,
-                  password: 'Test@123',
-                  nickname: data.user.email,
-                });
-
-                if (ok) {
-                  const {ok, token} = yield call(AgoraServerToken, {
-                    uid: data.user.agoraId,
-                  });
-                  // const statusdata = yield call(loginWithAgora, {
-                  //   username: data.user.agoraId,
-                  //   password: token.userToken,
-                  // });
-                  // if (!statusdata) {
-                  yield put(updateAuth(data));
-                  // }
-                }
-              }
-            } else {
-              //Create Agora User
-              const {ok, agorData} = yield call(createAgoraUser, {
-                username: data.user.agoraId,
-                password: 'Test@123',
-                nickname: data.user.email,
-              });
-
-              if (ok) {
-                const {ok, token} = yield call(AgoraServerToken, {
-                  uid: data.user.agoraId,
-                });
-                // const statusdata = yield call(loginWithAgora, {
-                //   username: data.user.agoraId,
-                //   password: token.userToken,
-                // });
-                // if (!statusdata) {
-                yield put(updateAuth(data));
-                // }
-              }
-            }
-          }
+          // const {ok, token} = yield call(AgoraServerToken, {
+          //   uid: data.user.agoraId,
+          // });
+          // const statusdata = yield call(loginWithAgora, {
+          //   username: data.user.agoraId,
+          //   password: token.userToken,
+          // });
+          // if (!statusdata) {
+          yield put(updateAuth(data));
         }
+        //       }
+        //     }
+        //   }
+        // }
       }
     }
   } catch (error) {

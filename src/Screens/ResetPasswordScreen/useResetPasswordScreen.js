@@ -1,16 +1,15 @@
-import { firebase } from '@react-native-firebase/auth';
-import { store } from '../../Redux/Reducers';
-import { updateAuth } from '../../Redux/Action/AuthAction';
-import { loadingFalse, loadingTrue } from '../../Redux/Action/isloadingAction';
-import { errorMessage } from '../../Components/NotificationMessage';
-import { successMessage } from '../../Config/NotificationMessage';
+import {firebase} from '@react-native-firebase/auth';
+import {store} from '../../Redux/Reducers';
+import {updateAuth} from '../../Redux/Action/AuthAction';
+import {loadingFalse, loadingTrue} from '../../Redux/Action/isloadingAction';
+import {successMessage, errorMessage} from '../../Config/NotificationMessage';
 
-const { default: useFormHook } = require('../../Hooks/UseFormHooks');
-const { default: Schemas } = require('../../Utils/Validation');
+const {default: useFormHook} = require('../../Hooks/UseFormHooks');
+const {default: Schemas} = require('../../Utils/Validation');
 // const firebase = require('firebase/app');
 
-const useResetPasswordScreen = ({ goBack }) => {
-  const { handleSubmit, errors, reset, control, getValues } = useFormHook(
+const useResetPasswordScreen = ({goBack}) => {
+  const {handleSubmit, errors, reset, control, getValues} = useFormHook(
     Schemas.newPassword,
   );
 
@@ -54,14 +53,15 @@ const useResetPasswordScreen = ({ goBack }) => {
   // };
   const changePassword = async currentPassword => {
     store.dispatch(loadingTrue());
-    const { new_password, password } = currentPassword;
-    console.log(new_password, password, "asasdasd")
+    const {new_password, password} = currentPassword;
+    console.log(new_password, password, 'asasdasd');
     var user = firebase.auth().currentUser;
     try {
-      const reauthenticate = password => { // Pass only the password as an argument
+      const reauthenticate = password => {
+        // Pass only the password as an argument
         var crd = firebase.auth.EmailAuthProvider.credential(
           user.email,
-          password
+          password,
         );
         console.log('credential:', crd);
         return user.reauthenticateWithCredential(crd);
@@ -85,7 +85,7 @@ const useResetPasswordScreen = ({ goBack }) => {
     control,
     getValues,
     goBack,
-    changePassword
+    changePassword,
   };
 };
 
