@@ -13,7 +13,7 @@ import {
 import {errorMessage, successMessage} from '../../Config/NotificationMessage';
 import useReduxStore from '../../Hooks/UseReduxStore';
 import {types} from '../../Redux/types';
-import {questionTrue} from '../../Redux/Action/isQuestionAction copy';
+import {questionTrue, setAdId} from '../../Redux/Action/isQuestionAction copy';
 
 const useHomeScreen = ({navigate, params, addListener}) => {
   //   const {dispatch} = useReduxStore();
@@ -54,6 +54,7 @@ const useHomeScreen = ({navigate, params, addListener}) => {
     console.log(homeData, 'ahahahaha');
     console.log(index, 'aasadasdasdasda');
     if (!userData.isAnswered) {
+      dispatch(setAdId(homeData[index].adId));
       dispatch(questionTrue());
       // await API.put(notifyUserUrl + homeData[index].adId);
     } else {
@@ -106,7 +107,6 @@ const useHomeScreen = ({navigate, params, addListener}) => {
 
     const {ok, data, originalError} = await API.post(searchAdsUrl, body);
     try {
-      console.log(ok, data, 'iehyfjeyejy');
       if (ok) {
         navigate('FilterPackageScreen', {items: data});
       }

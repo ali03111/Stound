@@ -62,7 +62,7 @@ const FavouriteComp = ({
               </View>
             </View>
             <View style={styles.locationMain}>
-              <Image source={location} />
+              <Image source={location} style={styles.locationSt} />
               <TextComponent text={locationText} styles={styles.locationText} />
             </View>
             <View style={styles.cardFooter}>
@@ -202,5 +202,9 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: '400',
     fontSize: 16,
+  },
+  locationSt: {
+    aspectRatio: 1,
+    width: wp('5'),
   },
 });

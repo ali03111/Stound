@@ -129,13 +129,14 @@ const index = ({navigation, route}) => {
           </View>
 
           <TextComponent
-            text={Item?.adDetail?.adType}
+            text={'For ' + Item?.adDetail?.adType}
             styles={styles.forRent}
           />
 
           <View style={styles.locationMain}>
-            <Image source={locationBlueIcon} />
+            <Image source={locationBlueIcon} style={styles.loctStyle} />
             <TextComponent
+              numberOfLines={2}
               text={Item?.adDetail?.location}
               styles={styles.locationText}
             />
@@ -154,8 +155,8 @@ const index = ({navigation, route}) => {
                 <>
                   <View style={styles.SocialBoxContainer}>
                     <SocialBoxNotification
-                      image={Item?.adDetail?.generalPref[0].image}
-                      imageText={'Message'}
+                      image={item?.image}
+                      imageText={item?.name}
                     />
                   </View>
                 </>
@@ -176,8 +177,8 @@ const index = ({navigation, route}) => {
                 <>
                   <View style={styles.SocialBoxContainer}>
                     <SocialBoxNotification
-                      image={Item?.adDetail?.generalPref[0].image}
-                      imageText={'Message'}
+                      image={item?.image}
+                      imageText={item?.name}
                     />
                   </View>
                 </>
@@ -198,8 +199,8 @@ const index = ({navigation, route}) => {
                 <>
                   <View style={styles.SocialBoxContainer}>
                     <SocialBoxNotification
-                      image={Item?.adDetail?.generalPref[0].image}
-                      imageText={'Message'}
+                      image={item?.image}
+                      imageText={item?.name}
                     />
                   </View>
                 </>

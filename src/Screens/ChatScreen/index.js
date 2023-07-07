@@ -61,8 +61,8 @@ const ChatScreen = ({navigation}) => {
       <Header
         style={styles.topHeader}
         headerTitle={'Chat Room'}
-        arrowBackIcon={smsedit}
-        icon={moredots}
+        // arrowBackIcon={smsedit}
+        // icon={moredots}
         centerTextStyle={styles.centerHeading}
       />
       <View style={styles.searchMain}>
@@ -77,7 +77,8 @@ const ChatScreen = ({navigation}) => {
       </View>
       <FlatList
         refreshing={false}
-        data={users}
+        // data={users}
+        data={searchData}
         renderItem={renderItem}
         showsHorizontalScrollIndicator={false}
         showsVerticalScrollIndicator={false}

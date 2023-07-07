@@ -757,7 +757,7 @@ const MessagesScreen = ({route, navigation}) => {
         // style={styles.topHeader}
         headerTitle={name}
         arrowBackIcon={arrowbackwhite}
-        icon={whitedots}
+        // icon={whitedots}
         centerTextStyle={styles.centerHeading}
       />
       <GiftedChat

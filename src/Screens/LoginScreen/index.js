@@ -64,7 +64,7 @@ const LoginScreen = ({navigation}) => {
             placeholder: 'example@example.com',
             viewStyle: styles.loginInput,
             isImage: sms,
-            // defaultValue: 'testing@gmail.com',
+            defaultValue: 'user1@gmail.com',
           }}
         />
         <InputComponent
@@ -78,7 +78,7 @@ const LoginScreen = ({navigation}) => {
             placeholder: 'Password',
             isSecure: true,
             isImage: lock,
-            // defaultValue: 'i53rdgen@',
+            defaultValue: 'Test@1234',
           }}
         />
         <TextComponent

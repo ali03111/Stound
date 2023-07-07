@@ -8,19 +8,19 @@ const initial_state = {
 };
 const actionMap = {
   [types.isQuestionTrue]: (state, act) => ({
-    ...state.isQuestion,
+    ...state,
     isQuestion: true,
   }),
   [types.isQuestionFalse]: (state, act) => ({
-    ...state.isQuestion,
+    ...state,
     isQuestion: false,
   }),
   [types.selectedValType]: (state, act) => ({
-    ...state.selectedVal,
+    ...state,
     selectedVal: act.payload,
   }),
   [types.setAdIdType]: (state, act) => ({
-    ...state.adId,
+    ...state,
     adId: act.payload,
   }),
 };

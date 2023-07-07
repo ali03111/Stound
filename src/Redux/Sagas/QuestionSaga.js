@@ -15,9 +15,9 @@ function* setQuestionSaga(action) {
       params: action.payload.label,
     });
     if (ok) yield put({type: types.UpdateProfile, payload: data.data});
-    const {adId} = yield call(store.getState, 'isQuestion');
+    const {isQuestion} = yield call(store.getState, 'isQuestion');
     successMessage('You like this property');
-    yield call(API.put, notifyUserUrl + adId);
+    yield call(API.put, notifyUserUrl + isQuestion?.adId);
   } catch (error) {
     errorMessage(data.message);
   } finally {
