@@ -140,6 +140,7 @@ export const styles = StyleSheet.create({
     marginBottom: hp('1'),
   },
   priceRange: {
+    color: 'black',
     // backgroundColor: 'transparent', // This works
   },
 });

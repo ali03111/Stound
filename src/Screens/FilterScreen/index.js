@@ -270,18 +270,19 @@ const FilterScreen = ({navigation}) => {
           <TextInput
             theme={{
               colors: {
-                placeholder: 'gray', // Change this to the desired color for the placeholder
-                primary: Colors.primaryColor, // Change this to the desired color for the border
+                placeholder: 'gray',
+                primary: Colors.primaryColor,
+                text: 'red',
               },
             }}
             label="Enter price ranges"
             mode="outlined"
             style={styles.priceRange}
-            value={sliderValue}
+            value={sliderValue == 0 ? '' : String(sliderValue)} // Convert sliderValue to a string before setting it as the value
             onChangeText={text => setSliderValue(Number(text))}
             placeholder="Enter price ranges..."
-            defaultValue={sliderValue == null && 0}
           />
+
           <ThemeButtonComp
             onPress={filterAdsDataFunction}
             title={'Apply Filter'}
