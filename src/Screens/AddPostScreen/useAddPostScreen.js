@@ -57,9 +57,9 @@ const useAddPostScreen = ({navigate}) => {
       {
         selectionLimit: 10,
         mediaType: 'photo',
-        quality: 0.5,
-        maxWidth: 300,
-        maxHeight: 300,
+        quality: 1,
+        // maxWidth: 300,
+        // maxHeight: 300,
       },
       res => {
         if (!res?.didCancel) {

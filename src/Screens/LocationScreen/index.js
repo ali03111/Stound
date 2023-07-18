@@ -112,7 +112,7 @@ const Index = ({navigation, route}) => {
             query={{
               key: 'AIzaSyBWU9HrMQUigxX7_ry_HpHNvEdn_Vve4DI',
               language: 'en',
-              components: 'country:us',
+              // components: 'country:us',
             }}
           />
           <TouchableOpacity

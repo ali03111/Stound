@@ -10,10 +10,10 @@ import Svg, {Path} from 'react-native-svg';
 globalStyles = {};
 
 // Get the screen dimensions
-const {width, height} = Dimensions.get('window');
+export const {width, height} = Dimensions.get('window');
 
 // Usage example
-console.log('Screen Width:', width);
+console.log(Platform.OS, 'Screen Width:', width);
 console.log('Screen Height:', height);
 const isIOS = Boolean(Platform.OS == 'ios');
 const tabarComponent = (iconName, title, last) => {
