@@ -19,4 +19,6 @@ export const types = {
   CleanRecentLocation: 'CleanRecentLocation',
   fcmRegType: 'fcmRegType',
   setAdIdType: 'setAdIdType',
+  setNotificationLength: 'setNotificationLength',
+  cleanNotification: 'cleanNotification',
 };

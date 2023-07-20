@@ -33,3 +33,8 @@ export const fcmRegister = payload => ({
   type: types.fcmRegType,
   payload,
 });
+
+export const NotificationLength = payload => ({
+  type: types.setNotificationLength,
+  payload,
+});

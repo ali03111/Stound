@@ -11,21 +11,20 @@ import useMessagesScreen from './useMessagesScreen';
 import {Image, Platform, Text, View} from 'react-native';
 import MessagesHeader from './MessagesHeader';
 import {styles} from './styles';
-import {arrowbackwhite, send, whitedots} from '../../Assests';
+import {arrowbackwhite} from '../../Assests';
 import {Colors} from '../../Theme/Variables';
 import {hp, wp} from '../../Config/responsive';
 import {TextComponent} from '../../Components/TextComponent';
 import Feather from 'react-native-vector-icons/Feather';
-import useReduxStore from '../../Hooks/UseReduxStore';
 import {height} from '../../Navigation/bottomNavigation';
 const MessagesScreen = ({route, navigation}) => {
   const {userData} = useMessagesScreen();
   const {
     id,
     userDetail: {name, profilePicture},
-    isIOS,
   } = route?.params;
   const [messages, setMessages] = useState([]);
+  console.log('slkdajfklj,', messages);
 
   const renderBubble = props => {
     return (
@@ -98,10 +97,10 @@ const MessagesScreen = ({route, navigation}) => {
       <>
         <Composer
           {...props}
-          composerHeight={'50%'}
+          // composerHeight={'50%'}
           textInputStyle={{
-            borderWidth: 0,
-            backgroundColor: '#fff',
+            // borderWidth: 0,
+            // backgroundColor: 'red',
             borderRadius: 5,
             padding: 10,
             borderColor: props.text ? '#6200ED' : '#ccc', // Change the border color based on whether there is text or not
@@ -132,9 +131,22 @@ const MessagesScreen = ({route, navigation}) => {
       .collection('messages')
       .orderBy('createdAt', 'desc')
       .onSnapshot(querySnapshot => {
+        // const allMsg = querySnapshot.docs.map(item => {
+        //   return {...item._data,
+        //     // createdAt: Date.parse(item._data.createdAt)
+        //     createdAt: item.createdAt.toDate(),
+        //   };
+        // });
+        // setMessages(allMsg);
+        // console.log(allMsg, 'elklashldjflkasj');
         const allMsg = querySnapshot.docs.map(item => {
-          return {...item._data, createdAt: Date.parse(item._data.createdAt)};
+          const data = item.data();
+          return {
+            ...data,
+            createdAt: data.createdAt.toDate(), // Convert Firestore timestamp to Date object
+          };
         });
+
         setMessages(allMsg);
       });
     return () => subscriber();
@@ -249,6 +261,7 @@ const MessagesScreen = ({route, navigation}) => {
         }
       });
   }, []);
+
   return (
     <View
       style={{
@@ -281,6 +294,7 @@ const MessagesScreen = ({route, navigation}) => {
         renderSend={renderSend}
         user={{
           _id: userData.agoraId,
+          createdAt: new Date(userData.createdAt),
         }}
         textInputProps={{
           color: 'black',

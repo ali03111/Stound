@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {
   Platform,
   StyleSheet,
@@ -9,35 +9,35 @@ import {
   Image,
   AppState,
 } from 'react-native';
-import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
+import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
 import StackNavigatior from './src/Navigation/navigation';
-import { SplashScreen, radioEmtpy, radioFill } from './src/Assests';
-import { Settings } from 'react-native-fbsdk-next';
+import {SplashScreen, radioEmtpy, radioFill} from './src/Assests';
+import {Settings} from 'react-native-fbsdk-next';
 import useReduxStore from './src/Hooks/UseReduxStore';
 import Overlay from './src/Components/Overlay';
-import { logOutFirebase } from './src/Services/AuthServices';
-import { GoogleSignin } from '@react-native-google-signin/google-signin';
-import { hp, wp } from './src/Config/responsive';
-import { RadioButtons } from './src/Utils/localDB';
-import { Touchable } from './src/Components/Touchable';
-import { TextComponent } from './src/Components/TextComponent';
+import {logOutFirebase} from './src/Services/AuthServices';
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
+import {hp, wp} from './src/Config/responsive';
+import {RadioButtons} from './src/Utils/localDB';
+import {Touchable} from './src/Components/Touchable';
+import {TextComponent} from './src/Components/TextComponent';
 import {
   questionFalse,
   setAnswer,
 } from './src/Redux/Action/isQuestionAction copy';
-import { Colors } from './src/Theme/Variables';
-import { fcmService } from './src/Services/Notifications';
-import { fcmRegister } from './src/Redux/Action/AuthAction';
+import {Colors} from './src/Theme/Variables';
+import {fcmService} from './src/Services/Notifications';
+import {fcmRegister} from './src/Redux/Action/AuthAction';
 
-function App({ navigation }) {
+function App({navigation}) {
   const [isVisible, setIsVisible] = useState(true);
   const Hide_Splash_Screen = () => {
     setIsVisible(false);
   };
-  const { getState, dispatch } = useReduxStore();
-  const { isloading } = getState('isloading');
-  const { isQuestion } = getState('isQuestion');
-  const { isLogin } = getState('Auth');
+  const {getState, dispatch} = useReduxStore();
+  const {isloading} = getState('isloading');
+  const {isQuestion} = getState('isQuestion');
+  const {isLogin} = getState('Auth');
   const appState = useRef(AppState.currentState);
   const time = () => {
     return 5000;
@@ -94,7 +94,7 @@ function App({ navigation }) {
     };
   }, [isLogin]);
   const onRegister = fcm_token => {
-    console.log("fcm_token", Platform.OS, fcm_token);
+    console.log('fcm_token', Platform.OS, fcm_token);
     dispatch(fcmRegister(fcm_token));
   };
 
@@ -136,7 +136,7 @@ function App({ navigation }) {
                 children={
                   <TextComponent
                     text={'Confirm'}
-                    styles={{ color: Colors.white }}
+                    styles={{color: Colors.white}}
                   />
                 }
               />

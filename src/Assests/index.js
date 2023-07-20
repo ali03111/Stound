@@ -49,6 +49,7 @@ export {default as location} from './Icons/location1.png';
 // export {default as location} from './Icons/location.png';
 export {default as search} from './Icons/search.png';
 export {default as notification} from './Icons/notification.png';
+export {default as showNotification} from './Icons/showNotification.png';
 export {default as setting} from './Icons/setting.png';
 export {default as fav} from './Icons/fav.png';
 export {default as addcircle} from './Icons/add-circle.png';

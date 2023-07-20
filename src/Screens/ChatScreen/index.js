@@ -33,7 +33,6 @@ const ChatScreen = ({navigation}) => {
     filtered,
     searchData,
   } = useChatScreen(navigation);
-
   const renderItem = useCallback(({item, index}) => {
     console.log(item, 'hshjashhs');
     const createdAtt = item.chatUsers.find(
@@ -63,6 +62,7 @@ const ChatScreen = ({navigation}) => {
         headerTitle={'Chat Room'}
         // arrowBackIcon={smsedit}
         // icon={moredots}
+
         centerTextStyle={styles.centerHeading}
       />
       <View style={styles.searchMain}>
@@ -78,7 +78,7 @@ const ChatScreen = ({navigation}) => {
       <FlatList
         refreshing={false}
         // data={users}
-        data={searchData}
+        data={searchData?.reverse()}
         renderItem={renderItem}
         showsHorizontalScrollIndicator={false}
         showsVerticalScrollIndicator={false}

@@ -17,6 +17,7 @@ import HomeCard from '../../Components/HomeCard';
 import {
   homeCard,
   notification,
+  showNotification,
   profile,
   radioEmtpy,
   radioFill,
@@ -65,6 +66,7 @@ const HomeScreen = ({navigation}) => {
     isloading,
     navigateToNotificationScreen,
     searchPropertyFunction,
+    notificationLength,
   } = useHomeScreen(navigation);
 
   // console.log('cccc',onBoardinData);
@@ -105,11 +107,35 @@ const HomeScreen = ({navigation}) => {
               style={styles.rightIcon}>
               <Image source={setting} style={styles.setting} />
             </Touchable>
-            <Touchable
-              onPress={() => navigateToNotificationScreen()}
-              style={styles.rightIcon}>
-              <Image source={notification} style={styles.notification} />
-            </Touchable>
+            {notificationLength.length > 0 ? (
+              <Touchable
+                onPress={() => navigateToNotificationScreen()}
+                style={styles.rightIcon}>
+                <View
+                  style={{
+                    position: 'absolute',
+                    top: 1,
+                    right: 10,
+                    backgroundColor: 'red',
+                    borderRadius: 50,
+                  }}></View>
+                <Image source={showNotification} style={styles.notification} />
+              </Touchable>
+            ) : (
+              <Touchable
+                onPress={() => navigateToNotificationScreen()}
+                style={styles.rightIcon}>
+                <View
+                  style={{
+                    position: 'absolute',
+                    top: 1,
+                    right: 10,
+                    backgroundColor: 'red',
+                    borderRadius: 50,
+                  }}></View>
+                <Image source={notification} style={styles.notification} />
+              </Touchable>
+            )}
           </View>
         </View>
         <View style={styles.cardMainView}>

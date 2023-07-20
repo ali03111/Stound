@@ -92,7 +92,7 @@ const useChatScreen = ({navigate, goBack, addListener}) => {
 
     filterData();
   }, [changeText, users]);
-
+  console.log(searchData, 'ajksdkal');
   const navigateToMsg = item =>
     navigate('MessagesScreen', {id: item.userId, userDetail: item});
 

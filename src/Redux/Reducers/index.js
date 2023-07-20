@@ -8,6 +8,7 @@ import createSagaMiddleware from 'redux-saga';
 import mySaga from './../Sagas/index';
 import {createStore, applyMiddleware, combineReducers} from 'redux';
 import RecentLocationReducer from './RecentLocationReducer';
+import NotificationReducer from './NotificationReducer';
 import questionReducer from './questionReducer';
 
 const sagaMiddleware = createSagaMiddleware();
@@ -30,10 +31,17 @@ const LocationPersistConfig = {
   whitelist: 'recentLocation',
 };
 
+const NotificationPersistConfig = {
+  key: 'notification',
+  storage: AsyncStorage,
+  whitelist: ['isNotification', 'notificationLength'],
+};
+
 const reducers = {
   onboarding: persistReducer(onBoardPersistConfig, onboardingReducer),
   Auth: persistReducer(AuthPersistConfig, AuthReducer),
   recentlocation: persistReducer(LocationPersistConfig, RecentLocationReducer),
+  notification: persistReducer(NotificationPersistConfig, NotificationReducer),
   isloading: loadingReducer,
   isQuestion: questionReducer,
   // sagas: applyMiddleware(sagaMiddleware),
