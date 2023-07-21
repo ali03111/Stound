@@ -7,6 +7,8 @@ import {
   SafeAreaView,
   Image,
   TextInput,
+  RefreshControl,
+  TouchableOpacity,
 } from 'react-native';
 import useFilterScreen from './useAddPostScreen';
 import {styles} from './styles';
@@ -20,95 +22,186 @@ import {
   sliderdot,
   minslider,
   maxslider,
-  cat,
+  catImage,
   adTitle,
   chat,
   bedblue,
   bluebath,
   UploadProfileImage,
   addGalleryImage,
+  accessibleforward,
 } from '../../Assests';
 import {Colors} from '../../Theme/Variables';
 import FilterAddButton from '../../Components/FilterAddButton';
 import ThemeButtonComp from '../../Components/ThemeButtonComp';
 import Slider from '@react-native-community/slider';
-import {goBack} from '../../Utils';
+import {goBack, keyExtractor} from '../../Utils';
 import {InputComponent} from '../../Components/InputComponent';
 import useAddPostScreen from './useAddPostScreen';
-import {Touchable} from '../../Components/Touchable';
 import {hp, wp} from '../../Config/responsive';
-import {CircleImageComp} from '../../Components/CircleImageComp';
+import {Touchable} from '../../Components/Touchable';
+import SwitchSelector from 'react-native-switch-selector';
+import {imageUrl} from '../../Utils/Urls';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
-const AddPostScreen = () => {
+const AddPostScreen = ({navigation}) => {
   const [selectedLanguage, setSelectedLanguage] = useState();
+  const options = [
+    {label: 'Rent', value: 'Rent'},
+    {label: 'Buy  ', value: 'Buy'},
+  ];
   const {
     handleSubmit,
-    errors,
     reset,
-    control,
     getValues,
-    pickImagesFromGalary,
-    AddImage,
-  } = useAddPostScreen();
-  const renderItem = useCallback(({item, index}) => {
+    dynamicNav,
+    onSelecteTag,
+    postData,
+    uploadFromGalary,
+    onRefresh,
+    images,
+    control,
+    errors,
+    preferencesData,
+    gp,
+    ip,
+    op,
+    rooms,
+    bathRoom,
+    cat,
+    recentLocation,
+    location,
+    sendLocation,
+    deleteImage,
+    checkAuthentication,
+  } = useAddPostScreen(navigation);
+
+  const renderItem = ({item, index}) => {
     return (
-      <View style={styles.mainMultiImages}>
-        <Image source={{uri: item.uri}} style={styles.multiImages} />
-      </View>
+      <FilterAddButton
+        style={styles.tags}
+        title={item?.name}
+        image={imageUrl(item.path)}
+        required={true}
+      />
     );
-  }, []);
+  };
+
+  const renderItemImages = ({item, index}) => {
+    return (
+      <>
+        <TouchableOpacity
+          style={styles.cancelImage}
+          onPress={() => deleteImage(index)}>
+          <MaterialIcons
+            name="cancel"
+            size={hp('2.5')}
+            color={Colors.primaryColor}
+          />
+        </TouchableOpacity>
+
+        <Image source={{uri: item?.uri}} style={styles.imagesStyle} />
+      </>
+    );
+  };
+
+  const FlatListComp = ({data, onPress}) => {
+    return (
+      <FlatList
+        refreshing={false}
+        data={data}
+        renderItem={renderItem}
+        keyExtractor={keyExtractor}
+        contentContainerStyle={styles.flatListMain}
+        horizontal
+        ListFooterComponentStyle={{marginLeft: wp('2')}}
+        ListFooterComponent={() => {
+          return (
+            <FilterAddButton
+              style={styles.filterButton}
+              image={addcircle}
+              isRequired={true}
+              title={'Add'}
+              onPress={onPress}
+            />
+          );
+        }}
+      />
+    );
+  };
   return (
     <View style={{flex: 1}}>
       <Header
-        headerTitle={'Ads details'}
+        headerTitle={'Ad details'}
         arrowBackIcon={arrowback}
         backText={'Back'}
-        goBack={goBack}
-        // style={styles.filterHeader}
+        goBack={navigation.goBack}
       />
 
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView
+        r
+        refreshControl={
+          <RefreshControl refreshing={false} onRefresh={onRefresh} />
+        }
+        showsVerticalScrollIndicator={false}>
         <View style={styles.filterMain}>
+          <SwitchSelector
+            options={options}
+            initial={0}
+            onPress={value => onSelecteTag(value, 'type')}
+            backgroundColor="rgba(11, 180, 255, 0.03);"
+            buttonColor={Colors.primaryColor}
+            borderRadius={10}
+            height={45}
+            style={styles.switcher}
+          />
           <View style={styles.pickerStyle}>
-            <Image source={cat} />
+            <Image source={catImage} />
             <Picker
+              dropdownIconColor={Colors.primaryColor}
               style={styles.pick}
-              selectedValue={selectedLanguage}
+              selectedValue={cat}
               onValueChange={(itemValue, itemIndex) =>
-                setSelectedLanguage(itemValue)
+                onSelecteTag(itemValue, 'cat')
               }>
               <Picker.Item
+                // color="gray"
                 label="Select Category..."
-                value="Select Category..."
+                value={null}
               />
-              <Picker.Item label="Apartment" value="Apartment" />
+              {preferencesData.cat &&
+                preferencesData.cat.map(res => {
+                  console.log('res.name', res);
+                  return (
+                    <Picker.Item
+                      label={res.name}
+                      // color="black"
+                      // style={{color: 'black'}}
+                      value={res.categoryId}
+                    />
+                  );
+                })}
             </Picker>
           </View>
           <View>
-            {/* <Image style={styles.titleImage} source={adTitle} />
-            <TextInput
-              style={styles.inputTitle}
-              placeholder={'Ad tittle here...'}
-            /> */}
             <InputComponent
               {...{
-                name: 'name',
+                name: 'title',
                 handleSubmit,
                 errors,
                 reset,
                 control,
                 getValues,
-                placeholder: 'Ad tittle here...',
+                placeholder: 'Ad title here...',
                 viewStyle: styles.inputTitle,
                 textStyle: styles.inputText,
                 inputIconStyle: styles.inputIcon,
                 isImage: adTitle,
               }}
             />
-
             <InputComponent
               {...{
-                name: 'description',
+                name: 'desc',
                 handleSubmit,
                 errors,
                 reset,
@@ -122,16 +215,35 @@ const AddPostScreen = () => {
                 inputLines: 4,
                 maxLength: 200,
                 multiline: true,
+                inputLength: true,
+              }}
+            />
+            <InputComponent
+              {...{
+                name: 'number',
+                handleSubmit,
+                errors,
+                reset,
+                control,
+                getValues,
+                placeholder: 'Ad price...',
+                viewStyle: styles.inputTitle,
+                textStyle: styles.inputText,
+                inputIconStyle: styles.inputIcon,
+                isImage: adTitle,
+                keyboardType: 'number',
               }}
             />
           </View>
           <TextComponent styles={styles.itemHeading} text={'Location '} />
-          <View style={styles.addButton}>
+          <View style={{...styles.addButton, paddingHorizontal: wp('3')}}>
             <FilterAddButton
+              onPress={sendLocation}
               style={styles.locationBtn}
               textStyle={styles.locationBtnText}
               image={search}
-              title={'Search location here...'}
+              isRequired={true}
+              title={location == '' ? 'Search location here...' : location}
               imgStyle={styles.locationBtnImg}
             />
           </View>
@@ -139,12 +251,14 @@ const AddPostScreen = () => {
           <View style={styles.pickerStyle}>
             <Image source={bedblue} />
             <Picker
+              dropdownIconColor={Colors.primaryColor}
+              // mode="dropdown"
               style={styles.pick}
-              selectedValue={selectedLanguage}
+              selectedValue={rooms}
               onValueChange={(itemValue, itemIndex) =>
-                setSelectedLanguage(itemValue)
+                onSelecteTag(itemValue, 'rooms')
               }>
-              <Picker.Item label="Select" value="Select" />
+              <Picker.Item label="Select" value={null} />
               <Picker.Item label="1" value="1" />
               <Picker.Item label="2" value="2" />
               <Picker.Item label="3" value="3" />
@@ -156,12 +270,14 @@ const AddPostScreen = () => {
           <View style={styles.pickerStyle}>
             <Image source={bluebath} />
             <Picker
-              style={styles.pick}
-              selectedValue={selectedLanguage}
+              dropdownIconColor={Colors.primaryColor}
+              // mode="dropdown"
+              style={[styles.pick]}
+              selectedValue={bathRoom}
               onValueChange={(itemValue, itemIndex) =>
-                setSelectedLanguage(itemValue)
+                onSelecteTag(itemValue, 'bathRoom')
               }>
-              <Picker.Item label="Select" value="Select" />
+              <Picker.Item label="Select" value={null} />
               <Picker.Item label="1" value="1" />
               <Picker.Item label="2" value="2" />
               <Picker.Item label="3" value="3" />
@@ -173,27 +289,39 @@ const AddPostScreen = () => {
             <Image source={UploadProfileImage} style={styles.addImage} />
             <TextComponent text={'Upload upto 10 photos'} />
           </View>
-          <View>
-            <FlatList
-              refreshing={false}
-              data={AddImage}
-              renderItem={renderItem}
-              showsHorizontalScrollIndicator={false}
-              showsVerticalScrollIndicator={false}
-            />
-            <Touchable onPress={pickImagesFromGalary}>
-              <Image source={addGalleryImage} />
-            </Touchable>
-          </View>
+          <FlatList
+            refreshing={false}
+            data={images}
+            renderItem={renderItemImages}
+            keyExtractor={keyExtractor}
+            contentContainerStyle={{
+              ...styles.flatListMain,
+            }}
+            horizontal
+            ListFooterComponent={() => {
+              return (
+                <Touchable onPress={uploadFromGalary}>
+                  <Image style={styles.imagesStyle} source={addGalleryImage} />
+                </Touchable>
+              );
+            }}
+          />
+
           <TextComponent
             styles={styles.itemHeading}
             text={'General Preferences '}
           />
           <View style={styles.addButton}>
-            <FilterAddButton
-              style={styles.filterButton}
-              image={addcircle}
-              title={'add'}
+            <FlatListComp
+              data={gp}
+              onPress={() =>
+                dynamicNav({
+                  title: 'General',
+                  data: preferencesData.gp,
+                  key: 'gp',
+                  value: gp,
+                })
+              }
             />
           </View>
           <TextComponent
@@ -201,10 +329,16 @@ const AddPostScreen = () => {
             text={'Outside Preferences '}
           />
           <View style={styles.addButton}>
-            <FilterAddButton
-              style={styles.filterButton}
-              image={addcircle}
-              title={'add'}
+            <FlatListComp
+              data={op}
+              onPress={() =>
+                dynamicNav({
+                  title: 'Outside',
+                  data: preferencesData.op,
+                  key: 'op',
+                  value: op,
+                })
+              }
             />
           </View>
           <TextComponent
@@ -212,10 +346,16 @@ const AddPostScreen = () => {
             text={'Inside Preferences '}
           />
           <View style={styles.addButton}>
-            <FilterAddButton
-              style={styles.filterButton}
-              image={addcircle}
-              title={'add'}
+            <FlatListComp
+              data={ip}
+              onPress={() =>
+                dynamicNav({
+                  title: 'Inside',
+                  data: preferencesData.ip,
+                  key: 'ip',
+                  value: ip,
+                })
+              }
             />
           </View>
 
@@ -223,6 +363,8 @@ const AddPostScreen = () => {
             title={'Post'}
             style={styles.applyFilter}
             textStyle={styles.filterText}
+            onPress={handleSubmit(postData)}
+            // onPress={checkAuthentication}
           />
         </View>
       </ScrollView>

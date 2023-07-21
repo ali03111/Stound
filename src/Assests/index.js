@@ -1,9 +1,12 @@
 //  Images
 
 export {default as SplashScreen} from './Images/SplashScreen.png';
-export {default as onBoard1} from './Images/onBoard1.png';
-export {default as onBoard2} from './Images/onBoard2.png';
-export {default as onBoard3} from './Images/onBoard3.png';
+export {default as onBoard1} from './Images/Component1.png';
+export {default as onBoard2} from './Images/Component2.png';
+export {default as onBoard3} from './Images/Component3.png';
+// export {default as onBoard1} from './Images/onBoard1.png';
+// export {default as onBoard2} from './Images/onBoard2.png';
+// export {default as onBoard3} from './Images/onBoard3.png';
 export {default as logo} from './Images/logo.png';
 export {default as homeCard} from './Images/homeCard.png';
 export {default as cardOverlay} from './Images/cardOverlay.png';
@@ -79,7 +82,9 @@ export {default as DetailDeceased} from './Icons/deceased.png';
 export {default as DetailSquareFoot} from './Icons/d-square_foot.png';
 export {default as arrowDown} from './Icons/arrowDown.png';
 export {default as chat} from './Icons/chat.png';
-export {default as cat} from './Icons/cat.png';
+export {default as catImage} from './Icons/cat.png';
 export {default as adTitle} from './Icons/ad-title.png';
 export {default as bedblue} from './Icons/bedblue.png';
 export {default as bluebath} from './Icons/bathtubblue.png';
+export {default as radioEmtpy} from './Icons/radioEmtpy.png';
+export {default as radioFill} from './Icons/radioFill.png';

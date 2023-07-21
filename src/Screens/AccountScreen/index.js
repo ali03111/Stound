@@ -22,12 +22,19 @@ import ProfileArea from './ProfileComponent';
 import CoinsComponent from './CoinsComponent';
 import {hp} from '../../Config/responsive';
 import useAccountScreen from './useAccountScreen';
-import AwesomeAlert from 'react-native-awesome-alerts';
-import {Touchable} from '../../Components/Touchable';
+
 import {AlertDesign} from '../../Components/AlertDesign';
+import {imageUrl} from '../../Utils/Urls';
 const AccountScreen = ({navigation}) => {
-  const {dynamicNav, deactivate, logOut, onCancel, onConfirm, userData} =
-    useAccountScreen(navigation);
+  const {
+    dynamicNav,
+    deactivate,
+    logOut,
+    onCancel,
+    onConfirm,
+    userData,
+    onDeleteConfirm,
+  } = useAccountScreen(navigation);
   return (
     <View style={{flex: 1}}>
       <Header headerTitle={'Account'} />
@@ -36,11 +43,13 @@ const AccountScreen = ({navigation}) => {
         contentContainerStyle={{paddingBottom: hp('6')}}>
         <View style={styles.accountMain}>
           <ProfileArea
-            ProfileImage={accountprofile}
+            ProfileImage={imageUrl(userData?.profilePicture)}
+            // ProfileImage={images?.uri || imageUrl(userData.profilePicture)}
             ProfileName={userData?.name ?? 'Jhon Doe'}
             UserEmail={userData?.email}
             EditProfile={EditProfile}
             onPress={() => dynamicNav('EditProfileScreen')}
+            userData={userData}
           />
           <CoinsComponent RemainingCoins={'25'} />
           <ProfileButton
@@ -108,7 +117,7 @@ const AccountScreen = ({navigation}) => {
             onPress={() => onCancel(logOut, 'logOut')}
           />
           <ProfileButton
-            title={'Deactivate Account'}
+            title={'Delete Account'}
             iconLeft={profileremove}
             style={styles.button}
             textStyle={styles.deActivateAccText}
@@ -125,12 +134,12 @@ const AccountScreen = ({navigation}) => {
             onConfirm={() => onConfirm(logOut)}
           />
           <AlertDesign
-            show={deactivate}
-            title="Deactivate Account?"
+            isVisible={deactivate}
+            title="Delete Account?"
             message="You’ll permanently lose all your data."
             confirmText="Deactivate"
             onCancel={() => onCancel(deactivate, 'deactivate')}
-            onConfirm={() => onConfirm(deactivate)}
+            onConfirm={() => onDeleteConfirm(deactivate)}
           />
         </View>
       </ScrollView>

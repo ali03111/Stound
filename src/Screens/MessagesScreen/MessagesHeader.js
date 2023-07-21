@@ -10,9 +10,11 @@ import {
 } from '../../Assests';
 import {hp, wp} from '../../Config/responsive';
 import {Colors} from '../../Theme/Variables';
-import {goBack} from '../../Utils';
+// import { goBack } from '../../Utils';
 import {CircleImageComp} from '../../Components/CircleImageComp';
 import {heightPercentageToDP} from 'react-native-responsive-screen';
+import BlurImage from '../../Components/BlurImage';
+import {imageUrl} from '../../Utils/Urls';
 
 const MessagesHeader = ({
   headerTitle,
@@ -25,6 +27,8 @@ const MessagesHeader = ({
   backTextStyle,
   centerTextStyle,
   dayStyle,
+  goBack,
+  image,
 }) => {
   return (
     <View>
@@ -38,9 +42,11 @@ const MessagesHeader = ({
                 style: styles.arrowback,
               }}
             />
-            <CircleImageComp
+            <Text style={{width: 5}} />
+            <BlurImage
+              uri={imageUrl(image)}
+              radius={50}
               styles={styles.profileImg}
-              image={notificationProfile2}
             />
             <TextComponent
               text={backText}
@@ -88,6 +94,7 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 20,
     paddingHorizontal: wp('4'),
   },
+  arrowback: {},
   backMain: {
     alignItems: 'center',
     flexDirection: 'row',
@@ -95,7 +102,7 @@ const styles = StyleSheet.create({
     marginTop: hp('0.2'),
   },
   backBtn: {
-    // marginLeft: wp('1'),
+    marginRight: wp('1'),
     color: Colors.gray2,
   },
   HeaderTitle: {
@@ -105,7 +112,7 @@ const styles = StyleSheet.create({
   },
   HeaderLeft: {
     width: wp('20'),
-    justifyContent: 'flex-start',
+    justifyContent: 'space-between',
     textAlign: 'left',
   },
   HeaderCenter: {
@@ -118,11 +125,7 @@ const styles = StyleSheet.create({
     textAlign: 'right',
     alignItems: 'flex-end',
   },
-  profileImg: {
-    width: wp('9'),
-    height: hp('4.5'),
-    marginLeft: wp('5'),
-  },
+
   dayBarStyle: {
     flexDirection: 'row',
     justifyContent: 'center',
@@ -131,6 +134,11 @@ const styles = StyleSheet.create({
   day: {
     paddingHorizontal: wp('5'),
     paddingVertical: hp('2.5'),
+  },
+  profileImg: {
+    width: wp('15'),
+    height: hp('7'),
+    aspectRatio: 1,
   },
 });
 export default MessagesHeader;

@@ -1,30 +1,17 @@
-import SocialLoginScreen from '.';
 import useReduxStore from '../../Hooks/UseReduxStore';
-import {loginUser} from '../../Redux/Action/AuthAction';
-import {
-  appleIdlogin,
-  faceBookLogin,
-  googleLogin,
-} from '../../Utils/SocialLogin';
+import { loginUser } from '../../Redux/Action/AuthAction';
+import { faceBookLogin } from '../../Utils/SocialLogin';
 
-const useSocialLoginScreen = ({navigate}) => {
+const useSocialLoginScreen = ({ navigate }) => {
   const contWithEmail = () => {
-    navigate('LoginScreen');
+    navigate('RegisterScreen');
   };
-  const {dispatch} = useReduxStore();
+  const { dispatch } = useReduxStore();
 
-  const appleIdAuth = () => dispatch(loginUser({type: 'appleID', datas: {}}));
-  // const appleIdAuth = async () => {
-  //   try {
-  //     dispatch(loginUser({type: 'appleID'}));
-  //     const data = await appleIdlogin();
-  //     console.log('data', data);
-  //   } catch (error) {
-  //     console.log('err', error);
-  //   }
-  // };
+  const appleIdAuth = () => dispatch(loginUser({ type: 'appleID', datas: {} }));
+
   const googleAuth = async () => {
-    dispatch(loginUser({type: 'Google', datas: {}}));
+    dispatch(loginUser({ type: 'Google', datas: {} }));
   };
   const facebookAuth = async () => {
     try {
@@ -35,6 +22,6 @@ const useSocialLoginScreen = ({navigate}) => {
     }
   };
 
-  return {contWithEmail, appleIdAuth, googleAuth, facebookAuth};
+  return { contWithEmail, appleIdAuth, googleAuth, facebookAuth };
 };
 export default useSocialLoginScreen;

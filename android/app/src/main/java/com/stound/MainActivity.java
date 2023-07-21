@@ -1,4 +1,4 @@
-package com.stound;
+package com.anideos.stound;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;

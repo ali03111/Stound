@@ -6,6 +6,12 @@ export const styles = StyleSheet.create({
   favMain: {
     paddingTop: hp('1.5'),
   },
+  cancelImage: {
+    position: 'absolute',
+    zIndex: 1,
+    right: wp('2'),
+    top: hp('1'),
+  },
   topHeader: {
     paddingTop: hp('1.5'),
   },
@@ -14,11 +20,21 @@ export const styles = StyleSheet.create({
     paddingTop: hp('2'),
     paddingBottom: hp('4'),
   },
+  flatListMain: {
+    // paddingHorizontal: wp('1'),
+    flexDirection: 'row',
+    width: '100%',
+    display: 'flex',
+    flexWrap: 'wrap',
+    // backgroundColor: 'yellow',
+    // justifyContent: 'space-evenly',
+  },
   switcher: {
     borderWidth: 1,
     borderRadius: 10,
     borderColor: Colors.primaryColor,
-    marginTop: hp('1.5'),
+    // marginTop: hp('1.5'),
+    marginBottom: hp('1.5'),
   },
   filterHeader: {
     marginTop: hp('2'),
@@ -36,6 +52,7 @@ export const styles = StyleSheet.create({
   },
   pick: {
     width: wp('84'),
+    color: Colors.primaryTextColor,
   },
   itemHeading: {
     marginTop: hp('3'),
@@ -52,8 +69,9 @@ export const styles = StyleSheet.create({
     borderColor: 'rgba(11, 180, 255, 0.3)',
     borderRadius: 10,
     backgroundColor: 'white',
-    paddingHorizontal: wp('3'),
+    // paddingHorizontal: wp('3'),
     paddingVertical: hp('1'),
+    // flexDirection: 'row',
   },
   filterButton: {
     width: wp('20'),
@@ -64,11 +82,13 @@ export const styles = StyleSheet.create({
     borderBottomWidth: 0.5,
     borderRadius: 0,
     justifyContent: 'flex-start',
-    width: '100%',
+    width: wp('88'),
   },
   locationBtnText: {
     fontSize: hp('2'),
     color: Colors.grayBackground,
+    width: wp('80'),
+    textAlign: 'left',
   },
   locationBtnImg: {
     width: 22,
@@ -170,12 +190,17 @@ export const styles = StyleSheet.create({
   addImage: {
     marginRight: wp('2'),
   },
-  multiImages: {
-    width: wp('35'),
-    height: hp('13'),
-    borderRadius: 4,
+  tags: {
+    // height: hp('6'),
+    paddingHorizontal: wp('2'),
+    marginHorizontal: wp('1'),
+    marginBottom: hp('1'),
   },
-  mainMultiImages: {
-    flexDirection: 'row',
+  imagesStyle: {
+    width: wp('45'),
+    height: hp('11'),
+    borderRadius: 10,
+    marginVertical: hp('0.5'),
+    marginHorizontal: wp('1'),
   },
 });

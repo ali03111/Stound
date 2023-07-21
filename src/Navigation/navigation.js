@@ -4,13 +4,29 @@ import * as Screens from '../Screens/index';
 import useReduxStore from '../Hooks/UseReduxStore';
 import MybottomTabs from './bottomNavigation';
 
-const Stack = createNativeStackNavigator();
+import {withIAPContext} from 'react-native-iap';
 
+const Stack = createNativeStackNavigator();
+export const screens = [
+  {
+    name: 'Subscriptions',
+    title: 'Subscriptions',
+    component: withIAPContext(Screens.Subscriptions),
+    section: 'Context',
+    color: '#cebf38',
+  },
+  {
+    name: 'Home',
+    component: Screens.Home,
+    section: 'Context',
+    color: '#cebf38',
+  },
+];
 const StackNavigatior = () => {
   const {getState} = useReduxStore();
   const {onboarding} = getState('onboarding');
-  const {token} = getState('Auth');
-  console.log('AIUth token', token);
+  const {isLogin} = getState('Auth');
+  // console.log('AIUth token', token);
   return (
     <Stack.Navigator
       screenOptions={{
@@ -21,7 +37,7 @@ const StackNavigatior = () => {
       {!onboarding && (
         <Stack.Screen name="OnboardScreen" component={Screens.OnboardScreen} />
       )}
-      {token == '' && (
+      {!isLogin && (
         <>
           <Stack.Screen
             name="SocialLoginScreen"
@@ -32,9 +48,13 @@ const StackNavigatior = () => {
             component={Screens.RegisterScreen}
           />
           <Stack.Screen name="LoginScreen" component={Screens.LoginScreen} />
+          <Stack.Screen
+            name="ForgetPasswordScreen"
+            component={Screens.ForgetPasswordScreen}
+          />
         </>
       )}
-      {token != '' && (
+      {isLogin && (
         <>
           <Stack.Screen name="MybottomTabs" component={MybottomTabs} />
           <Stack.Screen name="ChatScreen" component={Screens.ChatScreen} />
@@ -57,6 +77,15 @@ const StackNavigatior = () => {
           />
           <Stack.Screen name="FilterScreen" component={Screens.FilterScreen} />
           <Stack.Screen
+            name="LocationScreen"
+            component={Screens.LocationScreen}
+          />
+
+          <Stack.Screen
+            name="GeneralScreen"
+            component={Screens.GeneralScreen}
+          />
+          <Stack.Screen
             name="SomeComponent"
             component={Screens.SomeComponent}
           />
@@ -72,6 +101,35 @@ const StackNavigatior = () => {
             name="NotificationScreen"
             component={Screens.NotificationScreen}
           />
+          <Stack.Screen
+            name="BuyCoinScreen"
+            component={Screens.BuyCoinScreen}
+          />
+          <Stack.Screen
+            name="HeaderDetailScreen"
+            component={Screens.HeaderDetailScreen}
+          />
+          <Stack.Screen
+            name="FilterPackageScreen"
+            component={Screens.FilterPackageScreen}
+          />
+          <Stack.Screen
+            name="SubscriptionsScreen"
+            component={Screens.Subscriptions}
+          />
+          {screens.map(({name, component, title}) => (
+            <Stack.Screen
+              key={name}
+              name={name}
+              component={component}
+              //hide the header on these screens
+              options={{
+                title: title,
+                headerShown:
+                  name === 'Home' || name === 'Subscriptions' ? false : true,
+              }}
+            />
+          ))}
         </>
       )}
     </Stack.Navigator>

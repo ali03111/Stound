@@ -1,19 +1,19 @@
-import React, {memo} from 'react';
-import {View} from 'react-native';
-import {arrowback, lock} from '../../Assests';
-import {InputComponent} from '../../Components/InputComponent';
+import React, { memo } from 'react';
+import { View } from 'react-native';
+import { arrowback, lock } from '../../Assests';
+import { InputComponent } from '../../Components/InputComponent';
 import KeyBoardWrapper from '../../Components/KeyboardWrapper';
 import ShareButton from '../../Components/ShareButton';
-import {TextComponent} from '../../Components/TextComponent';
+import { TextComponent } from '../../Components/TextComponent';
 import Header from '../../Components/Header';
-import {styles} from './styles';
+import { styles } from './styles';
 import useResetPasswordScreen from './useResetPasswordScreen';
 
-const ResetPasswordScreen = ({navigation}) => {
-  const {handleSubmit, errors, reset, control, getValues, goBack} =
+const ResetPasswordScreen = ({ navigation }) => {
+  const { handleSubmit, errors, reset, control, getValues, goBack, changePassword } =
     useResetPasswordScreen(navigation);
   return (
-    <View style={{flex: 1}}>
+    <View style={{ flex: 1 }}>
       <Header
         headerTitle={'Change Password'}
         backText={'Back'}
@@ -63,7 +63,7 @@ const ResetPasswordScreen = ({navigation}) => {
               forPasswordStyle: styles.passwordStyle,
             }}
           />
-          <ShareButton title={'Reset Password'} style={styles.getStart} />
+          <ShareButton onPress={handleSubmit(changePassword)} title={'Reset Password'} style={styles.getStart} />
         </KeyBoardWrapper>
       </View>
     </View>

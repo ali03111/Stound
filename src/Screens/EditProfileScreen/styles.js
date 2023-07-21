@@ -25,6 +25,9 @@ export const styles = StyleSheet.create({
   },
   ProfileImage: {
     borderRadius: 7,
+    // width: wp('20'),
+    height: hp('20'),
+    aspectRatio: 1,
   },
   porfileTopImages: {
     // position: 'relative',

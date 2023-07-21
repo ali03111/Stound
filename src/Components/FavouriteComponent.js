@@ -16,6 +16,7 @@ import {
 import {TextComponent} from './TextComponent';
 import {white} from 'react-native-paper/lib/typescript/src/styles/themes/v2/colors';
 import DetailButton from './detailButton';
+import BlurBackground from './BlurBackground';
 // import {white} from 'react-native-paper/lib/typescript/src/styles/themes/v2/colors';
 
 const FavouriteComp = ({
@@ -28,20 +29,21 @@ const FavouriteComp = ({
   locationText,
   duration,
   onPress,
+  onFav,
 }) => {
   return (
     // <ShadowButton>
     <View style={styles.HomeCardMain}>
-      <ImageBackground
-        source={backgroundImage}
+      <BlurBackground
+        uri={backgroundImage}
         resizeMode="cover"
-        style={styles.image}>
+        styles={styles.image}>
         <ImageBackground
           source={overlay}
           resizeMode="cover"
           style={styles.overlay}>
           <View style={styles.favMain}>
-            <Touchable style={styles.fav}>
+            <Touchable onPress={onFav} style={styles.fav}>
               <Image source={fav} />
             </Touchable>
           </View>
@@ -50,8 +52,12 @@ const FavouriteComp = ({
               <View style={styles.cardTopLeft}>
                 <TextComponent text={title} styles={styles.userName} />
               </View>
-              <View style={{flexDirection: 'row', alignItems: 'baseline'}}>
-                <TextComponent text={price + '/'} styles={styles.price} />
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'baseline',
+                }}>
+                <TextComponent text={price} styles={styles.price} />
                 <TextComponent text={duration} styles={styles.month} />
               </View>
             </View>
@@ -72,8 +78,8 @@ const FavouriteComp = ({
                   <Image source={bed} />
                   <TextComponent text={beds} styles={styles.bed} />
 
-                  <Image source={scaleIcon} />
-                  <TextComponent text={size} styles={styles.bed} />
+                  {/* <Image source={scaleIcon} />
+                  <TextComponent text={size} styles={styles.bed} /> */}
                 </View>
                 <View style={styles.detail}>
                   <DetailButton title={'Details'} onPress={onPress} />
@@ -82,7 +88,7 @@ const FavouriteComp = ({
             </View>
           </View>
         </ImageBackground>
-      </ImageBackground>
+      </BlurBackground>
     </View>
     // </ShadowButton>
   );
@@ -121,6 +127,8 @@ const styles = StyleSheet.create({
     flex: 1,
     overflow: 'hidden',
     borderRadius: 10,
+    height: hp('40'),
+    width: wp('95'),
   },
   cardMain: {
     justifyContent: 'flex-end',
@@ -172,6 +180,7 @@ const styles = StyleSheet.create({
     color: 'white',
     marginLeft: wp('3'),
     fontSize: hp('2'),
+    width: wp('80'),
   },
   cardFooter: {
     flexDirection: 'row',

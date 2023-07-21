@@ -6,12 +6,16 @@ export const loginUser = payload => ({
 });
 
 export const updateUser = payload => ({
-  type: types.UpdateProfile,
+  type: types.UpdateUser,
   payload,
 });
 
-export const logOutUser = payload => ({
+export const logOutAuth = () => ({
   type: types.LogoutType,
+});
+
+export const logOutUser = payload => ({
+  type: types.LogoutFirebaseType,
   payload,
 });
 
@@ -22,5 +26,10 @@ export const updateAuth = payload => ({
 
 export const registerUser = payload => ({
   type: types.RegisterUser,
+  payload,
+});
+
+export const fcmRegister = payload => ({
+  type: types.fcmRegType,
   payload,
 });

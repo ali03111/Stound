@@ -19,10 +19,14 @@ const OnboardScreen = ({navigation}) => {
           <View style={styles.centerMainView}>
             <Image
               style={styles.bannerImg}
-              resizeMode="contain"
+              // resizeMode="contain"
               source={item?.image}
             />
-            <TextComponent text={item?.heading} styles={styles.centerHeading} />
+            <TextComponent
+              numberOfLines={2}
+              text={item?.heading}
+              styles={styles.centerHeading}
+            />
           </View>
         )
       );

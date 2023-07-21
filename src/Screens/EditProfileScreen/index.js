@@ -18,6 +18,8 @@ import ShareButton from '../../Components/ShareButton';
 import KeyBoardWrapper from '../../Components/KeyboardWrapper';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import {Touchable} from '../../Components/Touchable';
+import BlurImage from '../../Components/BlurImage';
+import {imageUrl} from '../../Utils/Urls';
 
 const EditProfileScreen = ({navigation}) => {
   const {
@@ -26,6 +28,10 @@ const EditProfileScreen = ({navigation}) => {
     isDatePickerVisible,
     goBack,
     userData,
+    profileData,
+    // images,
+    updateProfile,
+    uploadFromGalary,
     reset,
     handleSubmit,
     getValues,
@@ -35,35 +41,37 @@ const EditProfileScreen = ({navigation}) => {
   } = useEditProfileScreen(navigation);
 
   return (
-    <View style={{flex: 1}}>
-      <Header
-        headerTitle={'Edit Profile'}
-        arrowBackIcon={arrowback}
-        backText={'Back'}
-        goBack={goBack}
-        // style={styles.filterHeader}
-        saveResetStyle={styles.save}
-      />
-      <View style={styles.editProfileContainer}>
-        <KeyBoardWrapper>
+    <KeyBoardWrapper>
+      <View style={{flex: 1}}>
+        <Header
+          headerTitle={'Edit Profile'}
+          arrowBackIcon={arrowback}
+          backText={'Back'}
+          goBack={goBack}
+          // style={styles.filterHeader}
+          saveResetStyle={styles.save}
+        />
+        <View style={styles.editProfileContainer}>
           <View style={styles.porfileInfo}>
             <View style={styles.porfileTopImages}>
-              <Image source={editProfile} style={styles.ProfileImage} />
+              <BlurImage
+                styles={styles.ProfileImage}
+                uri={profileData?.uri || imageUrl(userData?.profilePicture)}
+              />
               <Image
                 source={editProfileShadow}
                 style={styles.ProfileImageShadow}
               />
-              <View style={styles.UploadProfile}>
+              <Touchable
+                onPress={uploadFromGalary}
+                style={styles.UploadProfile}>
                 <Image
                   source={UploadProfileImage}
                   style={styles.UploadProfileIcon}
                 />
-              </View>
+              </Touchable>
             </View>
-            <TextComponent
-              text={userData.name ?? 'Nabeel Naeem'}
-              styles={styles.userName}
-            />
+            <TextComponent text={userData?.name} styles={styles.userName} />
             <TextComponent text={userData?.email} styles={styles.userEmail} />
           </View>
 
@@ -77,10 +85,10 @@ const EditProfileScreen = ({navigation}) => {
               getValues,
               viewStyle: styles.loginInput,
               isImage: user,
-              defaultValue: userData.name ?? 'Nabeel Naeem',
+              defaultValue: userData?.name,
             }}
           />
-          <View>
+          {/* <View>
             <View style={styles.datePickerBtn}>
               <Image source={calendar} style={styles.calenderImg} />
               <Touchable
@@ -96,7 +104,7 @@ const EditProfileScreen = ({navigation}) => {
               onConfirm={handleConfirm}
               onCancel={hideDatePicker}
             />
-          </View>
+          </View> */}
           <InputComponent
             {...{
               name: 'number',
@@ -107,15 +115,19 @@ const EditProfileScreen = ({navigation}) => {
               getValues,
               viewStyle: styles.loginInput,
               isImage: phoneIcon,
-              defaultValue: userData?.number ?? '800-716-9002',
+              defaultValue: userData?.number ?? 'xxx-xxx-xxxx',
             }}
           />
-        </KeyBoardWrapper>
+        </View>
+        <View style={styles.saveBtnMain}>
+          <ShareButton
+            title={'Save'}
+            style={styles.saveBtn}
+            onPress={handleSubmit(updateProfile)}
+          />
+        </View>
       </View>
-      <View style={styles.saveBtnMain}>
-        <ShareButton title={'Save'} style={styles.saveBtn} onPress={goBack} />
-      </View>
-    </View>
+    </KeyBoardWrapper>
   );
 };
 export default memo(EditProfileScreen);

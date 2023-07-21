@@ -93,13 +93,14 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace 'com.stound'
+    namespace 'com.anideos.stound'
     defaultConfig {
-        applicationId 'com.stound'
+        applicationId 'com.anideos.stound'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName '1.0'
+        missingDimensionStrategy "store", "play"    
     }
 
     splits {
@@ -162,6 +163,7 @@ dependencies {
     implementation 'com.facebook.android:facebook-login:latest.release'
     implementation 'com.google.android.gms:play-services-auth:20.5.0'
     implementation 'com.facebook.android:facebook-android-sdk:latest.release'
+    // implementation project(':react-native-push-notification')
     // implementation('androidx.swiperefreshlayout:swiperefreshlayout:1.0.0')
     implementation project(':react-native-vector-icons')
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}")

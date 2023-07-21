@@ -30,8 +30,9 @@ export const styles = StyleSheet.create({
   },
   searchinput: {
     paddingHorizontal: wp('2.5'),
-    width: wp('46'),
+    width: wp('50'),
     fontSize: 15,
+    color: 'black',
   },
   centerHeading: {
     marginRight: wp('3'),

@@ -2,6 +2,7 @@ require_relative '../node_modules/react-native/scripts/react_native_pods'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
 platform :ios, min_ios_version_supported
+# platform :ios, '12.0'
 prepare_react_native_project!
 
 # If you are using a `react-native-flipper` your iOS build will fail when `NO_FLIPPER=1` is set.
@@ -20,19 +21,22 @@ if linkage != nil
   Pod::UI.puts "Configuring Pod with #{linkage}ally linked Frameworks".green
   use_frameworks! :linkage => linkage.to_sym
 end
-
 target 'stound' do
   config = use_native_modules!
 
   # Flags change depending on the env values.
   flags = get_default_flags()
+  permissions_path = '../node_modules/react-native-permissions/ios'
+  pod 'Permission-PhotoLibrary', :path => "#{permissions_path}/PhotoLibrary"
+  pod 'Permission-Notifications', :path => "#{permissions_path}/Notifications"
 
   use_react_native!(
     :path => config[:reactNativePath],
     # Hermes is now enabled by default. Disable by setting this flag to false.
     # Upcoming versions of React Native may rely on get_default_flags(), but
     # we make it explicit here to aid in the React Native upgrade process.
-    :hermes_enabled => flags[:hermes_enabled],
+    # :hermes_enabled => flags[:hermes_enabled],
+    :hermes_enabled => false,
     :fabric_enabled => flags[:fabric_enabled],
     # Enables Flipper.
     #
@@ -47,7 +51,8 @@ target 'stound' do
   pod 'GTMSessionFetcher', :modular_headers => true
   pod 'GoogleUtilities', :modular_headers => true
   pod 'FirebaseCore', :modular_headers => true
-
+  pod 'Firebase/Core'
+  pod 'Firebase/Firestore'
   target 'stoundTests' do
     inherit! :complete
     # Pods for testing

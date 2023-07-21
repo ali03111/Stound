@@ -1,4 +1,4 @@
-import React, {memo} from 'react';
+import React, {memo, useCallback} from 'react';
 import {View, Text, Image} from 'react-native';
 import {
   appleIcon,
@@ -31,7 +31,10 @@ const LoginScreen = ({navigation}) => {
     register,
     loginWithEmail,
     goBack,
+    appleIdAuth,
+    navigationForgetScreen,
   } = useLogin(navigation);
+
   return (
     <View style={styles.mainView}>
       <KeyBoardWrapper>
@@ -61,7 +64,7 @@ const LoginScreen = ({navigation}) => {
             placeholder: 'example@example.com',
             viewStyle: styles.loginInput,
             isImage: sms,
-            defaultValue: 'testing@gmail.com',
+            // defaultValue: 'testing@gmail.com',
           }}
         />
         <InputComponent
@@ -75,10 +78,14 @@ const LoginScreen = ({navigation}) => {
             placeholder: 'Password',
             isSecure: true,
             isImage: lock,
-            defaultValue: 'i53rdgen@',
+            // defaultValue: 'i53rdgen@',
           }}
         />
-        <TextComponent text={'Forget Password?'} styles={styles.forgetPass} />
+        <TextComponent
+          onPress={navigationForgetScreen}
+          text={'Forgot Password?'}
+          styles={styles.forgetPass}
+        />
         <ShareButton
           onPress={handleSubmit(loginWithEmail)}
           title={'Log In'}
@@ -104,13 +111,13 @@ const LoginScreen = ({navigation}) => {
         </View>
 
         <View style={styles.mainSocialIcon}>
-          <Touchable>
+          <Touchable onPress={facebookLoginFunc}>
             <Image source={facebookIcon} style={styles.socialIcon} />
           </Touchable>
-          <Touchable>
+          <Touchable onPress={appleIdAuth}>
             <Image source={appleIcon} style={styles.socialIcon} />
           </Touchable>
-          <Touchable>
+          <Touchable onPress={googleLoginFunc}>
             <Image source={googleIcon} style={styles.socialIcon} />
           </Touchable>
         </View>

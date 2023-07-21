@@ -7,13 +7,22 @@ import {
   Image,
   TextInput,
   Platform,
+  TouchableWithoutFeedback,
 } from 'react-native';
 import useHomeScreen from './useHomeScreen';
 import {styles} from './styles';
 import {keyExtractor} from '../../Utils';
 import {TextComponent} from '../../Components/TextComponent';
 import HomeCard from '../../Components/HomeCard';
-import {homeCard, notification, profile, search, setting} from '../../Assests';
+import {
+  homeCard,
+  notification,
+  profile,
+  radioEmtpy,
+  radioFill,
+  search,
+  setting,
+} from '../../Assests';
 
 import * as Animatable from 'react-native-animatable';
 import {InputComponent} from '../../Components/InputComponent';
@@ -26,81 +35,127 @@ import SomeComponent from '../GestureScreenTest';
 import {successMessage} from '../../Config/NotificationMessage';
 import {homeCardData} from '../../Utils/localDB';
 import {Colors} from '../../Theme/Variables';
+import {imageUrl} from '../../Utils/Urls';
+import AwesomeAlert from 'react-native-awesome-alerts';
+import RadioGroup from 'react-native-radio-buttons-group';
+import Overlay from '../../Components/Overlay';
+import {EmptyViewComp} from '../../Components/EmptyViewComp';
 
 const HomeScreen = ({navigation}) => {
   const [text, onChangeText] = React.useState('');
 
-  const {onBoardinData, currentIndex, onSnapToItem, getStart, goToDetails} =
-    useHomeScreen(navigation);
+  const {
+    onBoardinData,
+    currentIndex,
+    onSnapToItem,
+    getStart,
+    goToDetails,
+    homeData,
+    onRefresh,
+    updateFav,
+    setShowAlert,
+    showAlert,
+    selectedId,
+    setSelectedId,
+    onConfirmPressed,
+    selectedIdRef,
+    setCurrentIndex,
+    s,
+    askQuestion,
+    isloading,
+    navigateToNotificationScreen,
+    searchPropertyFunction,
+  } = useHomeScreen(navigation);
 
-  const renderItem = useCallback(({item, index}) => {
+  // console.log('cccc',onBoardinData);
+  const renderItem = useCallback(item => {
     return (
       <HomeCard
-        userName={'test'}
-        image={homeCard}
-        profile={profile}
-        bath={'3 Baths'}
-        Beds={'4 Beds'}
-        locationText={'1050 Old Nichols Rd Islandia, NY 11749'}
-        forRent={'For Rent'}
-        price={'$1500'}
+        userName={`${item?.userDetail?.name}`}
+        image={imageUrl(item.photos[0])}
+        profile={imageUrl(item.userDetail.profilePicture)}
+        bath={`${item?.bathrooms} Baths`}
+        Beds={`${item?.rooms} Rooms`}
+        locationText={`${item?.location}`}
+        forRent={`For ${item?.adType}`}
+        price={`$ ${item?.price}`}
         duration={'month'}
       />
     );
   }, []);
 
   return (
-    <View style={{paddingTop: Platform.OS == 'ios' ? hp('3') : hp('0')}}>
-      <View style={styles.searchBarMain}>
-        <View style={styles.searchMain}>
-          <Image style={styles.search} source={search} />
-          <TextInput
-            style={styles.searchinput}
-            onChangeText={onChangeText}
-            value={text}
-            placeholder={'Search property here...'}
-            placeholderTextColor={Colors.gray}
-          />
+    <>
+      <View style={{paddingTop: Platform.OS == 'ios' ? hp('3') : hp('0')}}>
+        <View style={styles.searchBarMain}>
+          <View style={styles.searchMain}>
+            <Image style={styles.search} source={search} />
+            <TextInput
+              onSubmitEditing={() => searchPropertyFunction(text)}
+              style={styles.searchinput}
+              onChangeText={onChangeText}
+              value={text}
+              placeholder={'Search property here...'}
+              placeholderTextColor={Colors.gray}
+            />
+          </View>
+          <View style={styles.searchIcons}>
+            <Touchable
+              onPress={() => navigation.navigate('FilterScreen')}
+              style={styles.rightIcon}>
+              <Image source={setting} style={styles.setting} />
+            </Touchable>
+            <Touchable
+              onPress={() => navigateToNotificationScreen()}
+              style={styles.rightIcon}>
+              <Image source={notification} style={styles.notification} />
+            </Touchable>
+          </View>
         </View>
-        <View style={styles.searchIcons}>
-          <Touchable
-            onPress={() => navigation.navigate('FilterScreen')}
-            style={styles.rightIcon}>
-            <Image source={setting} style={styles.setting} />
-          </Touchable>
-          <Touchable style={styles.rightIcon}>
-            <Image source={notification} style={styles.notification} />
-          </Touchable>
+        <View style={styles.cardMainView}>
+          {onBoardinData.length > 0 ? (
+            <Swiper
+              cards={onBoardinData}
+              useViewOverflow={true}
+              cardVerticalMargin={0}
+              cardHorizontalMargin={0}
+              marginBottom={0}
+              infinite={true}
+              onSwipedAll={e => onRefresh()}
+              renderCard={renderItem}
+              onSwipedLeft={ca => {
+                successMessage('You cancel this property');
+              }}
+              onSwipedRight={ca => {
+                askQuestion(ca);
+              }}
+              onSwipedTop={ca => {
+                setCurrentIndex(ca);
+                goToDetails(ca);
+              }}
+              onSwipedBottom={ca => {
+                updateFav(ca);
+              }}
+              cardIndex={0}
+              containerStyle={{
+                backgroundColor: 'transparent',
+              }}
+              stackSize={2}
+            />
+          ) : (
+            !isloading &&
+            onBoardinData.length == 0 && (
+              <View
+                style={{
+                  marginTop: hp('50'),
+                }}>
+                <EmptyViewComp onRefresh={onRefresh} />
+              </View>
+            )
+          )}
         </View>
       </View>
-      <View style={styles.cardMainView}>
-        <Swiper
-          cards={homeCardData}
-          useViewOverflow={true}
-          cardVerticalMargin={0}
-          cardHorizontalMargin={0}
-          marginBottom={0}
-          renderCard={renderItem}
-          onSwipedLeft={ca => {
-            successMessage('You cancel this property');
-          }}
-          onSwipedRight={ca => {
-            successMessage('You like this property');
-          }}
-          onSwipedTop={ca => {
-            goToDetails();
-          }}
-          onSwipedBottom={ca => {
-            successMessage('This property has been added to favourite ');
-          }}
-          cardIndex={0}
-          containerStyle={{
-            backgroundColor: 'transparent',
-          }}
-          stackSize={2}
-        />
-      </View>
-    </View>
+    </>
   );
 };
 

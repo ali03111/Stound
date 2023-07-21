@@ -18,20 +18,40 @@ import {NotificationHeader} from '../../Components/Header';
 import {hp, wp} from '../../Config/responsive';
 import {arrowback, moredots, search, smsedit} from '../../Assests';
 import {Colors} from '../../Theme/Variables';
+import {imageUrl} from '../../Utils/Urls';
 
 const ChatScreen = ({navigation}) => {
-  const {ChatData, getStart, navigateToMsg} = useChatScreen(navigation);
-  const [text, onChangeText] = React.useState('');
+  const {
+    ChatData,
+    getStart,
+    navigateToMsg,
+    users,
+    userData,
+    onChangeText,
+    changeText,
+    filteredUserData,
+    filtered,
+    searchData,
+  } = useChatScreen(navigation);
+
   const renderItem = useCallback(({item, index}) => {
+    console.log(item, 'hshjashhs');
+    const createdAtt = item.chatUsers.find(
+      res => res.otherUserId == userData?.agoraId,
+    ).createdAt;
+    const createdAt = new Date(createdAtt.seconds * 1000);
     return (
       <View style={styles.notification}>
         <ChatComponent
-          image={item?.image}
+          image={imageUrl(item?.profilePicture)}
           name={item?.name}
-          description={item?.description}
-          time={item?.time}
+          description={
+            item.chatUsers.find(res => res.otherUserId == userData?.agoraId)
+              .lastMsg
+          }
+          time={createdAt}
           messages={item?.messages}
-          onPress={navigateToMsg}
+          onPress={() => navigateToMsg(item)}
         />
       </View>
     );
@@ -49,15 +69,15 @@ const ChatScreen = ({navigation}) => {
         <Image style={styles.search} source={search} />
         <TextInput
           style={styles.searchinput}
+          value={changeText}
           onChangeText={onChangeText}
-          value={text}
-          placeholder={'Search property here...'}
+          placeholder={'Search user here...'}
           placeholderTextColor={Colors.gray}
         />
       </View>
       <FlatList
         refreshing={false}
-        data={ChatData}
+        data={users}
         renderItem={renderItem}
         showsHorizontalScrollIndicator={false}
         showsVerticalScrollIndicator={false}
@@ -66,7 +86,6 @@ const ChatScreen = ({navigation}) => {
           paddingHorizontal: wp('4'),
           // height: 'auto',
         }}
-        // style={{paddingBottom: 0}}
       />
     </View>
   );

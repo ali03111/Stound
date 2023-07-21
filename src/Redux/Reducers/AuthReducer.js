@@ -3,6 +3,7 @@ import {types} from '../types';
 const initial_state = {
   userData: {},
   token: '',
+  isLogin: false,
 };
 
 const actionMap = {
@@ -10,17 +11,13 @@ const actionMap = {
     return {
       userData: act.payload.user,
       token: act.payload.token,
+      isLogin: true,
     };
   },
-  [types.LogoutType]: (state, act) => {
-    return {
-      userData: {},
-      token: '',
-    };
-  },
+  [types.LogoutType]: () => initial_state,
   [types.UpdateProfile]: (state, act) => ({
     ...state,
-    userData: act.payload.data,
+    userData: act.payload,
   }),
 };
 

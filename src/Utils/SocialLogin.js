@@ -59,11 +59,12 @@ export const appleIdlogin = async () => {
     fullName: {givenName, familyName},
   } = appleAuthRequestResponse;
   const token = auth.AppleAuthProvider.credential(identityToken, nonce);
-  await auth().signInWithCredential(token);
+  const {additionalUserInfo} = await auth().signInWithCredential(token);
   return {
     token,
     name: `${givenName || ''} ${familyName || ''}`,
     identityToken,
+    isNewUser: additionalUserInfo.isNewUser,
   };
 
   // Sign the user in with the credential
@@ -109,28 +110,23 @@ export const appleIdlogin = async () => {
 // };
 
 export const googleLogin = async () => {
-  GoogleSignin.configure({
-    androidClientId:
-      '925607838451-2i4fd6777bbpn30i228rjsjnsupkodn6.apps.googleusercontent.com',
-    iosClientId:
-      '925607838451-2cbsfsq0oenaj93jdivbnm7k8qhv4emu.apps.googleusercontent.com',
-    webClientId:
-      '925607838451-78r5q593erniv0rian0v8f7l1dkd3s6q.apps.googleusercontent.com', // client ID of type WEB for your server (needed to verify user ID and offline access)
-    offlineAccess: true, // if you want to access Google API on behalf of the user FROM YOUR SERVER
-    forceCodeForRefreshToken: true, // [Android] related to `serverAuthCode`, read the docs link below *.
-    profileImageSize: 120, // [iOS] The desired height (and width) of the profile image. Defaults to 120px
+  const logOutWithGoogle = async () => {
+    await GoogleSignin.revokeAccess();
+    await GoogleSignin.signOut();
+    console.log('logOutWithGoogle');
+  };
+
+  const hasPlayService = await GoogleSignin.hasPlayServices({
+    showPlayServicesUpdateDialog: true,
   });
-  // Check if your device supports Google Play
-  await GoogleSignin.hasPlayServices({showPlayServicesUpdateDialog: true});
-  // Get the users ID token
+  if (!hasPlayService) throw new Error('play services not available');
+  const isSignIn = await GoogleSignin.isSignedIn();
+  if (isSignIn) await logOutWithGoogle();
   const {idToken, user} = await GoogleSignin.signIn();
+  const token = auth.GoogleAuthProvider.credential(idToken);
+  const {additionalUserInfo} = await auth().signInWithCredential(token);
 
-  // Create a Google credential with the token
-  const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-
-  return {user, googleCredential};
-  // Sign-in the user with the credential
-  // return auth().signInWithCredential(googleCredential);
+  return {...token, ...user, isNewUser: additionalUserInfo.isNewUser};
 };
 
 export const PhoneNumberLogin = async phoneNumber => {

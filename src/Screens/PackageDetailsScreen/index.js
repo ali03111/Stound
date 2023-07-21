@@ -32,20 +32,34 @@ import {
 } from 'accordion-collapse-react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MsgSendButton from '../../Components/MsgSendButton';
+import {imageURL, imageUrl} from '../../Utils/Urls';
+import BlurBackground from '../../Components/BlurBackground';
+import BlurImage from '../../Components/BlurImage';
+import {fav} from '../../Assests';
+const PackageDetailsScreen = ({navigation, route}) => {
+  const {
+    PackageDetailData,
+    userDetail,
+    outsidePref,
+    price,
+    insidePref,
+    generalPref,
+    title,
+    photos,
+    location,
+    adType,
+    navigationChatScreen,
+    askQuestion,
+  } = usePackageDetailsScreen(route, navigation);
 
-const PackageDetailsScreen = () => {
-  const {PackageDetailData} = usePackageDetailsScreen();
-  const imageLenght = detailsImages.length;
-
+  const imageLenght = photos.length;
+  console.log('itemsssss', route.params);
   const renderItem = useCallback(({item, index}) => {
     return (
       index > 0 &&
       index < 4 && (
-        <ImageBackground
-          resizeMode="cover"
-          source={{uri: item}}
-          style={styles.secondImage(index)}>
-          {index == 3 && (
+        <BlurBackground uri={imageUrl(item)} styles={styles.secondImage(index)}>
+          {index == 4 && (
             <View style={styles.overlayView}>
               <TextComponent
                 text={`+${imageLenght - 4}`}
@@ -53,7 +67,7 @@ const PackageDetailsScreen = () => {
               />
             </View>
           )}
-        </ImageBackground>
+        </BlurBackground>
       )
     );
   }, []);
@@ -62,19 +76,19 @@ const PackageDetailsScreen = () => {
       <Header
         arrowBackIcon={arrowback}
         backText={'Back'}
-        icon={favEmpty}
+        icon={route.params.items.isFavourite ? fav : favEmpty}
         style={styles.headerStyle}
-        goBack={goBack}
+        goBack={navigation.goBack}
       />
       <View style={styles.imageHeaderView}>
-        <Image
-          style={styles.firstImage(imageLenght)}
-          source={{uri: detailsImages[0]}}
+        <BlurImage
+          styles={styles.firstImage(imageLenght)}
+          uri={imageUrl(photos[0])}
         />
-        {detailsImages.length > 0 && (
+        {photos.length > 0 && (
           <FlatList
             refreshing={false}
-            data={detailsImages}
+            data={photos}
             renderItem={renderItem}
             showsHorizontalScrollIndicator={false}
             keyExtractor={keyExtractor}
@@ -85,16 +99,14 @@ const PackageDetailsScreen = () => {
 
       <View style={styles.detail}>
         <View style={styles.detailTitle}>
-          <TextComponent text={PackageDetailData.title} styles={styles.title} />
-          <TextComponent
-            text={PackageDetailData.forRent}
-            styles={styles.forRent}
-          />
+          <TextComponent text={title} styles={styles.title} />
+          <TextComponent text={`for ${adType}`} styles={styles.forRent} />
         </View>
         <View style={styles.locationMain}>
           <Image source={locationBlueIcon} />
           <TextComponent
-            text={PackageDetailData.location}
+            text={location}
+            numberOfLines={10}
             styles={styles.locationText}
           />
         </View>
@@ -110,21 +122,25 @@ const PackageDetailsScreen = () => {
               <CollapseHeader>
                 <View style={styles.toggleHead}>
                   <Text style={styles.headTitle}>Profile </Text>
-                  <Ionicons name={'caret-down'} size={hp(2)} />
+                  <Ionicons color={'black'} name={'caret-down'} size={hp(2)} />
                 </View>
               </CollapseHeader>
               <CollapseBody>
                 <View style={styles.profileDetails}>
-                  <View style={styles.accProfile}>
-                    <Image
-                      source={accountprofile}
-                      style={styles.accProfileImg}
-                    />
-                  </View>
+                  <BlurImage
+                    uri={
+                      imageUrl(userDetail.profilePicture) ??
+                      userDetail.profilePicture
+                    }
+                    styles={styles.accProfileImg}
+                  />
                   <View style={styles.profileData}>
-                    <TextComponent text={'Jhon Doe'} styles={styles.pTitle} />
                     <TextComponent
-                      text={'jhondoe@gmail.com'}
+                      text={userDetail?.name}
+                      styles={styles.pTitle}
+                    />
+                    <TextComponent
+                      text={userDetail?.email}
                       styles={styles.pEmail}
                     />
                   </View>
@@ -138,17 +154,18 @@ const PackageDetailsScreen = () => {
               <CollapseHeader>
                 <View style={styles.toggleHead}>
                   <Text style={styles.headTitle}>General </Text>
-                  <Ionicons name={'caret-down'} size={hp(2)} />
+                  <Ionicons color={'black'} name={'caret-down'} size={hp(2)} />
                 </View>
               </CollapseHeader>
               <CollapseBody>
                 <View style={styles.btns}>
-                  {PackageDetailData.tags.map(item => {
+                  {generalPref?.map(item => {
+                    console.log('sdfsdfsdfsdfsdfsdfd', item);
                     return (
                       <FilterAddButton
                         disabledValue={true}
-                        title={item.text}
-                        image={item.icon}
+                        title={item?.name}
+                        image={imageUrl(item.image)}
                         style={styles.btn}
                       />
                     );
@@ -160,18 +177,19 @@ const PackageDetailsScreen = () => {
               <CollapseHeader>
                 <View style={styles.toggleHead}>
                   <Text style={styles.headTitle}>Outside </Text>
-                  <Ionicons name={'caret-down'} size={hp(2)} />
+                  <Ionicons color={'black'} name={'caret-down'} size={hp(2)} />
                 </View>
               </CollapseHeader>
               <CollapseBody>
                 <View style={styles.btns}>
-                  {PackageDetailData.tags.map(item => {
+                  {outsidePref?.map(item => {
                     return (
                       <FilterAddButton
                         disabledValue={true}
-                        title={item.text}
-                        image={item.icon}
+                        title={item?.name}
+                        image={imageUrl(item.image)}
                         style={styles.btn}
+                        required={true}
                       />
                     );
                   })}
@@ -182,17 +200,17 @@ const PackageDetailsScreen = () => {
               <CollapseHeader>
                 <View style={styles.toggleHead}>
                   <Text style={styles.headTitle}>Inside </Text>
-                  <Ionicons name={'caret-down'} size={hp(2)} />
+                  <Ionicons color={'black'} name={'caret-down'} size={hp(2)} />
                 </View>
               </CollapseHeader>
               <CollapseBody>
                 <View style={styles.btns}>
-                  {PackageDetailData.tags.map(item => {
+                  {insidePref?.map(item => {
                     return (
                       <FilterAddButton
                         disabledValue={true}
-                        title={item.text}
-                        image={item.icon}
+                        title={item?.name}
+                        image={imageUrl(item.image)}
                         style={styles.btn}
                       />
                     );
@@ -204,10 +222,11 @@ const PackageDetailsScreen = () => {
         </ScrollView>
         <View style={styles.priceMain}>
           <View style={styles.priceLeft}>
-            <TextComponent text={'$4,500'} styles={styles.price} />
+            <TextComponent text={'$' + price} styles={styles.price} />
             <TextComponent text={'Total price'} styles={styles.priceText} />
           </View>
           <MsgSendButton
+            onPress={askQuestion}
             title={'Contact Now'}
             style={styles.sendBtnStyle}
             textStyle={styles.sendTextStyle}

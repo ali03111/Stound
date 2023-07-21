@@ -6,19 +6,67 @@ import Header from '../../Components/Header';
 import {arrowback, accessibleforward} from '../../Assests';
 import {Colors} from '../../Theme/Variables';
 import FilterAddButton from '../../Components/FilterAddButton';
-const GeneralScreen = () => {
+import useGeneralScreen from './useGeneralScreen';
+import {keyExtractor} from '../../Utils';
+import {imageUrl} from '../../Utils/Urls';
+const GeneralScreen = ({navigation, route}) => {
+  const {data, title, selecteValue, selectedValue, onSave} = useGeneralScreen(
+    navigation,
+    route,
+  );
+
+  const renderItem = ({item, index}) => {
+    return (
+      <FilterAddButton
+        title={item?.name}
+        image={item?.path ? imageUrl(item?.path) : null}
+        style={styles.filterBtn(selectedValue, item)}
+        textStyle={styles.innerText(selectedValue, item)}
+        onPress={() => selecteValue(item)}
+        tintColor={selectedValue.includes(item) ? Colors.white : Colors.black}
+      />
+    );
+  };
+
+  // const renderItem = useCallback(
+  //   ({item, index}) => {
+  //     return (
+  //       <FilterAddButton
+  //         title={item?.name}
+  //         image={accessibleforward}
+  //         style={styles.filterBtn(selectedValue, item)}
+  //         textStyle={styles.innerText(selectedValue, item)}
+  //         onPress={() => selecteValue(item)}
+  //         tintColor={selectedValue.includes(item) ? Colors.white : Colors.black}
+  //       />
+  //     );
+  //   },
+  //   [selectedValue],
+  // );
+
   return (
     <View>
       <Header
-        headerTitle={'General'}
+        headerTitle={title}
         arrowBackIcon={arrowback}
         backText={'Back'}
         saveReset={'Save'}
         style={styles.filterHeader}
         saveResetStyle={styles.save}
+        goBack={() => navigation.goBack()}
+        onSave={onSave}
       />
 
-      <View style={styles.filterMain}>
+      <FlatList
+        refreshing={false}
+        data={data}
+        renderItem={renderItem}
+        keyExtractor={keyExtractor}
+        contentContainerStyle={styles.filterMain}
+        horizontal
+      />
+
+      {/* <View style={styles.filterMain}>
         <FilterAddButton
           title={'Appliances'}
           image={accessibleforward}
@@ -34,7 +82,7 @@ const GeneralScreen = () => {
           image={accessibleforward}
           style={styles.filterBtn}
         />
-      </View>
+      </View> */}
     </View>
   );
 };

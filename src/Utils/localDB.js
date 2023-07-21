@@ -16,6 +16,8 @@ import {
   profile,
 } from '../Assests';
 
+export const APP_STORE_SECRET = '80263efda96949308ef41ea36ff7b72c';
+
 export const onBoardinData = [
   {
     id: 0,
@@ -443,3 +445,21 @@ export const PackageDetailData = {
   userEmail: 'jhondoe@gmail.com',
   price: '4,500',
 };
+
+export const RadioButtons = [
+  {
+    id: '1', // acts as primary key, should be unique and non-empty string
+    label: 'Just looking',
+    value: 'Just looking',
+  },
+  {
+    id: '2',
+    label: 'Interested',
+    value: 'Interested',
+  },
+  {
+    id: '3',
+    label: 'Serious',
+    value: 'Serious',
+  },
+];
