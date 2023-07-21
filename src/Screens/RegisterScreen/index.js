@@ -63,7 +63,7 @@ const RegisterScreen = ({navigation}) => {
             placeholder: 'User Name',
             viewStyle: styles.loginInput,
             isImage: user,
-            defaultValue: '',
+            defaultValue: 'user',
           }}
         />
         <InputComponent
@@ -77,7 +77,7 @@ const RegisterScreen = ({navigation}) => {
             placeholder: 'Email',
             viewStyle: styles.loginInput,
             isImage: sms,
-            defaultValue: '',
+            defaultValue: 'user1@gmail.com',
           }}
         />
         <InputComponent
@@ -91,7 +91,7 @@ const RegisterScreen = ({navigation}) => {
             placeholder: 'Phone Number',
             viewStyle: styles.loginInput,
             isImage: phoneIcon,
-            defaultValue: '',
+            defaultValue: '1214634564654',
           }}
         />
         <InputComponent
@@ -105,7 +105,7 @@ const RegisterScreen = ({navigation}) => {
             placeholder: 'Password',
             isSecure: true,
             isImage: lock,
-            defaultValue: '',
+            defaultValue: 'Test@123',
           }}
         />
         <InputComponent
@@ -119,7 +119,7 @@ const RegisterScreen = ({navigation}) => {
             placeholder: 'Confirm Password',
             isSecure: true,
             isImage: lock,
-            defaultValue: '',
+            defaultValue: 'Test@123',
           }}
         />
 
