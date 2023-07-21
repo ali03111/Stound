@@ -26,20 +26,12 @@ import {
 } from '../../Assests';
 
 import * as Animatable from 'react-native-animatable';
-import {InputComponent} from '../../Components/InputComponent';
-// import {TextInput} from 'react-native-paper';
 import {Touchable} from '../../Components/Touchable';
-import Notification from '../../Components/Notification';
 import Swiper from 'react-native-deck-swiper';
 import {hp, wp} from '../../Config/responsive';
-import SomeComponent from '../GestureScreenTest';
 import {successMessage} from '../../Config/NotificationMessage';
-import {homeCardData} from '../../Utils/localDB';
 import {Colors} from '../../Theme/Variables';
 import {imageUrl} from '../../Utils/Urls';
-import AwesomeAlert from 'react-native-awesome-alerts';
-import RadioGroup from 'react-native-radio-buttons-group';
-import Overlay from '../../Components/Overlay';
 import {EmptyViewComp} from '../../Components/EmptyViewComp';
 
 const HomeScreen = ({navigation}) => {
