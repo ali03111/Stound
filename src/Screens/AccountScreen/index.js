@@ -53,6 +53,7 @@ const AccountScreen = ({navigation}) => {
           />
           <CoinsComponent RemainingCoins={'25'} />
           <ProfileButton
+            onPress={() => dynamicNav('EditProfileScreen')}
             title={'My Profile'}
             iconLeft={AccountProfile}
             iconRight={arrowRight}

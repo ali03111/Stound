@@ -24,7 +24,7 @@ import Slider from '@react-native-community/slider';
 import {goBack} from '../../Utils';
 import {Image} from 'react-native-animatable';
 import {imageUrl, keyExtractor} from '../../Utils/Urls';
-import {wp} from '../../Config/responsive';
+import {hp, wp} from '../../Config/responsive';
 import {TextInput} from 'react-native-paper';
 const FilterScreen = ({navigation}) => {
   const {
@@ -252,12 +252,18 @@ const FilterScreen = ({navigation}) => {
             />
           </View>
           <Slider
-            style={styles.rangeSlider}
+            // style={styles.rangeSlider}
+            style={[
+              styles.rangeSlider,
+              Platform.OS === 'android'
+                ? styles.androidSlider
+                : styles.iosSlider,
+            ]}
             minimumValue={0}
             maximumValue={1000000}
             minimumTrackTintColor={Colors.primaryColor2}
+            maximumTrackTintColor="rgba(11, 180, 255, 0.8)"
             maximumTrackTintStyle={Colors.primaryColor2}
-            thumbTintColor="red"
             thumbImage={sliderdot}
             minimumTrackImage={minslider}
             maximumTrackImage={maxslider}
@@ -266,22 +272,23 @@ const FilterScreen = ({navigation}) => {
             onValueChange={sliderValue => {
               setSliderValue(Math.trunc(sliderValue));
             }}
+            thumbStyle={styles.thumbImage}
           />
           <TextInput
             theme={{
               colors: {
-                placeholder: 'gray', // Change this to the desired color for the placeholder
-                primary: Colors.primaryColor, // Change this to the desired color for the border
+                placeholder: 'gray',
+                primary: Colors.primaryColor,
               },
             }}
             label="Enter price ranges"
             mode="outlined"
             style={styles.priceRange}
-            value={sliderValue}
+            value={sliderValue == 0 ? '' : String(sliderValue)} // Convert sliderValue to a string before setting it as the value
             onChangeText={text => setSliderValue(Number(text))}
             placeholder="Enter price ranges..."
-            defaultValue={sliderValue == null && 0}
           />
+
           <ThemeButtonComp
             onPress={filterAdsDataFunction}
             title={'Apply Filter'}

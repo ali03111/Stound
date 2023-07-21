@@ -17,6 +17,7 @@ import HomeCard from '../../Components/HomeCard';
 import {
   homeCard,
   notification,
+  showNotification,
   profile,
   radioEmtpy,
   radioFill,
@@ -25,20 +26,12 @@ import {
 } from '../../Assests';
 
 import * as Animatable from 'react-native-animatable';
-import {InputComponent} from '../../Components/InputComponent';
-// import {TextInput} from 'react-native-paper';
 import {Touchable} from '../../Components/Touchable';
-import Notification from '../../Components/Notification';
 import Swiper from 'react-native-deck-swiper';
 import {hp, wp} from '../../Config/responsive';
-import SomeComponent from '../GestureScreenTest';
 import {successMessage} from '../../Config/NotificationMessage';
-import {homeCardData} from '../../Utils/localDB';
 import {Colors} from '../../Theme/Variables';
 import {imageUrl} from '../../Utils/Urls';
-import AwesomeAlert from 'react-native-awesome-alerts';
-import RadioGroup from 'react-native-radio-buttons-group';
-import Overlay from '../../Components/Overlay';
 import {EmptyViewComp} from '../../Components/EmptyViewComp';
 
 const HomeScreen = ({navigation}) => {
@@ -65,6 +58,7 @@ const HomeScreen = ({navigation}) => {
     isloading,
     navigateToNotificationScreen,
     searchPropertyFunction,
+    notificationLength,
   } = useHomeScreen(navigation);
 
   // console.log('cccc',onBoardinData);
@@ -105,11 +99,35 @@ const HomeScreen = ({navigation}) => {
               style={styles.rightIcon}>
               <Image source={setting} style={styles.setting} />
             </Touchable>
-            <Touchable
-              onPress={() => navigateToNotificationScreen()}
-              style={styles.rightIcon}>
-              <Image source={notification} style={styles.notification} />
-            </Touchable>
+            {notificationLength.length > 0 ? (
+              <Touchable
+                onPress={() => navigateToNotificationScreen()}
+                style={styles.rightIcon}>
+                <View
+                  style={{
+                    position: 'absolute',
+                    top: 1,
+                    right: 10,
+                    backgroundColor: 'red',
+                    borderRadius: 50,
+                  }}></View>
+                <Image source={showNotification} style={styles.notification} />
+              </Touchable>
+            ) : (
+              <Touchable
+                onPress={() => navigateToNotificationScreen()}
+                style={styles.rightIcon}>
+                <View
+                  style={{
+                    position: 'absolute',
+                    top: 1,
+                    right: 10,
+                    backgroundColor: 'red',
+                    borderRadius: 50,
+                  }}></View>
+                <Image source={notification} style={styles.notification} />
+              </Touchable>
+            )}
           </View>
         </View>
         <View style={styles.cardMainView}>

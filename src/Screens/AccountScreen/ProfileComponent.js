@@ -18,14 +18,7 @@ const ProfileArea = ({
   return (
     <View style={styles.porfileContainer}>
       <BlurImage styles={styles.porfileImg} uri={ProfileImage} />
-      {/* <Image
-        source={{
-          uri:
-            imageUrl(userData.profilePicture) ||
-            'https://res.cloudinary.com/dd6tdswt5/image/upload/v1684830799/UserImages/mhysa2zj0sbmvnw69b35.jpg',
-        }}
-        style={styles.porfileImg}
-      /> */}
+
       <View style={styles.porfileInfo}>
         <TextComponent text={ProfileName} styles={styles.userName} />
         <TextComponent text={UserEmail} styles={styles.userEmail} />

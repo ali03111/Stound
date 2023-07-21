@@ -43,21 +43,6 @@ const useAccountScreen = ({navigate}) => {
     }
   };
 
-  //CHANGE PASSWORD IN FIREBASE
-
-  const ChangePassword = () => {
-    const user = auth().currentUser; // or fetch the user by email
-    const newPassword = 'Test@1234';
-
-    user
-      .updatePassword(newPassword)
-      .then(() => {
-        console.log('Password updated successfully.');
-      })
-      .catch(error => {
-        console.log('Error updating password:', error);
-      });
-  };
   return {
     dynamicNav,
     logOut,

@@ -8,6 +8,13 @@ import {hp, wp} from '../Config/responsive';
 import Svg, {Path} from 'react-native-svg';
 
 globalStyles = {};
+
+// Get the screen dimensions
+export const {width, height} = Dimensions.get('window');
+
+// Usage example
+console.log(Platform.OS, 'Screen Width:', width);
+console.log('Screen Height:', height);
 const isIOS = Boolean(Platform.OS == 'ios');
 const tabarComponent = (iconName, title, last) => {
   return {
@@ -44,7 +51,7 @@ function MybottomTabs() {
           width: 'auto',
         },
         tabBarStyle: {
-          height: hp('6.5'),
+          height: height < 852 ? hp('6.5') : hp('7.5'),
           borderTopWidth: 0,
           width: wp('95'),
           alignSelf: 'center',
@@ -57,7 +64,11 @@ function MybottomTabs() {
         tabBarBackground: () => {
           return (
             <Svg
-              width={wp(isIOS ? '100' : '100')}
+              width={
+                height < 852
+                  ? wp(isIOS ? '100' : '100')
+                  : wp(isIOS ? '90' : '100')
+              }
               height={hp('10')}
               viewBox="0 0 374 74"
               fill="none"
@@ -174,12 +185,14 @@ const styles = StyleSheet.create({
   tabarView: (focused, last) => ({
     width: 'auto',
     backgroundColor: 'transparent',
-    bottom: hp('0.5'),
+    bottom: height < 852 ? hp('1.5') : hp('-0.5'),
   }),
   circleSvg: {
     position: 'absolute',
     zIndex: 1,
-    bottom: isIOS ? hp('-0.6') : hp('2'),
+    // bottom: isIOS ? hp('-0.6') : hp('2'),
+    bottom:
+      height < 852 ? (isIOS ? hp('2') : hp('2')) : isIOS ? hp('-0.6') : hp('2'),
     justifyContent: 'center',
     alignItems: 'center',
   },

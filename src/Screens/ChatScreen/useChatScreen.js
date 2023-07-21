@@ -7,7 +7,6 @@ import useReduxStore from '../../Hooks/UseReduxStore';
 import {loadingFalse, loadingTrue} from '../../Redux/Action/isloadingAction';
 const useChatScreen = ({navigate, goBack, addListener}) => {
   const [users, setUsers] = React.useState([]);
-  const [changeText, onChangeText] = React.useState('');
 
   const db = firebase.firestore();
 
@@ -64,9 +63,47 @@ const useChatScreen = ({navigate, goBack, addListener}) => {
   };
   useEffect(useEffectFun, []);
 
+  useEffect(() => {
+    const fetchUsers = async () => {
+      const data = await getUsers();
+      console.log(data, 'ljlkajlkajalkjal'); // Access the usersData array here
+      setUsers(data);
+    };
+    fetchUsers();
+  }, []);
+
+  //FILTER LOGIC SCREEN
+  const [changeText, onChangeText] = React.useState('');
+  const [searchData, setSearchData] = React.useState([]);
+
+  React.useEffect(() => {
+    const filterData = () => {
+      if (changeText.trim() === '') {
+        setSearchData(users);
+      } else {
+        const filteredData = users.filter(item => {
+          const itemName = item.name.toLowerCase();
+          const searchText = changeText.toLowerCase();
+          return itemName.includes(searchText);
+        });
+        setSearchData(filteredData);
+      }
+    };
+
+    filterData();
+  }, [changeText, users]);
+  console.log(searchData, 'ajksdkal');
   const navigateToMsg = item =>
     navigate('MessagesScreen', {id: item.userId, userDetail: item});
 
-  return {ChatData, navigateToMsg, users, userData, changeText, onChangeText};
+  return {
+    ChatData,
+    navigateToMsg,
+    users,
+    userData,
+    changeText,
+    onChangeText,
+    searchData,
+  };
 };
 export default useChatScreen;

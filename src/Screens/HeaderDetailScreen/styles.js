@@ -1,30 +1,46 @@
-import { StyleSheet } from 'react-native';
-import { hp, wp } from '../../Config/responsive';
-import { Colors } from '../../Theme/Variables';
+import {StyleSheet} from 'react-native';
+import {hp, wp} from '../../Config/responsive';
+import {Colors} from '../../Theme/Variables';
 
 export const styles = StyleSheet.create({
   SocialBoxContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-evenly'
+    justifyContent: 'space-evenly',
   },
   socialbox: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-evenly',
     borderRadius: 10,
     padding: 2,
     paddingHorizontal: wp('4'),
-    borderWidth: 0.2,
+    borderWidth: 0.5,
     borderColor: Colors.primaryColor,
-    alignItems: 'center', width: wp('28'),
+    alignItems: 'center',
+    // width: wp('28'),
     backgroundColor: 'rgba(11, 180, 255, 0.03)',
-    marginRight: wp('3')
+    marginRight: wp('3'),
+    // flexWrap: 'wrap',
   },
   imageTextStyle: {
-    fontSize: hp('1.5')
+    fontSize: hp('1.5'),
+    marginLeft: wp('2'),
   },
-  imageStyle: { tintColor: Colors.primaryColor, width: wp('5'), resizeMode: 'contain', height: hp('5') },
-  topContainer: { marginTop: hp('2'), marginLeft: wp('3'), paddingBottom: hp('5') },
-  headingStyle: { fontSize: hp('2.2'), marginBottom: hp('1'), marginLeft: wp('3') },
+  imageStyle: {
+    tintColor: Colors.primaryColor,
+    width: wp('5'),
+    resizeMode: 'contain',
+    height: hp('5'),
+  },
+  topContainer: {
+    marginTop: hp('2'),
+    marginLeft: wp('3'),
+    paddingBottom: hp('5'),
+  },
+  headingStyle: {
+    fontSize: hp('2.2'),
+    marginBottom: hp('1'),
+    marginLeft: wp('1.5'),
+  },
   firstImage: length => ({
     width: length == 1 ? wp('90') : wp('68'),
     // width: length > 0 ? wp('67') : wp('90'),
@@ -69,33 +85,40 @@ export const styles = StyleSheet.create({
     paddingHorizontal: wp('1'),
     marginTop: hp('1.4'),
     alignItems: 'center',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
   locationMain: {
     flexDirection: 'row',
     alignItems: 'center',
     marginTop: hp('1.5'),
     marginBottom: hp('3.5'),
-    paddingHorizontal: wp('1'),
-
+    // paddingHorizontal: wp('1'),
   },
   locationText: {
     color: 'gray',
-    marginLeft: wp('2'),
+    marginLeft: wp('1.5'),
     fontSize: hp('1.9'),
     width: wp('83'),
+  },
+  loctStyle: {
+    // backgroundColor: 'red',
+    // aspectRatio: 1,
+    // width: wp('8'),
+    // height: hp('5'),
+    // resizeMode: 'contain',
   },
   title: {
     flex: 0.8,
     fontWeight: 'bold',
-    fontSize: hp('2.5'),
+    fontSize: hp('3'),
   },
   forRent: {
     flex: 0.3,
     fontWeight: 'bold',
     fontSize: hp('1.8'),
     textAlign: 'left',
-    marginLeft: wp('1.5'),
+    marginLeft: wp('1'),
+    marginTop: hp('0.5'),
     color: Colors.primaryColor,
   },
   btn: {
@@ -191,13 +214,11 @@ export const styles = StyleSheet.create({
   },
   price: {
     color: Colors.primaryColor,
-    fontSize: hp('2.5'),
+    fontSize: hp('3'),
     fontWeight: '600',
   },
   priceText: {
     color: 'black',
     fontSize: hp('1.5'),
   },
-
-
 });

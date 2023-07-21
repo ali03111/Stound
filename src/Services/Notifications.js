@@ -5,11 +5,20 @@ import notifee, {
   AndroidLaunchActivityFlag,
 } from '@notifee/react-native';
 import {requestNotifications, openSettings} from 'react-native-permissions';
+import useReduxStore from '../Hooks/UseReduxStore';
+import {NotificationLength} from '../Redux/Action/AuthAction';
+import {store} from '../Redux/Reducers';
+import {types} from '../Redux/types';
+import {setNotificationLength} from '../Redux/Action/recentNotification';
 // import NavigationService from './NavigationService';
 // import useRouteName from '@/hooks/useRouteName';
 
+// const {dispatch} = useReduxStore();
 const sound = Platform.select({ios: 'interval.wav', android: 'interval.mp3'});
+
 const onNotificationNotiFee = async (data, appState) => {
+  store.dispatch(setNotificationLength(data));
+
   const channelId = await notifee.createChannel({
     id: 'default',
     name: 'Default Channel',

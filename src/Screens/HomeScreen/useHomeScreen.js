@@ -13,7 +13,8 @@ import {
 import {errorMessage, successMessage} from '../../Config/NotificationMessage';
 import useReduxStore from '../../Hooks/UseReduxStore';
 import {types} from '../../Redux/types';
-import {questionTrue} from '../../Redux/Action/isQuestionAction copy';
+import {questionTrue, setAdId} from '../../Redux/Action/isQuestionAction copy';
+import {store} from '../../Redux/Reducers';
 
 const useHomeScreen = ({navigate, params, addListener}) => {
   //   const {dispatch} = useReduxStore();
@@ -43,6 +44,10 @@ const useHomeScreen = ({navigate, params, addListener}) => {
   const {userData} = getState('Auth');
   const {isQuestion} = getState('isQuestion');
   const {isloading} = getState('isloading');
+  const {notificationLength} = getState('notification');
+  // const {notification} = store.getState('notification');
+
+  console.log('notificasad1aasdtion', notificationLength);
 
   const onSnapToItem = e => {
     const contentOffsetX = e.nativeEvent.contentOffset.x;
@@ -51,9 +56,8 @@ const useHomeScreen = ({navigate, params, addListener}) => {
   };
 
   const askQuestion = async index => {
-    console.log(homeData, 'ahahahaha');
-    console.log(index, 'aasadasdasdasda');
     if (!userData.isAnswered) {
+      dispatch(setAdId(homeData[index].adId));
       dispatch(questionTrue());
       // await API.put(notifyUserUrl + homeData[index].adId);
     } else {
@@ -106,7 +110,6 @@ const useHomeScreen = ({navigate, params, addListener}) => {
 
     const {ok, data, originalError} = await API.post(searchAdsUrl, body);
     try {
-      console.log(ok, data, 'iehyfjeyejy');
       if (ok) {
         navigate('FilterPackageScreen', {items: data});
       }
@@ -143,6 +146,7 @@ const useHomeScreen = ({navigate, params, addListener}) => {
     navigateToNotificationScreen,
     isloading,
     searchPropertyFunction,
+    notificationLength,
   };
 };
 

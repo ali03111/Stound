@@ -108,10 +108,33 @@ export const styles = StyleSheet.create({
   filterText: {
     fontSize: hp('2'),
   },
+  thumbImage: {
+    width: 50,
+    height: 80,
+    backgroundColor: Colors.primary,
+    borderBottomRightRadius: 100,
+    borderTopRightRadius: 100,
+  },
   rangeSlider: {
     // paddingBottom: wp('6'),
     paddingHorizontal: hp('0'),
     marginHorizontal: hp('0'),
+  },
+  rangeSlider: {
+    width: '100%',
+    paddingHorizontal: hp('0'),
+    marginHorizontal: hp('0'),
+    // alignSelf: 'center',
+  },
+  androidSlider: {
+    marginBottom: hp('1.5'),
+
+    // borderRadius: 8,
+  },
+  iosSlider: {
+    marginBottom: hp('1.5'),
+
+    // No additional styles needed for iOS in this example
   },
   rangeTextMain: {
     flexDirection: 'row',
@@ -140,6 +163,7 @@ export const styles = StyleSheet.create({
     marginBottom: hp('1'),
   },
   priceRange: {
+    color: 'black',
     // backgroundColor: 'transparent', // This works
   },
 });

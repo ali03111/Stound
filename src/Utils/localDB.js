@@ -14,6 +14,14 @@ import {
   DetailBed,
   DetailBathtub,
   profile,
+  up,
+  right,
+  left,
+  down,
+  InitialScreen1,
+  InitialScreen4,
+  InitialScreen3,
+  InitialScreen2,
 } from '../Assests';
 
 export const APP_STORE_SECRET = '80263efda96949308ef41ea36ff7b72c';
@@ -461,5 +469,44 @@ export const RadioButtons = [
     id: '3',
     label: 'Serious',
     value: 'Serious',
+  },
+];
+
+export const InitialData = [
+  {
+    text: 'Swipe RIGHT to like...',
+    image: InitialScreen1,
+    lottie: right,
+    swipeRight: false,
+    swipeLeft: true,
+    swipeUp: true,
+    swipeDown: true,
+  },
+  {
+    text: 'Swipe LEFT to cancel...',
+    image: InitialScreen2,
+    lottie: left,
+    swipeRight: true,
+    swipeLeft: false,
+    swipeUp: true,
+    swipeDown: true,
+  },
+  {
+    text: 'Swipe DOWN to add to favourite...',
+    image: InitialScreen3,
+    lottie: down,
+    swipeRight: true,
+    swipeLeft: true,
+    swipeUp: true,
+    swipeDown: false,
+  },
+  {
+    text: 'Swipe UP to see property details...',
+    image: InitialScreen4,
+    lottie: up,
+    swipeRight: true,
+    swipeLeft: true,
+    swipeUp: false,
+    swipeDown: true,
   },
 ];

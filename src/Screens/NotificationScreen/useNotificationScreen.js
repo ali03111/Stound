@@ -3,8 +3,12 @@ import {useEffect, useState} from 'react';
 import {notificationData} from '../../Utils/localDB';
 import {getAllNotificationUrl} from '../../Utils/Urls';
 import API from '../../Utils/helperFunc';
+import useReduxStore from '../../Hooks/UseReduxStore';
+import {setNotificationLength} from '../../Redux/Action/recentNotification';
+import {types} from '../../Redux/types';
 
 const useNotificationScreen = ({navigate, addListener}) => {
+  const {dispatch} = useReduxStore();
   const [alerState, setAlertState] = useState({
     logOut: false,
     coinAlert: false,
@@ -29,9 +33,8 @@ const useNotificationScreen = ({navigate, addListener}) => {
   // console.log(notificationDataState[0].userDetail, 'Data');
   const getAllNotificationFunc = async () => {
     const {ok, data} = await API.get(getAllNotificationUrl);
-    console.log(data, 'akjsdlkajsdlkajsdkl');
     if (ok) {
-      updateState({notificationDataState: data.data.notifications});
+      updateState({notificationDataState: data.data.notifications?.reverse()});
     }
     setTimeout(() => {
       setIsNotification(true);
@@ -43,6 +46,11 @@ const useNotificationScreen = ({navigate, addListener}) => {
     return event;
   };
   useEffect(useEffectFun, []);
+
+  //State Clear in length in Redux
+  useEffect(() => {
+    return () => dispatch({type: types.cleanNotification});
+  }, []);
 
   // Navigate to Message Screen
 

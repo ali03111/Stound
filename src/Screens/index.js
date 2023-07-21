@@ -4,6 +4,7 @@ export {default as RegisterScreen} from './RegisterScreen';
 export {default as SocialLoginScreen} from './SocialLoginScreen';
 export {default as FavourateScreen} from './FavourateScreen';
 export {default as HomeScreen} from './HomeScreen';
+export {default as LottieScreen} from './LottieScreen';
 export {default as MessageScreen} from './MessageScreen';
 export {default as ProfileScreen} from './ProfileScreen';
 export {default as GestureScreen} from './GestureScreen';

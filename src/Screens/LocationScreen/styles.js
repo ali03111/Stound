@@ -16,13 +16,22 @@ export const styles = StyleSheet.create({
     height: hp('7'),
     width: wp('90'),
     alignSelf: 'center',
-    borderWidth: 0.2,
+    borderWidth: 0.6,
     flexDirection: 'row', // Added to align icon and input
     alignItems: 'center',
     position: 'absolute',
     top: hp('10'),
     zIndex: -1,
     overflow: 'hidden',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+
+    elevation: 5,
   },
   image: {
     width: wp('6'),
@@ -48,22 +57,34 @@ export const styles = StyleSheet.create({
     zIndex: -1,
   },
   innerRecentContainer: {
-    borderColor: Colors.primaryTextColor,
+    // borderColor: Colors.primaryTextColor,
+    borderColor: '#0BB4FF',
+
     justifyContent: 'space-between',
     backgroundColor: 'white',
     borderRadius: 10,
     padding: 15,
     width: wp('90'),
     alignSelf: 'center',
-    borderWidth: 0.2,
+    borderWidth: 0.6,
 
     zIndex: 0,
     marginLeft: wp('1'),
     marginTop: hp('1'),
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+
+    elevation: 5,
   },
   recentText: {
     fontSize: hp('1.8'),
     color: 'rgba(41, 45, 50, 0.5);',
+    borderColor: 'red',
   },
   getStart: {
     justifyContent: 'center',

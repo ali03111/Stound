@@ -33,9 +33,10 @@ const useEditProfileScreen = ({navigate, goBack}) => {
     launchImageLibrary(
       {
         selectionLimit: 1,
+        quality: 1,
         mediaType: 'photo',
-        maxWidth: 300,
-        maxHeight: 300,
+        maxWidth: 500,
+        maxHeight: 500,
       },
       res => {
         if (!res?.didCancel) {

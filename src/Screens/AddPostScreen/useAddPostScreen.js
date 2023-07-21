@@ -57,9 +57,9 @@ const useAddPostScreen = ({navigate}) => {
       {
         selectionLimit: 10,
         mediaType: 'photo',
-        quality: 0.5,
-        maxWidth: 300,
-        maxHeight: 300,
+        quality: 1,
+        // maxWidth: 300,
+        // maxHeight: 300,
       },
       res => {
         if (!res?.didCancel) {
@@ -155,6 +155,20 @@ const useAddPostScreen = ({navigate}) => {
   };
   useEffect(useEffectFun, []);
 
+  //REST ALL STATE
+  const onResetState = () => {
+    updateState({
+      images: [],
+      gp: null,
+      op: null,
+      ip: null,
+      cat: null,
+      rooms: null,
+      bathRoom: null,
+      location: '',
+    });
+    reset();
+  };
   return {
     handleSubmit,
     errors,
@@ -180,6 +194,7 @@ const useAddPostScreen = ({navigate}) => {
     sendLocation,
     location,
     deleteImage,
+    onResetState,
     // goBack,
   };
 };

@@ -74,6 +74,7 @@ const AddPostScreen = ({navigation}) => {
     sendLocation,
     deleteImage,
     checkAuthentication,
+    onResetState,
   } = useAddPostScreen(navigation);
 
   const renderItem = ({item, index}) => {
@@ -132,10 +133,12 @@ const AddPostScreen = ({navigation}) => {
   return (
     <View style={{flex: 1}}>
       <Header
+        saveReset={'Reset'}
         headerTitle={'Ad details'}
-        arrowBackIcon={arrowback}
-        backText={'Back'}
-        goBack={navigation.goBack}
+        onSave={onResetState}
+        // arrowBackIcon={arrowback}
+        // backText={'Back'}
+        // goBack={navigation.goBack}
       />
 
       <ScrollView

@@ -26,6 +26,12 @@ export {default as lineleft} from './Images/lineleft.png';
 export {default as lineright} from './Images/lineright.png';
 export {default as addGalleryImage} from './Images/addgalleryimage.png';
 
+// Initail screen images
+export {default as InitialScreen1} from './Images/Initial/1.png';
+export {default as InitialScreen2} from './Images/Initial/2.png';
+export {default as InitialScreen3} from './Images/Initial/3.png';
+export {default as InitialScreen4} from './Images/Initial/4.png';
+
 //  Icons
 
 export {default as eye} from './Icons/eye.png';
@@ -45,9 +51,11 @@ export {default as phoneIcon} from './Icons/phone.png';
 export {default as bed} from './Icons/bed.png';
 export {default as bathtub} from './Icons/bathtub.png';
 export {default as scaleIcon} from './Icons/scale.png';
-export {default as location} from './Icons/location.png';
+export {default as location} from './Icons/location1.png';
+// export {default as location} from './Icons/location.png';
 export {default as search} from './Icons/search.png';
 export {default as notification} from './Icons/notification.png';
+export {default as showNotification} from './Icons/showNotification.png';
 export {default as setting} from './Icons/setting.png';
 export {default as fav} from './Icons/fav.png';
 export {default as addcircle} from './Icons/add-circle.png';
@@ -88,3 +96,8 @@ export {default as bedblue} from './Icons/bedblue.png';
 export {default as bluebath} from './Icons/bathtubblue.png';
 export {default as radioEmtpy} from './Icons/radioEmtpy.png';
 export {default as radioFill} from './Icons/radioFill.png';
+// Lottie files
+export {default as up} from './Lottie/up.json';
+export {default as down} from './Lottie/down.json';
+export {default as left} from './Lottie/left.json';
+export {default as right} from './Lottie/right.json';

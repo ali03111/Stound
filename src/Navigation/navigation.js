@@ -56,6 +56,7 @@ const StackNavigatior = () => {
       )}
       {isLogin && (
         <>
+          <Stack.Screen name="LottieScreen" component={Screens.LottieScreen} />
           <Stack.Screen name="MybottomTabs" component={MybottomTabs} />
           <Stack.Screen name="ChatScreen" component={Screens.ChatScreen} />
           <Stack.Screen

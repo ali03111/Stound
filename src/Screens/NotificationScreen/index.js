@@ -63,7 +63,6 @@ const Notification = ({navigation}) => {
         />
         <View>
           <FlatList
-            inverted
             refreshing={false}
             data={notificationDataState}
             renderItem={renderItem}

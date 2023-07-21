@@ -81,7 +81,7 @@ const HomeCard = ({
             <View style={styles.bottomNav}>
               <View style={styles.locationMain}>
                 <View style={styles.locationInner}>
-                  <Image source={location} />
+                  <Image source={location} style={styles.locationSt} />
                   <TextComponent
                     numberOfLines={1}
                     text={locationText}
@@ -162,6 +162,10 @@ const styles = StyleSheet.create({
     height: hp('6'),
     borderRadius: 60,
     aspectRatio: 1,
+  },
+  locationSt: {
+    aspectRatio: 1,
+    width: wp('5'),
   },
   userName: {
     color: 'white',
