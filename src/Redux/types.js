@@ -1,5 +1,6 @@
 export const types = {
   onBoardFinished: 'onBoardFinished',
+  lottieTutorialFinished: 'lottieTutorialFinished',
   isLoadingTrue: 'isLoadingTrue',
   isLoadingFalse: 'isLoadingFalse',
   LoginType: 'LoginType',

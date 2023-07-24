@@ -9,11 +9,10 @@ import {InitialData} from '../../Utils/localDB';
 import useLottieScreen from './useLottieScreen';
 
 const LottieScreen = ({navigation}) => {
-  const {swipeCard, swipeRight, swipeleft, swipeUp, swipeDown, goNext} =
-    useLottieScreen(navigation);
+  const {swipeCard, index, goNext, goEnd} = useLottieScreen(navigation);
 
-  const renderItem = useCallback(item => {
-    swipeCard(item.swipeRight, item.swipeLeft, item.swipeUp, item.swipeDown);
+  const renderItem = useCallback((item, index) => {
+    swipeCard(index);
     return (
       <View style={styles.lottieContainer}>
         <Image source={item.image} />
@@ -32,18 +31,17 @@ const LottieScreen = ({navigation}) => {
         cardHorizontalMargin={0}
         marginBottom={0}
         infinite={true}
-        onSwipedAll={''}
         renderCard={renderItem}
-        disableRightSwipe={swipeRight}
-        disableLeftSwipe={swipeleft}
-        disableBottomSwipe={swipeDown}
-        disableTopSwipe={swipeUp}
+        disableRightSwipe={InitialData[index].swipeRight}
+        disableLeftSwipe={InitialData[index].swipeLeft}
+        disableBottomSwipe={InitialData[index].swipeDown}
+        disableTopSwipe={InitialData[index].swipeUp}
         cardIndex={0}
         containerStyle={{
           backgroundColor: 'transparent',
         }}
         stackSize={1}
-        onSwipedTop={goNext}
+        onSwipedTop={goEnd}
       />
     </View>
   );

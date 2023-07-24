@@ -10,6 +10,7 @@ import {createStore, applyMiddleware, combineReducers} from 'redux';
 import RecentLocationReducer from './RecentLocationReducer';
 import NotificationReducer from './NotificationReducer';
 import questionReducer from './questionReducer';
+import LottieTutorialReducer from './LottieTutorialReducer';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -17,6 +18,12 @@ const onBoardPersistConfig = {
   key: 'onboarding',
   storage: AsyncStorage,
   whitelist: 'onboarding',
+};
+
+const lottieTutorialPersistConfig = {
+  key: 'lottieTutorial',
+  storage: AsyncStorage,
+  whitelist: 'lottieTutorial',
 };
 
 const AuthPersistConfig = {
@@ -39,6 +46,10 @@ const NotificationPersistConfig = {
 
 const reducers = {
   onboarding: persistReducer(onBoardPersistConfig, onboardingReducer),
+  lottieTutorial: persistReducer(
+    lottieTutorialPersistConfig,
+    LottieTutorialReducer,
+  ),
   Auth: persistReducer(AuthPersistConfig, AuthReducer),
   recentlocation: persistReducer(LocationPersistConfig, RecentLocationReducer),
   notification: persistReducer(NotificationPersistConfig, NotificationReducer),

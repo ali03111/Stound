@@ -25,6 +25,7 @@ export const screens = [
 const StackNavigatior = () => {
   const {getState} = useReduxStore();
   const {onboarding} = getState('onboarding');
+  const {lottieTutorial} = getState('lottieTutorial');
   const {isLogin} = getState('Auth');
   // console.log('AIUth token', token);
   return (
@@ -36,6 +37,9 @@ const StackNavigatior = () => {
       }}>
       {!onboarding && (
         <Stack.Screen name="OnboardScreen" component={Screens.OnboardScreen} />
+      )}
+      {!lottieTutorial && (
+        <Stack.Screen name="LottieScreen" component={Screens.LottieScreen} />
       )}
       {!isLogin && (
         <>
@@ -56,7 +60,7 @@ const StackNavigatior = () => {
       )}
       {isLogin && (
         <>
-          <Stack.Screen name="LottieScreen" component={Screens.LottieScreen} />
+          {/* <Stack.Screen name="LottieScreen" component={Screens.LottieScreen} /> */}
           <Stack.Screen name="MybottomTabs" component={MybottomTabs} />
           <Stack.Screen name="ChatScreen" component={Screens.ChatScreen} />
           <Stack.Screen

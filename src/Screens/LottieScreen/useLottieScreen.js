@@ -1,30 +1,30 @@
 import {useEffect, useState} from 'react';
+import useReduxStore from '../../Hooks/UseReduxStore';
+import {types} from '../../Redux/types';
 
 const useLottieScreen = ({navigate}) => {
   const [currentIndex, setCurrentIndex] = useState(1);
-  const [swipeRight, setSwipeRight] = useState(true);
-  const [swipeleft, setSwipeLeft] = useState(true);
-  const [swipeUp, setSwipeUp] = useState(true);
-  const [swipeDown, setSwipeDown] = useState(true);
+  const {dispatch} = useReduxStore();
+  const [index, setIndex] = useState(0);
 
-  const swipeCard = (swipeRight, swipeLeft, swipeUp, swipeDown) => {
-    setSwipeRight(swipeRight);
-    setSwipeLeft(swipeLeft);
-    setSwipeUp(swipeUp);
-    setSwipeDown(swipeDown);
+  const swipeCard = i => {
+    setIndex(i);
   };
 
   const goNext = () => {
     setCurrentIndex(pre => pre + 1);
   };
 
+  const goEnd = () => {
+    console.log('zSdas');
+    dispatch({type: types.lottieTutorialFinished});
+  };
+
   return {
     swipeCard,
-    swipeRight,
-    swipeleft,
-    swipeUp,
-    swipeDown,
     goNext,
+    index,
+    goEnd,
   };
 };
 
