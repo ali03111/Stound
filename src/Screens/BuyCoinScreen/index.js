@@ -54,22 +54,39 @@ const index = ({navigation, route}) => {
         </View>
         <View style={styles.midContainer}>
           <BuyCoin
-            onPress={() => navigation.navigate('Home')}
+            onPress={() =>
+              navigation.navigate('Subscriptions', {
+                ...items,
+                productId: 'productId_10',
+              })
+            }
             coinTitle={'10 Coins'}
             coinDes={'Validy till 25 - 5 - 2023'}
             coinPrice={'28.38'}
           />
           {/* <BuyCoin onPress={() => HeaderDetailScreen(items)} coinTitle={'10 Coins'} coinDes={'Validy till 25 - 5 - 2023'} coinPrice={'28.38'} /> */}
           <BuyCoin
-            onPress={() => HeaderDetailScreen(items)}
+            // onPress={() => HeaderDetailScreen(items)}
+            onPress={() =>
+              navigation.navigate('Subscriptions', {
+                ...items,
+                productId: 'productId_50',
+              })
+            }
             coinTitle={'10 Coins'}
-            coinDes={'Validy till 25 - 5 - 2023'}
+            // coinDes={'Validy till 25 - 5 - 2023'}
             coinPrice={'28.38'}
           />
           <BuyCoin
-            onPress={() => HeaderDetailScreen(items)}
+            onPress={() =>
+              navigation.navigate('Subscriptions', {
+                ...items,
+                productId: 'productId_300',
+              })
+            }
+            // onPress={() => HeaderDetailScreen(items)}
             coinTitle={'10 Coins'}
-            coinDes={'Validy till 25 - 5 - 2023'}
+            // coinDes={'Validy till 25 - 5 - 2023'}
             coinPrice={'28.38'}
           />
         </View>

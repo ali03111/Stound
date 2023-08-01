@@ -34,11 +34,16 @@ const ChatScreen = ({navigation}) => {
     searchData,
   } = useChatScreen(navigation);
   const renderItem = useCallback(({item, index}) => {
-    console.log(item, 'hshjashhs');
-    const createdAtt = item.chatUsers.find(
+    console.log(
+      item.chatUsers.find(res => res.otherUserId == userData?.agoraId)?.isRead,
+      Platform.OS,
+      'hshjaasdasdasshhs',
+    );
+    console.log(item, 'hshjaasdasdasasdasdshhs');
+    const createdAtt = item?.chatUsers.find(
       res => res.otherUserId == userData?.agoraId,
-    ).createdAt;
-    const createdAt = new Date(createdAtt.seconds * 1000);
+    )?.createdAt;
+    const createdAt = new Date(createdAtt?.seconds * 1000);
     return (
       <View style={styles.notification}>
         <ChatComponent
@@ -46,11 +51,15 @@ const ChatScreen = ({navigation}) => {
           name={item?.name}
           description={
             item.chatUsers.find(res => res.otherUserId == userData?.agoraId)
-              .lastMsg
+              ?.lastMsg
           }
           time={createdAt}
           messages={item?.messages}
           onPress={() => navigateToMsg(item)}
+          isRead={
+            item.chatUsers.find(res => res?.otherUserId == userData?.agoraId)
+              ?.isRead
+          }
         />
       </View>
     );

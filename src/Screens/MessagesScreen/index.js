@@ -17,6 +17,8 @@ import {hp, wp} from '../../Config/responsive';
 import {TextComponent} from '../../Components/TextComponent';
 import Feather from 'react-native-vector-icons/Feather';
 import {height} from '../../Navigation/bottomNavigation';
+import useReduxStore from '../../Hooks/UseReduxStore';
+import {messagesNotification} from '../../Redux/Action/messagesAction';
 const MessagesScreen = ({route, navigation}) => {
   const {userData} = useMessagesScreen();
   const {
@@ -25,6 +27,8 @@ const MessagesScreen = ({route, navigation}) => {
   } = route?.params;
   const [messages, setMessages] = useState([]);
   console.log('slkdajfklj,', messages);
+
+  // console.log('asdasdaasdassd,', messagesData);
 
   const renderBubble = props => {
     return (
@@ -131,23 +135,26 @@ const MessagesScreen = ({route, navigation}) => {
       .collection('messages')
       .orderBy('createdAt', 'desc')
       .onSnapshot(querySnapshot => {
-        // const allMsg = querySnapshot.docs.map(item => {
-        //   return {...item._data,
-        //     // createdAt: Date.parse(item._data.createdAt)
-        //     createdAt: item.createdAt.toDate(),
-        //   };
-        // });
-        // setMessages(allMsg);
-        // console.log(allMsg, 'elklashldjflkasj');
         const allMsg = querySnapshot.docs.map(item => {
-          const data = item.data();
           return {
-            ...data,
-            createdAt: data.createdAt.toDate(), // Convert Firestore timestamp to Date object
+            ...item._data,
+            createdAt: item.data()?.createdAt.toDate(), //this line change only
+            // createdAt: Date.parse(item?._data?.createdAt),
+            // createdAt: item.createdAt.toDate(),
           };
         });
-
         setMessages(allMsg);
+
+        ///COMMIT CHANGE
+        // const allMsg = querySnapshot.docs.map(item => {
+        //   const data = item.data();
+        //   return {
+        //     ...data,
+        //     createdAt: data.createdAt.toDate(), // Convert Firestore timestamp to Date object
+        //   };
+        // });
+
+        // setMessages(allMsg);
       });
     return () => subscriber();
   }, []);
@@ -197,17 +204,19 @@ const MessagesScreen = ({route, navigation}) => {
             chatUsers[existingIndex] = {
               ...chatUsers[existingIndex],
               lastMsg: msg.text,
-              createdAt: new Date(msg.createdAt),
+              createdAt: new Date(msg?.createdAt),
             };
           } else {
             // Add a new object to the chatUsers array
             chatUsers.push({
               lastMsg: msg.text,
               otherUserId: id,
-              createdAt: new Date(msg.createdAt),
+              createdAt: new Date(msg?.createdAt),
             });
           }
 
+          //Save DATA IN REDUX WITH ACTION
+          // dispatch(messagesNotification(chatUsers));
           // Update the Firestore document with the modified chatUsers array
           firebase.firestore().collection('users').doc(userData?.agoraId).set(
             {
@@ -240,13 +249,15 @@ const MessagesScreen = ({route, navigation}) => {
               ...chatUsers[existingIndex],
               lastMsg: msg.text,
               createdAt: new Date(msg.createdAt),
+              isRead: false,
             };
           } else {
             // Add a new object to the chatUsers array
             chatUsers.push({
               lastMsg: msg.text,
               otherUserId: userData?.agoraId,
-              createdAt: new Date(msg.createdAt),
+              createdAt: new Date(msg?.createdAt),
+              isRead: false,
             });
           }
 

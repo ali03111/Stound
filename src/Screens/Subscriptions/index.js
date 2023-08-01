@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   SafeAreaView,
   ActivityIndicator,
+  Image,
 } from 'react-native';
 
 import {
@@ -16,7 +17,11 @@ import {
   useIAP,
   validateReceiptIos,
 } from 'react-native-iap';
-import {APP_STORE_SECRET} from '../../Utils/localDB';
+import BuyCoinHeader from '../../Components/BuyCoinHeader';
+import {arrowbackwhite} from '../../Assests';
+import {Colors} from '../../Theme/Variables';
+import {hp, wp} from '../../Config/responsive';
+import {TextComponent} from '../../Components/TextComponent';
 // import {ITUNES_SHARED_SECRET} from '@env';
 
 const errorLog = ({message, error}) => {
@@ -25,15 +30,40 @@ const errorLog = ({message, error}) => {
 
 const isIos = Platform.OS === 'ios';
 
-//product id from appstoreconnect app->subscriptions
-const subscriptionSkus = Platform.select({
-  ios: ['10UsdtoCoin'],
-});
 // console.log(subscriptionSkus, 'sdklfjklsdj');
-const Subscriptions = ({navigation}) => {
+const Subscriptions = ({navigation, route}) => {
+  const BuyCoin = ({coinTitle, coinDes, coinPrice, onPress}) => {
+    return (
+      <TouchableOpacity onPress={onPress} style={styles.mainContainer}>
+        <View style={{flexDirection: 'row'}}>
+          <Image
+            style={styles.CoinImage}
+            source={require('../../Assests/Icons/usdCoin.png')}
+          />
+          <View style={styles.midTextContainer}>
+            <TextComponent text={coinTitle} styles={styles.coinText} />
+            <TextComponent text={coinDes} styles={styles.coinDesText} />
+          </View>
+        </View>
+        <View style={styles.lastTextContainer}>
+          <TextComponent text={'$'} styles={styles.last1Text} />
+          <TextComponent text={coinPrice} styles={styles.last2Text} />
+        </View>
+      </TouchableOpacity>
+    );
+  };
+  const items = route.params;
+  console.log('klajsdfkljalasdskfjklsdaj', items);
   //useIAP - easy way to access react-native-iap methods to
   //get your products, purchases, subscriptions, callback
   //and error handlers.
+
+  //product id from appstoreconnect app->subscriptions
+  const subscriptionSkus = Platform.select({
+    // ios: [items?.productId],
+    ios: ['productId_10'],
+  });
+
   const {
     connected,
     subscriptions, //returns subscriptions for this app.
@@ -100,8 +130,11 @@ const Subscriptions = ({navigation}) => {
   useEffect(() => {
     const checkCurrentPurchase = async purchase => {
       if (purchase) {
+        console.log({purchase});
+
         try {
           const receipt = purchase.transactionReceipt;
+          console.log({receipt});
           if (receipt) {
             if (Platform.OS === 'ios') {
               const isTestEnvironment = __DEV__;
@@ -110,16 +143,19 @@ const Subscriptions = ({navigation}) => {
               const appleReceiptResponse = await validateReceiptIos(
                 {
                   'receipt-data': receipt,
-                  password: '80263efda96949308ef41ea36ff7b72c',
+                  // password: 'b3d4281737d54f98a8b4d663569a1441', //user
+                  password: 'b3d4281737d54f98a8b4d663569a1441',
                 },
                 isTestEnvironment,
               );
 
               //if receipt is valid
               if (appleReceiptResponse) {
+                console.log({appleReceiptResponse});
                 const {status} = appleReceiptResponse;
                 if (status) {
-                  navigation.navigate('Home');
+                  // navigation.navigate('Home'); //Remove this commit if are u testing
+                  navigation.navigate('HeaderDetailScreen', items);
                 }
               }
 
@@ -137,32 +173,17 @@ const Subscriptions = ({navigation}) => {
   return (
     <SafeAreaView>
       <ScrollView>
-        <View style={{padding: 10}}>
-          <Text
-            style={{
-              fontSize: 28,
-              textAlign: 'center',
-              paddingBottom: 15,
-              color: 'black',
-              fontWeight: 'bold',
-            }}>
-            Subscribe
-          </Text>
-          <Text style={styles.listItem}>
-            Subscribe to some cool stuff today.
-          </Text>
-          <Text
-            style={
-              (styles.listItem,
-              {
-                fontWeight: '500',
-                textAlign: 'center',
-                marginTop: 10,
-                fontSize: 18,
-              })
-            }>
-            Choose your membership plan.
-          </Text>
+        <View style={{flex: 1}}>
+          <BuyCoinHeader
+            onPress={() => navigation.goBack()}
+            dayStyle={styles.dayStyle}
+            style={styles.topHeader}
+            headerTitle={'Buy Coins'}
+            arrowBackIcon={arrowbackwhite}
+            centerTextStyle={styles.centerHeading}
+            backText={'Back'}
+            centerImage={require('../../Assests/Images/stoundLogo.png')}
+          />
           <View style={{marginTop: 10}}>
             {subscriptions.map((subscription, index) => {
               const owned = purchaseHistory.find(
@@ -238,6 +259,15 @@ const Subscriptions = ({navigation}) => {
                 </View>
               );
             })}
+            <View style={{justifyContent: 'center', alignItems: 'center'}}>
+              <BuyCoin
+                // onPress={() => HeaderDetailScreen(items)}
+
+                coinTitle={'10 Coins'}
+                // coinDes={'Validy till 25 - 5 - 2023'}
+                coinPrice={'28.38'}
+              />
+            </View>
           </View>
         </View>
       </ScrollView>
@@ -288,6 +318,61 @@ const styles = StyleSheet.create({
     fontSize: 12,
     borderRadius: 7,
     marginBottom: 2,
+  },
+  dayStyle: {
+    paddingTop: hp('6'),
+    color: Colors.primaryTextColor,
+    fontSize: hp('2.5'),
+  },
+  dayBarStyle: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: hp('5'),
+  },
+  mainContainer: {
+    flexDirection: 'row',
+    borderRadius: 10,
+    padding: 8,
+    borderWidth: 0.5,
+    borderColor: Colors.primaryColor,
+    width: wp('90'),
+    marginTop: hp('3'),
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    // backgroundColor: 'red',
+  },
+  coinText: {
+    fontSize: hp('2'),
+    color: Colors.primaryTextColor,
+    fontWeight: '500',
+  },
+  coinDesText: {
+    fontSize: hp('1.6'),
+    color: Colors.gray,
+  },
+  lastTextContainer: {
+    width: wp('23'),
+    backgroundColor: Colors.primaryColor,
+    borderRadius: 10,
+    padding: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginVertical: hp('0.5'),
+  },
+  last1Text: {
+    fontSize: hp('3'),
+    color: Colors.white,
+    fontWeight: '500',
+  },
+  last2Text: {
+    fontSize: hp('2'),
+    color: Colors.white,
+    fontWeight: '500',
+  },
+  midTextContainer: {
+    marginLeft: wp('2'),
+    justifyContent: 'center',
   },
 });
 

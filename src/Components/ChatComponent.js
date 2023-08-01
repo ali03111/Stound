@@ -14,7 +14,15 @@ import {CircleImageComp} from './CircleImageComp';
 import {Touchable} from './Touchable';
 import BlurImage from './BlurImage';
 import moment from 'moment';
-const ChatComponent = ({image, name, description, time, messages, onPress}) => {
+const ChatComponent = ({
+  image,
+  name,
+  description,
+  time,
+  messages,
+  onPress,
+  isRead,
+}) => {
   const givenTime = time;
   const currentTime = moment();
   const diff = moment.duration(currentTime.diff(moment(givenTime)));
@@ -22,6 +30,7 @@ const ChatComponent = ({image, name, description, time, messages, onPress}) => {
   const minutes = diff.minutes();
   const hours = diff.hours();
   const days = diff.days();
+  console.log(Platform.OS, 'firs1312312t', isRead);
   return (
     <Touchable style={styles.notificationMian} onPress={onPress}>
       <View style={styles.mainBannerImg}>
@@ -47,8 +56,10 @@ const ChatComponent = ({image, name, description, time, messages, onPress}) => {
           }
           styles={styles.timing}
         />
+
         <View style={styles.messageView(messages)}>
           <TextComponent text={messages} styles={styles.messages} />
+          {isRead == true && <View style={styles.dotMessage}></View>}
         </View>
       </View>
       {/* <TextComponent text={item?.description} styles={styles.centerDes} /> */}
@@ -93,7 +104,15 @@ const styles = StyleSheet.create({
   description: {
     fontSize: Platform.OS == 'ios' ? hp('1.5') : hp('1.8'),
   },
-
+  dotMessage: {
+    backgroundColor: Colors.primaryColor,
+    borderRadius: Math.round(
+      Dimensions.get('window').width + Dimensions.get('window').height,
+    ),
+    alignSelf: 'flex-end',
+    width: Dimensions.get('screen').width * 0.03,
+    height: Dimensions.get('screen').width * 0.03,
+  },
   timing: {
     fontSize: hp('1.5'),
     textAlign: 'right',

@@ -15,6 +15,13 @@ export const screens = [
     section: 'Context',
     color: '#cebf38',
   },
+  // {
+  //   name: 'BuyCoinScreen',
+  //   // title: 'BuyCoinScreen',
+  //   component: withIAPContext(Screens.BuyCoinScreen),
+  //   section: 'Context',
+  //   color: '#cebf38',
+  // },
   {
     name: 'Home',
     component: Screens.Home,
@@ -103,7 +110,7 @@ const StackNavigatior = () => {
           />
           <Stack.Screen
             name="BuyCoinScreen"
-            component={Screens.BuyCoinScreen}
+            component={withIAPContext(Screens.BuyCoinScreen)}
           />
           <Stack.Screen
             name="HeaderDetailScreen"

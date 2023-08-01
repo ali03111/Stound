@@ -21,4 +21,6 @@ export const types = {
   setAdIdType: 'setAdIdType',
   setNotificationLength: 'setNotificationLength',
   cleanNotification: 'cleanNotification',
+  messagesNotification: 'messagesNotification',
+  cleanMessagesNotification: 'cleanMessagesNotification',
 };

@@ -3,17 +3,19 @@ const getCredentials = () => {
     return {
       baseURL: 'https://virtualrealitycreators.com/stound/api/',
       imageURL: 'https://virtualrealitycreators.com/stound/',
+      inAppUrl: 'https://sandbox.itunes.apple.com/verifyReceipt',
     };
   else {
     console.log = () => {};
     return {
       baseURL: 'https://virtualrealitycreators.com/stound/api/',
       imageURL: 'https://virtualrealitycreators.com/stound/',
+      inAppUrl: 'https://buy.itunes.apple.com/verifyReceipt',
     };
   }
 };
 
-export const {baseURL, imageURL} = getCredentials();
+export const {baseURL, imageURL, inAppUrl} = getCredentials();
 
 export const apendUrl = url => {
   return baseURL + url;

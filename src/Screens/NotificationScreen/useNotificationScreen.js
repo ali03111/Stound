@@ -23,7 +23,7 @@ const useNotificationScreen = ({navigate, addListener}) => {
 
   const onConfirm = () => {
     updateState({coinAlert: false});
-    navigate('BuyCoinScreen', {items: notificationDataState[currentIndex]});
+    navigate('Subscriptions', {items: notificationDataState[currentIndex]});
   };
 
   const onCancel = (state, stateName, index) => {

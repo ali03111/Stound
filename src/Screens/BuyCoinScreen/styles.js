@@ -17,19 +17,28 @@ export const styles = StyleSheet.create({
     color: Colors.primaryTextColor,
     fontSize: hp('2.5'),
   },
-  midContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   dayBarStyle: {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: hp('5'),
   },
+  midContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   CoinImage: {
     aspectRatio: 1,
     width: wp('14'),
+  },
+
+  midContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  midTextContainer: {
+    marginLeft: wp('2'),
+    justifyContent: 'center',
   },
   mainContainer: {
     flexDirection: 'row',
@@ -42,14 +51,6 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     // backgroundColor: 'red',
-  },
-  midContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  midTextContainer: {
-    marginLeft: wp('2'),
-    justifyContent: 'center',
   },
   coinText: {
     fontSize: hp('2'),

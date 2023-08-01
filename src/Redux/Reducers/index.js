@@ -10,6 +10,7 @@ import {createStore, applyMiddleware, combineReducers} from 'redux';
 import RecentLocationReducer from './RecentLocationReducer';
 import NotificationReducer from './NotificationReducer';
 import questionReducer from './questionReducer';
+import messagesReducer from './messagesReducer';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -36,12 +37,18 @@ const NotificationPersistConfig = {
   storage: AsyncStorage,
   whitelist: ['isNotification', 'notificationLength'],
 };
+const MessagePersistConfig = {
+  key: 'messageData',
+  storage: AsyncStorage,
+  whitelist: ['messageData'],
+};
 
 const reducers = {
   onboarding: persistReducer(onBoardPersistConfig, onboardingReducer),
   Auth: persistReducer(AuthPersistConfig, AuthReducer),
   recentlocation: persistReducer(LocationPersistConfig, RecentLocationReducer),
   notification: persistReducer(NotificationPersistConfig, NotificationReducer),
+  messageData: persistReducer(MessagePersistConfig, messagesReducer),
   isloading: loadingReducer,
   isQuestion: questionReducer,
   // sagas: applyMiddleware(sagaMiddleware),
