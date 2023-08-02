@@ -8,7 +8,9 @@ import {setNotificationLength} from '../../Redux/Action/recentNotification';
 import {types} from '../../Redux/types';
 
 const useNotificationScreen = ({navigate, addListener}) => {
-  const {dispatch} = useReduxStore();
+  const {dispatch, getState} = useReduxStore();
+  const {userData} = getState('Auth');
+  console.log({Usersatad: userData?.isSubscribed});
   const [alerState, setAlertState] = useState({
     logOut: false,
     coinAlert: false,
@@ -23,11 +25,15 @@ const useNotificationScreen = ({navigate, addListener}) => {
 
   const onConfirm = () => {
     updateState({coinAlert: false});
-    navigate('Subscriptions', {items: notificationDataState[currentIndex]});
+    // navigate('Subscriptions', {items: notificationDataState[currentIndex]});
+    userData?.isSubscribed &&
+      navigate('HeaderDetailScreen', notificationDataState[currentIndex]);
   };
 
   const onCancel = (state, stateName, index) => {
-    updateState({[stateName]: !state, currentIndex: index});
+    userData?.isSubscribed
+      ? updateState({[stateName]: !state, currentIndex: index})
+      : navigate('BuyCoinScreen', {items: notificationDataState[currentIndex]});
   };
 
   // console.log(notificationDataState[0].userDetail, 'Data');
@@ -51,13 +57,6 @@ const useNotificationScreen = ({navigate, addListener}) => {
   useEffect(() => {
     return () => dispatch({type: types.cleanNotification});
   }, []);
-
-  // Navigate to Message Screen
-
-  // const navigationChatScreen = () => {
-  //   navigate('MessagesScreen', {id: agoraId, userDetail});
-  //   // navigate('MessagesScreen', {id: users[0]?.userId, userDetail: users[0]});
-  // };
 
   return {
     notificationData,

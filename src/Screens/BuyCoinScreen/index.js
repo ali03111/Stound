@@ -8,9 +8,22 @@ import {TextComponent} from '../../Components/TextComponent';
 import {wp} from '../../Config/responsive';
 import useBuyCoinScreen from './useBuyCoinScreen';
 const index = ({navigation, route}) => {
-  const {items} = route.params;
+  // const {items} = route.params;
 
-  const {HeaderDetailScreen} = useBuyCoinScreen(navigation);
+  const {
+    HeaderDetailScreen,
+    connected,
+    subscriptions, //returns subscriptions for this app.
+    getSubscriptions, //Gets available subsctiptions for this app.
+    currentPurchase, //current purchase for the tranasction
+    finishTransaction,
+    purchaseHistory, //return the purchase history of the user on the device (sandbox user in dev)
+    getPurchaseHistory,
+    loading,
+    isIos,
+    setLoading,
+    handleBuySubscription,
+  } = useBuyCoinScreen(navigation, route);
 
   const BuyCoin = ({coinTitle, coinDes, coinPrice, onPress}) => {
     return (
@@ -52,20 +65,35 @@ const index = ({navigation, route}) => {
             styles={{...styles.day}}
           />
         </View>
-        <View style={styles.midContainer}>
-          <BuyCoin
-            onPress={() =>
-              navigation.navigate('Subscriptions', {
-                ...items,
-                productId: 'productId_10',
-              })
-            }
-            coinTitle={'10 Coins'}
-            coinDes={'Validy till 25 - 5 - 2023'}
-            coinPrice={'28.38'}
-          />
-          {/* <BuyCoin onPress={() => HeaderDetailScreen(items)} coinTitle={'10 Coins'} coinDes={'Validy till 25 - 5 - 2023'} coinPrice={'28.38'} /> */}
-          <BuyCoin
+        {subscriptions.map((subscription, index) => {
+          const owned = purchaseHistory.find(
+            s => s?.productId === subscription.productId,
+          );
+          return (
+            <View style={styles.midContainer}>
+              {!loading && !owned && isIos && (
+                <BuyCoin
+                  // onPress={() =>
+                  //   navigation.navigate('Subscriptions', {
+                  //     ...items,
+                  //     productId: 'productId_10',
+                  //   })
+                  // }
+                  onPress={() => {
+                    setLoading(true);
+                    handleBuySubscription(subscription.productId);
+                  }}
+                  coinTitle={subscription?.title}
+                  // coinDes={'Validy till 25 - 5 - 2023'}
+                  coinPrice={subscription?.localizedPrice}
+                />
+              )}
+            </View>
+          );
+        })}
+
+        {/* <BuyCoin onPress={() => HeaderDetailScreen(items)} coinTitle={'10 Coins'} coinDes={'Validy till 25 - 5 - 2023'} coinPrice={'28.38'} /> */}
+        {/* <BuyCoin
             // onPress={() => HeaderDetailScreen(items)}
             onPress={() =>
               navigation.navigate('Subscriptions', {
@@ -88,8 +116,7 @@ const index = ({navigation, route}) => {
             coinTitle={'10 Coins'}
             // coinDes={'Validy till 25 - 5 - 2023'}
             coinPrice={'28.38'}
-          />
-        </View>
+          /> */}
       </View>
     </>
   );

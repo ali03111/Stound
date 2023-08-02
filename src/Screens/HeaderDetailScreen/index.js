@@ -47,6 +47,7 @@ const index = ({navigation, route}) => {
   } = useHeaderDetailScreen(navigation);
   const imageLenght = detailsImages.length;
   const Item = route.params;
+  console.log({routeparam: route.params});
   const renderItem = useCallback(({item, index}) => {
     return (
       index > 0 &&
@@ -92,7 +93,7 @@ const index = ({navigation, route}) => {
         centerTextStyle={styles.centerHeading}
         backText={'Back'}
         onPressEMail={() => onPressEMail(Item?.userDetail?.email)}
-        onPressCall={() => onPressCall('03302876406')}
+        onPressCall={() => onPressCall(Item?.userDetail?.number)}
         // centerImage={require('../../Assests/Images/profile5.png')}
         onPressMessage={() => navigationChatScreen(Item)}
         centerImage={Item?.userDetail?.profilePicture}

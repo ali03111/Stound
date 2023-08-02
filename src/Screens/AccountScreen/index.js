@@ -51,7 +51,7 @@ const AccountScreen = ({navigation}) => {
             onPress={() => dynamicNav('EditProfileScreen')}
             userData={userData}
           />
-          <CoinsComponent RemainingCoins={'25'} />
+          <CoinsComponent RemainingCoins={userData?.coins} />
           <ProfileButton
             onPress={() => dynamicNav('EditProfileScreen')}
             title={'My Profile'}

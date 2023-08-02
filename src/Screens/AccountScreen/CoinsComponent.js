@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text, Image} from 'react-native';
+import {View, Text, Image, Pressable} from 'react-native';
 import useAccountScreen from './useAccountScreen';
 import {styles} from './styles';
 import {AccountProfile, coin} from '../../Assests';
@@ -15,10 +15,10 @@ const CoinsComponent = ({RemainingCoins}) => {
         <TextComponent text={'Coins'} styles={styles.coinInnerText} />
       </View>
       <View style={styles.coinsBtn}>
-        <Touchable Opacity={0.7} style={styles.cBtn}>
+        <Pressable Opacity={0.7} style={styles.cBtn}>
           <TextComponent text={RemainingCoins} styles={styles.coinNumber} />
           <TextComponent text={' Remains'} styles={styles.BtnText} />
-        </Touchable>
+        </Pressable>
       </View>
     </View>
   );

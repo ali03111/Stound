@@ -3,19 +3,19 @@ const getCredentials = () => {
     return {
       baseURL: 'https://virtualrealitycreators.com/stound/api/',
       imageURL: 'https://virtualrealitycreators.com/stound/',
-      inAppUrl: 'https://sandbox.itunes.apple.com/verifyReceipt',
+      // inAppUrl: 'https://sandbox.itunes.apple.com/verifyReceipt',
     };
   else {
     console.log = () => {};
     return {
       baseURL: 'https://virtualrealitycreators.com/stound/api/',
       imageURL: 'https://virtualrealitycreators.com/stound/',
-      inAppUrl: 'https://buy.itunes.apple.com/verifyReceipt',
+      // inAppUrl: 'https://buy.itunes.apple.com/verifyReceipt',
     };
   }
 };
 
-export const {baseURL, imageURL, inAppUrl} = getCredentials();
+export const {baseURL, imageURL} = getCredentials();
 
 export const apendUrl = url => {
   return baseURL + url;
@@ -45,3 +45,5 @@ export const updateAdImage = 'update-ad-photos';
 export const FilterAdsUrl = 'filter-ads';
 export const searchAdsUrl = 'search-ads';
 export const deleteAccUrl = 'auth/delete-user/';
+export const iosAppUrl = 'inApp-ios';
+export const useCoinUrl = 'use-coin';

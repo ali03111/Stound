@@ -8,13 +8,26 @@ import {
   validateReceiptIos,
 } from 'react-native-iap';
 import {useEffect, useState} from 'react';
-const useBuyCoinScreen = ({navigate, goBack}) => {
+import useReduxStore from '../../Hooks/UseReduxStore';
+import {loadingFalse, loadingTrue} from '../../Redux/Action/isloadingAction';
+import API from '../../Utils/helperFunc';
+import {iosAppUrl} from '../../Utils/Urls';
+import {errorMessage} from '../../Config/NotificationMessage';
+const useBuyCoinScreen = ({navigate, goBack}, {params}) => {
+  console.log({params});
+  const {dispatch} = useReduxStore();
+  const {items} = params;
+  const errorLog = ({message, error}) => {
+    console.error('An error happened', message, error);
+  };
+
+  const isIos = Platform.OS === 'ios';
   const HeaderDetailScreen = item => navigate('HeaderDetailScreen', item);
 
   //product id from appstoreconnect app->subscriptions
   const subscriptionSkus = Platform.select({
     // ios: [items?.productId],
-    ios: ['productId_10'],
+    ios: ['productId_10', 'productId_50', 'productId_300'],
   });
 
   const {
@@ -64,16 +77,23 @@ const useBuyCoinScreen = ({navigate, goBack}) => {
   //   }, [connected, purchaseHistory, subscriptions]);
 
   const handleBuySubscription = async productId => {
+    dispatch(loadingTrue());
+
     try {
       await requestSubscription({
         sku: productId,
       });
       setLoading(false);
+      dispatch(loadingFalse());
     } catch (error) {
       setLoading(false);
       if (error instanceof PurchaseError) {
+        dispatch(loadingFalse());
+
         errorLog({message: `[${error.code}]: ${error.message}`, error});
       } else {
+        dispatch(loadingFalse());
+
         errorLog({message: 'handleBuySubscription', error});
       }
     }
@@ -103,11 +123,19 @@ const useBuyCoinScreen = ({navigate, goBack}) => {
 
               //if receipt is valid
               if (appleReceiptResponse) {
-                console.log({appleReceiptResponse});
-                const {status} = appleReceiptResponse;
-                if (status) {
-                  // navigation.navigate('Home'); //Remove this commit if are u testing
-                  navigation.navigate('HeaderDetailScreen', items);
+                //Post The Data of backend
+                const {ok, data} = await API.post(iosAppUrl, {
+                  token: receipt,
+                });
+
+                if (ok) {
+                  const {status} = appleReceiptResponse;
+                  if (status) {
+                    // navigation.navigate('Home'); //Remove this commit if are u testing
+                    navigate('HeaderDetailScreen', items);
+                  }
+                } else {
+                  errorMessage(e.message);
                 }
               }
 
@@ -122,6 +150,20 @@ const useBuyCoinScreen = ({navigate, goBack}) => {
     checkCurrentPurchase(currentPurchase);
   }, [currentPurchase, finishTransaction]);
 
-  return {ChatData, HeaderDetailScreen};
+  return {
+    ChatData,
+    HeaderDetailScreen,
+    handleBuySubscription,
+    connected,
+    subscriptions, //returns subscriptions for this app.
+    getSubscriptions, //Gets available subsctiptions for this app.
+    currentPurchase, //current purchase for the tranasction
+    finishTransaction,
+    purchaseHistory, //return the purchase history of the user on the device (sandbox user in dev)
+    getPurchaseHistory,
+    loading,
+    isIos,
+    setLoading,
+  };
 };
 export default useBuyCoinScreen;
