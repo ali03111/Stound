@@ -168,6 +168,9 @@ const Subscriptions = ({navigation, route}) => {
       }
     };
     checkCurrentPurchase(currentPurchase);
+    return () => {
+      subscriptions.remove();
+    };
   }, [currentPurchase, finishTransaction]);
 
   return (

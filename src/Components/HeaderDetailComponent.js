@@ -8,6 +8,7 @@ import {
   ImageBackground,
   TouchableOpacity,
   ScrollView,
+  Dimensions,
 } from 'react-native';
 import {TextComponent} from './TextComponent';
 import {Touchable} from './Touchable';
@@ -16,7 +17,9 @@ import {hp, wp} from '../Config/responsive';
 import {Colors} from '../Theme/Variables';
 import {goBack} from '../Utils';
 import BlurImage from './BlurImage';
-
+import {imageUrl} from '../Utils/Urls';
+export const {width, height} = Dimensions.get('window');
+console.log('sdfjlasfjkkldsj', height);
 const BuyCoinHeader = ({
   headerTitle,
   style,
@@ -47,6 +50,7 @@ const BuyCoinHeader = ({
             height: hp('5'),
           }}
         />
+
         <TextComponent text={imageText} styles={styles.imageTextStyle} />
       </TouchableOpacity>
     );
@@ -106,13 +110,13 @@ const BuyCoinHeader = ({
                     style={styles.centerImageStyle}
                     source={centerImage}
                 /> */}
-        <BlurImage
-          styles={styles.profileImg1}
-          radius={10}
-          uri={
-            'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
-          }
-        />
+        <View style={{alignItems: 'center', justifyContent: 'center'}}>
+          <BlurImage
+            styles={styles.ProfileImage}
+            radius={10}
+            uri={imageUrl(centerImage)}
+          />
+        </View>
       </View>
       <View style={styles.nameContainer}>
         <TextComponent text={profileName} styles={styles.HeaderTitle} />
@@ -146,6 +150,12 @@ const BuyCoinHeader = ({
 const styles = StyleSheet.create({
   imageTextStyle: {
     fontSize: hp('1.5'),
+  },
+  ProfileImage: {
+    borderRadius: 7,
+    // width: wp('20'),
+    height: hp('12'),
+    aspectRatio: 1,
   },
   socialbox: {
     borderRadius: 10,
@@ -225,7 +235,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     textAlign: 'left',
-    marginTop: hp('0.2'),
+    marginTop: hp(height < 667 ? '0.2' : '3'),
   },
   backBtn: {
     marginLeft: wp('3'),

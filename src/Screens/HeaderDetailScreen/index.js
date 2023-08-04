@@ -44,7 +44,7 @@ const index = ({navigation, route}) => {
     onPressEMail,
     onPressCall,
     navigationChatScreen,
-  } = useHeaderDetailScreen(navigation);
+  } = useHeaderDetailScreen(navigation, route);
   const imageLenght = detailsImages.length;
   const Item = route.params;
   console.log({routeparam: route.params});
@@ -82,11 +82,11 @@ const index = ({navigation, route}) => {
       </View>
     );
   };
-
+  console.log({alsdlkjsdfklj: Item?.userDetail});
   return (
     <>
       <HeaderDetailComponent
-        onPress={() => navigation.goBack()}
+        onPress={() => navigation.navigate('NotificationScreen')}
         profileName={Item?.userDetail?.name}
         headerTitle={'Details'}
         arrowBackIcon={arrowbackwhite}

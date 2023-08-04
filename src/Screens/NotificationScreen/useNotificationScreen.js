@@ -10,7 +10,7 @@ import {types} from '../../Redux/types';
 const useNotificationScreen = ({navigate, addListener}) => {
   const {dispatch, getState} = useReduxStore();
   const {userData} = getState('Auth');
-  console.log({Usersatad: userData?.isSubscribed});
+  console.log({Usersatasad: userData?.isSubscribed});
   const [alerState, setAlertState] = useState({
     logOut: false,
     coinAlert: false,

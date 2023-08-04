@@ -1,5 +1,12 @@
-import {StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native';
-import React from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Image,
+  FlatList,
+} from 'react-native';
+import React, {memo, useState, useEffect} from 'react';
 import {styles} from './styles';
 import Header from '../../Components/Header';
 import {arrowbackwhite} from '../../Assests';
@@ -7,23 +14,156 @@ import BuyCoinHeader from '../../Components/BuyCoinHeader';
 import {TextComponent} from '../../Components/TextComponent';
 import {wp} from '../../Config/responsive';
 import useBuyCoinScreen from './useBuyCoinScreen';
-const index = ({navigation, route}) => {
-  // const {items} = route.params;
 
+import {
+  PurchaseError,
+  requestSubscription,
+  useIAP,
+  validateReceiptIos,
+} from 'react-native-iap';
+import useReduxStore from '../../Hooks/UseReduxStore';
+import {baseURL, iosAppUrl} from '../../Utils/Urls';
+import {types} from '../../Redux/types';
+const subscriptionSkus = Platform.select({
+  // ios: [items?.productId],
+  ios: ['productId_10', 'productId_50', 'productId_300'],
+});
+
+const errorLog = ({message, error}) => {
+  console.error('An error happened', message, error);
+};
+
+const isIos = Platform.OS === 'ios';
+
+const index = ({navigation, route}) => {
+  const {getState, dispatch} = useReduxStore();
+  const {token} = getState('Auth');
   const {
-    HeaderDetailScreen,
     connected,
     subscriptions, //returns subscriptions for this app.
     getSubscriptions, //Gets available subsctiptions for this app.
     currentPurchase, //current purchase for the tranasction
     finishTransaction,
     purchaseHistory, //return the purchase history of the user on the device (sandbox user in dev)
-    getPurchaseHistory,
-    loading,
-    isIos,
-    setLoading,
-    handleBuySubscription,
-  } = useBuyCoinScreen(navigation, route);
+    getPurchaseHistory, //gets users purchase history
+  } = useIAP();
+  const {items} = route.params;
+
+  const [loading, setLoading] = useState(false);
+  const [isPurchasing, setIsPurchasing] = useState(false);
+
+  const handleGetPurchaseHistory = async () => {
+    try {
+      await getPurchaseHistory();
+    } catch (error) {
+      errorLog({message: 'handleGetPurchaseHistory', error});
+    }
+  };
+
+  useEffect(() => {
+    handleGetPurchaseHistory();
+  }, [connected]);
+
+  const handleGetSubscriptions = async () => {
+    try {
+      setIsPurchasing(true);
+      await getSubscriptions({skus: subscriptionSkus});
+    } catch (error) {
+      setIsPurchasing(false);
+      errorLog({message: 'handleGetSubscriptions', error});
+    }
+  };
+
+  useEffect(() => {
+    handleGetSubscriptions();
+  }, [connected]);
+
+  const handleBuySubscription = async productId => {
+    try {
+      const reqSubs = await requestSubscription({
+        sku: productId,
+      });
+      setLoading(false);
+      console.log(reqSubs, 'asdwreqSubs');
+    } catch (error) {
+      setLoading(false);
+      if (error instanceof PurchaseError) {
+        errorLog({message: `[${error.code}]: ${error.message}`, error});
+      } else {
+        errorLog({message: 'handleBuySubscription', error});
+      }
+    }
+  };
+
+  useEffect(() => {
+    const checkCurrentPurchase = async purchase => {
+      if (isPurchasing) {
+        // if (purchase && isPurchasing) {
+        console.log({purchase});
+
+        try {
+          const receipt = purchase.transactionReceipt;
+          console.log({receipt});
+          if (receipt) {
+            if (Platform.OS === 'ios') {
+              const isTestEnvironment = __DEV__;
+
+              //send receipt body to apple server to validete
+              const appleReceiptResponse = await validateReceiptIos(
+                {
+                  'receipt-data': receipt,
+                  // password: 'b3d4281737d54f98a8b4d663569a1441', //user
+                  password: 'b3d4281737d54f98a8b4d663569a1441',
+                },
+                isTestEnvironment,
+              );
+
+              //if receipt is valid
+              if (appleReceiptResponse) {
+                console.log({appleReceiptResponse});
+                const {status} = appleReceiptResponse;
+                if (status) {
+                  console.log({status});
+                  const response = await fetch(baseURL + iosAppUrl, {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json',
+                      Authorization: `Bearer ${token}`,
+                      // Add authorization headers if needed
+                    },
+                    body: JSON.stringify({
+                      token: receipt,
+                    }),
+                  });
+                  console.log({aklsdfjaklsdfjlksdj: receipt});
+                  if (response.status == 200) {
+                    const data = await response.json();
+                    console.log(data, 'asdasdasdas123123dasdasasdsadasdasd');
+                    dispatch({type: types.UpdateProfile, payload: data.data});
+
+                    navigation.navigate('HeaderDetailScreen', items);
+                    setIsPurchasing(false);
+                  } else {
+                    console.log('RESPONSE OK ERROR');
+                    setIsPurchasing(false);
+                  }
+                  // navigation.navigate('Home'); //Remove this commit if are u testing
+                }
+              }
+
+              return;
+            }
+          }
+        } catch (error) {
+          setIsPurchasing(false);
+
+          console.log('error', error);
+        }
+      }
+    };
+    checkCurrentPurchase(currentPurchase);
+    console.log({getPurchaseHistory});
+  }, [currentPurchase]);
 
   const BuyCoin = ({coinTitle, coinDes, coinPrice, onPress}) => {
     return (
@@ -45,7 +185,25 @@ const index = ({navigation, route}) => {
       </TouchableOpacity>
     );
   };
-
+  const renderSubscriptionCallback =
+    (loading, isIos, handleBuySubscription) =>
+    ({item}) => {
+      const owned = purchaseHistory.find(s => s?.productId === item.productId);
+      return (
+        <View style={styles.midContainer}>
+          {!loading && !owned && isIos && (
+            <BuyCoin
+              onPress={() => {
+                setLoading(true);
+                handleBuySubscription(item.productId);
+              }}
+              coinTitle={item?.title}
+              coinPrice={item?.localizedPrice}
+            />
+          )}
+        </View>
+      );
+    };
   return (
     <>
       <View style={styles.container}>
@@ -65,20 +223,16 @@ const index = ({navigation, route}) => {
             styles={{...styles.day}}
           />
         </View>
-        {subscriptions.map((subscription, index) => {
+        {/* {subscriptions.map((subscription, index) => {
+          
           const owned = purchaseHistory.find(
             s => s?.productId === subscription.productId,
           );
+          console.log({subscription});
           return (
             <View style={styles.midContainer}>
               {!loading && !owned && isIos && (
                 <BuyCoin
-                  // onPress={() =>
-                  //   navigation.navigate('Subscriptions', {
-                  //     ...items,
-                  //     productId: 'productId_10',
-                  //   })
-                  // }
                   onPress={() => {
                     setLoading(true);
                     handleBuySubscription(subscription.productId);
@@ -90,7 +244,35 @@ const index = ({navigation, route}) => {
               )}
             </View>
           );
-        })}
+        })} */}
+
+        {/* {subscriptions.map((subscription, index) => {
+          console.log({subscription});
+          return (
+            <View style={styles.midContainer}>
+              {!loading && isIos && (
+                <BuyCoin
+                  onPress={() => {
+                    setLoading(true);
+                    handleBuySubscription(subscription.productId);
+                  }}
+                  coinTitle={subscription?.title}
+                  // coinDes={'Validy till 25 - 5 - 2023'}
+                  coinPrice={subscription?.localizedPrice}
+                />
+              )}
+            </View>
+          );
+        })} */}
+        <FlatList
+          data={subscriptions}
+          keyExtractor={item => item.productId}
+          renderItem={renderSubscriptionCallback(
+            loading,
+            isIos,
+            handleBuySubscription,
+          )}
+        />
 
         {/* <BuyCoin onPress={() => HeaderDetailScreen(items)} coinTitle={'10 Coins'} coinDes={'Validy till 25 - 5 - 2023'} coinPrice={'28.38'} /> */}
         {/* <BuyCoin
@@ -105,21 +287,10 @@ const index = ({navigation, route}) => {
             // coinDes={'Validy till 25 - 5 - 2023'}
             coinPrice={'28.38'}
           />
-          <BuyCoin
-            onPress={() =>
-              navigation.navigate('Subscriptions', {
-                ...items,
-                productId: 'productId_300',
-              })
-            }
-            // onPress={() => HeaderDetailScreen(items)}
-            coinTitle={'10 Coins'}
-            // coinDes={'Validy till 25 - 5 - 2023'}
-            coinPrice={'28.38'}
-          /> */}
+          */}
       </View>
     </>
   );
 };
 
-export default index;
+export default memo(index);
