@@ -6,7 +6,7 @@ import {
   Image,
   FlatList,
 } from 'react-native';
-import React, {memo, useState, useEffect} from 'react';
+import React, {memo, useState, useEffect, useCallback, useRef} from 'react';
 import {styles} from './styles';
 import Header from '../../Components/Header';
 import {arrowbackwhite} from '../../Assests';
@@ -24,9 +24,12 @@ import {
 import useReduxStore from '../../Hooks/UseReduxStore';
 import {baseURL, iosAppUrl} from '../../Utils/Urls';
 import {types} from '../../Redux/types';
+let i = 0;
+const dateObject = new Date();
+let date = dateObject.toUTCString();
 const subscriptionSkus = Platform.select({
   // ios: [items?.productId],
-  ios: ['productId_10', 'productId_50', 'productId_300'],
+  ios: ['productId_10', 'productId_50', 'Ten100_1'],
 });
 
 const errorLog = ({message, error}) => {
@@ -51,6 +54,7 @@ const index = ({navigation, route}) => {
 
   const [loading, setLoading] = useState(false);
   const [isPurchasing, setIsPurchasing] = useState(false);
+  const [dummy, setDummy] = useState(0);
 
   const handleGetPurchaseHistory = async () => {
     try {
@@ -84,7 +88,6 @@ const index = ({navigation, route}) => {
         sku: productId,
       });
       setLoading(false);
-      console.log(reqSubs, 'asdwreqSubs');
     } catch (error) {
       setLoading(false);
       if (error instanceof PurchaseError) {
@@ -95,15 +98,16 @@ const index = ({navigation, route}) => {
     }
   };
 
-  useEffect(() => {
-    const checkCurrentPurchase = async purchase => {
+  const checkCurrentPurchase = useCallback(
+    async purchase => {
+      let j = 0;
+
       if (isPurchasing) {
         // if (purchase && isPurchasing) {
         console.log({purchase});
 
         try {
           const receipt = purchase.transactionReceipt;
-          console.log({receipt});
           if (receipt) {
             if (Platform.OS === 'ios') {
               const isTestEnvironment = __DEV__;
@@ -120,35 +124,13 @@ const index = ({navigation, route}) => {
 
               //if receipt is valid
               if (appleReceiptResponse) {
-                console.log({appleReceiptResponse});
                 const {status} = appleReceiptResponse;
-                if (status) {
-                  console.log({status});
-                  const response = await fetch(baseURL + iosAppUrl, {
-                    method: 'POST',
-                    headers: {
-                      'Content-Type': 'application/json',
-                      Authorization: `Bearer ${token}`,
-                      // Add authorization headers if needed
-                    },
-                    body: JSON.stringify({
-                      token: receipt,
-                    }),
-                  });
-                  console.log({aklsdfjaklsdfjlksdj: receipt});
-                  if (response.status == 200) {
-                    const data = await response.json();
-                    console.log(data, 'asdasdasdas123123dasdasasdsadasdasd');
-                    dispatch({type: types.UpdateProfile, payload: data.data});
-
-                    navigation.navigate('HeaderDetailScreen', items);
-                    setIsPurchasing(false);
-                  } else {
-                    console.log('RESPONSE OK ERROR');
-                    setIsPurchasing(false);
+                j = 1;
+                setTimeout(() => {
+                  if (status && j == 1) {
+                    hitAPIToSever(receipt);
                   }
-                  // navigation.navigate('Home'); //Remove this commit if are u testing
-                }
+                }, 0);
               }
 
               return;
@@ -160,10 +142,107 @@ const index = ({navigation, route}) => {
           console.log('error', error);
         }
       }
-    };
+    },
+    [currentPurchase],
+  );
+  useEffect(() => {
     checkCurrentPurchase(currentPurchase);
-    console.log({getPurchaseHistory});
   }, [currentPurchase]);
+
+  // console.log(receiptRef.current,'euuejdykjdy')
+  const hitAPIToSever = async receipt => {
+    const response = await fetch(baseURL + iosAppUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+        // Add authorization headers if needed
+      },
+      body: JSON.stringify({
+        token: receipt,
+      }),
+    });
+    console.log({aklsdfjaklsdfjlksdj: receipt});
+    if (response.status == 200) {
+      const data = await response.json();
+      console.log(data, 'asdasdasdas123123dasdasasdsadasdasd');
+      dispatch({type: types.UpdateProfile, payload: data.data});
+
+      navigation.navigate('HeaderDetailScreen', items);
+      setIsPurchasing(false);
+    } else {
+      console.log('RESPONSE OK ERROR');
+      setIsPurchasing(false);
+    }
+  };
+  // const checkCurrentPurchase = useCallback(
+  //   async purchase => {
+  //     if (isPurchasing) {
+  //       console.log({purchase});
+
+  //       try {
+  //         const receipt = purchase.transactionReceipt;
+  //         console.log({receipt});
+  //         if (receipt) {
+  //           if (Platform.OS === 'ios') {
+  //             const isTestEnvironment = __DEV__;
+
+  //             //send receipt body to apple server to validate
+  //             const appleReceiptResponse = await validateReceiptIos(
+  //               {
+  //                 'receipt-data': receipt,
+  //                 password: 'b3d4281737d54f98a8b4d663569a1441',
+  //               },
+  //               isTestEnvironment,
+  //             );
+
+  //             if (appleReceiptResponse) {
+  //               console.log({appleReceiptResponse});
+  //               const {status} = appleReceiptResponse;
+  //               if (status) {
+  //                 console.log('alskdfjeljk', date, i);
+  //                 console.log({status});
+  //                 const response = await fetch(baseURL + iosAppUrl, {
+  //                   method: 'POST',
+  //                   headers: {
+  //                     'Content-Type': 'application/json',
+  //                     Authorization: `Bearer ${token}`,
+  //                   },
+  //                   body: JSON.stringify({
+  //                     token: receipt,
+  //                   }),
+  //                 });
+  //                 console.log({aklsdfjaklsdfjlksdj: receipt});
+  //                 if (response.status == 200) {
+  //                   const data = await response.json();
+  //                   console.log(data, 'asdasdasdas123123dasdasasdsadasdasd');
+  //                   dispatch({type: types.UpdateProfile, payload: data.data});
+
+  //                   navigation.navigate('HeaderDetailScreen', items);
+  //                   setIsPurchasing(false);
+  //                 } else {
+  //                   console.log('RESPONSE OK ERROR');
+  //                   setIsPurchasing(false);
+  //                 }
+  //               }
+  //             }
+
+  //             return;
+  //           }
+  //         }
+  //       } catch (error) {
+  //         setIsPurchasing(false);
+  //         console.log('error', error);
+  //       }
+  //     }
+  //   },
+  //   [isPurchasing, token, navigation, dispatch],
+  // );
+
+  // useEffect(() => {
+  //   checkCurrentPurchase(currentPurchase);
+  //   console.log({getPurchaseHistory});
+  // }, [checkCurrentPurchase, currentPurchase]);
 
   const BuyCoin = ({coinTitle, coinDes, coinPrice, onPress}) => {
     return (
@@ -185,25 +264,25 @@ const index = ({navigation, route}) => {
       </TouchableOpacity>
     );
   };
-  const renderSubscriptionCallback =
-    (loading, isIos, handleBuySubscription) =>
-    ({item}) => {
-      const owned = purchaseHistory.find(s => s?.productId === item.productId);
-      return (
-        <View style={styles.midContainer}>
-          {!loading && !owned && isIos && (
-            <BuyCoin
-              onPress={() => {
-                setLoading(true);
-                handleBuySubscription(item.productId);
-              }}
-              coinTitle={item?.title}
-              coinPrice={item?.localizedPrice}
-            />
-          )}
-        </View>
-      );
-    };
+  // const renderSubscriptionCallback =
+  //   (loading, isIos, handleBuySubscription) =>
+  //   ({item}) => {
+  //     const owned = purchaseHistory.find(s => s?.productId === item.productId);
+  //     return (
+  //       <View style={styles.midContainer}>
+  //         {!loading && !owned && isIos && (
+  //           <BuyCoin
+  //             onPress={() => {
+  //               setLoading(true);
+  //               handleBuySubscription(item.productId);
+  //             }}
+  //             coinTitle={item?.title}
+  //             coinPrice={item?.localizedPrice}
+  //           />
+  //         )}
+  //       </View>
+  //     );
+  //   };
   return (
     <>
       <View style={styles.container}>
@@ -246,8 +325,7 @@ const index = ({navigation, route}) => {
           );
         })} */}
 
-        {/* {subscriptions.map((subscription, index) => {
-          console.log({subscription});
+        {subscriptions.map((subscription, index) => {
           return (
             <View style={styles.midContainer}>
               {!loading && isIos && (
@@ -263,8 +341,8 @@ const index = ({navigation, route}) => {
               )}
             </View>
           );
-        })} */}
-        <FlatList
+        })}
+        {/* <FlatList
           data={subscriptions}
           keyExtractor={item => item.productId}
           renderItem={renderSubscriptionCallback(
@@ -272,7 +350,7 @@ const index = ({navigation, route}) => {
             isIos,
             handleBuySubscription,
           )}
-        />
+        /> */}
 
         {/* <BuyCoin onPress={() => HeaderDetailScreen(items)} coinTitle={'10 Coins'} coinDes={'Validy till 25 - 5 - 2023'} coinPrice={'28.38'} /> */}
         {/* <BuyCoin

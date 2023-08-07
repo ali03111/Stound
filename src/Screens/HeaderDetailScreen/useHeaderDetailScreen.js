@@ -2,7 +2,7 @@ import {Alert, Linking} from 'react-native';
 import {PackageDetailData} from '../../Utils/localDB';
 import {useEffect, useCallback} from 'react';
 import API from '../../Utils/helperFunc';
-import {iosAppUrl, useCoinUrl} from '../../Utils/Urls';
+import {baseURL, iosAppUrl, useCoinUrl} from '../../Utils/Urls';
 import useReduxStore from '../../Hooks/UseReduxStore';
 import {updateUser} from '../../Redux/Action/AuthAction';
 import {errorMessage} from '../../Config/NotificationMessage';
@@ -79,16 +79,32 @@ const useHeaderDetailScreen = ({navigate}, {params}) => {
   //   };
   // }, []);
 
-  useEffect(() => {
-    const useCoin = async () => {
-      const {ok, data, originalError} = await API.get(useCoinUrl);
-      console.log({data, adfklajflj});
-      if (ok) {
-        dispatch({type: types.UpdateProfile, payload: data.data});
-      }
-    };
-    useCoin();
-  }, []);
+  // const useCoin = async () => {
+  //   try {
+  //     const response = await fetch(baseURL + useCoinUrl, {
+  //       headers: {
+  //         Authorization: `Bearer ${userData.token}`,
+  //         // Other headers if needed...
+  //       },
+  //     });
+
+  //     if (response.ok) {
+  //       const data = await response.json();
+  //       console.log(data, 'aklsdfjlkajsdfkljasdkl');
+  //       // dispatch({type: types.UpdateProfile, payload: data.data});
+  //     } else {
+  //       // Handle the case where the response status is not okay (e.g., handle errors)
+  //       console.log('Request failed with status:', response.status);
+  //     }
+  //   } catch (error) {
+  //     // Handle any network errors or exceptions that occur during the fetch
+  //     console.error('An error occurred:', error);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   useCoin();
+  // }, []);
 
   return {PackageDetailData, onPressEMail, onPressCall, navigationChatScreen};
 };
