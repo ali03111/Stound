@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   Image,
   FlatList,
+  ActivityIndicator,
 } from 'react-native';
 import React, {memo, useState, useEffect, useCallback, useRef} from 'react';
 import {styles} from './styles';
@@ -12,11 +13,12 @@ import Header from '../../Components/Header';
 import {arrowbackwhite} from '../../Assests';
 import BuyCoinHeader from '../../Components/BuyCoinHeader';
 import {TextComponent} from '../../Components/TextComponent';
-import {wp} from '../../Config/responsive';
+import {hp, wp} from '../../Config/responsive';
 import useBuyCoinScreen from './useBuyCoinScreen';
 
 import {
   PurchaseError,
+  clearTransactionIOS,
   requestSubscription,
   useIAP,
   validateReceiptIos,
@@ -24,9 +26,6 @@ import {
 import useReduxStore from '../../Hooks/UseReduxStore';
 import {baseURL, iosAppUrl} from '../../Utils/Urls';
 import {types} from '../../Redux/types';
-let i = 0;
-const dateObject = new Date();
-let date = dateObject.toUTCString();
 const subscriptionSkus = Platform.select({
   // ios: [items?.productId],
   ios: ['productId_10', 'productId_50', 'Ten100_1'],
@@ -54,11 +53,11 @@ const index = ({navigation, route}) => {
 
   const [loading, setLoading] = useState(false);
   const [isPurchasing, setIsPurchasing] = useState(false);
-  const [dummy, setDummy] = useState(0);
 
   const handleGetPurchaseHistory = async () => {
     try {
-      await getPurchaseHistory();
+      const data = await getPurchaseHistory();
+      console.log(data, 'sfkljalskdfjlaksjdfkl');
     } catch (error) {
       errorLog({message: 'handleGetPurchaseHistory', error});
     }
@@ -67,10 +66,13 @@ const index = ({navigation, route}) => {
   useEffect(() => {
     handleGetPurchaseHistory();
   }, [connected]);
+  let i = 0;
 
   const handleGetSubscriptions = async () => {
     try {
       setIsPurchasing(true);
+      await clearTransaction();
+
       await getSubscriptions({skus: subscriptionSkus});
     } catch (error) {
       setIsPurchasing(false);
@@ -82,10 +84,14 @@ const index = ({navigation, route}) => {
     handleGetSubscriptions();
   }, [connected]);
 
-  const handleBuySubscription = async productId => {
+  const handleBuySubscription = useCallback(async productId => {
+    i++;
+    console.log(i, 'aiaiaiaiaiaiaiaiaiaaaaiai');
+
     try {
       const reqSubs = await requestSubscription({
         sku: productId,
+        andDangerouslyFinishTransactionAutomaticallyIOS: false,
       });
       setLoading(false);
     } catch (error) {
@@ -96,15 +102,61 @@ const index = ({navigation, route}) => {
         errorLog({message: 'handleBuySubscription', error});
       }
     }
-  };
+  }, []);
+
+  // const checkCurrentPurchase = useCallback(async purchase => {
+  //   let j = 0;
+
+  //   if (isPurchasing) {
+  //     // if (purchase && isPurchasing) {
+  //     console.log({purchase});
+
+  //     try {
+  //       const receipt = purchase.transactionReceipt;
+  //       if (receipt) {
+  //         if (Platform.OS === 'ios') {
+  //           const isTestEnvironment = __DEV__;
+
+  //           //send receipt body to apple server to validete
+  //           const appleReceiptResponse = await validateReceiptIos(
+  //             {
+  //               'receipt-data': receipt,
+  //               // password: 'b3d4281737d54f98a8b4d663569a1441', //user
+  //               password: 'b3d4281737d54f98a8b4d663569a1441',
+  //             },
+  //             isTestEnvironment,
+  //           );
+
+  //           //if receipt is valid
+  //           if (appleReceiptResponse) {
+  //             const {status} = appleReceiptResponse;
+  //             j = 1;
+  //             setTimeout(() => {
+  //               if (status && j == 1) {
+  //                 hitAPIToSever(receipt);
+  //               }
+  //             }, 0);
+  //           }
+
+  //           return;
+  //         }
+  //       }
+  //     } catch (error) {
+  //       setIsPurchasing(false);
+
+  //       console.log('error', error);
+  //     }
+  //   }
+  // }, []);
+  // useEffect(() => {
+  //   checkCurrentPurchase(currentPurchase);
+  // }, [currentPurchase]);
+  const [checkInProgress, setCheckInProgress] = useState(false);
 
   const checkCurrentPurchase = useCallback(
     async purchase => {
-      let j = 0;
-
-      if (isPurchasing) {
-        // if (purchase && isPurchasing) {
-        console.log({purchase});
+      if (isPurchasing && purchase && !checkInProgress) {
+        setCheckInProgress(true);
 
         try {
           const receipt = purchase.transactionReceipt;
@@ -112,44 +164,37 @@ const index = ({navigation, route}) => {
             if (Platform.OS === 'ios') {
               const isTestEnvironment = __DEV__;
 
-              //send receipt body to apple server to validete
               const appleReceiptResponse = await validateReceiptIos(
                 {
                   'receipt-data': receipt,
-                  // password: 'b3d4281737d54f98a8b4d663569a1441', //user
                   password: 'b3d4281737d54f98a8b4d663569a1441',
                 },
                 isTestEnvironment,
               );
 
-              //if receipt is valid
               if (appleReceiptResponse) {
                 const {status} = appleReceiptResponse;
-                j = 1;
-                setTimeout(() => {
-                  if (status && j == 1) {
-                    hitAPIToSever(receipt);
-                  }
-                }, 0);
+                if (status) {
+                  hitAPIToSever(receipt);
+                }
               }
-
-              return;
             }
           }
         } catch (error) {
           setIsPurchasing(false);
-
           console.log('error', error);
+        } finally {
+          setCheckInProgress(false);
         }
       }
     },
-    [currentPurchase],
+    [isPurchasing],
   );
+
   useEffect(() => {
     checkCurrentPurchase(currentPurchase);
-  }, [currentPurchase]);
+  }, [checkCurrentPurchase, currentPurchase]);
 
-  // console.log(receiptRef.current,'euuejdykjdy')
   const hitAPIToSever = async receipt => {
     const response = await fetch(baseURL + iosAppUrl, {
       method: 'POST',
@@ -162,17 +207,26 @@ const index = ({navigation, route}) => {
         token: receipt,
       }),
     });
+
     console.log({aklsdfjaklsdfjlksdj: receipt});
     if (response.status == 200) {
       const data = await response.json();
       console.log(data, 'asdasdasdas123123dasdasasdsadasdasd');
-      dispatch({type: types.UpdateProfile, payload: data.data});
+      // dispatch({type: types.UpdateProfile, payload: data.data});
 
       navigation.navigate('HeaderDetailScreen', items);
       setIsPurchasing(false);
     } else {
       console.log('RESPONSE OK ERROR');
       setIsPurchasing(false);
+    }
+  };
+
+  const clearTransaction = async () => {
+    if (Platform.OS === 'ios') {
+      await clearTransactionIOS();
+    } else {
+      flushFailedPurchasesCachedAsPendingAndroid();
     }
   };
   // const checkCurrentPurchase = useCallback(
@@ -325,23 +379,29 @@ const index = ({navigation, route}) => {
           );
         })} */}
 
-        {subscriptions.map((subscription, index) => {
-          return (
-            <View style={styles.midContainer}>
-              {!loading && isIos && (
-                <BuyCoin
-                  onPress={() => {
-                    setLoading(true);
-                    handleBuySubscription(subscription.productId);
-                  }}
-                  coinTitle={subscription?.title}
-                  // coinDes={'Validy till 25 - 5 - 2023'}
-                  coinPrice={subscription?.localizedPrice}
-                />
-              )}
-            </View>
-          );
-        })}
+        {loading ? (
+          <View style={{...styles.midContainer, marginTop: hp('10')}}>
+            <ActivityIndicator />
+          </View>
+        ) : (
+          subscriptions.map((subscription, index) => {
+            return (
+              <View style={styles.midContainer}>
+                {isIos && (
+                  <BuyCoin
+                    onPress={() => {
+                      setLoading(true);
+                      handleBuySubscription(subscription.productId);
+                    }}
+                    coinTitle={subscription?.title}
+                    // coinDes={'Validy till 25 - 5 - 2023'}
+                    coinPrice={subscription?.localizedPrice}
+                  />
+                )}
+              </View>
+            );
+          })
+        )}
         {/* <FlatList
           data={subscriptions}
           keyExtractor={item => item.productId}

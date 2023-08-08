@@ -45,66 +45,31 @@ const useHeaderDetailScreen = ({navigate}, {params}) => {
     // navigate('MessagesScreen', {id: users[0]?.userId, userDetail: users[0]});
   };
 
-  // //USE COIN API HIT
-  // const getCoinFunction = async () => {
-  //   const {ok, data, originalError} = await API.get(useCoinUrl);
-  //   console.log({ahsdksfjdklsjfl: data?.data});
-  //   if (ok) {
-  //     // dispatch(UpdateProfile(data?.data));
-  //     dispatch({type: types.UpdateProfile, payload: data.data});
-  //   } else {
-  //     errorMessage(originalError);
-  //   }
-  // };
-  // const purchaseCoin = useCallback(async () => {
-  //   const {ok, data} = await API.post(iosAppUrl, {
-  //     token: receipt,
-  //   });
-  // }, [receipt]);
-  // purchaseCoin();
-  // useEffect(() => {
-  //   const getCoinFunction = async () => {
-  //     console.log({ahsdksfjdklsasdasdjfl: data?.data});
-  //     if (ok) {
-  //       // dispatch(UpdateProfile(data?.data));
-  //       dispatch({type: types.UpdateProfile, payload: data.data});
-  //     } else {
-  //       errorMessage(originalError);
-  //     }
-  //   };
-  //   getCoinFunction();
-  //   return () => {
-  //     console.log('backHeader');
-  //     // getCoinFunction();
-  //   };
-  // }, []);
+  const useCoin = async () => {
+    try {
+      const response = await fetch(baseURL + useCoinUrl, {
+        headers: {
+          Authorization: `Bearer ${userData.token}`,
+          // Other headers if needed...
+        },
+      });
 
-  // const useCoin = async () => {
-  //   try {
-  //     const response = await fetch(baseURL + useCoinUrl, {
-  //       headers: {
-  //         Authorization: `Bearer ${userData.token}`,
-  //         // Other headers if needed...
-  //       },
-  //     });
+      if (response.ok) {
+        const data = await response.json();
+        dispatch({type: types.UpdateProfile, payload: data.data});
+      } else {
+        // Handle the case where the response status is not okay (e.g., handle errors)
+        console.log('Request failed with status:', response.status);
+      }
+    } catch (error) {
+      // Handle any network errors or exceptions that occur during the fetch
+      console.error('An error occurred:', error);
+    }
+  };
 
-  //     if (response.ok) {
-  //       const data = await response.json();
-  //       console.log(data, 'aklsdfjlkajsdfkljasdkl');
-  //       // dispatch({type: types.UpdateProfile, payload: data.data});
-  //     } else {
-  //       // Handle the case where the response status is not okay (e.g., handle errors)
-  //       console.log('Request failed with status:', response.status);
-  //     }
-  //   } catch (error) {
-  //     // Handle any network errors or exceptions that occur during the fetch
-  //     console.error('An error occurred:', error);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   useCoin();
-  // }, []);
+  useEffect(() => {
+    useCoin();
+  }, []);
 
   return {PackageDetailData, onPressEMail, onPressCall, navigationChatScreen};
 };

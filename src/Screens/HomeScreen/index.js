@@ -131,7 +131,7 @@ const HomeScreen = ({navigation}) => {
           </View>
         </View>
         <View style={styles.cardMainView}>
-          {onBoardinData.length > 0 ? (
+          {onBoardinData?.length > 0 ? (
             <Swiper
               cards={onBoardinData}
               useViewOverflow={true}
@@ -162,7 +162,7 @@ const HomeScreen = ({navigation}) => {
             />
           ) : (
             !isloading &&
-            onBoardinData.length == 0 && (
+            onBoardinData?.length == 0 && (
               <View
                 style={{
                   marginTop: hp('50'),
