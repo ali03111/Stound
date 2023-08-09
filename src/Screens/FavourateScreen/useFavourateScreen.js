@@ -3,9 +3,12 @@ import {favouriteData} from '../../Utils/localDB';
 import API from '../../Utils/helperFunc';
 import {getfavouritesUrl, updateFavUrl} from '../../Utils/Urls';
 import {errorMessage, successMessage} from '../../Config/NotificationMessage';
+import useReduxStore from '../../Hooks/UseReduxStore';
 
 const useFavourateScreen = ({navigate, addListener}) => {
+  const {getState} = useReduxStore();
   const onPress = data => navigate('PackageDetailsScreen', {items: data});
+  const {isloading} = getState('isloading');
 
   const [favData, setFavData] = useState([]);
 
@@ -34,7 +37,14 @@ const useFavourateScreen = ({navigate, addListener}) => {
 
   useEffect(useEffectFuc, []);
 
-  return {favouriteData: favData, onPress, favData, getFav, updateFav};
+  return {
+    favouriteData: favData,
+    onPress,
+    favData,
+    getFav,
+    updateFav,
+    isloading,
+  };
 };
 
 export default useFavourateScreen;

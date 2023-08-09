@@ -1,5 +1,5 @@
 // import useNotificationScreen from '.';
-import {useEffect, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {notificationData} from '../../Utils/localDB';
 import {getAllNotificationUrl} from '../../Utils/Urls';
 import API from '../../Utils/helperFunc';
@@ -8,6 +8,7 @@ import {setNotificationLength} from '../../Redux/Action/recentNotification';
 import {types} from '../../Redux/types';
 
 const useNotificationScreen = ({navigate, addListener}) => {
+  const isSub = useRef(null);
   const {dispatch, getState} = useReduxStore();
   const {userData} = getState('Auth');
   console.log({Usersatasad: userData?.isSubscribed});
@@ -28,12 +29,17 @@ const useNotificationScreen = ({navigate, addListener}) => {
     // navigate('Subscriptions', {items: notificationDataState[currentIndex]});
     userData?.isSubscribed &&
       navigate('HeaderDetailScreen', notificationDataState[currentIndex]);
+    isSub.current = false;
   };
 
   const onCancel = (state, stateName, index) => {
+    isSub.current = true;
     userData?.isSubscribed
       ? updateState({[stateName]: !state, currentIndex: index})
-      : navigate('BuyCoinScreen', {items: notificationDataState[currentIndex]});
+      : navigate('BuyCoinScreen', {
+          items: notificationDataState[currentIndex],
+          isSub,
+        });
   };
 
   // console.log(notificationDataState[0].userDetail, 'Data');

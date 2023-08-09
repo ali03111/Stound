@@ -4,8 +4,6 @@ import {useEffect, useCallback} from 'react';
 import API from '../../Utils/helperFunc';
 import {baseURL, iosAppUrl, useCoinUrl} from '../../Utils/Urls';
 import useReduxStore from '../../Hooks/UseReduxStore';
-import {updateUser} from '../../Redux/Action/AuthAction';
-import {errorMessage} from '../../Config/NotificationMessage';
 import {types} from '../../Redux/types';
 
 const useHeaderDetailScreen = ({navigate}, {params}) => {
@@ -56,6 +54,7 @@ const useHeaderDetailScreen = ({navigate}, {params}) => {
 
       if (response.ok) {
         const data = await response.json();
+        console.log('data454654q56w4e65q456', data);
         dispatch({type: types.UpdateProfile, payload: data.data});
       } else {
         // Handle the case where the response status is not okay (e.g., handle errors)

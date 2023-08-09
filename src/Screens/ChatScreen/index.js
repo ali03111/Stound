@@ -33,6 +33,7 @@ const ChatScreen = ({navigation}) => {
     filteredUserData,
     filtered,
     searchData,
+    isloading,
   } = useChatScreen(navigation);
   const renderItem = useCallback(({item, index}) => {
     console.log(
@@ -99,15 +100,17 @@ const ChatScreen = ({navigation}) => {
           // height: 'auto',
         }}
         ListEmptyComponent={
-          <View
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-              marginTop: hp('11.5'),
-              // height: hp('10'),
-            }}>
-            <EmptyViewComp onRefresh={searchData} />
-          </View>
+          !isloading && (
+            <View
+              style={{
+                justifyContent: 'center',
+                alignItems: 'center',
+                marginTop: hp('11.5'),
+                // height: hp('10'),
+              }}>
+              <EmptyViewComp buttonTrue={true} />
+            </View>
+          )
         }
       />
     </View>

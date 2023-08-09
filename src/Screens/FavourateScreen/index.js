@@ -11,7 +11,7 @@ import {EmptyViewComp} from '../../Components/EmptyViewComp';
 
 const FavouriteScreen = ({navigation}) => {
   const [selectedLanguage, setSelectedLanguage] = useState();
-  const {favouriteData, onPress, favData, getFav, updateFav} =
+  const {favouriteData, onPress, favData, getFav, updateFav, isloading} =
     useFavourateScreen(navigation);
 
   console.log('favData', favData);
@@ -45,13 +45,15 @@ const FavouriteScreen = ({navigation}) => {
         contentContainerStyle={{paddingBottom: hp('6')}}
         onRefresh={getFav}
         ListEmptyComponent={
-          <View
-            style={{
-              justifyContent: 'center',
-              height: hp('74'),
-            }}>
-            <EmptyViewComp onRefresh={getFav} />
-          </View>
+          !isloading && (
+            <View
+              style={{
+                justifyContent: 'center',
+                height: hp('74'),
+              }}>
+              <EmptyViewComp onRefresh={getFav} />
+            </View>
+          )
         }
       />
     </View>

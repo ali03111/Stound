@@ -49,15 +49,14 @@ const index = ({navigation, route}) => {
     purchaseHistory, //return the purchase history of the user on the device (sandbox user in dev)
     getPurchaseHistory, //gets users purchase history
   } = useIAP();
-  const {items} = route.params;
-
+  const {items, isSub} = route.params;
+  console.log(isSub, 'asdkjfklsajfklj');
   const [loading, setLoading] = useState(false);
   const [isPurchasing, setIsPurchasing] = useState(false);
-
+  const [orderByPriceSub, setOrderByPriceSub] = useState([]);
   const handleGetPurchaseHistory = async () => {
     try {
-      const data = await getPurchaseHistory();
-      console.log(data, 'sfkljalskdfjlaksjdfkl');
+      await getPurchaseHistory();
     } catch (error) {
       errorLog({message: 'handleGetPurchaseHistory', error});
     }
@@ -104,53 +103,6 @@ const index = ({navigation, route}) => {
     }
   }, []);
 
-  // const checkCurrentPurchase = useCallback(async purchase => {
-  //   let j = 0;
-
-  //   if (isPurchasing) {
-  //     // if (purchase && isPurchasing) {
-  //     console.log({purchase});
-
-  //     try {
-  //       const receipt = purchase.transactionReceipt;
-  //       if (receipt) {
-  //         if (Platform.OS === 'ios') {
-  //           const isTestEnvironment = __DEV__;
-
-  //           //send receipt body to apple server to validete
-  //           const appleReceiptResponse = await validateReceiptIos(
-  //             {
-  //               'receipt-data': receipt,
-  //               // password: 'b3d4281737d54f98a8b4d663569a1441', //user
-  //               password: 'b3d4281737d54f98a8b4d663569a1441',
-  //             },
-  //             isTestEnvironment,
-  //           );
-
-  //           //if receipt is valid
-  //           if (appleReceiptResponse) {
-  //             const {status} = appleReceiptResponse;
-  //             j = 1;
-  //             setTimeout(() => {
-  //               if (status && j == 1) {
-  //                 hitAPIToSever(receipt);
-  //               }
-  //             }, 0);
-  //           }
-
-  //           return;
-  //         }
-  //       }
-  //     } catch (error) {
-  //       setIsPurchasing(false);
-
-  //       console.log('error', error);
-  //     }
-  //   }
-  // }, []);
-  // useEffect(() => {
-  //   checkCurrentPurchase(currentPurchase);
-  // }, [currentPurchase]);
   const [checkInProgress, setCheckInProgress] = useState(false);
 
   const checkCurrentPurchase = useCallback(
@@ -174,8 +126,9 @@ const index = ({navigation, route}) => {
 
               if (appleReceiptResponse) {
                 const {status} = appleReceiptResponse;
-                if (status) {
+                if (status && isSub.current) {
                   hitAPIToSever(receipt);
+                  isSub.current = false;
                 }
               }
             }
@@ -192,10 +145,10 @@ const index = ({navigation, route}) => {
   );
 
   useEffect(() => {
-    checkCurrentPurchase(currentPurchase);
-  }, [checkCurrentPurchase, currentPurchase]);
+    if (isPurchasing) checkCurrentPurchase(currentPurchase);
+  }, [checkCurrentPurchase, currentPurchase, isPurchasing]);
 
-  const hitAPIToSever = async receipt => {
+  const hitAPIToSever = useCallback(async receipt => {
     const response = await fetch(baseURL + iosAppUrl, {
       method: 'POST',
       headers: {
@@ -208,11 +161,8 @@ const index = ({navigation, route}) => {
       }),
     });
 
-    console.log({aklsdfjaklsdfjlksdj: receipt});
     if (response.status == 200) {
       const data = await response.json();
-      console.log(data, 'asdasdasdas123123dasdasasdsadasdasd');
-      // dispatch({type: types.UpdateProfile, payload: data.data});
 
       navigation.navigate('HeaderDetailScreen', items);
       setIsPurchasing(false);
@@ -220,7 +170,7 @@ const index = ({navigation, route}) => {
       console.log('RESPONSE OK ERROR');
       setIsPurchasing(false);
     }
-  };
+  }, []);
 
   const clearTransaction = async () => {
     if (Platform.OS === 'ios') {
@@ -298,6 +248,8 @@ const index = ({navigation, route}) => {
   //   console.log({getPurchaseHistory});
   // }, [checkCurrentPurchase, currentPurchase]);
 
+  useEffect(() => {}, []);
+
   const BuyCoin = ({coinTitle, coinDes, coinPrice, onPress}) => {
     return (
       <TouchableOpacity onPress={onPress} style={styles.mainContainer}>
@@ -357,37 +309,14 @@ const index = ({navigation, route}) => {
           />
         </View>
         {/* {subscriptions.map((subscription, index) => {
-          
-          const owned = purchaseHistory.find(
-            s => s?.productId === subscription.productId,
-          );
-          console.log({subscription});
-          return (
-            <View style={styles.midContainer}>
-              {!loading && !owned && isIos && (
-                <BuyCoin
-                  onPress={() => {
-                    setLoading(true);
-                    handleBuySubscription(subscription.productId);
-                  }}
-                  coinTitle={subscription?.title}
-                  // coinDes={'Validy till 25 - 5 - 2023'}
-                  coinPrice={subscription?.localizedPrice}
-                />
-              )}
-            </View>
-          );
-        })} */}
-
-        {loading ? (
-          <View style={{...styles.midContainer, marginTop: hp('10')}}>
-            <ActivityIndicator />
-          </View>
-        ) : (
-          subscriptions.map((subscription, index) => {
+            
+            const owned = purchaseHistory.find(
+              s => s?.productId === subscription.productId,
+            );
+            console.log({subscription});
             return (
               <View style={styles.midContainer}>
-                {isIos && (
+                {!loading && !owned && isIos && (
                   <BuyCoin
                     onPress={() => {
                       setLoading(true);
@@ -400,32 +329,58 @@ const index = ({navigation, route}) => {
                 )}
               </View>
             );
-          })
+          })} */}
+
+        {loading ? (
+          <View style={{...styles.midContainer, marginTop: hp('10')}}>
+            <ActivityIndicator />
+          </View>
+        ) : (
+          subscriptions
+            .sort((a, b) => a.price - b.price)
+            .map((subscription, index) => {
+              return (
+                <View style={styles.midContainer}>
+                  {isIos && (
+                    <BuyCoin
+                      onPress={() => {
+                        setLoading(true);
+                        handleBuySubscription(subscription.productId);
+                      }}
+                      coinTitle={subscription?.title}
+                      // coinDes={'Validy until your coins finish'}
+                      coinPrice={subscription?.localizedPrice}
+                    />
+                  )}
+                </View>
+              );
+            })
         )}
+
         {/* <FlatList
-          data={subscriptions}
-          keyExtractor={item => item.productId}
-          renderItem={renderSubscriptionCallback(
-            loading,
-            isIos,
-            handleBuySubscription,
-          )}
-        /> */}
+            data={subscriptions}
+            keyExtractor={item => item.productId}
+            renderItem={renderSubscriptionCallback(
+              loading,
+              isIos,
+              handleBuySubscription,
+            )}
+          /> */}
 
         {/* <BuyCoin onPress={() => HeaderDetailScreen(items)} coinTitle={'10 Coins'} coinDes={'Validy till 25 - 5 - 2023'} coinPrice={'28.38'} /> */}
         {/* <BuyCoin
-            // onPress={() => HeaderDetailScreen(items)}
-            onPress={() =>
-              navigation.navigate('Subscriptions', {
-                ...items,
-                productId: 'productId_50',
-              })
-            }
-            coinTitle={'10 Coins'}
-            // coinDes={'Validy till 25 - 5 - 2023'}
-            coinPrice={'28.38'}
-          />
-          */}
+              // onPress={() => HeaderDetailScreen(items)}
+              onPress={() =>
+                navigation.navigate('Subscriptions', {
+                  ...items,
+                  productId: 'productId_50',
+                })
+              }
+              coinTitle={'10 Coins'}
+              // coinDes={'Validy till 25 - 5 - 2023'}
+              coinPrice={'28.38'}
+            />
+            */}
       </View>
     </>
   );

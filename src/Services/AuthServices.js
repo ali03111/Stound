@@ -93,10 +93,7 @@ const loginWithAgora = async ({username, password}) => {
         console.log('after listner', y);
       })
       .catch(error => {
-        console.log(
-          'init fail: ' + error,
-          // (error instanceof Object ? JSON.stringify(error) : error),
-        );
+        console.log('init fail: ' + error);
       });
   };
   const u = init();
@@ -104,32 +101,7 @@ const loginWithAgora = async ({username, password}) => {
   const data = await newLoginAgora({username, password});
 
   console.log('?TTTTTTTTTTTTT', data);
-  // const t = ChatClient.getInstance().loginWithAgoraToken(username, password);
-  // const chatClient = ChatClient.getInstance();
-  // let o = new ChatOptions({
-  //   autoLogin: false,
-  //   appKey: appKey,
-  // });
-  // chatClient.removeAllConnectionListener();
-  // let listener = {
-  //   onTokenWillExpire(res) {
-  //     console.log('token expire.');
-  //   },
-  //   onTokenDidExpire() {
-  //     console.log('token did expire');
-  //   },
-  //   onConnected() {
-  //     console.log('onConnected');
-  //     // setMessageListener();
-  //   },
-  //   onDisconnected(errorCode) {
-  //     console.log('onDisconnected:' + errorCode);
-  //   },
-  // };
-  // const init = await chatClient.init(o);
-  // chatClient.addConnectionListener(listener);
-  // console.log('init the connection', t);
-  // return;
+
   return data;
 };
 

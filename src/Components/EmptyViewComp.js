@@ -7,7 +7,7 @@ import {TextComponent} from './TextComponent';
 import {Touchable} from './Touchable';
 import ThemeButtonComp from './ThemeButtonComp';
 
-export const EmptyViewComp = ({onRefresh}) => {
+export const EmptyViewComp = ({onRefresh, buttonTrue}) => {
   return (
     <View
       style={{
@@ -41,18 +41,20 @@ export const EmptyViewComp = ({onRefresh}) => {
         resizeMode="contain"
         style={styles.dataNotFoundTwo}
       />
-      <ThemeButtonComp
-        style={{
-          backgroundColor: Colors.primaryColor,
-          marginTop: hp('3'),
-          width: wp('30'),
-          height: hp('5'),
-          borderRadius: 10,
-        }}
-        hide={true}
-        title={'Refresh'}
-        onPress={onRefresh}
-      />
+      {!buttonTrue && (
+        <ThemeButtonComp
+          style={{
+            backgroundColor: Colors.primaryColor,
+            marginTop: hp('3'),
+            width: wp('30'),
+            height: hp('5'),
+            borderRadius: 10,
+          }}
+          hide={true}
+          title={'Refresh'}
+          onPress={onRefresh}
+        />
+      )}
     </View>
   );
 };

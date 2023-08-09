@@ -13,6 +13,7 @@ const useChatScreen = ({navigate, goBack, addListener}) => {
 
   const {getState, dispatch} = useReduxStore();
   const {userData} = getState('Auth');
+  const {isloading} = getState('isloading');
 
   console.log('asdasdasdas', getState('notification'));
   // SearchFilter For ChatScreen
@@ -157,6 +158,7 @@ const useChatScreen = ({navigate, goBack, addListener}) => {
     changeText,
     onChangeText,
     searchData,
+    isloading,
   };
 };
 export default useChatScreen;
