@@ -19,6 +19,7 @@ import {hp, wp} from '../../Config/responsive';
 import {arrowback, moredots, search, smsedit} from '../../Assests';
 import {Colors} from '../../Theme/Variables';
 import {imageUrl} from '../../Utils/Urls';
+import {EmptyViewComp} from '../../Components/EmptyViewComp';
 
 const ChatScreen = ({navigation}) => {
   const {
@@ -85,6 +86,7 @@ const ChatScreen = ({navigation}) => {
         />
       </View>
       <FlatList
+        onRefresh={searchData}
         refreshing={false}
         // data={users}
         data={searchData?.reverse()}
@@ -96,6 +98,17 @@ const ChatScreen = ({navigation}) => {
           paddingHorizontal: wp('4'),
           // height: 'auto',
         }}
+        ListEmptyComponent={
+          <View
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              marginTop: hp('11.5'),
+              // height: hp('10'),
+            }}>
+            <EmptyViewComp onRefresh={searchData} />
+          </View>
+        }
       />
     </View>
   );

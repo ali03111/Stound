@@ -165,7 +165,7 @@ const HomeScreen = ({navigation}) => {
             onBoardinData?.length == 0 && (
               <View
                 style={{
-                  marginTop: hp('50'),
+                  marginTop: hp('40'),
                 }}>
                 <EmptyViewComp onRefresh={onRefresh} />
               </View>

@@ -48,7 +48,7 @@ const FavouriteScreen = ({navigation}) => {
           <View
             style={{
               justifyContent: 'center',
-              height: hp('80'),
+              height: hp('74'),
             }}>
             <EmptyViewComp onRefresh={getFav} />
           </View>
