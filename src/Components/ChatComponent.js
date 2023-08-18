@@ -44,18 +44,20 @@ const ChatComponent = ({
       </View>
       <View style={styles.mainTime}>
         {/* <TextComponent text={time} styles={styles.timing} /> */}
-        <TextComponent
-          text={
-            days > 0 ? (
-              <Text>{days} day ago</Text>
-            ) : hours > 0 ? (
-              <Text>{hours} hour ago</Text>
-            ) : (
-              <Text>{minutes} min ago</Text>
-            )
-          }
-          styles={styles.timing}
-        />
+        {time && (
+          <TextComponent
+            text={
+              days > 0 ? (
+                <Text>{days} day ago</Text>
+              ) : hours > 0 ? (
+                <Text>{hours} hour ago</Text>
+              ) : (
+                <Text>{minutes} min ago</Text>
+              )
+            }
+            styles={styles.timing}
+          />
+        )}
 
         <View style={styles.messageView(messages)}>
           <TextComponent text={messages} styles={styles.messages} />

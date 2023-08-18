@@ -7,6 +7,20 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-evenly',
   },
+  descriptionHeading: {
+    fontSize: hp('2.2'),
+    fontWeight: '600',
+    color: 'black',
+  },
+  desText: {
+    color: 'gray',
+    // marginLeft: wp('2'),
+    fontSize: hp('1.9'),
+    width: wp('95'),
+    textAlign: 'left',
+    marginBottom: hp('1.5'),
+    marginTop: hp('0.5'),
+  },
   socialbox: {
     flexDirection: 'row',
     justifyContent: 'space-evenly',
@@ -44,7 +58,7 @@ export const styles = StyleSheet.create({
   firstImage: length => ({
     width: length == 1 ? wp('90') : wp('68'),
     // width: length > 0 ? wp('67') : wp('90'),
-    height: hp('32n'),
+    height: hp('32'),
     borderRadius: 10,
     marginVertical: hp('0.5'),
     overflow: 'hidden',
@@ -91,7 +105,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginTop: hp('1.5'),
-    marginBottom: hp('3.5'),
+    marginBottom: hp('1.5'),
     // paddingHorizontal: wp('1'),
   },
   locationText: {

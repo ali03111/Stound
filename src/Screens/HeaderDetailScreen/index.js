@@ -1,4 +1,4 @@
-import React, {memo, useCallback, useState} from 'react';
+import React, {memo, useCallback, useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -7,7 +7,7 @@ import {
   ImageBackground,
   ScrollView,
 } from 'react-native';
-import {hp} from '../../Config/responsive';
+import {hp, wp} from '../../Config/responsive';
 import {goBack, keyExtractor} from '../../Utils';
 import {styles} from './styles';
 import {detailsImages} from '../../Utils/localDB';
@@ -36,6 +36,8 @@ import useHeaderDetailScreen from './useHeaderDetailScreen';
 import HeaderDetailComponent from '../../Components/HeaderDetailComponent';
 import {Colors} from '../../Theme/Variables';
 import {imageURL, imageUrl} from '../../Utils/Urls';
+import {GiftedChat} from 'react-native-gifted-chat';
+import {firebase} from '@react-native-firebase/firestore';
 
 const index = ({navigation, route}) => {
   const {
@@ -44,8 +46,12 @@ const index = ({navigation, route}) => {
     onPressEMail,
     onPressCall,
     navigationChatScreen,
+
+    userData: {userData},
   } = useHeaderDetailScreen(navigation, route);
-  const imageLenght = detailsImages.length;
+  const [messages, setMessages] = useState([]);
+
+  const imageLenght = Item?.adDetail.photos.length;
   const Item = route.params;
   console.log({routeparam: route.params});
   const renderItem = useCallback(({item, index}) => {
@@ -82,7 +88,193 @@ const index = ({navigation, route}) => {
       </View>
     );
   };
-  console.log({alsdlkjsdfklj: Item?.userDetail});
+  console.log({alsdlkj1sadfklj: userData.agoraId});
+
+  const firstMsg = [
+    {
+      _id: Item?.userDetail.agoraId,
+      createdAt: new Date(),
+      text: 'Hello User for contact',
+      user: {
+        _id: userData?.agoraId,
+
+        createdAt: new Date(),
+      },
+    },
+  ];
+
+  //FIREBASE START
+  useEffect(() => {
+    // setMessages([
+    //   {
+    //     _id: 1,
+    //     text: 'Hello developer',
+    //     createdAt: new Date(),
+    //     user: {
+    //       _id: 2,
+    //       name: 'React Native',
+    //       avatar: 'https://placeimg.com/140/140/any',
+    //     },
+    //   },
+    // ]);
+    const subscriber = firebase
+      .firestore()
+      .collection('chats')
+
+      .doc('' + userData?.agoraId + Item?.userDetail.agoraId)
+      .collection('messages')
+      .orderBy('createdAt', 'desc')
+      .onSnapshot(querySnapshot => {
+        const allMsg = querySnapshot.docs.map(item => {
+          return {
+            ...item._data,
+            createdAt: item.data()?.createdAt.toDate(), //this line change only
+            // createdAt: Date.parse(item?._data?.createdAt),
+            // createdAt: item.createdAt.toDate(),
+          };
+        });
+        setMessages(allMsg);
+
+        ///COMMIT CHANGE
+        // const allMsg = querySnapshot.docs.map(item => {
+        //   const data = item.data();
+        //   return {
+        //     ...data,
+        //     createdAt: data.createdAt.toDate(), // Convert Firestore timestamp to Date object
+        //   };
+        // });
+
+        // setMessages(allMsg);
+      });
+    {
+      !Item?.useCoin && onSend(firstMsg);
+    }
+
+    return () => subscriber();
+  }, []);
+
+  const onSend = useCallback((messages = []) => {
+    console.log(messages, 'asldfaASDASlskj');
+    // [{"_id": "21d2cccd-debc-453e-9dd2-5786f9bba9b6", "createdAt": 2023-08-17T12:03:13.053Z, "text": "Wolrd", "user": {"_id": "407ccec0-c78e-49ec-89a8-6fdbef59e156", "createdAt": 2023-08-17T11:13:11.255Z}}]
+    const msg = messages[0];
+    const myMsg = {
+      ...msg,
+      // sentBy: userData.agoraId,
+      sentBy: userData.agoraId,
+      receivedBy: Item?.userDetail.agoraId,
+      createdAt: new Date(msg.createdAt),
+      profileImage:
+        Item?.userDetail.profilePicture ??
+        'https://res.cloudinary.com/dd6tdswt5/image/upload/v1684830799/UserImages/mhysa2zj0sbmvnw69b35.jpg',
+    };
+    setMessages(previousMessages => GiftedChat.append(previousMessages, myMsg));
+    firebase
+      .firestore()
+      .collection('chats')
+      .doc('' + userData?.agoraId + Item?.userDetail.agoraId)
+      .collection('messages')
+      .add({...myMsg, profileImage: userData.profilePicture});
+    firebase
+      .firestore()
+      .collection('chats')
+      .doc('' + Item?.userDetail.agoraId + userData?.agoraId)
+      .collection('messages')
+      .add({...myMsg, profileImage: Item?.userDetail.profilePicture});
+
+    firebase
+      .firestore()
+      .collection('users')
+      .doc(userData?.agoraId)
+      .get()
+      .then(docSnapshot => {
+        if (docSnapshot.exists) {
+          const existingData = docSnapshot.data();
+          const chatUsers = existingData.chatUsers || [];
+
+          // Check if the chatUsers array already contains the otherUserId
+          const existingIndex = chatUsers.findIndex(
+            user => user.otherUserId === Item?.userDetail.agoraId,
+          );
+
+          if (existingIndex !== -1) {
+            // Merge the existing object
+            chatUsers[existingIndex] = {
+              ...chatUsers[existingIndex],
+              lastMsg: msg.text,
+              createdAt: new Date(msg?.createdAt),
+            };
+          } else {
+            // Add a new object to the chatUsers array
+            chatUsers.push({
+              lastMsg: msg.text,
+              otherUserId: Item?.userDetail.agoraId,
+              createdAt: new Date(msg?.createdAt),
+            });
+          }
+
+          //Save DATA IN REDUX WITH ACTION
+          // dispatch(messagesNotification(chatUsers));
+          // Update the Firestore document with the modified chatUsers array
+          firebase.firestore().collection('users').doc(userData?.agoraId).set(
+            {
+              chatUsers: chatUsers,
+              // profilePicture: userData.profilePicture,
+            },
+            {merge: true},
+          );
+        }
+      });
+
+    firebase
+      .firestore()
+      .collection('users')
+      .doc(Item?.userDetail.agoraId)
+      .get()
+      .then(docSnapshot => {
+        if (docSnapshot.exists) {
+          const existingData = docSnapshot.data();
+          const chatUsers = existingData.chatUsers || [];
+
+          // Check if the chatUsers array already contains the otherUserId
+          const existingIndex = chatUsers.findIndex(
+            user => user.otherUserId === userData?.agoraId,
+          );
+
+          if (existingIndex !== -1) {
+            // Merge the existing object
+            chatUsers[existingIndex] = {
+              ...chatUsers[existingIndex],
+              lastMsg: msg.text,
+              createdAt: new Date(msg.createdAt),
+              isRead: false,
+            };
+          } else {
+            // Add a new object to the chatUsers array
+            chatUsers.push({
+              lastMsg: msg.text,
+              otherUserId: userData?.agoraId,
+              createdAt: new Date(msg?.createdAt),
+              isRead: false,
+            });
+          }
+
+          // Update the Firestore document with the modified chatUsers array
+          firebase
+            .firestore()
+            .collection('users')
+            .doc(Item?.userDetail.agoraId)
+            .set(
+              {
+                chatUsers: chatUsers,
+                // profilePicture: userData.profilePicture,
+              },
+              {merge: true},
+            );
+        }
+      });
+  }, []);
+  //FIREBASE END
+  console.log(Item?.adDetail.photos.length, 'Item?.adDetail.photos');
   return (
     <>
       <HeaderDetailComponent
@@ -94,7 +286,6 @@ const index = ({navigation, route}) => {
         backText={'Back'}
         onPressEMail={() => onPressEMail(Item?.userDetail?.email)}
         onPressCall={() => onPressCall(Item?.userDetail?.number)}
-        // centerImage={require('../../Assests/Images/profile5.png')}
         onPressMessage={() => navigationChatScreen(Item)}
         centerImage={Item?.userDetail?.profilePicture}
       />
@@ -107,6 +298,7 @@ const index = ({navigation, route}) => {
         <View style={styles.imageHeaderView}>
           <Image
             style={styles.firstImage(imageLenght)}
+            // uri={imageUrl(Item?.adDetail.photos[0])}
             source={{uri: imageUrl(Item?.adDetail.photos[0])}}
           />
           {Item?.adDetail.photos.length > 0 && (
@@ -142,7 +334,19 @@ const index = ({navigation, route}) => {
               styles={styles.locationText}
             />
           </View>
+          <View style={{marginLeft: wp('2')}}>
+            <TextComponent
+              text={'Description'}
+              styles={styles.descriptionHeading}
+            />
+            <TextComponent
+              text={Item?.adDetail.description}
+              numberOfLines={5}
+              styles={styles.desText}
+            />
+          </View>
           <TextComponent
+            // onPress={() => onSend('Hello World')}
             text={'General Preferences'}
             styles={styles.headingStyle}
           />
@@ -186,7 +390,9 @@ const index = ({navigation, route}) => {
               );
             }}
           />
+          {/* {console.log(firstMsg, 'asdfljsdlkfj')} */}
           <TextComponent
+            onPress={() => onSend(firstMsg)}
             text={'Inside Preferences'}
             styles={{...styles.headingStyle, marginTop: hp('2')}}
           />

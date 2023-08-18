@@ -25,19 +25,40 @@ const useNotificationScreen = ({navigate, addListener}) => {
   const updateState = data => setAlertState(() => ({...alerState, ...data}));
 
   const onConfirm = () => {
+    console.log('onConfirmalsdfjlaksdjfkl');
+
     updateState({coinAlert: false});
-    // navigate('Subscriptions', {items: notificationDataState[currentIndex]});
-    userData?.isSubscribed &&
-      navigate('HeaderDetailScreen', notificationDataState[currentIndex]);
+    // navigate('HeaderDetailScreen', notificationDataState[currentIndex]);
+    navigate('HeaderDetailScreen', notificationDataState[currentIndex]);
+
     isSub.current = false;
   };
 
-  const onCancel = (state, stateName, index) => {
+  const onCancel = (state, stateName, index, item) => {
+    console.log('onCancelalsdfjlaksdjfkl');
     isSub.current = true;
-    userData?.isSubscribed
+    // item.coinUsed
+    //   ? navigate('HeaderDetailScreen', notificationDataState[currentIndex])
+    //   : userData?.isSubscribed
+    //   ? updateState({[stateName]: !state, currentIndex: index})
+    //   : navigate('BuyCoinScreen', {
+    //       items: notificationDataState[currentIndex],
+    //       isSub,
+    //     });
+
+    console.log(
+      // notificationDataState[currentIndex],
+      // currentIndex,
+      item,
+      index,
+      'alskfjakaalasasdasaadssdfjl',
+    );
+    item.coinUsed
+      ? navigate('HeaderDetailScreen', notificationDataState[index])
+      : userData?.isSubscribed
       ? updateState({[stateName]: !state, currentIndex: index})
       : navigate('BuyCoinScreen', {
-          items: notificationDataState[currentIndex],
+          items: notificationDataState[index],
           isSub,
         });
   };
@@ -47,6 +68,7 @@ const useNotificationScreen = ({navigate, addListener}) => {
     const {ok, data} = await API.get(getAllNotificationUrl);
     if (ok) {
       updateState({notificationDataState: data.data.notifications?.reverse()});
+      console.log('asdfkljaklsdfjlaksjdflkajsdfklj', data.data.notifications);
     }
     setTimeout(() => {
       setIsNotification(true);
@@ -54,10 +76,18 @@ const useNotificationScreen = ({navigate, addListener}) => {
   };
 
   const useEffectFun = () => {
+    console.log('ArraksjklArrow');
+
     const event = addListener('focus', getAllNotificationFunc);
     return event;
   };
-  useEffect(useEffectFun, []);
+  useEffect(
+    useEffectFun,
+    () => {
+      console.log('backArrow');
+    },
+    [],
+  );
 
   //State Clear in length in Redux
   useEffect(() => {

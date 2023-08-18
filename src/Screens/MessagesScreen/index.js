@@ -24,9 +24,10 @@ const MessagesScreen = ({route, navigation}) => {
   const {
     id,
     userDetail: {name, profilePicture},
+    userDetail,
   } = route?.params;
   const [messages, setMessages] = useState([]);
-  console.log('slkdajfklj,', messages);
+  console.log('slkdaj2fklj,', id, userDetail);
 
   // console.log('asdasdaasdassd,', messagesData);
 
@@ -136,6 +137,7 @@ const MessagesScreen = ({route, navigation}) => {
       .orderBy('createdAt', 'desc')
       .onSnapshot(querySnapshot => {
         const allMsg = querySnapshot.docs.map(item => {
+          console.log('ajbcjabjkbcajkbcabcasbbsabsc', userData?.agoraId, id);
           return {
             ...item._data,
             createdAt: item.data()?.createdAt.toDate(), //this line change only
@@ -159,6 +161,7 @@ const MessagesScreen = ({route, navigation}) => {
     return () => subscriber();
   }, []);
   const onSend = useCallback((messages = []) => {
+    console.log(messages, 'aDASDASD');
     const msg = messages[0];
     const myMsg = {
       ...msg,

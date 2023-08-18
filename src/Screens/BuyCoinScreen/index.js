@@ -6,6 +6,7 @@ import {
   Image,
   FlatList,
   ActivityIndicator,
+  Platform,
 } from 'react-native';
 import React, {memo, useState, useEffect, useCallback, useRef} from 'react';
 import {styles} from './styles';
@@ -29,6 +30,7 @@ import {types} from '../../Redux/types';
 const subscriptionSkus = Platform.select({
   // ios: [items?.productId],
   ios: ['productId_10', 'productId_50', 'Ten100_1'],
+  android: ['productid_10'],
 });
 
 const errorLog = ({message, error}) => {
@@ -53,7 +55,6 @@ const index = ({navigation, route}) => {
   console.log(isSub, 'asdkjfklsajfklj');
   const [loading, setLoading] = useState(false);
   const [isPurchasing, setIsPurchasing] = useState(false);
-  const [orderByPriceSub, setOrderByPriceSub] = useState([]);
   const handleGetPurchaseHistory = async () => {
     try {
       await getPurchaseHistory();
@@ -248,8 +249,6 @@ const index = ({navigation, route}) => {
   //   console.log({getPurchaseHistory});
   // }, [checkCurrentPurchase, currentPurchase]);
 
-  useEffect(() => {}, []);
-
   const BuyCoin = ({coinTitle, coinDes, coinPrice, onPress}) => {
     return (
       <TouchableOpacity onPress={onPress} style={styles.mainContainer}>
@@ -336,12 +335,26 @@ const index = ({navigation, route}) => {
             <ActivityIndicator />
           </View>
         ) : (
+          (console.log(Platform.OS, subscriptions, 'alskfjlksdjflkasjdf'),
           subscriptions
             .sort((a, b) => a.price - b.price)
             .map((subscription, index) => {
+              const owned = purchaseHistory.find(
+                s => s?.productId === subscription.productId,
+              );
               return (
                 <View style={styles.midContainer}>
-                  {isIos && (
+                  {isIos && !owned ? (
+                    <BuyCoin
+                      onPress={() => {
+                        setLoading(true);
+                        handleBuySubscription(subscription.productId);
+                      }}
+                      coinTitle={subscription?.title}
+                      // coinDes={'Validy until your coins finish'}
+                      coinPrice={subscription?.localizedPrice}
+                    />
+                  ) : (
                     <BuyCoin
                       onPress={() => {
                         setLoading(true);
@@ -354,7 +367,7 @@ const index = ({navigation, route}) => {
                   )}
                 </View>
               );
-            })
+            }))
         )}
 
         {/* <FlatList

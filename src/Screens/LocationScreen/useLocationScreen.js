@@ -25,14 +25,19 @@ const useLocationScreen = ({goBack}, {params}) => {
               setLocation({coords: {latitude, longitude}});
             },
             error => {
+              dispatch(loadingFalse());
               console.log(error.message);
             },
             {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
           );
         } else {
+          dispatch(loadingFalse());
+
           console.log('Location permission denied');
         }
       } catch (err) {
+        dispatch(loadingFalse());
+
         console.warn(err);
       }
     };
@@ -45,10 +50,15 @@ const useLocationScreen = ({goBack}, {params}) => {
   }, []);
   const getCurrentLocation = () => {
     dispatch(loadingTrue());
-    Geolocation.getCurrentPosition(info => {
-      getLocationName(info?.coords?.latitude, info?.coords?.longitude),
-        setLocation(info);
-    });
+    try {
+      Geolocation.getCurrentPosition(info => {
+        getLocationName(info?.coords?.latitude, info?.coords?.longitude),
+          setLocation(info);
+      });
+    } catch (e) {
+      console.log(e, 'askldjkljWWWWW');
+      dispatch(loadingFalse());
+    }
   };
   const {dispatch, getState} = useReduxStore();
   const {recentLocation} = getState('recentlocation');

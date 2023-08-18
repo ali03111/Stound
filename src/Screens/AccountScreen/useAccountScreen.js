@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useRef, useState} from 'react';
 import useReduxStore from '../../Hooks/UseReduxStore';
 import {logOutUser} from '../../Redux/Action/AuthAction';
 import API from '../../Utils/helperFunc';
@@ -7,6 +7,11 @@ import {errorMessage, successMessage} from '../../Config/NotificationMessage';
 import {initializeApp} from '@react-native-firebase/app';
 import auth from '@react-native-firebase/auth';
 const useAccountScreen = ({navigate}) => {
+  const scrollViewRef = useRef(null);
+
+  const handleContentSizeChange = (contentWidth, contentHeight) => {
+    scrollViewRef.current.scrollTo({y: 0, animated: true});
+  };
   const dynamicNav = res => navigate(res);
   const {dispatch, getState} = useReduxStore();
   const {userData} = getState('Auth');
@@ -51,6 +56,8 @@ const useAccountScreen = ({navigate}) => {
     onConfirm,
     userData,
     onDeleteConfirm,
+    handleContentSizeChange,
+    scrollViewRef,
   };
 };
 

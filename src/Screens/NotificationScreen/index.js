@@ -32,9 +32,10 @@ const Notification = ({navigation}) => {
     isNotification,
     getAllNotificationFunc,
   } = useNotificationScreen(navigation);
+  console.log(notificationDataState, 'asldkjfklaasdasdsdfjlkdjsf');
   const renderItem = useCallback(
     ({item: {displayNotification}, item, index}) => {
-      console.log(displayNotification, 'asdklajklsdjakls');
+      console.log(item, index, 'asdklajklsasdasdjakls');
       return (
         <View style={styles.notification}>
           <NotificationComp
@@ -43,7 +44,8 @@ const Notification = ({navigation}) => {
             description={displayNotification?.answer}
             time={item?.createdAt}
             onPress={() => {
-              onCancel(coinAlert, 'coinAlert', index);
+              onCancel(coinAlert, 'coinAlert', index, item);
+              // onCancel(item);
             }}
           />
         </View>

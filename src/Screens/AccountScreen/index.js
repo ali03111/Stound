@@ -34,6 +34,8 @@ const AccountScreen = ({navigation}) => {
     onConfirm,
     userData,
     onDeleteConfirm,
+    handleContentSizeChange,
+    scrollViewRef,
   } = useAccountScreen(navigation);
   return (
     <View style={{flex: 1}}>

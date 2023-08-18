@@ -21,6 +21,7 @@ const usePackageDetailsScreen = ({params}, {navigate}) => {
       adType,
       adId,
       userDetail: {agoraId},
+      description,
     },
   } = params;
   const {getState, dispatch} = useReduxStore();
@@ -59,6 +60,7 @@ const usePackageDetailsScreen = ({params}, {navigate}) => {
     adType,
     navigationChatScreen,
     askQuestion,
+    description,
   };
 };
 

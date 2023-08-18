@@ -1,4 +1,4 @@
-import React, {memo, useCallback, useState} from 'react';
+import React, {memo, useCallback, useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -7,7 +7,7 @@ import {
   ImageBackground,
   ScrollView,
 } from 'react-native';
-import {hp} from '../../Config/responsive';
+import {hp, wp} from '../../Config/responsive';
 import {goBack, keyExtractor} from '../../Utils';
 import {styles} from './styles';
 import {detailsImages} from '../../Utils/localDB';
@@ -50,6 +50,7 @@ const PackageDetailsScreen = ({navigation, route}) => {
     adType,
     navigationChatScreen,
     askQuestion,
+    description,
   } = usePackageDetailsScreen(route, navigation);
 
   const imageLenght = photos.length;
@@ -71,14 +72,17 @@ const PackageDetailsScreen = ({navigation, route}) => {
       )
     );
   }, []);
+  console.log(photos.length, 'aklfkadjsflkjasdlfjkalskdfjlaksdj');
   return (
     <View style={{flex: 1}}>
+      {console.log(route.params.items.isFavourite, 'uejdjjdujvjvj')}
       <Header
         arrowBackIcon={arrowback}
         backText={'Back'}
-        icon={route.params.items.isFavourite ? fav : favEmpty}
+        // icon={route.params.items.isFavourite ? fav : favEmpty}
         style={styles.headerStyle}
         goBack={navigation.goBack}
+        // onSave={() => updateFav()}
       />
       <View style={styles.imageHeaderView}>
         <BlurImage
@@ -108,6 +112,17 @@ const PackageDetailsScreen = ({navigation, route}) => {
             text={location}
             numberOfLines={10}
             styles={styles.locationText}
+          />
+        </View>
+        <View style={{marginLeft: wp('2')}}>
+          <TextComponent
+            text={'Description'}
+            styles={styles.descriptionHeading}
+          />
+          <TextComponent
+            text={description}
+            numberOfLines={5}
+            styles={styles.desText}
           />
         </View>
         <TextComponent

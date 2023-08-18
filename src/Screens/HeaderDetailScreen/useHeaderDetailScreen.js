@@ -8,10 +8,10 @@ import {types} from '../../Redux/types';
 
 const useHeaderDetailScreen = ({navigate}, {params}) => {
   const {dispatch, getState} = useReduxStore();
-  const {receipt} = params;
-  console.log('asdidfijakldsfjkldsj', params);
+  const {receipt, coinUsed, id} = params;
+  console.log('asdidfijakldsfjklasdsj', params.id);
   const userData = getState('Auth');
-  console.log('HEaderDetailScreen', userData);
+  console.log('HEaderDetailScreeaan', id, coinUsed);
   const onPressEMail = email => {
     console.log(email);
     Linking.openURL('mailto:' + email);
@@ -46,15 +46,20 @@ const useHeaderDetailScreen = ({navigate}, {params}) => {
   const useCoin = async () => {
     try {
       const response = await fetch(baseURL + useCoinUrl, {
+        method: 'POST', // Use the POST method
         headers: {
           Authorization: `Bearer ${userData.token}`,
           // Other headers if needed...
+          'Content-Type': 'application/json', // Set the content type
         },
+        body: JSON.stringify({
+          notificationId: id,
+        }), // Provide an empty JSON object as the POST body
       });
 
       if (response.ok) {
         const data = await response.json();
-        console.log('data454654q56w4e65q456', data);
+        console.log('asasdasdasdasdd', data);
         dispatch({type: types.UpdateProfile, payload: data.data});
       } else {
         // Handle the case where the response status is not okay (e.g., handle errors)
@@ -67,10 +72,18 @@ const useHeaderDetailScreen = ({navigate}, {params}) => {
   };
 
   useEffect(() => {
-    useCoin();
+    {
+      !coinUsed ? useCoin() : null;
+    }
   }, []);
 
-  return {PackageDetailData, onPressEMail, onPressCall, navigationChatScreen};
+  return {
+    PackageDetailData,
+    onPressEMail,
+    onPressCall,
+    navigationChatScreen,
+    userData,
+  };
 };
 
 export default useHeaderDetailScreen;

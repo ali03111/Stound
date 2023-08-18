@@ -15,23 +15,31 @@ import moment from 'moment';
 import BlurImage from './BlurImage';
 
 const NotificationComp = ({image, name, description, time, onPress}) => {
-  const givenTime = time;
-  const currentTime = moment();
-  const diff = moment.duration(currentTime.diff(moment(givenTime)));
+  const givenTime = new Date(time).getTime();
+  const currentTime = new Date().getTime();
+  const timeDifferenceMs = currentTime - givenTime;
 
-  const minutes = diff.minutes();
-  const hours = diff.hours();
-  const days = diff.days();
+  console.log(givenTime, currentTime, 'asldkfjaklsdfj');
+  const millisecondsPerMinute = 60 * 1000;
+  const millisecondsPerHour = 60 * millisecondsPerMinute;
+  const millisecondsPerDay = 24 * millisecondsPerHour;
+
+  const days = Math.floor(timeDifferenceMs / millisecondsPerDay);
+  const hours = Math.floor(
+    (timeDifferenceMs % millisecondsPerDay) / millisecondsPerHour,
+  );
+  const minutes = Math.floor(
+    (timeDifferenceMs % millisecondsPerHour) / millisecondsPerMinute,
+  );
+
   return (
     <TouchableOpacity onPress={onPress} style={styles.notificationMian}>
       <View style={styles.mainBannerImg}>
-        {/* <Image style={styles.bannerImg} resizeMode="contain" source={{ uri: image }} /> */}
         <BlurImage styles={styles.profileImg} radius={50} uri={image} />
       </View>
       <View style={styles.nameDescriptionMain}>
         <Text style={styles.nameDescription}>
           <TextComponent text={name} styles={styles.username} />
-          {/* <TextComponent text={` ${ans}`} /> */}
           <TextComponent
             text={` ${
               description ?? ' interested'
@@ -44,21 +52,21 @@ const NotificationComp = ({image, name, description, time, onPress}) => {
         <TextComponent
           text={
             days > 0 ? (
-              <Text>{days} day ago</Text>
+              <Text>
+                {days} day{days > 1 ? 's' : ''} ago
+              </Text>
             ) : hours > 0 ? (
-              <Text>{hours} hour ago</Text>
+              <Text>
+                {hours} hour{hours > 1 ? 's' : ''} ago
+              </Text>
             ) : (
-              <Text>{minutes} min ago</Text>
+              <Text>
+                {minutes} min{minutes > 1 ? 's' : ''} ago
+              </Text>
             )
           }
           styles={styles.timing}
         />
-
-        {/* <TextComponent text=
-           {days > 0 && <Text>{days} day(s) ago</Text>}
-           {hours > 0 && <Text>{hours} hour(s) ago</Text>}
-           {minutes > 0 && <Text>{minutes} minute(s) ago</Text>}
-        styles={styles.timing} /> */}
       </View>
     </TouchableOpacity>
   );

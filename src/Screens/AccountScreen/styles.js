@@ -8,6 +8,7 @@ export const styles = StyleSheet.create({
   },
   accountMain: {
     paddingHorizontal: wp('4'),
+    flexGrow: 1,
   },
   button: {
     height: hp('7'),

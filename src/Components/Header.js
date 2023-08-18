@@ -65,6 +65,7 @@ const styles = StyleSheet.create({
     width: wp('90'),
     marginTop: Platform.OS == 'ios' ? hp('6') : hp('1.5'),
     paddingHorizontal: wp('5'),
+    alignItems: 'center',
   },
   backMain: {
     alignItems: 'center',
@@ -81,7 +82,6 @@ const styles = StyleSheet.create({
   HeaderTitle: {
     fontSize: hp('2.6'),
     color: Colors.primaryTextColor,
-
     fontWeight: 'bold',
   },
   HeaderLeft: {
