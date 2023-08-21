@@ -78,7 +78,7 @@ const LoginScreen = ({navigation}) => {
             placeholder: 'Password',
             isSecure: true,
             isImage: lock,
-            defaultValue: __DEV__ ? 'Test@1234' : '',
+            defaultValue: __DEV__ ? 'Test@123' : '',
           }}
         />
         <TextComponent

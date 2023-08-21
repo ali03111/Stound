@@ -51,8 +51,8 @@ const index = ({navigation, route}) => {
   } = useHeaderDetailScreen(navigation, route);
   const [messages, setMessages] = useState([]);
 
-  const imageLenght = Item?.adDetail.photos.length;
   const Item = route.params;
+  const imageLenght = Item?.adDetail.photos.length;
   console.log({routeparam: route.params});
   const renderItem = useCallback(({item, index}) => {
     return (
@@ -274,7 +274,6 @@ const index = ({navigation, route}) => {
       });
   }, []);
   //FIREBASE END
-  console.log(Item?.adDetail.photos.length, 'Item?.adDetail.photos');
   return (
     <>
       <HeaderDetailComponent
@@ -289,7 +288,6 @@ const index = ({navigation, route}) => {
         onPressMessage={() => navigationChatScreen(Item)}
         centerImage={Item?.userDetail?.profilePicture}
       />
-
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.topContainer}>

@@ -17,6 +17,7 @@ const NotificationHeader = ({
   goBack,
   backTextStyle,
   onSave,
+  onHeartPress,
 }) => {
   return (
     <View style={[styles.TopHeader, {...style}]}>
@@ -40,20 +41,26 @@ const NotificationHeader = ({
         <TextComponent text={headerTitle} styles={styles.HeaderTitle} />
       </View>
       <View style={styles.HeaderRight}>
-        <Touchable style={styles.backMain}>
-          <Image
-            source={icon}
-            style={{
-              resizeMode: 'contain',
-              style: styles.arrowback,
-            }}
-          />
-          <TextComponent
-            text={saveReset}
-            styles={{...styles.backBtn, ...saveResetStyle}}
-            onPress={onSave}
-          />
-        </Touchable>
+        <View style={styles.backMain}>
+          {icon && (
+            <Touchable onPress={onHeartPress}>
+              <Image
+                source={icon}
+                style={{
+                  resizeMode: 'contain',
+                  style: styles.arrowback,
+                }}
+              />
+            </Touchable>
+          )}
+          {saveReset && (
+            <TextComponent
+              text={saveReset}
+              styles={{...styles.backBtn, ...saveResetStyle}}
+              onPress={onSave}
+            />
+          )}
+        </View>
       </View>
     </View>
   );

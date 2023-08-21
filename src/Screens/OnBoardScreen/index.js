@@ -6,7 +6,6 @@ import {keyExtractor} from '../../Utils';
 // import Lottie from 'lottie-react-native';
 import {hp} from '../../Config/responsive';
 import {TextComponent} from '../../Components/TextComponent';
-import * as Animatable from 'react-native-animatable';
 import ShareButton from '../../Components/ShareButton';
 
 const OnboardScreen = ({navigation}) => {
@@ -14,19 +13,30 @@ const OnboardScreen = ({navigation}) => {
     useOnboardScreen(navigation);
   const renderItem = useCallback(
     ({item, index}) => {
+      {
+        console.log('alsdkjfkladsjflkadjs', item);
+      }
       return (
         currentIndex == index && (
-          <View style={styles.centerMainView}>
-            <Image
-              style={styles.bannerImg}
-              // resizeMode="contain"
-              source={item?.image}
-            />
-            <TextComponent
-              numberOfLines={2}
-              text={item?.heading}
-              styles={styles.centerHeading}
-            />
+          <View
+            key={index}
+            style={{
+              flex: 1,
+              // flexDirection: 'row',
+              paddingBottom: 0,
+            }}>
+            <View style={styles.centerMainView}>
+              <Image
+                style={styles.bannerImg}
+                // resizeMode="contain"
+                source={item?.image}
+              />
+              <TextComponent
+                numberOfLines={2}
+                text={item?.heading}
+                styles={styles.centerHeading}
+              />
+            </View>
           </View>
         )
       );
@@ -41,14 +51,17 @@ const OnboardScreen = ({navigation}) => {
   );
   return (
     <ScrollView
-      showsVerticalScrollIndicator={false}
+      bounces={false}
       style={{backgroundColor: 'white', flex: 1, paddingBottom: hp('10')}}>
+      {/* style={{backgroundColor: 'white', flex: 1}}> */}
+      {console.log(currentIndex, 'askfjdlskjflksad')}
       <FlatList
+        bounces={false}
         refreshing={false}
         data={onBoardinData}
         renderItem={renderItem}
         showsHorizontalScrollIndicator={false}
-        horizontal
+        horizontal={false}
         onMomentumScrollEnd={onSnapToItem}
         keyExtractor={keyExtractor}
         pagingEnabled={true}
@@ -58,13 +71,15 @@ const OnboardScreen = ({navigation}) => {
         }}
         style={{paddingBottom: 0}}
       />
+      {/* <View style={{paddingBottom: 0}}>{onBoardinData.map(renderItem)}</View> */}
+
       <FlatList
+        scrollEnabled={false}
         refreshing={false}
         data={[0, 1, 2]}
         renderItem={renderItemDots}
         alwaysBounceVertical
         showsHorizontalScrollIndicator={false}
-        horizontal
         keyExtractor={keyExtractor}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.dotList}

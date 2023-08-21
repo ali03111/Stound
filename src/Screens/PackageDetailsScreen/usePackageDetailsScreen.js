@@ -1,7 +1,7 @@
-import {useEffect} from 'react';
+import {useCallback, useEffect, useState} from 'react';
 import {PackageDetailData} from '../../Utils/localDB';
 import API from '../../Utils/helperFunc';
-import {notifyUserUrl} from '../../Utils/Urls';
+import {notifyUserUrl, updateFavUrl} from '../../Utils/Urls';
 import {questionTrue} from '../../Redux/Action/isQuestionAction copy';
 import useReduxStore from '../../Hooks/UseReduxStore';
 import {successMessage} from '../../Config/NotificationMessage';
@@ -43,10 +43,26 @@ const usePackageDetailsScreen = ({params}, {navigate}) => {
       dispatch(questionTrue());
       // await API.put(notifyUserUrl + homeData[index].adId);
     } else {
-      successMessage('You like this property');
-      await API.put(notifyUserUrl + adId);
+      // successMessage('You like this property');
+      const response = await API.put(notifyUserUrl + adId);
+      console.log(response, 'asfkljaklsdfjl');
+      if (response.ok) {
+        successMessage(response?.data.message);
+      }
     }
   };
+
+  const [isFav, setIsFav] = useState(!params.items?.isFavourite ?? false);
+  const onFavouriteFunction = useCallback(async () => {
+    const url = updateFavUrl + adId;
+    const {ok, data} = await API.put(url);
+
+    if (ok) {
+      setIsFav(!isFav);
+      successMessage(data?.message);
+    } else errorMessage(originalError.message.split(' ').slice(1).join(' '));
+  }, [isFav]);
+
   return {
     PackageDetailData,
     userDetail,
@@ -61,6 +77,8 @@ const usePackageDetailsScreen = ({params}, {navigate}) => {
     navigationChatScreen,
     askQuestion,
     description,
+    onFavouriteFunction,
+    isFav,
   };
 };
 

@@ -13,6 +13,7 @@ const useOnboardingScreen = ({navigate, params}) => {
     const contentOffsetX = e.nativeEvent.contentOffset.x;
     const currentIndex = Math.round(contentOffsetX / width);
     setCurrentIndex(currentIndex);
+    console.log(e, 'alkfjklasjdfkl');
   };
 
   const goNext = () => {

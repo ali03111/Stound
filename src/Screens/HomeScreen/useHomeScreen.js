@@ -62,8 +62,11 @@ const useHomeScreen = ({navigate, params, addListener}) => {
       dispatch(questionTrue());
       // await API.put(notifyUserUrl + homeData[index].adId);
     } else {
-      successMessage('You like this property');
-      await API.put(notifyUserUrl + homeData[index].adId);
+      const response = await API.put(notifyUserUrl + homeData[index].adId);
+      console.log(response, 'asfkljaklsdfjl');
+      if (response.ok) {
+        successMessage(response?.data.message);
+      }
     }
   };
 

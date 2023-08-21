@@ -51,6 +51,8 @@ const PackageDetailsScreen = ({navigation, route}) => {
     navigationChatScreen,
     askQuestion,
     description,
+    onFavouriteFunction,
+    isFav,
   } = usePackageDetailsScreen(route, navigation);
 
   const imageLenght = photos.length;
@@ -72,16 +74,16 @@ const PackageDetailsScreen = ({navigation, route}) => {
       )
     );
   }, []);
-  console.log(photos.length, 'aklfkadjsflkjasdlfjkalskdfjlaksdj');
+  console.log(route.params, 'aaaasadasdasdasdasdasd');
   return (
     <View style={{flex: 1}}>
-      {console.log(route.params.items.isFavourite, 'uejdjjdujvjvj')}
       <Header
         arrowBackIcon={arrowback}
         backText={'Back'}
-        // icon={route.params.items.isFavourite ? fav : favEmpty}
+        icon={!isFav ? fav : favEmpty}
         style={styles.headerStyle}
         goBack={navigation.goBack}
+        onHeartPress={onFavouriteFunction}
         // onSave={() => updateFav()}
       />
       <View style={styles.imageHeaderView}>
