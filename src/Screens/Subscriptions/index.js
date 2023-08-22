@@ -262,15 +262,15 @@ const Subscriptions = ({navigation, route}) => {
                 </View>
               );
             })}
-            <View style={{justifyContent: 'center', alignItems: 'center'}}>
+            {/* <View style={{justifyContent: 'center', alignItems: 'center'}}>
               <BuyCoin
                 // onPress={() => HeaderDetailScreen(items)}
 
                 coinTitle={'10 Coins'}
                 // coinDes={'Validy till 25 - 5 - 2023'}
-                coinPrice={'28.38'}
+                coinPrice={'28.38'} 
               />
-            </View>
+            </View> */}
           </View>
         </View>
       </ScrollView>

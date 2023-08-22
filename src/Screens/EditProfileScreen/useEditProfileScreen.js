@@ -52,16 +52,25 @@ const useEditProfileScreen = ({navigate, goBack}) => {
   // , image: images
   const updateProfile = ({name, number}) => {
     console.log(number, name, profileData, 'ueiueieieu');
-    console.log('sdfhjalksdfjkldjsfkj', profileData);
+    console.log('sdfhjalksdfjkldjsfkj', profileData.uri);
+    console.log('sdfhjalksdfjkldjsfkj', Boolean(profileData.uri));
+    {Boolean(profileData.uri) ?dispatch(
+      updateUser({
+        profileData: {
+          name,
+          number,
+          image:  profileData
+        },
+      }),
+    ):
     dispatch(
       updateUser({
         profileData: {
           name,
           number,
-          image: profileData.uri ? profileData : null,
         },
       }),
-    );
+      )}
   };
 
   const handleConfirm = date => {
