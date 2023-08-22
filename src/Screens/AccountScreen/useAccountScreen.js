@@ -1,4 +1,4 @@
-import {useRef, useState} from 'react';
+import {useCallback, useRef, useState} from 'react';
 import useReduxStore from '../../Hooks/UseReduxStore';
 import {logOutUser} from '../../Redux/Action/AuthAction';
 import API from '../../Utils/helperFunc';
@@ -6,6 +6,7 @@ import {deleteAccUrl} from '../../Utils/Urls';
 import {errorMessage, successMessage} from '../../Config/NotificationMessage';
 import {initializeApp} from '@react-native-firebase/app';
 import auth from '@react-native-firebase/auth';
+import { Linking } from 'react-native';
 const useAccountScreen = ({navigate}) => {
   const scrollViewRef = useRef(null);
 
@@ -48,6 +49,21 @@ const useAccountScreen = ({navigate}) => {
     }
   };
 
+
+
+  const handleUrl = useCallback(async (url) => {
+    // Checking if the link is supported for links with custom URL scheme.
+    const supported = await Linking.canOpenURL(url);
+
+    if (supported) {
+      // Opening the link with some app, if the URL scheme is "http" the web link should be opened
+      // by some browser in the mobile
+      await Linking.openURL(url);
+    } else {
+      Alert.alert(`Don't know how to open this URL: ${url}`);
+    }
+  }, []);
+
   return {
     dynamicNav,
     logOut,
@@ -58,6 +74,7 @@ const useAccountScreen = ({navigate}) => {
     onDeleteConfirm,
     handleContentSizeChange,
     scrollViewRef,
+    handleUrl
   };
 };
 

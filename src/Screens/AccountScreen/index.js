@@ -36,6 +36,7 @@ const AccountScreen = ({navigation}) => {
     onDeleteConfirm,
     handleContentSizeChange,
     scrollViewRef,
+    handleUrl
   } = useAccountScreen(navigation);
   return (
     <View style={{flex: 1}}>
@@ -47,7 +48,7 @@ const AccountScreen = ({navigation}) => {
           <ProfileArea
             ProfileImage={imageUrl(userData?.profilePicture)}
             // ProfileImage={images?.uri || imageUrl(userData.profilePicture)}
-            ProfileName={userData?.name ?? 'Jhon Doe'}
+            ProfileName={userData?.name ?? ''}
             UserEmail={userData?.email}
             EditProfile={EditProfile}
             onPress={() => dynamicNav('EditProfileScreen')}
@@ -82,6 +83,7 @@ const AccountScreen = ({navigation}) => {
             textStyle={styles.buttonText}
             leftImgStyle={styles.iconLeft}
             rightImgStyle={styles.iconRight}
+            onPress={()=>handleUrl('https://www.youtube.com/')}
           />
           <ProfileButton
             title={'Privacy Policy'}

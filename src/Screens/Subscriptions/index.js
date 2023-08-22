@@ -61,7 +61,8 @@ const Subscriptions = ({navigation, route}) => {
   //product id from appstoreconnect app->subscriptions
   const subscriptionSkus = Platform.select({
     // ios: [items?.productId],
-    ios: ['productId_10'],
+    ios: ['productId_10', 'productId_50', 'Ten100_1'],
+    // android: ['productid_10'],
   });
 
   const {
