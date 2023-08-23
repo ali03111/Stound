@@ -93,6 +93,8 @@ const AccountScreen = ({navigation}) => {
             textStyle={styles.buttonText}
             leftImgStyle={styles.iconLeft}
             rightImgStyle={styles.iconRight}
+            onPress={()=>handleUrl('https://www.youtube.com/')}
+
           />
           <ProfileButton
             title={'Terms and Conditions'}
@@ -102,6 +104,8 @@ const AccountScreen = ({navigation}) => {
             textStyle={styles.buttonText}
             leftImgStyle={styles.iconLeft}
             rightImgStyle={styles.iconRight}
+            onPress={()=>handleUrl('https://www.youtube.com/')}
+
           />
           <ProfileButton
             title={'Rate Us'}
