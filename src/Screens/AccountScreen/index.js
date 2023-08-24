@@ -1,5 +1,5 @@
 import React, {memo, useCallback, useState} from 'react';
-import {View, ScrollView, SafeAreaView} from 'react-native';
+import {View, ScrollView, SafeAreaView, Linking} from 'react-native';
 import useFavourateScreen from './useAccountScreen';
 import {styles} from './styles';
 import Header from '../../Components/Header';
@@ -84,7 +84,7 @@ const AccountScreen = ({navigation}) => {
             leftImgStyle={styles.iconLeft}
             rightImgStyle={styles.iconRight}
             onPress={() =>
-              handleUrl('https://stound.staginganideos.com/deletion-policy')
+              Linking.openURL('https://stound.staginganideos.com/about')
             }
           />
           <ProfileButton
@@ -96,7 +96,7 @@ const AccountScreen = ({navigation}) => {
             leftImgStyle={styles.iconLeft}
             rightImgStyle={styles.iconRight}
             onPress={() =>
-              handleUrl('https://stound.staginganideos.com/privacy-policy')
+              Linking.openURL('https://stound.staginganideos.com/privacy-policy')
             }
           />
 
@@ -109,7 +109,7 @@ const AccountScreen = ({navigation}) => {
             leftImgStyle={styles.iconLeft}
             rightImgStyle={styles.iconRight}
             onPress={() =>
-              handleUrl(' https://stound.staginganideos.com/terms-condition')
+              Linking.openURL('https://stound.staginganideos.com/terms-condition')
             }
           />
           <ProfileButton

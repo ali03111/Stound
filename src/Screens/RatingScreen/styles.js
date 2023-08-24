@@ -16,7 +16,7 @@ export const styles = StyleSheet.create({
     marginBottom: hp('5'),
   },
   userName: {
-    fontSize: hp('2.2'),
+    fontSize: hp('2.6'),
     fontWeight: 'bold',
     marginTop: hp('-1.5'),
     color: 'white',
@@ -30,9 +30,7 @@ export const styles = StyleSheet.create({
     marginTop: hp('-3'),
     zIndex: -9,
   },
-  ProfileImage: {
-    borderRadius: 7,
-  },
+
   porfileTopImages: {
     // position: 'relative',
     justifyContent: 'center',
@@ -40,7 +38,7 @@ export const styles = StyleSheet.create({
   },
   UploadProfile: {
     paddingHorizontal: wp('1.6'),
-    paddingVertical: hp('.8'),
+    paddingVertical: hp('2.8'),
     backgroundColor: 'white',
     borderRadius: 8,
     position: 'absolute',
@@ -52,7 +50,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-end',
     paddingHorizontal: wp('4'),
-    paddingBottom: hp('2.5'),
+    paddingBottom: hp('6.5'),
   },
   saveBtn: {
     justifyContent: 'center',
@@ -69,12 +67,21 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
     lineHeight: 20,
     marginTop: hp('1'),
-    marginBottom: hp('8'),
+    marginBottom: hp('4'),
   },
   rateHd: {
     color: 'white',
     fontSize: hp('2.5'),
     fontWeight: 'bold',
     marginTop: hp('8'),
+  },
+  profileTopImages:{
+    justifyContent:'center',
+    alignItems:'center'
+  },
+  ProfileImage: {
+    borderRadius: 25,
+    height: hp('20'),
+    aspectRatio: 1,
   },
 });

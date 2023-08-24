@@ -392,7 +392,7 @@ import {
   View,
 } from 'react-native';
 import React, {useCallback, useEffect, useState} from 'react';
-import {endConnection, initConnection,useIAP,getSubscriptions, purchaseUpdatedListener, purchaseErrorListener, requestSubscription} from 'react-native-iap';
+import {endConnection, initConnection,useIAP,getSubscriptions, purchaseUpdatedListener, purchaseErrorListener, requestSubscription, getPurchaseHistory} from 'react-native-iap';
 import {TextComponent} from '../../Components/TextComponent';
 import {Colors} from '../../Theme/Variables';
 import {hp, wp} from '../../Config/responsive';
@@ -413,7 +413,6 @@ const Subscriptions = () => {
   
   const [isPurchased, setIsPurchased] = useState(false);
   const [product, setProduct] = useState({});
-  const productArray=[];
 
   //GET PRODUCT_ID ios and android
   useEffect(() => {
@@ -425,8 +424,17 @@ const Subscriptions = () => {
           .then(res => {
             console.log(res,'askldjfaklsdjfasdaslj');
             setProduct(res)
-
           });
+          getPurchaseHistory().catch(e=>console.log('Get purchase History ',e)).then(res=>{
+           try {
+            const receipt=res[res.length-1].transactionReceipt
+            if(receipt){
+              validFunction(receipt)
+            }
+           } catch (error) {
+            
+           }
+          })
       }, );
 
       purchaseErrorSubscription=purchaseErrorListener(error=>{
@@ -478,6 +486,16 @@ const Subscriptions = () => {
         </View>
       </TouchableOpacity>
     );
+  }
+
+
+  if(isPurchased){
+    return (
+      //YOU CAN NAVIGATE OTHER SCREEN BUT I AM DISPLAY SOME VIEW 
+      <View style={{justifyContent:'center',alignItems:'center',flex:1}}>
+        <Text>Welcomema Pr</Text>
+      </View>
+    )
   }
 
   return (
