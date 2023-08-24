@@ -131,6 +131,7 @@ const useAddPostScreen = ({navigate}) => {
         reset();
         dispatch(loadingFalse());
         successMessage(data?.message || 'Your Ad has been created ');
+        navigate('HomeScreen');
       } else {
         dispatch(loadingFalse());
         console.log('dfdfa', originalError, status, problem, data?.message);

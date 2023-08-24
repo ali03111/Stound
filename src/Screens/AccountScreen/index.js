@@ -36,7 +36,7 @@ const AccountScreen = ({navigation}) => {
     onDeleteConfirm,
     handleContentSizeChange,
     scrollViewRef,
-    handleUrl
+    handleUrl,
   } = useAccountScreen(navigation);
   return (
     <View style={{flex: 1}}>
@@ -83,7 +83,9 @@ const AccountScreen = ({navigation}) => {
             textStyle={styles.buttonText}
             leftImgStyle={styles.iconLeft}
             rightImgStyle={styles.iconRight}
-            onPress={()=>handleUrl('https://www.youtube.com/')}
+            onPress={() =>
+              handleUrl('https://stound.staginganideos.com/deletion-policy')
+            }
           />
           <ProfileButton
             title={'Privacy Policy'}
@@ -93,7 +95,11 @@ const AccountScreen = ({navigation}) => {
             textStyle={styles.buttonText}
             leftImgStyle={styles.iconLeft}
             rightImgStyle={styles.iconRight}
+            onPress={() =>
+              handleUrl('https://stound.staginganideos.com/privacy-policy')
+            }
           />
+
           <ProfileButton
             title={'Terms and Conditions'}
             iconLeft={tasksquare}
@@ -102,6 +108,9 @@ const AccountScreen = ({navigation}) => {
             textStyle={styles.buttonText}
             leftImgStyle={styles.iconLeft}
             rightImgStyle={styles.iconRight}
+            onPress={() =>
+              handleUrl(' https://stound.staginganideos.com/terms-condition')
+            }
           />
           <ProfileButton
             title={'Rate Us'}
