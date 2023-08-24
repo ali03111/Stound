@@ -1,5 +1,5 @@
 import React, {memo, useCallback, useState} from 'react';
-import {View, FlatList, Text, ScrollView, SafeAreaView} from 'react-native';
+import {View, ScrollView, SafeAreaView} from 'react-native';
 import useFavourateScreen from './useAccountScreen';
 import {styles} from './styles';
 import Header from '../../Components/Header';
