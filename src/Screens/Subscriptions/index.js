@@ -392,28 +392,33 @@ import {
   View,
 } from 'react-native';
 import React, {useCallback, useEffect, useState} from 'react';
-import {endConnection, initConnection,useIAP,getSubscriptions, purchaseUpdatedListener, purchaseErrorListener, requestSubscription} from 'react-native-iap';
+import {
+  endConnection,
+  initConnection,
+  useIAP,
+  getSubscriptions,
+  purchaseUpdatedListener,
+  purchaseErrorListener,
+  requestSubscription,
+} from 'react-native-iap';
 import {TextComponent} from '../../Components/TextComponent';
 import {Colors} from '../../Theme/Variables';
 import {hp, wp} from '../../Config/responsive';
 
 const items = Platform.select({
-  android:['productid_10'],
-  // ios: [
-  //   'productId_10', 'productId_50', 'Ten100_1'
-  // ],
+  android: ['productid_10'],
+  ios: ['productId_10', 'productId_50', 'Ten100_1'],
 });
 
 let purchaseUpdateSubscription;
 let purchaseErrorSubscription;
 const Subscriptions = () => {
-
   //START ANDROID
-  const{subscriptions} =useIAP();
-  
+  const {subscriptions} = useIAP();
+
   const [isPurchased, setIsPurchased] = useState(false);
   const [product, setProduct] = useState({});
-  const productArray=[];
+  const productArray = [];
 
   //GET PRODUCT_ID ios and android
   useEffect(() => {
@@ -423,45 +428,44 @@ const Subscriptions = () => {
         getSubscriptions({skus: items})
           .catch(e => console.log('not find items', e))
           .then(res => {
-            console.log(res,'askldjfaklsdjfasdaslj');
-            setProduct(res)
-
+            console.log(res, 'askldjfaklsdjfasdaslj');
+            setProduct(res);
           });
-      }, );
-
-      purchaseErrorSubscription=purchaseErrorListener(error=>{
-        if(!(error['responseCode'] === "2")){
-            Alert.alert('Error','There is an error with your purchase, error code '+ error.code)
-        }
       });
-      purchaseUpdateSubscription=purchaseUpdatedListener(purchase=>setIsPurchased(true));
-      return ()=> {
-        try {
-            purchaseUpdateSubscription.remove();
-        } catch (error) {
-          
-        }
-        try {
-            purchaseErrorSubscription.remove();
-        } catch (error) {
-          
-        }
-        try {
-            endConnection();
-        } catch (error) {
-          
-        }
+
+    purchaseErrorSubscription = purchaseErrorListener(error => {
+      if (!(error['responseCode'] === '2')) {
+        Alert.alert(
+          'Error',
+          'There is an error with your purchase, error code ' + error.code,
+        );
       }
-  },[]);
+    });
+    purchaseUpdateSubscription = purchaseUpdatedListener(purchase =>
+      setIsPurchased(true),
+    );
+    return () => {
+      try {
+        purchaseUpdateSubscription.remove();
+      } catch (error) {}
+      try {
+        purchaseErrorSubscription.remove();
+      } catch (error) {}
+      try {
+        endConnection();
+      } catch (error) {}
+    };
+  }, []);
 
   //END ANDROID
 
   // BUYCOMPONENT
-  const BuyCoin = ({coinTitle, coinDes, coinPrice, onPress,index}) => {
+  const BuyCoin = ({coinTitle, coinDes, coinPrice, onPress, index}) => {
     return (
       <TouchableOpacity
-      key={index}
-       onPress={onPress} style={styles.mainContainer}>
+        key={index}
+        onPress={onPress}
+        style={styles.mainContainer}>
         <View style={{flexDirection: 'row'}}>
           <Image
             style={styles.CoinImage}
@@ -478,26 +482,25 @@ const Subscriptions = () => {
         </View>
       </TouchableOpacity>
     );
-  }
+  };
 
   return (
-    
-    <View style={{justifyContent:'center',alignItems:'center',flex:1}}>
-    {console.log("askfjalskdjafklajsdfkl",product)}
-      {product.length > 0 ? (
-      product.sort((a, b) => a.price - b.price).map((item,index)=>(
-          <BuyCoin
-          index={index}
-          coinTitle={item.title}
-          coinPrice={item.price}
-          onPress={()=>
-          {
-            console.log(item['productId'])
-            requestSubscription(item['productId'])}}
-
-       />
-       )
-       )
+    <View style={{justifyContent: 'center', alignItems: 'center', flex: 1}}>
+      {console.log('askfjalskdjafklajsdfkl', product)}
+      {product?.length > 0 ? (
+        product
+          .sort((a, b) => a.price - b.price)
+          .map((item, index) => (
+            <BuyCoin
+              index={index}
+              coinTitle={item.title}
+              coinPrice={item.price}
+              onPress={() => {
+                console.log(item['productId']);
+                requestSubscription(item['productId']);
+              }}
+            />
+          ))
       ) : (
         <Text>Fetching here....</Text>
       )}

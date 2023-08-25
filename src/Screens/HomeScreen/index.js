@@ -142,7 +142,7 @@ const HomeScreen = ({navigation}) => {
               onSwipedAll={e => onRefresh()}
               renderCard={renderItem}
               onSwipedLeft={ca => {
-                successMessage('You cancel this property');
+                // successMessage('You cancel this property');
               }}
               onSwipedRight={ca => {
                 askQuestion(ca);

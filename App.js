@@ -9,7 +9,11 @@ import {
   Image,
   AppState,
 } from 'react-native';
-import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
+import {
+  NavigationContainer,
+  DefaultTheme,
+  createNavigationContainerRef,
+} from '@react-navigation/native';
 import StackNavigatior from './src/Navigation/navigation';
 import {SplashScreen, radioEmtpy, radioFill} from './src/Assests';
 import {Settings} from 'react-native-fbsdk-next';
@@ -28,8 +32,10 @@ import {
 import {Colors} from './src/Theme/Variables';
 import {fcmService} from './src/Services/Notifications';
 import {fcmRegister} from './src/Redux/Action/AuthAction';
+import {navigationRef} from './RootNavigation';
+import * as RootNavigation from './RootNavigation';
 
-function App({navigation}) {
+function App() {
   const [isVisible, setIsVisible] = useState(true);
   const Hide_Splash_Screen = () => {
     setIsVisible(false);
@@ -100,6 +106,15 @@ function App({navigation}) {
 
   const onOpenNotification = notify => {
     console.log('notify', notify);
+    if (navigationRef.isReady()) {
+      // Perform navigation if the react navigation is ready to handle actions
+      console.log('if navigationRef');
+      navigationRef.navigate('NotificationScreen');
+    } else {
+      console.log('else navigationRef');
+      // You can decide what to do if react navigation is not ready
+      // You can ignore this, or add these actions to a queue you can call later
+    }
   };
 
   let Splash_Screen = (
@@ -152,7 +167,7 @@ function App({navigation}) {
       {isVisible === true ? (
         Splash_Screen
       ) : (
-        <NavigationContainer>
+        <NavigationContainer ref={navigationRef}>
           <StackNavigatior />
         </NavigationContainer>
       )}

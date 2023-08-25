@@ -83,9 +83,7 @@ const AccountScreen = ({navigation}) => {
             textStyle={styles.buttonText}
             leftImgStyle={styles.iconLeft}
             rightImgStyle={styles.iconRight}
-            onPress={() =>
-              handleUrl('https://stound.staginganideos.com/deletion-policy')
-            }
+            onPress={() => handleUrl('https://stound.staginganideos.com/about')}
           />
           <ProfileButton
             title={'Privacy Policy'}
