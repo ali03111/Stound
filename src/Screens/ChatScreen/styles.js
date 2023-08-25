@@ -29,10 +29,11 @@ export const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   searchinput: {
-    paddingHorizontal: wp('2.5'),
+    // paddingHorizontal: wp('2.5'),
     width: wp('50'),
     fontSize: 15,
     color: 'black',
+    padding: 10,
   },
   centerHeading: {
     marginRight: wp('3'),

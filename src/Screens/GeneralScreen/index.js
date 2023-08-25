@@ -63,7 +63,6 @@ const GeneralScreen = ({navigation, route}) => {
         renderItem={renderItem}
         keyExtractor={keyExtractor}
         contentContainerStyle={styles.filterMain}
-        horizontal
       />
 
       {/* <View style={styles.filterMain}>

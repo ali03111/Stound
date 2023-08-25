@@ -23,7 +23,8 @@ export const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   searchinput: {
-    paddingHorizontal: wp('2.5'),
+    padding: 10,
+    // paddingHorizontal: wp('2.5'),
     width: wp('46'),
     fontSize: 15,
   },
