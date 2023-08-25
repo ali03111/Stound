@@ -83,13 +83,9 @@ const AccountScreen = ({navigation}) => {
             textStyle={styles.buttonText}
             leftImgStyle={styles.iconLeft}
             rightImgStyle={styles.iconRight}
-<<<<<<< HEAD
-            onPress={() => handleUrl('https://stound.staginganideos.com/about')}
-=======
             onPress={() =>
               Linking.openURL('https://stound.staginganideos.com/about')
             }
->>>>>>> 6504c16b79e0f7ad32587f2e7946f0004f6305e2
           />
           <ProfileButton
             title={'Privacy Policy'}
@@ -100,7 +96,9 @@ const AccountScreen = ({navigation}) => {
             leftImgStyle={styles.iconLeft}
             rightImgStyle={styles.iconRight}
             onPress={() =>
-              Linking.openURL('https://stound.staginganideos.com/privacy-policy')
+              Linking.openURL(
+                'https://stound.staginganideos.com/privacy-policy',
+              )
             }
           />
 
@@ -113,7 +111,9 @@ const AccountScreen = ({navigation}) => {
             leftImgStyle={styles.iconLeft}
             rightImgStyle={styles.iconRight}
             onPress={() =>
-              Linking.openURL('https://stound.staginganideos.com/terms-condition')
+              Linking.openURL(
+                'https://stound.staginganideos.com/terms-condition',
+              )
             }
           />
           <ProfileButton

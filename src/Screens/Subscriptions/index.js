@@ -392,7 +392,6 @@ import {
   View,
 } from 'react-native';
 import React, {useCallback, useEffect, useState} from 'react';
-<<<<<<< HEAD
 import {
   endConnection,
   initConnection,
@@ -401,10 +400,8 @@ import {
   purchaseUpdatedListener,
   purchaseErrorListener,
   requestSubscription,
+  getPurchaseHistory,
 } from 'react-native-iap';
-=======
-import {endConnection, initConnection,useIAP,getSubscriptions, purchaseUpdatedListener, purchaseErrorListener, requestSubscription, getPurchaseHistory} from 'react-native-iap';
->>>>>>> 6504c16b79e0f7ad32587f2e7946f0004f6305e2
 import {TextComponent} from '../../Components/TextComponent';
 import {Colors} from '../../Theme/Variables';
 import {hp, wp} from '../../Config/responsive';
@@ -422,10 +419,6 @@ const Subscriptions = () => {
 
   const [isPurchased, setIsPurchased] = useState(false);
   const [product, setProduct] = useState({});
-<<<<<<< HEAD
-  const productArray = [];
-=======
->>>>>>> 6504c16b79e0f7ad32587f2e7946f0004f6305e2
 
   //GET PRODUCT_ID ios and android
   useEffect(() => {
@@ -435,32 +428,29 @@ const Subscriptions = () => {
         getSubscriptions({skus: items})
           .catch(e => console.log('not find items', e))
           .then(res => {
-<<<<<<< HEAD
             console.log(res, 'askldjfaklsdjfasdaslj');
             setProduct(res);
           });
-=======
-            console.log(res,'askldjfaklsdjfasdaslj');
-            setProduct(res)
+        getPurchaseHistory()
+          .catch(e => console.log('Get purchase History ', e))
+          .then(res => {
+            try {
+              const receipt = res[res.length - 1].transactionReceipt;
+              if (receipt) {
+                validFunction(receipt);
+              }
+            } catch (error) {}
           });
-          getPurchaseHistory().catch(e=>console.log('Get purchase History ',e)).then(res=>{
-           try {
-            const receipt=res[res.length-1].transactionReceipt
-            if(receipt){
-              validFunction(receipt)
-            }
-           } catch (error) {
-            
-           }
-          })
-      }, );
-
-      purchaseErrorSubscription=purchaseErrorListener(error=>{
-        if(!(error['responseCode'] === "2")){
-            Alert.alert('Error','There is an error with your purchase, error code '+ error.code)
-        }
->>>>>>> 6504c16b79e0f7ad32587f2e7946f0004f6305e2
       });
+
+    purchaseErrorSubscription = purchaseErrorListener(error => {
+      if (!(error['responseCode'] === '2')) {
+        Alert.alert(
+          'Error',
+          'There is an error with your purchase, error code ' + error.code,
+        );
+      }
+    });
 
     purchaseErrorSubscription = purchaseErrorListener(error => {
       if (!(error['responseCode'] === '2')) {
@@ -513,14 +503,13 @@ const Subscriptions = () => {
     );
   };
 
-
-  if(isPurchased){
+  if (isPurchased) {
     return (
-      //YOU CAN NAVIGATE OTHER SCREEN BUT I AM DISPLAY SOME VIEW 
-      <View style={{justifyContent:'center',alignItems:'center',flex:1}}>
+      //YOU CAN NAVIGATE OTHER SCREEN BUT I AM DISPLAY SOME VIEW
+      <View style={{justifyContent: 'center', alignItems: 'center', flex: 1}}>
         <Text>Welcomema Pr</Text>
       </View>
-    )
+    );
   }
 
   return (
