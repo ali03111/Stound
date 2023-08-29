@@ -401,80 +401,96 @@ import {
   purchaseErrorListener,
   requestSubscription,
   getPurchaseHistory,
+  getProducts,
+  flushFailedPurchasesCachedAsPendingAndroid,
 } from 'react-native-iap';
 import {TextComponent} from '../../Components/TextComponent';
 import {Colors} from '../../Theme/Variables';
 import {hp, wp} from '../../Config/responsive';
 
 const items = Platform.select({
-  android: ['productid_10'],
-  ios: ['productId_10', 'productId_50', 'Ten100_1'],
+  android: ['productid_10', 'productid_30'],
+  // android: {skus: ['productidsub_10']},
+  // ios: ['productId_10', 'productId_50', 'Ten100_1'],
 });
 
 let purchaseUpdateSubscription;
 let purchaseErrorSubscription;
 const Subscriptions = () => {
   //START ANDROID
-  const {subscriptions} = useIAP();
 
   const [isPurchased, setIsPurchased] = useState(false);
-  const [product, setProduct] = useState({});
+  const [product1, setProduct1] = useState({});
 
   //GET PRODUCT_ID ios and android
   useEffect(() => {
-    initConnection()
-      .catch(e => console.log('error in connecting', e))
-      .then(() => {
-        getSubscriptions({skus: items})
-          .catch(e => console.log('not find items', e))
-          .then(res => {
-            console.log(res, 'askldjfaklsdjfasdaslj');
-            setProduct(res);
-          });
-        getPurchaseHistory()
-          .catch(e => console.log('Get purchase History ', e))
-          .then(res => {
-            try {
-              const receipt = res[res.length - 1].transactionReceipt;
-              if (receipt) {
-                validFunction(receipt);
-              }
-            } catch (error) {}
-          });
+    const initConnection = async () => {
+      await initConnection()
+        .catch(e => console.log('error in connecting', e))
+        .then(() => flushFailedPurchasesCachedAsPendingAndroid())
+        .then(() => {
+          getSubscriptions({skus: items})
+            .catch(e => console.log('not find items', e))
+            .then(res => {
+              console.log(res, 'askldjfaklsdjfasdaslj');
+              setProduct1(res);
+            });
+
+          getPurchaseHistory()
+            .catch(e => console.log('Get purchase History ', e))
+            .then(res => {
+              try {
+                const receipt = res[res.length - 1].transactionReceipt;
+                if (receipt) {
+                  validFunction(receipt);
+                }
+              } catch (error) {}
+            });
+        });
+
+      purchaseErrorSubscription = purchaseErrorListener(error => {
+        if (!(error['responseCode'] === '2')) {
+          Alert.alert(
+            'Error',
+            'There is an error with your purchase, error code ' + error.code,
+          );
+        }
       });
 
-    purchaseErrorSubscription = purchaseErrorListener(error => {
-      if (!(error['responseCode'] === '2')) {
-        Alert.alert(
-          'Error',
-          'There is an error with your purchase, error code ' + error.code,
-        );
-      }
-    });
-
-    purchaseErrorSubscription = purchaseErrorListener(error => {
-      if (!(error['responseCode'] === '2')) {
-        Alert.alert(
-          'Error',
-          'There is an error with your purchase, error code ' + error.code,
-        );
-      }
-    });
-    purchaseUpdateSubscription = purchaseUpdatedListener(purchase =>
-      setIsPurchased(true),
-    );
-    return () => {
-      try {
-        purchaseUpdateSubscription.remove();
-      } catch (error) {}
-      try {
-        purchaseErrorSubscription.remove();
-      } catch (error) {}
-      try {
-        endConnection();
-      } catch (error) {}
+      purchaseErrorSubscription = purchaseErrorListener(error => {
+        if (!(error['responseCode'] === '2')) {
+          Alert.alert(
+            'Error',
+            'There is an error with your purchase, error code ' + error.code,
+          );
+        }
+      });
+      purchaseUpdateSubscription = purchaseUpdatedListener(purchase =>
+        setIsPurchased(true),
+      );
+      return () => {
+        try {
+          purchaseUpdateSubscription.remove();
+        } catch (error) {}
+        try {
+          purchaseErrorSubscription.remove();
+        } catch (error) {}
+        try {
+          endConnection();
+        } catch (error) {}
+      };
     };
   }, []);
+
+  // const {connected, getProducts, products} = useIAP();
+
+  // useEffect(() => {
+  //   if (connected) {
+  //     getProducts(items);
+  //     console.log('getting product....');
+  //   }
+  //   console.log(products, 'lkjlkjkljljljkljklj');
+  // }, [connected, getProducts]);
 
   //END ANDROID
 
@@ -514,9 +530,9 @@ const Subscriptions = () => {
 
   return (
     <View style={{justifyContent: 'center', alignItems: 'center', flex: 1}}>
-      {console.log('askfjalskdjafklajsdfkl', product)}
-      {product?.length > 0 ? (
-        product
+      {console.log('askfjalskdjafkaalajsdfkl', product1)}
+      {product1?.length > 0 ? (
+        product1
           .sort((a, b) => a.price - b.price)
           .map((item, index) => (
             <BuyCoin

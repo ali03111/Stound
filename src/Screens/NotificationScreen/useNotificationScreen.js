@@ -53,22 +53,25 @@ const useNotificationScreen = ({navigate, addListener}) => {
       index,
       'alskfjakaalasasdasaadssdfjl',
     );
-    // item.coinUsed
-    //   ? navigate('HeaderDetailScreen', notificationDataState[index])
-    //   : userData?.isSubscribed
-    //   ? updateState({[stateName]: !state, currentIndex: index})
-    //   : navigate('BuyCoinScreen', {
-    //       items: notificationDataState[index],
-    //       isSub,
-    //     });
-    item?.coinUsed
+    item.coinUsed
       ? navigate('HeaderDetailScreen', notificationDataState[index])
       : userData?.isSubscribed
       ? updateState({[stateName]: !state, currentIndex: index})
-      : navigate('Subscriptions', {
+      : navigate('BuyCoinScreen', {
           items: notificationDataState[index],
           isSub,
         });
+
+    //NAVIGATE SUBSCRIPTION
+
+    // item?.coinUsed
+    //   ? navigate('HeaderDetailScreen', notificationDataState[index])
+    //   : userData?.isSubscribed
+    //   ? updateState({[stateName]: !state, currentIndex: index})
+    //   : navigate('Subscriptions', {
+    //       items: notificationDataState[index],
+    //       isSub,
+    //     });
   };
 
   // console.log(notificationDataState[0].userDetail, 'Data');
