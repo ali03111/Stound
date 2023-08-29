@@ -21,6 +21,8 @@ import {
   PurchaseError,
   clearTransactionIOS,
   flushFailedPurchasesCachedAsPendingAndroid,
+  purchaseErrorListener,
+  purchaseUpdatedListener,
   requestPurchase,
   requestSubscription,
   useIAP,
@@ -203,6 +205,31 @@ const index = ({navigation, route}) => {
 
     setIsBoolProduct(false);
   }, [connected, getProducts]);
+
+  useEffect(() => {
+    const purchaseUpdateSub = purchaseUpdatedListener(async purchase => {
+      const reciept = purchase.transactionReceipt;
+      if (reciept) {
+        //BACKEND
+        console.log(reciept);
+        let body = {receipt: reciept};
+        try {
+          //BACKENDQ
+        } catch (error) {
+          console.log(error, 'eror');
+        }
+      }
+    });
+
+    const PurchaseError = purchaseErrorListener(error => {
+      console.log(error, 'purchaseErrorListener');
+    });
+
+    return () => {
+      purchaseUpdateSub.remove();
+      PurchaseError.remove();
+    };
+  }, []);
 
   //END ANDROID WORK FOR PURCHASING
 
