@@ -43,10 +43,10 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   text: {
-    fontSize: hp('1.5'),
+    // fontSize: heightPercentageToDP('2'),
     color: Colors.white,
     textAlign: 'center',
-    // marginLeft: wp('3'),
+    marginLeft: wp('3'),
     // fontFamily: FontFamily.regular,
   },
 });

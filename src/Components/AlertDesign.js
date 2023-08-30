@@ -1,8 +1,8 @@
 import React from 'react';
 import AwesomeAlert from 'react-native-awesome-alerts';
-import { StyleSheet } from 'react-native';
-import { Colors } from '../Theme/Variables';
-import { hp, wp } from '../Config/responsive';
+import {StyleSheet} from 'react-native';
+import {Colors} from '../Theme/Variables';
+import {hp, wp} from '../Config/responsive';
 
 export const AlertDesign = ({
   isVisible,
@@ -12,11 +12,10 @@ export const AlertDesign = ({
   onConfirm,
   onCancel,
   cancel,
-  buttonColor
+  buttonColor,
 }) => {
   return (
     <AwesomeAlert
-
       show={isVisible}
       showProgress={false}
       title={title}
@@ -25,13 +24,16 @@ export const AlertDesign = ({
       closeOnHardwareBackPress={false}
       showCancelButton={true}
       showConfirmButton={true}
-      cancelText={cancel ? cancel : "Cancel"}
+      cancelText={cancel ? cancel : 'Cancel'}
       confirmText={confirmText}
-      confirmButtonColor={"#FF4949"}
+      confirmButtonColor={'#FF4949'}
       titleStyle={styles.modalTitle}
       messageStyle={styles.modalMsg}
       cancelButtonStyle={styles.cancelBtnMain}
-      confirmButtonStyle={{ ...styles.confirmBtnMain, backgroundColor: buttonColor ? Colors.primaryColor : '#FF4949' }}
+      confirmButtonStyle={{
+        ...styles.confirmBtnMain,
+        backgroundColor: buttonColor ? Colors.primaryColor : '#FF4949',
+      }}
       cancelButtonTextStyle={styles.modalCancelBtnText}
       confirmButtonTextStyle={styles.modalcConfirmBtnText}
       onCancelPressed={onCancel}
@@ -47,9 +49,10 @@ const styles = StyleSheet.create({
     fontSize: hp('2.5'),
   },
   modalMsg: {
-    color: Colors.gray,
+    color: Colors.bubbleText,
     fontSize: hp('1.8'),
     marginBottom: hp('3'),
+    fontWeight: '500',
   },
   cancelBtnMain: {
     backgroundColor: '#F6F6F6',
@@ -75,5 +78,6 @@ const styles = StyleSheet.create({
   },
   modalcConfirmBtnText: {
     fontSize: hp('1.8'),
+    fontWeight: '600',
   },
 });

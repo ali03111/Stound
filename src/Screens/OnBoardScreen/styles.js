@@ -17,8 +17,7 @@ export const styles = StyleSheet.create({
 
     // marginTop: hp('/2'),
   },
-  getStarted: {
-    textAlign:'center',
+  getStart: {
     width: wp('90'),
     justifyContent: 'center',
     alignItems: 'center',
@@ -27,19 +26,6 @@ export const styles = StyleSheet.create({
     marginTop: hp('3'),
     alignSelf: 'center',
     marginBottom: hp('5'),
-    margin:10
-  },
-  getStart: {
-    textAlign:'center',
-    width: wp('45'),
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: hp('6.5'),
-    // borderRadius: 60,
-    marginTop: hp('3'),
-    alignSelf: 'center',
-    marginBottom: hp('5'),
-    margin:10
   },
   centerMainView: {
     width: wp('100'),

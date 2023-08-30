@@ -15,6 +15,7 @@ import useReduxStore from '../../Hooks/UseReduxStore';
 import {types} from '../../Redux/types';
 import {questionTrue, setAdId} from '../../Redux/Action/isQuestionAction copy';
 import {store} from '../../Redux/Reducers';
+import {loadingFalse, loadingTrue} from '../../Redux/Action/isloadingAction';
 
 const useHomeScreen = ({navigate, params, addListener}) => {
   //   const {dispatch} = useReduxStore();
@@ -22,6 +23,8 @@ const useHomeScreen = ({navigate, params, addListener}) => {
   const width = Dimensions.get('window').width;
   const [showAlert, setShowAlert] = useState(false);
   const [homeData, setHomeData] = useState([]);
+  const [text, onChangeText] = useState('');
+
   const [selectedId, setSelectedId] = useState({
     id: '1', // acts as primary key, should be unique and non-empty string
     label: 'Just looking',
@@ -57,6 +60,7 @@ const useHomeScreen = ({navigate, params, addListener}) => {
 
   const askQuestion = async index => {
     console.log(homeData[index].adId, 'alkdjljrujvjvjvjvj');
+
     if (!userData.isAnswered) {
       dispatch(setAdId(homeData[index].adId));
       dispatch(questionTrue());
@@ -107,17 +111,28 @@ const useHomeScreen = ({navigate, params, addListener}) => {
 
   //Search Property Lists With Api
   const searchPropertyFunction = async text => {
+    dispatch(loadingTrue());
+
     console.log(text, 'asldkfjklsdjfkl');
     const body = {
       text,
     };
 
-    const {ok, data, originalError} = await API.post(searchAdsUrl, body);
+    const {ok, data, originalError, status} = await API.post(
+      searchAdsUrl,
+      body,
+    );
+    console.log(data, status, 'Ads data History');
+    onChangeText('');
+
     try {
       if (ok) {
+        dispatch(loadingFalse());
         navigate('FilterPackageScreen', {items: data});
       }
     } catch (e) {
+      dispatch(loadingFalse());
+
       console.log('dfdfa', originalError, data);
       errorMessage(originalError?.message?.split(' ')?.slice(1)?.join(' '));
     }
@@ -151,6 +166,8 @@ const useHomeScreen = ({navigate, params, addListener}) => {
     isloading,
     searchPropertyFunction,
     notificationLength,
+    text,
+    onChangeText,
   };
 };
 

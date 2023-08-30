@@ -96,7 +96,9 @@ const AccountScreen = ({navigation}) => {
             leftImgStyle={styles.iconLeft}
             rightImgStyle={styles.iconRight}
             onPress={() =>
-              Linking.openURL('https://stound.staginganideos.com/privacy-policy')
+              Linking.openURL(
+                'https://stound.staginganideos.com/privacy-policy',
+              )
             }
           />
 
@@ -109,7 +111,9 @@ const AccountScreen = ({navigation}) => {
             leftImgStyle={styles.iconLeft}
             rightImgStyle={styles.iconRight}
             onPress={() =>
-              Linking.openURL('https://stound.staginganideos.com/terms-condition')
+              Linking.openURL(
+                'https://stound.staginganideos.com/terms-condition',
+              )
             }
           />
           <ProfileButton

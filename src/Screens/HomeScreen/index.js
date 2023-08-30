@@ -35,8 +35,6 @@ import {imageUrl} from '../../Utils/Urls';
 import {EmptyViewComp} from '../../Components/EmptyViewComp';
 
 const HomeScreen = ({navigation}) => {
-  const [text, onChangeText] = React.useState('');
-
   const {
     onBoardinData,
     currentIndex,
@@ -59,6 +57,8 @@ const HomeScreen = ({navigation}) => {
     navigateToNotificationScreen,
     searchPropertyFunction,
     notificationLength,
+    text,
+    onChangeText,
   } = useHomeScreen(navigation);
 
   // console.log('cccc',onBoardinData);
@@ -142,7 +142,7 @@ const HomeScreen = ({navigation}) => {
               onSwipedAll={e => onRefresh()}
               renderCard={renderItem}
               onSwipedLeft={ca => {
-                successMessage('You cancel this property');
+                // successMessage('You cancel this property');
               }}
               onSwipedRight={ca => {
                 askQuestion(ca);

@@ -93,7 +93,7 @@ const Notification = ({navigation}) => {
         cancel={'Not Now'}
         isVisible={coinAlert}
         title="Use Coins"
-        message="Use 2 coins to get the details!"
+        message="Use 1 coins to get the details!"
         confirmText="Use Coins"
         onCancel={() => onCancel(coinAlert, 'coinAlert')}
         onConfirm={() => onConfirm(coinAlert)}

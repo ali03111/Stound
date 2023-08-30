@@ -61,6 +61,9 @@ const useNotificationScreen = ({navigate, addListener}) => {
           items: notificationDataState[index],
           isSub,
         });
+
+    //NAVIGATE SUBSCRIPTION
+
     // item?.coinUsed
     //   ? navigate('HeaderDetailScreen', notificationDataState[index])
     //   : userData?.isSubscribed

@@ -94,7 +94,7 @@ const index = ({navigation, route}) => {
     {
       _id: Item?.userDetail.agoraId,
       createdAt: new Date(),
-      text: 'Hello User for contact',
+      text: 'Hi how can i help you!',
       user: {
         _id: userData?.agoraId,
 

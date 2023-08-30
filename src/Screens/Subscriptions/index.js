@@ -382,186 +382,207 @@
 
 // export default Subscriptions;
 
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import React, {useEffect, useState} from 'react';
-import * as RNIap from 'react-native-iap';
+import {
+  Alert,
+  Image,
+  Platform,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import React, {useCallback, useEffect, useState} from 'react';
+import {
+  endConnection,
+  initConnection,
+  useIAP,
+  getSubscriptions,
+  purchaseUpdatedListener,
+  purchaseErrorListener,
+  requestSubscription,
+  getPurchaseHistory,
+  getProducts,
+  flushFailedPurchasesCachedAsPendingAndroid,
+} from 'react-native-iap';
+import {TextComponent} from '../../Components/TextComponent';
+import {Colors} from '../../Theme/Variables';
+import {hp, wp} from '../../Config/responsive';
 
-const itemSubs = Platform.select({
-  // ios: ['your_product_id'],
-
-  android: ['productid_30'],
+const items = Platform.select({
+  android: ['productid_10', 'productid_30'],
+  // android: {skus: ['productidsub_10']},
+  // ios: ['productId_10', 'productId_50', 'Ten100_1'],
 });
-const Subcriptions = () => {
-  const [buyIsLoading, setBuyIsLoading] = useState(false);
 
+let purchaseUpdateSubscription;
+let purchaseErrorSubscription;
+const Subscriptions = () => {
+  //START ANDROID
+
+  const [isPurchased, setIsPurchased] = useState(false);
+  const [product1, setProduct1] = useState({});
+
+  //GET PRODUCT_ID ios and android
   useEffect(() => {
-    initilizeIAPConnection();
-  }, []);
+    const initConnection = async () => {
+      await initConnection()
+        .catch(e => console.log('error in connecting', e))
+        .then(() => flushFailedPurchasesCachedAsPendingAndroid())
+        .then(() => {
+          getSubscriptions({skus: items})
+            .catch(e => console.log('not find items', e))
+            .then(res => {
+              console.log(res, 'askldjfaklsdjfasdaslj');
+              setProduct1(res);
+            });
 
-  const initilizeIAPConnection = async () => {
-    await RNIap.initConnection()
+          getPurchaseHistory()
+            .catch(e => console.log('Get purchase History ', e))
+            .then(res => {
+              try {
+                const receipt = res[res.length - 1].transactionReceipt;
+                if (receipt) {
+                  validFunction(receipt);
+                }
+              } catch (error) {}
+            });
+        });
 
-      .then(async connection => {
-        console.log('IAP result', connection);
-
-        getItems();
-      })
-
-      .catch(err => {
-        console.warn(`IAP ERROR ${err.code}`, err.message);
+      purchaseErrorSubscription = purchaseErrorListener(error => {
+        if (!(error['responseCode'] === '2')) {
+          Alert.alert(
+            'Error',
+            'There is an error with your purchase, error code ' + error.code,
+          );
+        }
       });
 
-    await RNIap.flushFailedPurchasesCachedAsPendingAndroid()
-
-      .then(async consumed => {
-        console.log('consumed all items?', consumed);
-      })
-      .catch(err => {
-        console.warn(
-          `flushFailedPurchasesCachedAsPendingAndroid ERROR ${err.code}`,
-          err.message,
-        );
+      purchaseErrorSubscription = purchaseErrorListener(error => {
+        if (!(error['responseCode'] === '2')) {
+          Alert.alert(
+            'Error',
+            'There is an error with your purchase, error code ' + error.code,
+          );
+        }
       });
-  };
-
-  const getItems = async () => {
-    try {
-      console.log('itemSubs ', itemSubs);
-
-      const Products = await RNIap.getSubscriptions(itemSubs);
-
-      console.log(' IAP Su', Products);
-
-      if (Products.length !== 0) {
-        if (Platform.OS === 'android') {
-          //Your logic here to save the products in states etc
-        } else if (Platform.OS === 'ios') {
-          // your logic here to save the products in states etc
-          // Make sure to check the response differently for android and ios as it is different for both
-        }
-      }
-    } catch (err) {
-      console.warn('IAP error', err.code, err.message, err);
-
-      setError(err.message);
-    }
-  };
-
-  let purchaseUpdateSubscription = null;
-
-  let purchaseErrorSubscription = null;
-
-  useEffect(() => {
-    purchaseUpdateSubscription = RNIap.purchaseUpdatedListener(
-      async purchase => {
-        console.log('purchase', purchase);
-
-        const receipt = purchase.transactionReceipt;
-
-        if (receipt) {
-          try {
-            if (Platform.OS === 'ios') {
-              RNIap.finishTransaction(purchase.transactionId);
-            } else if (Platform.OS === 'android') {
-              await RNIap.consumeAllItemsAndroid(purchase.purchaseToken);
-
-              await RNIap.acknowledgePurchaseAndroid(purchase.purchaseToken);
-            }
-
-            await RNIap.finishTransaction(purchase, true);
-          } catch (ackErr) {
-            console.log('ackErr INAPP>>>>', ackErr);
-          }
-        }
-      },
-    );
-
-    purchaseErrorSubscription = RNIap.purchaseErrorListener(error => {
-      console.log('purchaseErrorListener INAPP>>>>', error);
-    });
-
-    return () => {
-      if (purchaseUpdateSubscription) {
-        purchaseUpdateSubscription.remove();
-
-        purchaseUpdateSubscription = null;
-      }
-
-      if (purchaseErrorSubscription) {
-        purchaseErrorSubscription.remove();
-
-        purchaseErrorSubscription = null;
-      }
+      purchaseUpdateSubscription = purchaseUpdatedListener(purchase =>
+        setIsPurchased(true),
+      );
+      return () => {
+        try {
+          purchaseUpdateSubscription.remove();
+        } catch (error) {}
+        try {
+          purchaseErrorSubscription.remove();
+        } catch (error) {}
+        try {
+          endConnection();
+        } catch (error) {}
+      };
     };
   }, []);
-  const requestSubscription = async sku => {
-    setBuyIsLoading(true);
 
-    console.log('IAP req', sku);
+  // const {connected, getProducts, products} = useIAP();
 
-    try {
-      await RNIap.requestSubscription(sku)
+  // useEffect(() => {
+  //   if (connected) {
+  //     getProducts(items);
+  //     console.log('getting product....');
+  //   }
+  //   console.log(products, 'lkjlkjkljljljkljklj');
+  // }, [connected, getProducts]);
 
-        .then(async result => {
-          console.log('IAP req sub', result);
+  //END ANDROID
 
-          if (Platform.OS === 'android') {
-            setPurchaseToken(result.purchaseToken);
-
-            setPackageName(result.packageNameAndroid);
-
-            setProductId(result.productId);
-
-            // can do your API call here to save the purchase details of particular user
-          } else if (Platform.OS === 'ios') {
-            console.log(result.transactionReceipt);
-
-            setProductId(result.productId);
-
-            setReceipt(result.transactionReceipt);
-
-            // can do your API call here to save the purchase details of particular user
-          }
-
-          setBuyIsLoading(false);
-        })
-
-        .catch(err => {
-          setBuyIsLoading(false);
-
-          console.warn(
-            `IAP req ERROR %%%%% ${err.code}`,
-            err.message,
-            isModalVisible,
-          );
-
-          setError(err.message);
-        });
-    } catch (err) {
-      setBuyIsLoading(false);
-
-      console.warn(`err ${err.code}`, err.message);
-
-      setError(err.message);
-    }
+  // BUYCOMPONENT
+  const BuyCoin = ({coinTitle, coinDes, coinPrice, onPress, index}) => {
+    return (
+      <TouchableOpacity
+        key={index}
+        onPress={onPress}
+        style={styles.mainContainer}>
+        <View style={{flexDirection: 'row'}}>
+          <Image
+            style={styles.CoinImage}
+            source={require('../../Assests/Icons/usdCoin.png')}
+          />
+          <View style={styles.midTextContainer}>
+            <TextComponent text={coinTitle} styles={styles.coinText} />
+            <TextComponent text={coinDes} styles={styles.coinDesText} />
+          </View>
+        </View>
+        <View style={styles.lastTextContainer}>
+          <TextComponent text={'$'} styles={styles.last1Text} />
+          <TextComponent text={coinPrice} styles={styles.last2Text} />
+        </View>
+      </TouchableOpacity>
+    );
   };
 
-  return (
-    <TouchableOpacity
-      onPress={() => {
-        requestSubscription(monthlyPlanId);
-      }}>
-      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-        {buyIsLoading === true ? (
-          <ActivityIndicator size={'small'} color={colors.white} />
-        ) : (
-          <Text style={styles.subscriptionContinueButtonText}>{'Buy'}</Text>
-        )}
+  if (isPurchased) {
+    return (
+      //YOU CAN NAVIGATE OTHER SCREEN BUT I AM DISPLAY SOME VIEW
+      <View style={{justifyContent: 'center', alignItems: 'center', flex: 1}}>
+        <Text>Welcomema Pr</Text>
       </View>
-    </TouchableOpacity>
+    );
+  }
+
+  return (
+    <View style={{justifyContent: 'center', alignItems: 'center', flex: 1}}>
+      {console.log('askfjalskdjafkaalajsdfkl', product1)}
+      {product1?.length > 0 ? (
+        product1
+          .sort((a, b) => a.price - b.price)
+          .map((item, index) => (
+            <BuyCoin
+              index={index}
+              coinTitle={item.title}
+              coinPrice={item.price}
+              onPress={() => {
+                console.log(item['productId']);
+                requestSubscription(item['productId']);
+              }}
+            />
+          ))
+      ) : (
+        <Text>Fetching here....</Text>
+      )}
+    </View>
   );
 };
 
-export default Subcriptions;
+export default Subscriptions;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  mainContainer: {
+    flexDirection: 'row',
+    borderRadius: 10,
+    padding: 8,
+    borderWidth: 0.5,
+    borderColor: Colors.primaryColor,
+    width: wp('90'),
+    marginTop: hp('3'),
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    // backgroundColor: 'red',
+  },
+  coinText: {
+    fontSize: hp('2'),
+    color: Colors.primaryTextColor,
+    fontWeight: '500',
+  },
+  coinDesText: {
+    fontSize: hp('1.6'),
+    color: Colors.gray,
+  },
+  lastTextContainer: {
+    width: wp('23'),
+    backgroundColor: Colors.primaryColor,
+    borderRadius: 10,
+    padding: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginVertical: hp('0.5'),
+  },
+});
