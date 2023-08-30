@@ -33,7 +33,8 @@ import {Colors} from './src/Theme/Variables';
 import {fcmService} from './src/Services/Notifications';
 import {fcmRegister} from './src/Redux/Action/AuthAction';
 import {navigationRef} from './RootNavigation';
-import * as RootNavigation from './RootNavigation';
+import {questionTrue} from './src/Redux/Action/isQuestionAction copy';
+
 
 function App() {
   const [isVisible, setIsVisible] = useState(true);
@@ -43,7 +44,7 @@ function App() {
   const {getState, dispatch} = useReduxStore();
   const {isloading} = getState('isloading');
   const {isQuestion} = getState('isQuestion');
-  const {isLogin} = getState('Auth');
+  const {isLogin,userData} = getState('Auth');
   const appState = useRef(AppState.currentState);
   const time = () => {
     return 5000;
@@ -105,6 +106,10 @@ function App() {
   };
 
   const onOpenNotification = notify => {
+    if (!userData.isAnswered) {
+      dispatch(questionTrue());
+      // await API.put(notifyUserUrl + homeData[index].adId);
+    }
     console.log('notify', notify);
     if (navigationRef.isReady()) {
       // Perform navigation if the react navigation is ready to handle actions
