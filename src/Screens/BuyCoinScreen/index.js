@@ -89,28 +89,31 @@ const index = ({navigation, route}) => {
     handleGetSubscriptions();
   }, [connected]);
 
-  const handleBuySubscription = useCallback(async productId => {
-    try {
-      if (!isIos) {
-        console.log('android');
-        await requestSubscription({sku: productId});
-      } else {
-        const reqSubs = await requestSubscription({
-          sku: productId,
-          andDangerouslyFinishTransactionAutomaticallyIOS: false,
-        });
-      }
+  const handleBuySubscription = useCallback(
+    async productId => {
+      try {
+        if (!isIos) {
+          console.log('android');
+          await requestPurchase({sku: productId}, false);
+        } else {
+          const reqSubs = await requestSubscription({
+            sku: productId,
+            andDangerouslyFinishTransactionAutomaticallyIOS: false,
+          });
+        }
 
-      setLoading(false);
-    } catch (error) {
-      setLoading(false);
-      if (error instanceof PurchaseError) {
-        errorLog({message: `[${error.code}]: ${error.message}`, error});
-      } else {
-        errorLog({message: 'handleBuySubscription', error});
+        setLoading(false);
+      } catch (error) {
+        setLoading(false);
+        if (error instanceof PurchaseError) {
+          errorLog({message: `[${error.code}]: ${error.message}`, error});
+        } else {
+          errorLog({message: 'handleBuySubscription', error});
+        }
       }
-    }
-  }, []);
+    },
+    [isIos],
+  );
 
   const [checkInProgress, setCheckInProgress] = useState(false);
 
@@ -292,7 +295,7 @@ const index = ({navigation, route}) => {
                     <BuyCoin
                       onPress={() => {
                         setLoading(true);
-                        handleBuySubscription(subscription.productId);
+                        handleBuySubscription(subscription);
                       }}
                       coinTitle={subscription?.title}
                       // coinDes={'Validy until your coins finish'}
