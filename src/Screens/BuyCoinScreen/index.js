@@ -20,6 +20,10 @@ import useBuyCoinScreen from './useBuyCoinScreen';
 import {
   PurchaseError,
   clearTransactionIOS,
+  flushFailedPurchasesCachedAsPendingAndroid,
+  purchaseErrorListener,
+  purchaseUpdatedListener,
+  requestPurchase,
   requestSubscription,
   useIAP,
   validateReceiptIos,
@@ -30,7 +34,8 @@ import {types} from '../../Redux/types';
 const subscriptionSkus = Platform.select({
   // ios: [items?.productId],
   ios: ['productId_10', 'productId_50', 'Ten100_1'],
-  android: ['productid_10'],
+  // android: ['productid_10', 'productid_30'],
+  android: ['productid_10', 'productid_30', 'productid_50'],
 });
 
 const errorLog = ({message, error}) => {
@@ -85,14 +90,17 @@ const index = ({navigation, route}) => {
   }, [connected]);
 
   const handleBuySubscription = useCallback(async productId => {
-    i++;
-    console.log(i, 'aiaiaiaiaiaiaiaiaiaaaaiai');
-
     try {
-      const reqSubs = await requestSubscription({
-        sku: productId,
-        andDangerouslyFinishTransactionAutomaticallyIOS: false,
-      });
+      if (!isIos) {
+        console.log('android');
+        await requestSubscription({sku: productId});
+      } else {
+        const reqSubs = await requestSubscription({
+          sku: productId,
+          andDangerouslyFinishTransactionAutomaticallyIOS: false,
+        });
+      }
+
       setLoading(false);
     } catch (error) {
       setLoading(false);
@@ -180,74 +188,50 @@ const index = ({navigation, route}) => {
       flushFailedPurchasesCachedAsPendingAndroid();
     }
   };
-  // const checkCurrentPurchase = useCallback(
-  //   async purchase => {
-  //     if (isPurchasing) {
-  //       console.log({purchase});
 
-  //       try {
-  //         const receipt = purchase.transactionReceipt;
-  //         console.log({receipt});
-  //         if (receipt) {
-  //           if (Platform.OS === 'ios') {
-  //             const isTestEnvironment = __DEV__;
+  //START ANDROID WORK FOR PURCHASING
 
-  //             //send receipt body to apple server to validate
-  //             const appleReceiptResponse = await validateReceiptIos(
-  //               {
-  //                 'receipt-data': receipt,
-  //                 password: 'b3d4281737d54f98a8b4d663569a1441',
-  //               },
-  //               isTestEnvironment,
-  //             );
+  // STATE
+  const [isBoolProduct, setIsBoolProduct] = useState(false);
 
-  //             if (appleReceiptResponse) {
-  //               console.log({appleReceiptResponse});
-  //               const {status} = appleReceiptResponse;
-  //               if (status) {
-  //                 console.log('alskdfjeljk', date, i);
-  //                 console.log({status});
-  //                 const response = await fetch(baseURL + iosAppUrl, {
-  //                   method: 'POST',
-  //                   headers: {
-  //                     'Content-Type': 'application/json',
-  //                     Authorization: `Bearer ${token}`,
-  //                   },
-  //                   body: JSON.stringify({
-  //                     token: receipt,
-  //                   }),
-  //                 });
-  //                 console.log({aklsdfjaklsdfjlksdj: receipt});
-  //                 if (response.status == 200) {
-  //                   const data = await response.json();
-  //                   console.log(data, 'asdasdasdas123123dasdasasdsadasdasd');
-  //                   dispatch({type: types.UpdateProfile, payload: data.data});
+  const {products, getProducts} = useIAP();
 
-  //                   navigation.navigate('HeaderDetailScreen', items);
-  //                   setIsPurchasing(false);
-  //                 } else {
-  //                   console.log('RESPONSE OK ERROR');
-  //                   setIsPurchasing(false);
-  //                 }
-  //               }
-  //             }
+  useEffect(() => {
+    if (connected) {
+      getProducts({skus: subscriptionSkus});
+      console.log('getting product....');
+      setIsBoolProduct(true);
+    }
 
-  //             return;
-  //           }
-  //         }
-  //       } catch (error) {
-  //         setIsPurchasing(false);
-  //         console.log('error', error);
-  //       }
-  //     }
-  //   },
-  //   [isPurchasing, token, navigation, dispatch],
-  // );
+    setIsBoolProduct(false);
+  }, [connected, getProducts]);
 
-  // useEffect(() => {
-  //   checkCurrentPurchase(currentPurchase);
-  //   console.log({getPurchaseHistory});
-  // }, [checkCurrentPurchase, currentPurchase]);
+  useEffect(() => {
+    const purchaseUpdateSub = purchaseUpdatedListener(async purchase => {
+      const reciept = purchase.transactionReceipt;
+      if (reciept) {
+        //BACKEND
+        console.log(reciept);
+        let body = {receipt: reciept};
+        try {
+          //BACKENDQ
+        } catch (error) {
+          console.log(error, 'eror');
+        }
+      }
+    });
+
+    const PurchaseError = purchaseErrorListener(error => {
+      console.log(error, 'purchaseErrorListener');
+    });
+
+    return () => {
+      purchaseUpdateSub.remove();
+      PurchaseError.remove();
+    };
+  }, []);
+
+  //END ANDROID WORK FOR PURCHASING
 
   const BuyCoin = ({coinTitle, coinDes, coinPrice, onPress}) => {
     return (
@@ -269,25 +253,7 @@ const index = ({navigation, route}) => {
       </TouchableOpacity>
     );
   };
-  // const renderSubscriptionCallback =
-  //   (loading, isIos, handleBuySubscription) =>
-  //   ({item}) => {
-  //     const owned = purchaseHistory.find(s => s?.productId === item.productId);
-  //     return (
-  //       <View style={styles.midContainer}>
-  //         {!loading && !owned && isIos && (
-  //           <BuyCoin
-  //             onPress={() => {
-  //               setLoading(true);
-  //               handleBuySubscription(item.productId);
-  //             }}
-  //             coinTitle={item?.title}
-  //             coinPrice={item?.localizedPrice}
-  //           />
-  //         )}
-  //       </View>
-  //     );
-  //   };
+
   return (
     <>
       <View style={styles.container}>
@@ -307,28 +273,6 @@ const index = ({navigation, route}) => {
             styles={{...styles.day}}
           />
         </View>
-        {/* {subscriptions.map((subscription, index) => {
-            
-            const owned = purchaseHistory.find(
-              s => s?.productId === subscription.productId,
-            );
-            console.log({subscription});
-            return (
-              <View style={styles.midContainer}>
-                {!loading && !owned && isIos && (
-                  <BuyCoin
-                    onPress={() => {
-                      setLoading(true);
-                      handleBuySubscription(subscription.productId);
-                    }}
-                    coinTitle={subscription?.title}
-                    // coinDes={'Validy till 25 - 5 - 2023'}
-                    coinPrice={subscription?.localizedPrice}
-                  />
-                )}
-              </View>
-            );
-          })} */}
 
         {loading ? (
           <View style={{...styles.midContainer, marginTop: hp('10')}}>
@@ -344,17 +288,7 @@ const index = ({navigation, route}) => {
               );
               return (
                 <View style={styles.midContainer}>
-                  {isIos && !owned ? (
-                    <BuyCoin
-                      onPress={() => {
-                        setLoading(true);
-                        handleBuySubscription(subscription.productId);
-                      }}
-                      coinTitle={subscription?.title}
-                      // coinDes={'Validy until your coins finish'}
-                      coinPrice={subscription?.localizedPrice}
-                    />
-                  ) : (
+                  {isIos && !owned && (
                     <BuyCoin
                       onPress={() => {
                         setLoading(true);
@@ -369,31 +303,37 @@ const index = ({navigation, route}) => {
               );
             }))
         )}
-
-        {/* <FlatList
-            data={subscriptions}
-            keyExtractor={item => item.productId}
-            renderItem={renderSubscriptionCallback(
-              loading,
-              isIos,
-              handleBuySubscription,
-            )}
-          /> */}
-
-        {/* <BuyCoin onPress={() => HeaderDetailScreen(items)} coinTitle={'10 Coins'} coinDes={'Validy till 25 - 5 - 2023'} coinPrice={'28.38'} /> */}
-        {/* <BuyCoin
-              // onPress={() => HeaderDetailScreen(items)}
-              onPress={() =>
-                navigation.navigate('Subscriptions', {
-                  ...items,
-                  productId: 'productId_50',
-                })
-              }
-              coinTitle={'10 Coins'}
-              // coinDes={'Validy till 25 - 5 - 2023'}
-              coinPrice={'28.38'}
-            />
-            */}
+        {isBoolProduct && !isIos ? (
+          <View style={{...styles.midContainer, marginTop: hp('10')}}>
+            <ActivityIndicator />
+          </View>
+        ) : (
+          (console.log(
+            Platform.OS,
+            products,
+            purchaseHistory,
+            'alskfjlksdjflkasjdf',
+          ),
+          products
+            // .sort((a, b) => a.price - b.price)
+            .map((subscription, index) => {
+              return (
+                <View key={subscription.productId} style={styles.midContainer}>
+                  {!isIos && (
+                    <BuyCoin
+                      onPress={() => {
+                        setLoading(true);
+                        handleBuySubscription(subscription.productId);
+                      }}
+                      coinTitle={subscription?.name}
+                      // coinDes={'Validy until your coins finish'}
+                      coinPrice={subscription?.description}
+                    />
+                  )}
+                </View>
+              );
+            }))
+        )}
       </View>
     </>
   );
