@@ -18,6 +18,7 @@ const sound = Platform.select({ios: 'interval.wav', android: 'interval.mp3'});
 
 const onNotificationNotiFee = async (data, appState) => {
   store.dispatch(setNotificationLength(data));
+  console.log(data,'asdklajlsdjkakls')
 
   const channelId = await notifee.createChannel({
     id: 'default',
