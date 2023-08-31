@@ -38,6 +38,8 @@ const subscriptionSkus = Platform.select({
   android: ['productid_10', 'productid_30', 'productid_50'],
 });
 
+purchaseUpdateSubscription = null;
+purchaseErrorSubscription = null;
 const errorLog = ({message, error}) => {
   console.error('An error happened', message, error);
 };
@@ -52,7 +54,6 @@ const index = ({navigation, route}) => {
     subscriptions, //returns subscriptions for this app.
     getSubscriptions, //Gets available subsctiptions for this app.
     currentPurchase, //current purchase for the tranasction
-    finishTransaction,
     purchaseHistory, //return the purchase history of the user on the device (sandbox user in dev)
     getPurchaseHistory, //gets users purchase history
   } = useIAP();
@@ -94,7 +95,7 @@ const index = ({navigation, route}) => {
       try {
         if (!isIos) {
           console.log('android');
-          await requestPurchase({sku: productId}, false);
+          await requestPurchase({sku: productId});
         } else {
           const reqSubs = await requestSubscription({
             sku: productId,
@@ -197,11 +198,12 @@ const index = ({navigation, route}) => {
   // STATE
   const [isBoolProduct, setIsBoolProduct] = useState(false);
 
-  const {products, getProducts} = useIAP();
+  const {products, getProducts, finishTransaction} = useIAP();
 
   useEffect(() => {
     if (connected) {
       getProducts({skus: subscriptionSkus});
+
       console.log('getting product....');
       setIsBoolProduct(true);
     }
@@ -210,13 +212,16 @@ const index = ({navigation, route}) => {
   }, [connected, getProducts]);
 
   useEffect(() => {
-    const purchaseUpdateSub = purchaseUpdatedListener(async purchase => {
+    purchaseUpdateSubscription = purchaseUpdatedListener(async purchase => {
       const reciept = purchase.transactionReceipt;
+      console.log(purchase, 'PurchaseAaaaaaAaaas');
       if (reciept) {
         //BACKEND
-        console.log(reciept);
+        console.log(reciept, 'ALSKDJALKJSD');
         let body = {receipt: reciept};
         try {
+          // If consumable (can be purchased again)
+          // await finishTransaction({purchase, isConsumable: true});
           //BACKENDQ
         } catch (error) {
           console.log(error, 'eror');
@@ -224,13 +229,13 @@ const index = ({navigation, route}) => {
       }
     });
 
-    const PurchaseError = purchaseErrorListener(error => {
+    purchaseUpdateSubscription = purchaseErrorListener(error => {
       console.log(error, 'purchaseErrorListener');
     });
 
     return () => {
-      purchaseUpdateSub.remove();
-      PurchaseError.remove();
+      purchaseUpdateSubscription.remove();
+      purchaseErrorSubscription.remove();
     };
   }, []);
 

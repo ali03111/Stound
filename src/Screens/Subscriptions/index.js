@@ -530,16 +530,15 @@ const Subscriptions = () => {
 
   return (
     <View style={{justifyContent: 'center', alignItems: 'center', flex: 1}}>
-      {console.log('askfjalskdjafkaalajsdfkl', product1)}
       {product1?.length > 0 ? (
         product1
           .sort((a, b) => a.price - b.price)
           .map((item, index) => (
             <BuyCoin
-              index={index}
               coinTitle={item.title}
               coinPrice={item.price}
               onPress={() => {
+                q;
                 console.log(item['productId']);
                 requestSubscription(item['productId']);
               }}
