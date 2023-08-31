@@ -161,9 +161,7 @@ const PackageDetailsScreen = ({navigation, route}) => {
                       styles={styles.pEmail}
                     />
                   </View>
-                  <View style={styles.accChat}>
-                    <Image source={chat} />
-                  </View>
+               
                 </View>
               </CollapseBody>
             </Collapse>

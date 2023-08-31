@@ -1,4 +1,4 @@
-package com.anideos.stound;
+package deos.stound;
 
 import android.app.Application;
 import com.facebook.react.PackageList;

@@ -25,8 +25,18 @@ const Stound = () => (
 // Register background handler
 messaging().setBackgroundMessageHandler(async remoteMessage => {
   console.log('Message handled in the background!', remoteMessage);
-  store.dispatch(setNotificationLength(remoteMessage));
-
-    
+  store.dispatch(setNotificationLength(remoteMessage));    
 });
+// Register Terminate handler
+  messaging()
+      .getInitialNotification()
+      .then(remoteMessage => {
+        console.log(
+          'Notification caused app to open from quit state:',
+          remoteMessage,
+        );
+  store.dispatch(setNotificationLength(remoteMessage));    
+
+      });
+
 AppRegistry.registerComponent(appName, () => Stound);
