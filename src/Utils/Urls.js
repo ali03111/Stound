@@ -46,4 +46,5 @@ export const FilterAdsUrl = 'filter-ads';
 export const searchAdsUrl = 'search-ads';
 export const deleteAccUrl = 'auth/delete-user/';
 export const iosAppUrl = 'inApp-ios';
+export const androidAppUrl = 'inApp-android';
 export const useCoinUrl = 'use-coin';

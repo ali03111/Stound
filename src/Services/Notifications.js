@@ -8,7 +8,6 @@ import {requestNotifications, openSettings} from 'react-native-permissions';
 import useReduxStore from '../Hooks/UseReduxStore';
 import {NotificationLength} from '../Redux/Action/AuthAction';
 import {store} from '../Redux/Reducers';
-import {types} from '../Redux/types';
 import {setNotificationLength} from '../Redux/Action/recentNotification';
 // import NavigationService from './NavigationService';
 // import useRouteName from '@/hooks/useRouteName';

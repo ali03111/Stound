@@ -1,6 +1,7 @@
 import {Dimensions, StyleSheet} from 'react-native';
 import {hp, wp} from '../../Config/responsive';
 import {Colors} from '../../Theme/Variables';
+import { height } from '../../Navigation/bottomNavigation';
 
 export const styles = StyleSheet.create({
   topContainer: {
@@ -20,7 +21,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'row', // Added to align icon and input
     alignItems: 'center',
     position: 'absolute',
-    top: hp('10'),
+    top: height>667? hp('10'):hp('13'),
     zIndex: -1,
     overflow: 'hidden',
     shadowColor: '#000',

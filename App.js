@@ -43,7 +43,7 @@ function App() {
   const {getState, dispatch} = useReduxStore();
   const {isloading} = getState('isloading');
   const {isQuestion} = getState('isQuestion');
-  const {isLogin} = getState('Auth');
+  const {isLogin, userData} = getState('Auth');
   const appState = useRef(AppState.currentState);
   const time = () => {
     return 5000;

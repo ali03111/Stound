@@ -83,7 +83,7 @@ const HomeScreen = ({navigation}) => {
       <View style={{paddingTop: Platform.OS == 'ios' ? hp('3') : hp('0')}}>
         <View style={styles.searchBarMain}>
           <View style={styles.searchMain}>
-            <Image style={styles.search} source={search} />
+            <Image style={styles.setting} source={search} />
             <TextInput
               onSubmitEditing={() => searchPropertyFunction(text)}
               style={styles.searchinput}
@@ -111,7 +111,7 @@ const HomeScreen = ({navigation}) => {
                     backgroundColor: 'red',
                     borderRadius: 50,
                   }}></View>
-                <Image source={showNotification} style={styles.notification} />
+                <Image source={showNotification} style={styles.setting} />
               </Touchable>
             ) : (
               <Touchable
@@ -125,7 +125,7 @@ const HomeScreen = ({navigation}) => {
                     backgroundColor: 'red',
                     borderRadius: 50,
                   }}></View>
-                <Image source={notification} style={styles.notification} />
+                <Image source={notification} style={styles.setting} />
               </Touchable>
             )}
           </View>

@@ -8,7 +8,14 @@ import {
   ActivityIndicator,
   Platform,
 } from 'react-native';
-import React, {memo, useState, useEffect, useCallback, useRef} from 'react';
+import React, {
+  memo,
+  useState,
+  useEffect,
+  useCallback,
+  useRef,
+  useMemo,
+} from 'react';
 import {styles} from './styles';
 import Header from '../../Components/Header';
 import {arrowbackwhite} from '../../Assests';
@@ -20,7 +27,9 @@ import useBuyCoinScreen from './useBuyCoinScreen';
 import {
   PurchaseError,
   clearTransactionIOS,
+  endConnection,
   flushFailedPurchasesCachedAsPendingAndroid,
+  initConnection,
   purchaseErrorListener,
   purchaseUpdatedListener,
   requestPurchase,
@@ -29,17 +38,20 @@ import {
   validateReceiptIos,
 } from 'react-native-iap';
 import useReduxStore from '../../Hooks/UseReduxStore';
-import {baseURL, iosAppUrl} from '../../Utils/Urls';
+import {androidAppUrl, baseURL, iosAppUrl} from '../../Utils/Urls';
 import {types} from '../../Redux/types';
+import API from '../../Utils/helperFunc';
+import {errorMessage, successMessage} from '../../Config/NotificationMessage';
 const subscriptionSkus = Platform.select({
   // ios: [items?.productId],
   ios: ['productId_10', 'productId_50', 'Ten100_1'],
   // android: ['productid_10', 'productid_30'],
   android: ['productid_10', 'productid_30', 'productid_50'],
 });
+let i = 0;
 
-purchaseUpdateSubscription = null;
-purchaseErrorSubscription = null;
+// let purchaseUpdateSubscription = null;
+// let purchaseErrorSubscription = null;
 const errorLog = ({message, error}) => {
   console.error('An error happened', message, error);
 };
@@ -47,6 +59,7 @@ const errorLog = ({message, error}) => {
 const isIos = Platform.OS === 'ios';
 
 const index = ({navigation, route}) => {
+  // const {init, clear} = useBuyCoinScreen();
   const {getState, dispatch} = useReduxStore();
   const {token} = getState('Auth');
   const {
@@ -70,7 +83,9 @@ const index = ({navigation, route}) => {
   };
 
   useEffect(() => {
-    handleGetPurchaseHistory();
+    {
+      isIos && handleGetPurchaseHistory();
+    }
   }, [connected]);
   let i = 0;
 
@@ -87,7 +102,9 @@ const index = ({navigation, route}) => {
   };
 
   useEffect(() => {
-    handleGetSubscriptions();
+    {
+      isIos && handleGetSubscriptions();
+    }
   }, [connected]);
 
   const handleBuySubscription = useCallback(
@@ -95,7 +112,7 @@ const index = ({navigation, route}) => {
       try {
         if (!isIos) {
           console.log('android');
-          await requestPurchase({sku: productId});
+          await requestPurchase({sku: productId}, false);
         } else {
           const reqSubs = await requestSubscription({
             sku: productId,
@@ -162,15 +179,23 @@ const index = ({navigation, route}) => {
   }, [checkCurrentPurchase, currentPurchase, isPurchasing]);
 
   const hitAPIToSever = useCallback(async receipt => {
-    const response = await fetch(baseURL + iosAppUrl, {
+    const body1 = {
+      packageName: receipt.packageNameAndroid,
+      productId: receipt.productId,
+      purchaseToken: receipt.purchaseToken,
+    };
+    let url = isIos ? iosAppUrl : androidAppUrl;
+    console.log(body1, androidAppUrl, iosAppUrl, 'asdlfjaklsdfj');
+    const response = await fetch(baseURL + url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
         // Add authorization headers if needed
       },
+
       body: JSON.stringify({
-        token: receipt,
+        token: isIos ? receipt : body1,
       }),
     });
 
@@ -178,6 +203,10 @@ const index = ({navigation, route}) => {
       const data = await response.json();
 
       navigation.navigate('HeaderDetailScreen', items);
+
+      {
+        !isIos && finishTransaction(receipt, true);
+      }
       setIsPurchasing(false);
     } else {
       console.log('RESPONSE OK ERROR');
@@ -189,7 +218,7 @@ const index = ({navigation, route}) => {
     if (Platform.OS === 'ios') {
       await clearTransactionIOS();
     } else {
-      flushFailedPurchasesCachedAsPendingAndroid();
+      await flushFailedPurchasesCachedAsPendingAndroid();
     }
   };
 
@@ -211,31 +240,106 @@ const index = ({navigation, route}) => {
     setIsBoolProduct(false);
   }, [connected, getProducts]);
 
-  useEffect(() => {
-    purchaseUpdateSubscription = purchaseUpdatedListener(async purchase => {
-      const reciept = purchase.transactionReceipt;
-      console.log(purchase, 'PurchaseAaaaaaAaaas');
-      if (reciept) {
-        //BACKEND
-        console.log(reciept, 'ALSKDJALKJSD');
-        let body = {receipt: reciept};
-        try {
-          // If consumable (can be purchased again)
-          // await finishTransaction({purchase, isConsumable: true});
-          //BACKENDQ
-        } catch (error) {
-          console.log(error, 'eror');
+  // useEffect(() => {
+  //   console.log('root component mounted');
+  //   init();
+
+  //   return () => {
+  //     console.log('root component unmounted');
+  //     clear();
+  //   };
+  // }, []);
+
+  // const updateListenerFunction = useMemo(() => {
+  //   return () => {
+  //     purchaseUpdateSubscription = purchaseUpdatedListener(async purchase => {
+  //       const receipt = purchase.transactionReceipt;
+  //       console.log(purchase.packageNameAndroid, 'PurchaseAaaaaaAaaas');
+  //       console.log(purchase.productId, 'PurchaseAaaaaaAaaas');
+  //       console.log(purchase.purchaseToken, 'PurchaseAaaaaaAaaas');
+  //       if (receipt) {
+  //         console.log('ieiieieaaaiaaaaaeaia');
+  //         finishTransaction(purchase, true);
+  //       }
+  //     });
+
+  //     purchaseErrorSubscription = purchaseErrorListener(error => {
+  //       console.log(error, 'purchaseErrorListener');
+  //     });
+
+  //     return async () => {
+  //       if (purchaseUpdateSubscription) {
+  //         purchaseUpdateSubscription.remove();
+  //         purchaseUpdateSubscription = null;
+  //       }
+  //       if (purchaseErrorSubscription) {
+  //         purchaseErrorSubscription.remove();
+  //         purchaseErrorSubscription = null;
+  //       }
+  //       await endConnection();
+  //     };
+  //   };
+  // }, []);
+
+  const hasExecutedRef = useRef(false);
+  let purchaseUpdateSubscription;
+  let purchaseErrorSubscription;
+
+  const updateListenerFunction = () => {
+    if (!hasExecutedRef.current) {
+      purchaseUpdateSubscription = purchaseUpdatedListener(async purchase => {
+        const receipt = purchase.transactionReceipt;
+        console.log(purchase.packageNameAndroid, 'PurchaseAaaaaaAaaas');
+        console.log(purchase.productId, 'PurchaseAaaaaaAaaas');
+        console.log(purchase.purchaseToken, 'PurchaseAaaaaaAaaas');
+        if (receipt && i == 0) {
+          i++;
+          console.log(i, 'ieyvaaavayassjuy');
+
+          if (isSub.current) {
+            hitAPIToSever(purchase);
+            isSub.current = false;
+          }
+          // const {ok, data} = await API.post('inApp-android', body);
+          // if (ok) {
+          //   finishTransaction(purchase, true);
+          //   navigation.navigate('HeaderDetailScreen', items);
+          // }
         }
+      });
+
+      purchaseErrorSubscription = purchaseErrorListener(error => {
+        console.log(error, 'purchaseErrorListener');
+      });
+
+      hasExecutedRef.current = true;
+    }
+
+    return async () => {
+      if (purchaseUpdateSubscription) {
+        purchaseUpdateSubscription.remove();
+        purchaseUpdateSubscription = null;
       }
-    });
+      if (purchaseErrorSubscription) {
+        purchaseErrorSubscription.remove();
+        purchaseErrorSubscription = null;
+      }
+      await endConnection();
+    };
+  };
 
-    purchaseUpdateSubscription = purchaseErrorListener(error => {
-      console.log(error, 'purchaseErrorListener');
-    });
+  useEffect(() => {
+    {
+      !isIos && updateListenerFunction();
+    }
+  }, [updateListenerFunction]);
 
+  useEffect(() => {
+    const unsubscribe = updateListenerFunction();
     return () => {
-      purchaseUpdateSubscription.remove();
-      purchaseErrorSubscription.remove();
+      if (unsubscribe) {
+        unsubscribe();
+      }
     };
   }, []);
 
@@ -316,12 +420,6 @@ const index = ({navigation, route}) => {
             <ActivityIndicator />
           </View>
         ) : (
-          (console.log(
-            Platform.OS,
-            products,
-            purchaseHistory,
-            'alskfjlksdjflkasjdf',
-          ),
           products
             // .sort((a, b) => a.price - b.price)
             .map((subscription, index) => {
@@ -340,7 +438,7 @@ const index = ({navigation, route}) => {
                   )}
                 </View>
               );
-            }))
+            })
         )}
       </View>
     </>

@@ -105,4 +105,13 @@ export const styles = StyleSheet.create({
     backgroundColor: Colors.primaryColor,
     height: hp('5'),
   },
+  search: {
+    aspectRatio: 1,
+    height: hp('10'),
+  },
+  setting: {
+    resizeMode: 'contain',
+    height: hp('5'),
+    width: wp('7'),
+  },
 });

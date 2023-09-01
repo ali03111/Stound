@@ -1,6 +1,7 @@
 import {Dimensions, StyleSheet} from 'react-native';
 import {hp, wp} from '../../Config/responsive';
 import {Colors} from '../../Theme/Variables';
+import { height } from '../../Navigation/bottomNavigation';
 
 export const styles = StyleSheet.create({
   favMain: {
@@ -40,6 +41,7 @@ export const styles = StyleSheet.create({
     marginTop: hp('2'),
   },
   pickerStyle: {
+    
     borderWidth: 1,
     borderColor: 'rgba(11, 180, 255, 0.3)',
     borderRadius: 10,
@@ -51,7 +53,7 @@ export const styles = StyleSheet.create({
     paddingLeft: wp('3'),
   },
   pick: {
-    width: wp('84'),
+    width: height>667? wp('84'):wp('80'),
     color: Colors.primaryTextColor,
   },
   itemHeading: {
@@ -186,6 +188,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     marginTop: hp('3'),
     marginBottom: hp('1.5'),
+    alignItems:'center'
   },
   addImage: {
     marginRight: wp('2'),
