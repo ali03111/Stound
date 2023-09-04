@@ -56,10 +56,8 @@ const useHeaderDetailScreen = ({navigate}, {params}) => {
           notificationId: id,
         }), // Provide an empty JSON object as the POST body
       });
-
       if (response.ok) {
         const data = await response.json();
-        console.log('asasdasdasdasdd', data);
         dispatch({type: types.UpdateProfile, payload: data.data});
       } else {
         // Handle the case where the response status is not okay (e.g., handle errors)

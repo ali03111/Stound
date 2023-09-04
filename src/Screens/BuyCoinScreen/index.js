@@ -26,6 +26,7 @@ import useBuyCoinScreen from './useBuyCoinScreen';
 
 import {
   PurchaseError,
+  acknowledgePurchaseAndroid,
   clearTransactionIOS,
   endConnection,
   flushFailedPurchasesCachedAsPendingAndroid,
@@ -43,12 +44,11 @@ import {types} from '../../Redux/types';
 import API from '../../Utils/helperFunc';
 import {errorMessage, successMessage} from '../../Config/NotificationMessage';
 const subscriptionSkus = Platform.select({
-  // ios: [items?.productId],
   ios: ['productId_10', 'productId_50', 'Ten100_1'],
   // android: ['productid_10', 'productid_30'],
-  android: ['productid_10', 'productid_30', 'productid_50'],
+  // android: ['productsid_10'],
+  android: ['productsid_10', 'productsid_30', 'productid_50'],
 });
-let i = 0;
 
 // let purchaseUpdateSubscription = null;
 // let purchaseErrorSubscription = null;
@@ -87,7 +87,6 @@ const index = ({navigation, route}) => {
       isIos && handleGetPurchaseHistory();
     }
   }, [connected]);
-  let i = 0;
 
   const handleGetSubscriptions = async () => {
     try {
@@ -112,7 +111,7 @@ const index = ({navigation, route}) => {
       try {
         if (!isIos) {
           console.log('android');
-          await requestPurchase({sku: productId}, false);
+          await requestPurchase({sku: productId}, true);
         } else {
           const reqSubs = await requestSubscription({
             sku: productId,
@@ -180,12 +179,13 @@ const index = ({navigation, route}) => {
 
   const hitAPIToSever = useCallback(async receipt => {
     const body1 = {
-      packageName: receipt.packageNameAndroid,
-      productId: receipt.productId,
-      purchaseToken: receipt.purchaseToken,
+      packageName: receipt?.packageNameAndroid,
+      productId: receipt?.productId,
+      purchaseToken: receipt?.purchaseToken,
     };
     let url = isIos ? iosAppUrl : androidAppUrl;
-    console.log(body1, androidAppUrl, iosAppUrl, 'asdlfjaklsdfj');
+    console.log('asfjaklsdfjlasjf1111klajaalsj');
+
     const response = await fetch(baseURL + url, {
       method: 'POST',
       headers: {
@@ -194,19 +194,29 @@ const index = ({navigation, route}) => {
         // Add authorization headers if needed
       },
 
-      body: JSON.stringify({
-        token: isIos ? receipt : body1,
-      }),
+      body: JSON.stringify(
+        isIos
+          ? {
+              token: receipt,
+            }
+          : body1,
+      ),
     });
-
+    console.log('asfjaklsdfjlasjfklajlsj');
     if (response.status == 200) {
       const data = await response.json();
-
-      navigation.navigate('HeaderDetailScreen', items);
-
-      {
-        !isIos && finishTransaction(receipt, true);
+      const ackResult = await acknowledgePurchaseAndroid({
+        token: receipt.purchaseToken,
+      });
+      const finishTransactionRes = await finishTransaction({
+        purchase: receipt,
+        isConsumable: true,
+      });
+      console.log('finishTransactionRes', finishTransactionRes);
+      if (finishTransactionRes.code == 'OK') {
+        navigation.navigate('HeaderDetailScreen', items);
       }
+
       setIsPurchasing(false);
     } else {
       console.log('RESPONSE OK ERROR');
@@ -240,64 +250,27 @@ const index = ({navigation, route}) => {
     setIsBoolProduct(false);
   }, [connected, getProducts]);
 
-  // useEffect(() => {
-  //   console.log('root component mounted');
-  //   init();
-
-  //   return () => {
-  //     console.log('root component unmounted');
-  //     clear();
-  //   };
-  // }, []);
-
-  // const updateListenerFunction = useMemo(() => {
-  //   return () => {
-  //     purchaseUpdateSubscription = purchaseUpdatedListener(async purchase => {
-  //       const receipt = purchase.transactionReceipt;
-  //       console.log(purchase.packageNameAndroid, 'PurchaseAaaaaaAaaas');
-  //       console.log(purchase.productId, 'PurchaseAaaaaaAaaas');
-  //       console.log(purchase.purchaseToken, 'PurchaseAaaaaaAaaas');
-  //       if (receipt) {
-  //         console.log('ieiieieaaaiaaaaaeaia');
-  //         finishTransaction(purchase, true);
-  //       }
-  //     });
-
-  //     purchaseErrorSubscription = purchaseErrorListener(error => {
-  //       console.log(error, 'purchaseErrorListener');
-  //     });
-
-  //     return async () => {
-  //       if (purchaseUpdateSubscription) {
-  //         purchaseUpdateSubscription.remove();
-  //         purchaseUpdateSubscription = null;
-  //       }
-  //       if (purchaseErrorSubscription) {
-  //         purchaseErrorSubscription.remove();
-  //         purchaseErrorSubscription = null;
-  //       }
-  //       await endConnection();
-  //     };
-  //   };
-  // }, []);
-
   const hasExecutedRef = useRef(false);
   let purchaseUpdateSubscription;
   let purchaseErrorSubscription;
 
   const updateListenerFunction = () => {
+    let i = 0;
+
     if (!hasExecutedRef.current) {
       purchaseUpdateSubscription = purchaseUpdatedListener(async purchase => {
         const receipt = purchase.transactionReceipt;
         console.log(purchase.packageNameAndroid, 'PurchaseAaaaaaAaaas');
         console.log(purchase.productId, 'PurchaseAaaaaaAaaas');
         console.log(purchase.purchaseToken, 'PurchaseAaaaaaAaaas');
+        console.log(i, 'ieyvaaaaavayassjuy');
+
         if (receipt && i == 0) {
           i++;
           console.log(i, 'ieyvaaavayassjuy');
 
           if (isSub.current) {
-            hitAPIToSever(purchase);
+            await hitAPIToSever(purchase);
             isSub.current = false;
           }
           // const {ok, data} = await API.post('inApp-android', body);
@@ -415,13 +388,14 @@ const index = ({navigation, route}) => {
               );
             }))
         )}
+        {console.log(products, 'askldfjklsadjfklajsdfklajsld')}
         {isBoolProduct && !isIos ? (
           <View style={{...styles.midContainer, marginTop: hp('10')}}>
             <ActivityIndicator />
           </View>
         ) : (
           products
-            // .sort((a, b) => a.price - b.price)
+            .sort((a, b) => a.description - b.description)
             .map((subscription, index) => {
               return (
                 <View key={subscription.productId} style={styles.midContainer}>
