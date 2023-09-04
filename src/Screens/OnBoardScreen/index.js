@@ -16,6 +16,8 @@ import React, { memo, useCallback, useRef } from 'react';
       flatListRef,
       handleNext
     } = useOnboardScreen(navigation);
+
+    console.log(currentIndex,'sdfkjaslkdfjlaksdj')
     const renderItem = useCallback(
           ({item, index}) => {
             {
@@ -69,6 +71,7 @@ import React, { memo, useCallback, useRef } from 'react';
         />
 
         <FlatList
+          onM
           data={onBoardinData} // Use the same data for the dots
           renderItem={renderItemDots}
           horizontal

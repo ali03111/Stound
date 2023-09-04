@@ -18,9 +18,12 @@ import {hp, wp} from '../../Config/responsive';
 import useBuyCoinScreen from './useBuyCoinScreen';
 
 import {
+  IapAndroid,
   PurchaseError,
+  acknowledgePurchaseAndroid,
   clearTransactionIOS,
   flushFailedPurchasesCachedAsPendingAndroid,
+  getAvailablePurchases,
   purchaseErrorListener,
   purchaseUpdatedListener,
   requestPurchase,
@@ -55,6 +58,7 @@ const index = ({navigation, route}) => {
     finishTransaction,
     purchaseHistory, //return the purchase history of the user on the device (sandbox user in dev)
     getPurchaseHistory, //gets users purchase history
+    
   } = useIAP();
   const {items, isSub} = route.params;
   console.log(isSub, 'asdkjfklsajfklj');
@@ -188,9 +192,11 @@ const index = ({navigation, route}) => {
     if (Platform.OS === 'ios') {
       await clearTransactionIOS();
     } else {
+     
       flushFailedPurchasesCachedAsPendingAndroid();
     }
   };
+
 
   //START ANDROID WORK FOR PURCHASING
 
@@ -209,7 +215,7 @@ const index = ({navigation, route}) => {
     setIsBoolProduct(false);
   }, [connected, getProducts]);
 
-  useEffect(() => {
+{!isIos &&  useEffect(() => {
     const purchaseUpdateSub = purchaseUpdatedListener(async purchase => {
       const reciept = purchase.transactionReceipt;
       if (reciept) {
@@ -222,7 +228,6 @@ const index = ({navigation, route}) => {
           console.log(error, 'eror');
         }
       }
-    });
 
     const PurchaseError = purchaseErrorListener(error => {
       console.log(error, 'purchaseErrorListener');
@@ -233,6 +238,8 @@ const index = ({navigation, route}) => {
       PurchaseError.remove();
     };
   }, []);
+});}
+
 
   //END ANDROID WORK FOR PURCHASING
 

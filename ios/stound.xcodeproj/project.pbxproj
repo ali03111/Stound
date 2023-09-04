@@ -318,8 +318,9 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1430;
-				LastUpgradeCheck = 1210;
+				LastUpgradeCheck = 1430;
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
@@ -602,6 +603,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D8C517EEE71BC0CB33D5A17E /* Pods-stound-stoundTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = 56A6484PFH;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -630,6 +632,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 1BFD0175EFDFB45C169A2F44 /* Pods-stound-stoundTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = 56A6484PFH;
