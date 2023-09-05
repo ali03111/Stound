@@ -77,7 +77,11 @@
 		</dict>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string>Program requires GPS</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Program requires GPS</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Program requires GPS</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>To add profile picture , you need to allow access to your photo gallery</string>
 	<key>UIAppFonts</key>

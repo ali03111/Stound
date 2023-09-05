@@ -8,6 +8,14 @@ import {loadingFalse, loadingTrue} from '../../Redux/Action/isloadingAction';
 
 const useLocationScreen = ({goBack}, {params}) => {
   const [location, setLocation] = useState([]);
+
+
+  useEffect(() => {
+    if (Platform.OS === 'ios') {
+      Geolocation.requestAuthorization('always');
+    }
+  }, []);
+
   useEffect(() => {
     const requestLocationPermission = async () => {
       try {
@@ -50,15 +58,48 @@ const useLocationScreen = ({goBack}, {params}) => {
     };
   }, []);
 
-  const getCurrentLocation = () => {
-    dispatch(loadingTrue());
+  // const getCurrentLocation = async() => {
+
+  //   try {
+  //   dispatch(loadingTrue());
+  //    const geolocation=  Geolocation.getCurrentPosition(info => {
+  //       getLocationName(info?.coords?.latitude, info?.coords?.longitude),
+  //         setLocation(info);
+  //     });
+  //     console.log(geolocation,'alskjfaklsjdflkajsdkl')
+
+  //   } catch (e) {
+  //     console.log(e, 'askldjkljWWWWW');
+  //     dispatch(loadingFalse());
+  //   }
+
+  // };
+  const getCurrentLocation = async () => {
     try {
-      Geolocation.getCurrentPosition(info => {
-        getLocationName(info?.coords?.latitude, info?.coords?.longitude),
-          setLocation(info);
+      dispatch(loadingTrue());
+  
+      // Request permission to access geolocation if needed
+      if (Platform.OS === 'android') {
+        const granted = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
+        );
+        if (granted !== PermissionsAndroid.RESULTS.GRANTED) {
+          throw new Error('Location permission denied');
+        }
+      }
+  
+      const position = await new Promise((resolve, reject) => {
+        Geolocation.getCurrentPosition(
+          (info) => resolve(info),
+          (error) => reject(error)
+        );
       });
-    } catch (e) {
-      console.log(e, 'askldjkljWWWWW');
+  
+      getLocationName(position?.coords?.latitude, position?.coords?.longitude);
+      setLocation(position);
+      console.log(position, 'Location information');
+    } catch (error) {
+      console.log(error, 'Error occurred');
       dispatch(loadingFalse());
     }
   };
