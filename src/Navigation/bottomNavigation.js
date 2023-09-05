@@ -99,7 +99,7 @@ function MybottomTabs() {
             return (
               <Svg
                 width={wp('50')}
-                height={isIOS ? hp('6') : hp('7.5')}
+                height={isIOS ? hp('6') : hp('6')}
                 viewBox="0 0 54 54"
                 style={styles.circleSvg}
                 fill="none"
@@ -185,7 +185,7 @@ const styles = StyleSheet.create({
   tabarView: (focused, last) => ({
     width: 'auto',
     backgroundColor: 'transparent',
-    bottom: height <= 667 ? hp('1.5') : hp('-0.5'),
+    bottom: height <= 667 ? hp('1.5') : isIOS ?hp('-0.5'):hp('0.5 '),
   }),
   circleSvg: {
     position: 'absolute',
