@@ -1283,7 +1283,7 @@ PODS:
   - RNGoogleSignin (9.1.0):
     - GoogleSignIn (~> 6.2)
     - React-Core
-  - RNIap (11.0.0-rc.7):
+  - RNIap (11.0.7):
     - React-Core
   - RNNotifee (7.8.0):
     - React-Core
@@ -1671,7 +1671,7 @@ SPEC CHECKSUMS:
   RNFBFirestore: f16efbd47cd136fe84cb93dc87ad4155807db221
   RNFBMessaging: 4b8cb1215465bacca36d0fcfc2f51e7e2aa1bc91
   RNGoogleSignin: c15bdaa7e8a9e190b6169d9c96a4e8380a740f22
-  RNIap: cc309cf426a6df5240e38108ffa6c270a52c03ac
+  RNIap: b699b537ca34fa1cd15b78f4ec383ab502d01f6c
   RNNotifee: f3c01b391dd8e98e67f539f9a35a9cbcd3bae744
   RNPermissions: 215c54462104b3925b412b0fb3c9c497b21c358b
   RNScreens: d3675ab2878704de70c9dae57fa5d024802404cc

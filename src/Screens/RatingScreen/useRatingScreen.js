@@ -6,7 +6,7 @@ import useReduxStore from '../../Hooks/UseReduxStore';
 const {default: useFormHook} = require('../../Hooks/UseFormHooks');
 
 
-const GOOGLE_PACKAGE_NAME = 'agrawal.trial.yourfeedback';
+const GOOGLE_PACKAGE_NAME = 'com.anideos.stound';
 const APPLE_STORE_ID = 'id284882215';
 
 const useRatingScreen = ({navigate, goBack}) => {

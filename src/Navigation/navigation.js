@@ -40,6 +40,7 @@ const StackNavigatior = () => {
         headerTransparent: true,
         headerTitle: null,
         headerShown: false,
+        orientation: 'portrait',
       }}>
       {!onboarding && (
         <Stack.Screen name="OnboardScreen" component={Screens.OnboardScreen} />

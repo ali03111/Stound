@@ -74,7 +74,6 @@ const PackageDetailsScreen = ({navigation, route}) => {
       )
     );
   }, []);
-  console.log(route.params, 'aaaasadasdasdasdasdasd');
   return (
     <View style={{flex: 1}}>
       <Header
@@ -161,9 +160,6 @@ const PackageDetailsScreen = ({navigation, route}) => {
                       styles={styles.pEmail}
                     />
                   </View>
-                  <View style={styles.accChat}>
-                    <Image source={chat} />
-                  </View>
                 </View>
               </CollapseBody>
             </Collapse>
@@ -177,7 +173,6 @@ const PackageDetailsScreen = ({navigation, route}) => {
               <CollapseBody>
                 <View style={styles.btns}>
                   {generalPref?.map(item => {
-                    console.log('sdfsdfsdfsdfsdfsdfd', item);
                     return (
                       <FilterAddButton
                         disabledValue={true}

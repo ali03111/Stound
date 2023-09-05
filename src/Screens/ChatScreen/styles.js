@@ -38,4 +38,9 @@ export const styles = StyleSheet.create({
   centerHeading: {
     marginRight: wp('3'),
   },
+  search: {
+    resizeMode: 'contain',
+    height: hp('5'),
+    width: wp('7'),
+  },
 });

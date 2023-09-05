@@ -65,8 +65,8 @@ function MybottomTabs() {
           return (
             <Svg
               width={
-                height < 852
-                  ? wp(isIOS ? '100' : '100')
+                height <= 667
+                  ? wp(isIOS ? '90' : '100')
                   : wp(isIOS ? '90' : '100')
               }
               height={hp('10')}
@@ -185,14 +185,20 @@ const styles = StyleSheet.create({
   tabarView: (focused, last) => ({
     width: 'auto',
     backgroundColor: 'transparent',
-    bottom: height < 852 ? hp('1.5') : hp('-0.5'),
+    bottom: height <= 667 ? hp('1.5') : hp('-0.5'),
   }),
   circleSvg: {
     position: 'absolute',
     zIndex: 1,
     // bottom: isIOS ? hp('-0.6') : hp('2'),
     bottom:
-      height < 852 ? (isIOS ? hp('2') : hp('2')) : isIOS ? hp('-0.6') : hp('2'),
+      height <= 667
+        ? isIOS
+          ? hp('2')
+          : hp('2')
+        : isIOS
+        ? hp('-0.4')
+        : hp('2'),
     justifyContent: 'center',
     alignItems: 'center',
   },

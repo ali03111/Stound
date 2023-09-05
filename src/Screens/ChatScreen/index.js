@@ -35,13 +35,8 @@ const ChatScreen = ({navigation}) => {
     searchData,
     isloading,
   } = useChatScreen(navigation);
+
   const renderItem = useCallback(({item, index}) => {
-    console.log(
-      item.chatUsers.find(res => res.otherUserId == userData?.agoraId)?.isRead,
-      Platform.OS,
-      'hshjaasdasdasshhs',
-    );
-    console.log(item, 'hshjaasdasdasasdasdshhs');
     const createdAtt = item?.chatUsers.find(
       res => res.otherUserId == userData?.agoraId,
     )?.createdAt;
@@ -65,7 +60,8 @@ const ChatScreen = ({navigation}) => {
         />
       </View>
     );
-  });
+  }, []);
+
   return (
     <View style={styles.notificationMain}>
       <Header
@@ -90,7 +86,8 @@ const ChatScreen = ({navigation}) => {
         onRefresh={searchData}
         refreshing={false}
         // data={users}
-        data={searchData?.reverse()}
+        data={sortedChatData}
+        // data={searchData}
         renderItem={renderItem}
         showsHorizontalScrollIndicator={false}
         showsVerticalScrollIndicator={false}

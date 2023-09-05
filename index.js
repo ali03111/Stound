@@ -9,8 +9,11 @@ import App from './App';
 import {name as appName} from './app.json';
 import {persistor, store} from './src/Redux/Reducers';
 import FlashMessage from 'react-native-flash-message';
+import messaging from '@react-native-firebase/messaging'
+import { setNotificationLength } from './src/Redux/Action/recentNotification';
 
 const Stound = () => (
+
   <Provider store={store}>
     <PersistGate persistor={persistor} loading={null}>
       <App />
@@ -18,5 +21,22 @@ const Stound = () => (
     </PersistGate>
   </Provider>
 );
+
+// Register background handler
+messaging().setBackgroundMessageHandler(async remoteMessage => {
+  console.log('Message handled in the background!', remoteMessage);
+  store.dispatch(setNotificationLength(remoteMessage));    
+});
+// Register Terminate handler
+  messaging()
+      .getInitialNotification()
+      .then(remoteMessage => {
+        console.log(
+          'Notification caused app to open from quit state:',
+          remoteMessage,
+        );
+  store.dispatch(setNotificationLength(remoteMessage));    
+
+      });
 
 AppRegistry.registerComponent(appName, () => Stound);

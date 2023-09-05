@@ -120,7 +120,6 @@ const useChatScreen = ({navigate, goBack, addListener}) => {
   useEffect(() => {
     const fetchUsers = async () => {
       const data = await getUsers();
-      console.log(data, 'ljlkajlkajalkjal'); // Access the usersData array here
       setUsers(data);
     };
     fetchUsers();
@@ -146,7 +145,6 @@ const useChatScreen = ({navigate, goBack, addListener}) => {
 
     filterData();
   }, [changeText, users]);
-  console.log(searchData, 'ajksdkal');
   const navigateToMsg = item =>
     navigate('MessagesScreen', {id: item.userId, userDetail: item});
 

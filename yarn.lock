@@ -6658,9 +6658,9 @@ react-native-gradle-plugin@^0.71.16:
   integrity sha512-1dVk9NwhoyKHCSxcrM6vY6cxmojeATsBobDicX0ZKr7DgUF2cBQRTKsimQFvzH8XhOVXyH8p4HyDSZNIFI8OlQ==
 
 react-native-iap@^11.0.0-rc.7:
-  version "11.0.0-rc.7"
-  resolved "https://registry.yarnpkg.com/react-native-iap/-/react-native-iap-11.0.0-rc.7.tgz#26a7d12b9f9768dc3bdeb6fe489dccca13e8ac44"
-  integrity sha512-Yxuf/RwVu3hurwDXgTvKe9gD7Lz1J5skTEnlLJZUi0DU1qh79j9kcSKBRjhjGslGGIRZokc7frvTY6AksEIWFQ==
+  version "11.0.7"
+  resolved "https://registry.yarnpkg.com/react-native-iap/-/react-native-iap-11.0.7.tgz#7ea6f9be88f8b51317be6a0fa0b1a9d7efbf8215"
+  integrity sha512-DxBFSZyhflwKedUkGFwddSIRoCJ6NrOJshGH0boXBndRw288LqD0zZi1P8f6amZ2hi1FZ2t5tU6ONwMKKD3LUA==
 
 react-native-image-picker@^5.3.1:
   version "5.5.0"

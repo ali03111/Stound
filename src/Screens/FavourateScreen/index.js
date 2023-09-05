@@ -36,7 +36,7 @@ const FavouriteScreen = ({navigation}) => {
   });
   return (
     <View style={styles.favMain}>
-      <Header styles={styles.topHeader} headerTitle={'Favourite'} />
+      <Header styles={styles.topHeader} headerTitle={'Favorite'} />
       <FlatList
         refreshing={false}
         data={favouriteData}

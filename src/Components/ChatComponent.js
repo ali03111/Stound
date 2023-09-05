@@ -34,16 +34,13 @@ const ChatComponent = ({
   return (
     <Touchable style={styles.notificationMian} onPress={onPress}>
       <View style={styles.mainBannerImg}>
-        {/* <CircleImageComp image={image} /> */}
         <BlurImage styles={styles.profileImg} radius={50} uri={image} />
-        {/* <CircleImageComp styles={styles.bannerImg}  image={image} /> */}
       </View>
       <View style={styles.nameDescriptionMain}>
         <TextComponent text={name} styles={styles.username} />
         <TextComponent text={description} styles={styles.description} />
       </View>
       <View style={styles.mainTime}>
-        {/* <TextComponent text={time} styles={styles.timing} /> */}
         {time && (
           <TextComponent
             text={
@@ -64,7 +61,6 @@ const ChatComponent = ({
           {isRead == true && <View style={styles.dotMessage}></View>}
         </View>
       </View>
-      {/* <TextComponent text={item?.description} styles={styles.centerDes} /> */}
     </Touchable>
   );
 };
