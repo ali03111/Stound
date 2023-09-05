@@ -68,6 +68,7 @@ export const styles = StyleSheet.create({
     textAlign: 'left',
     marginBottom: hp('1.5'),
     marginTop: hp('0.5'),
+    marginLeft:wp('1.5')
   },
   title: {
     flex: 0.8,
@@ -185,5 +186,10 @@ export const styles = StyleSheet.create({
   priceText: {
     color: 'black',
     fontSize: hp('1.5'),
+  },
+  descriptionHeading: {
+    fontSize: hp('2.2'),
+    fontWeight: '600',
+    color: 'black',
   },
 });

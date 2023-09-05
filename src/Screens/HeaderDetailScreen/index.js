@@ -339,7 +339,7 @@ const index = ({navigation, route}) => {
             />
             <TextComponent
               text={Item?.adDetail.description}
-              numberOfLines={5}
+              numberOfLines={20}
               styles={styles.desText}
             />
           </View>
