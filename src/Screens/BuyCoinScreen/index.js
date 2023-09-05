@@ -43,6 +43,8 @@ import {androidAppUrl, baseURL, iosAppUrl} from '../../Utils/Urls';
 import {types} from '../../Redux/types';
 import API from '../../Utils/helperFunc';
 import {errorMessage, successMessage} from '../../Config/NotificationMessage';
+import {store} from '../../Redux/Reducers';
+import {loadingFalse, loadingTrue} from '../../Redux/Action/isloadingAction';
 const subscriptionSkus = Platform.select({
   ios: ['productId_10', 'productId_50', 'Ten100_1'],
   // android: ['productid_10', 'productid_30'],
@@ -178,6 +180,7 @@ const index = ({navigation, route}) => {
   }, [checkCurrentPurchase, currentPurchase, isPurchasing]);
 
   const hitAPIToSever = useCallback(async receipt => {
+    store.dispatch(loadingTrue());
     const body1 = {
       packageName: receipt?.packageNameAndroid,
       productId: receipt?.productId,
@@ -204,6 +207,8 @@ const index = ({navigation, route}) => {
     });
     console.log('asfjaklsdfjlasjfklajlsj');
     if (response.status == 200) {
+      store.dispatch(loadingFalse());
+
       const data = await response.json();
       const ackResult = await acknowledgePurchaseAndroid({
         token: receipt.purchaseToken,
@@ -221,6 +226,7 @@ const index = ({navigation, route}) => {
     } else {
       console.log('RESPONSE OK ERROR');
       setIsPurchasing(false);
+      store.dispatch(loadingFalse());
     }
   }, []);
 
