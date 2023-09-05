@@ -89,7 +89,6 @@ const useAddPostScreen = ({navigate}) => {
   const postData = async ({title, desc, number}) => {
     dispatch(loadingTrue());
     const numberRegex = /^[0-9]+$/;
-    
     if (
       images.length &&
       cat != null &&

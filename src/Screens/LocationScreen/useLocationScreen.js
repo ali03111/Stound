@@ -1,7 +1,8 @@
 import {PermissionsAndroid, StyleSheet, Text, View} from 'react-native';
 import React, {useEffect, useReducer, useRef, useState} from 'react';
 import useReduxStore from '../../Hooks/UseReduxStore';
-import Geolocation from '@react-native-community/geolocation';
+// import Geolocation from '@react-native-community/geolocation';
+import Geolocation from 'react-native-geolocation-service';
 import {setRecentLocation} from '../../Redux/Action/recentLocationAction';
 import {loadingFalse, loadingTrue} from '../../Redux/Action/isloadingAction';
 
@@ -48,6 +49,7 @@ const useLocationScreen = ({goBack}, {params}) => {
       Geolocation.clearWatch();
     };
   }, []);
+
   const getCurrentLocation = () => {
     dispatch(loadingTrue());
     try {
@@ -100,11 +102,7 @@ const useLocationScreen = ({goBack}, {params}) => {
       });
   }
 
-  // Example usage with the provided latitude and longitude
-  // const latitude = 37.785834;
-  // const longitude = -122.406417;
 
-  // getLocationName(latitude, longitude);
 
   return {
     ref,
@@ -122,4 +120,3 @@ const useLocationScreen = ({goBack}, {params}) => {
 
 export default useLocationScreen;
 
-const styles = StyleSheet.create({});
