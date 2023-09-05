@@ -15,7 +15,6 @@ const FavouriteScreen = ({navigation}) => {
     useFavourateScreen(navigation);
 
   console.log('favData', favData);
-
   const renderItem = useCallback(({item}) => {
     return (
       <View>

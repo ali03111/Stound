@@ -10,7 +10,7 @@ export const errorMessage = description => {
     floating: true,
     backgroundColor: Colors.red,
     style: {alignItems: 'center'},
-    duration: 1000, // Set the duration in milliseconds (5 seconds in this example)
+    duration: 3000, // Set the duration in milliseconds (5 seconds in this example)
 
   });
 };
@@ -24,7 +24,7 @@ export const successMessage = description => {
     floating: true,
     backgroundColor: Colors.primaryColor,
     style: {alignItems: 'center'},
-    duration: 1000, // Set the duration in milliseconds (5 seconds in this example)
+    duration: 2000, // Set the duration in milliseconds (5 seconds in this example)
 
   });
 };
