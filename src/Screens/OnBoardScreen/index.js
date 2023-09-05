@@ -71,7 +71,6 @@ import React, { memo, useCallback, useRef } from 'react';
         />
 
         <FlatList
-          onM
           data={onBoardinData} // Use the same data for the dots
           renderItem={renderItemDots}
           horizontal
