@@ -6,6 +6,8 @@ import {
   Image,
   ImageBackground,
   ScrollView,
+  SafeAreaView,
+  StatusBar,
 } from 'react-native';
 import {hp, wp} from '../../Config/responsive';
 import {goBack, keyExtractor} from '../../Utils';
@@ -36,6 +38,7 @@ import {imageURL, imageUrl} from '../../Utils/Urls';
 import BlurBackground from '../../Components/BlurBackground';
 import BlurImage from '../../Components/BlurImage';
 import {fav} from '../../Assests';
+import DetailsUiComponent from '../../Components/DetailsUiComponent';
 const PackageDetailsScreen = ({navigation, route}) => {
   const {
     PackageDetailData,
@@ -74,9 +77,12 @@ const PackageDetailsScreen = ({navigation, route}) => {
       )
     );
   }, []);
+
   return (
-    <ScrollView style={{flex: 1}} showsVerticalScrollIndicator={false}>
+    <>
+      {/* <StatusBar backgroundColor="white" /> */}
       <Header
+        headerTitle={'Package Details'}
         arrowBackIcon={arrowback}
         backText={'Back'}
         icon={!isFav ? fav : favEmpty}
@@ -85,52 +91,56 @@ const PackageDetailsScreen = ({navigation, route}) => {
         onHeartPress={onFavouriteFunction}
         // onSave={() => updateFav()}
       />
-      <View style={styles.imageHeaderView}>
-        <BlurImage
-          styles={styles.firstImage(imageLenght)}
-          uri={imageUrl(photos[0])}
-        />
-        {photos.length > 0 && (
-          <FlatList
-            refreshing={false}
-            data={photos}
-            renderItem={renderItem}
-            showsHorizontalScrollIndicator={false}
-            keyExtractor={keyExtractor}
+      <ScrollView
+        style={{flex: 1, backgroundColor: 'white', padding: 5}}
+        showsVerticalScrollIndicator={false}>
+        <View style={styles.imageHeaderView}>
+          <BlurImage
+            styles={styles.firstImage(imageLenght)}
+            uri={imageUrl(photos[0])}
           />
-        )}
-      </View>
-      {/* {console.log(PackageDetailData)} */}
+          {photos.length > 0 && (
+            <FlatList
+              refreshing={false}
+              data={photos}
+              renderItem={renderItem}
+              showsHorizontalScrollIndicator={false}
+              keyExtractor={keyExtractor}
+            />
+          )}
+        </View>
 
-      <View style={styles.detail}>
-        <View style={styles.detailTitle}>
-          <TextComponent text={title} styles={styles.title} />
-          <TextComponent text={`for ${adType}`} styles={styles.forRent} />
-        </View>
-        <View style={styles.locationMain}>
-          <Image source={locationBlueIcon} />
-          <TextComponent
-            text={location}
-            numberOfLines={10}
-            styles={styles.locationText}
-          />
-        </View>
-        <View>
-          <TextComponent
-            text={'Description'}
-            styles={styles.descriptionHeading}
-          />
-          <TextComponent
-            text={description}
-            numberOfLines={20}
-            styles={styles.desText}
-          />
-        </View>
-        <TextComponent
-          text={'Property Details'}
-          styles={styles.detailsHeading}
-        />
-        <ScrollView
+        <View style={styles.detail}>
+          <View style={styles.detailTitle}>
+            <TextComponent text={title} styles={styles.title} />
+            <TextComponent text={`for ${adType}`} styles={styles.forRent} />
+          </View>
+          <View style={styles.locationMain}>
+            <Image source={locationBlueIcon} />
+            <TextComponent
+              text={location}
+              numberOfLines={2}
+              styles={styles.locationText}
+            />
+          </View>
+
+          <DetailsUiComponent heading={'Property Details'} list={generalPref} />
+          <View style={{marginBottom: hp('1')}}>
+            <TextComponent text={'Description'} styles={styles.pTitle} />
+            <View style={styles.button}>
+              <TextComponent
+                numberOfLines={12}
+                text={
+                  'aslfjlaksjdflk klj asdlkfj lkajsl kadjsl kajs lsfkj  sss  a alsdkfj klsdjf laksdjfl kajsdflk jalsdkfj lsadkfj aklsdjf klsdjfl kaj'
+                }
+                styles={styles.desText}
+              />
+            </View>
+          </View>
+          <DetailsUiComponent heading={'General'} list={generalPref} />
+          <DetailsUiComponent heading={'Inside'} list={insidePref} />
+          <DetailsUiComponent heading={'Outside'} list={outsidePref} />
+          {/* <ScrollView
           style={styles.propertyDetails}
           showsVerticalScrollIndicator={false}>
           <View style={{paddingBottom: hp('6')}}>
@@ -166,7 +176,7 @@ const PackageDetailsScreen = ({navigation, route}) => {
             <Collapse style={styles.mainToggle}>
               <CollapseHeader>
                 <View style={styles.toggleHead}>
-                  <Text style={styles.headTitle}>General </Text>
+                  <Text style={styles.headTitle}>  </Text>
                   <Ionicons color={'black'} name={'caret-down'} size={hp(2)} />
                 </View>
               </CollapseHeader>
@@ -231,21 +241,22 @@ const PackageDetailsScreen = ({navigation, route}) => {
               </CollapseBody>
             </Collapse>
           </View>
-        </ScrollView>
-        <View style={styles.priceMain}>
-          <View style={styles.priceLeft}>
-            <TextComponent text={'$' + price} styles={styles.price} />
-            <TextComponent text={'Total price'} styles={styles.priceText} />
+        </ScrollView> */}
+          <View style={styles.priceMain}>
+            <View style={styles.priceLeft}>
+              <TextComponent text={'$' + price} styles={styles.price} />
+              <TextComponent text={'Total price'} styles={styles.priceText} />
+            </View>
+            <MsgSendButton
+              onPress={askQuestion}
+              title={'Contact Now'}
+              style={styles.sendBtnStyle}
+              textStyle={styles.sendTextStyle}
+            />
           </View>
-          <MsgSendButton
-            onPress={askQuestion}
-            title={'Contact Now'}
-            style={styles.sendBtnStyle}
-            textStyle={styles.sendTextStyle}
-          />
         </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </>
   );
 };
 

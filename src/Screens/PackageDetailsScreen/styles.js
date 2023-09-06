@@ -3,6 +3,10 @@ import {hp, wp} from '../../Config/responsive';
 import {Colors} from '../../Theme/Variables';
 
 export const styles = StyleSheet.create({
+  headerStyle: {
+    backgroundColor: 'white',
+    width: wp('100'),
+  },
   firstImage: length => ({
     width: length == 1 ? wp('90') : wp('68'),
     // width: length > 0 ? wp('67') : wp('90'),
@@ -61,19 +65,20 @@ export const styles = StyleSheet.create({
     width: wp('83'),
   },
   desText: {
-    color: 'gray',
+    color: '#222',
     // marginLeft: wp('2'),
     fontSize: hp('1.9'),
-    width: wp('95'),
     textAlign: 'left',
     marginBottom: hp('1.5'),
-    marginTop: hp('0.5'),
-    marginLeft:wp('1.5')
+    marginTop: hp('1'),
+    marginLeft: wp('3'),
+    marginRight: wp('2'),
   },
   title: {
     flex: 0.8,
-    fontWeight: 'bold',
-    fontSize: hp('2.5'),
+    // fontWeight: 'bold',
+    fontSize: hp('2.7'),
+    color: Colors.primaryTextColor,
   },
   forRent: {
     flex: 0.3,
@@ -143,10 +148,11 @@ export const styles = StyleSheet.create({
     flex: 0.1,
   },
   pTitle: {
-    fontSize: hp('2'),
-    fontWeight: '600',
-    color: 'black',
-    marginBottom: hp('.5'),
+    fontSize: hp('1.5'),
+    // fontWeight: '600',
+    color: Colors.primaryTextColor,
+
+    marginBottom: hp('1'),
   },
   pEmail: {
     fontSize: hp('1.8 '),
@@ -191,5 +197,18 @@ export const styles = StyleSheet.create({
     fontSize: hp('2.2'),
     fontWeight: '600',
     color: 'black',
+  },
+  button: {
+    // padding: 10,
+    // height: hp('5'),
+    // width: wp('25'),
+    borderRadius: 10,
+    // alignItems: 'center',
+    flexDirection: 'row',
+    // justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: 'rgba(11, 180, 255, 0.3)',
+    borderRadius: 10,
+    backgroundColor: 'rgb(248, 248, 248)',
   },
 });

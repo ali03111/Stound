@@ -72,10 +72,11 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'rgba(11, 180, 255, 0.3)',
     borderRadius: 10,
+    backgroundColor: 'rgba(11, 180, 255, 0.05)',
   },
   image: {
-    width: 20,
-    height: 20,
+    width: wp('5'),
+    height: hp('4'),
     // marginBottom: 5,
     resizeMode: 'contain',
   },
@@ -84,6 +85,7 @@ const styles = StyleSheet.create({
     color: Colors.black,
     textAlign: 'center',
     marginLeft: wp('2'),
+    fontSize: hp('1.5'),
     // fontFamily: FontFamily.regular,
   },
   flatListMain: {
