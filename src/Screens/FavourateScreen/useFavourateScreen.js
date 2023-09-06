@@ -29,6 +29,8 @@ const useFavourateScreen = ({navigate, addListener}) => {
       successMessage(data?.message);
     } else errorMessage(originalError.message.split(' ').slice(1).join(' '));
   };
+  
+
 
   const useEffectFuc = () => {
     const event = addListener('focus', getFav);
@@ -38,7 +40,7 @@ const useFavourateScreen = ({navigate, addListener}) => {
   useEffect(useEffectFuc, []);
 
   return {
-    favouriteData: favData,
+    favouriteData: favData.slice().reverse(),
     onPress,
     favData,
     getFav,

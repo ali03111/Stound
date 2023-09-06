@@ -27,10 +27,6 @@ const useOnboardingScreen = () => {
     else{
       flatListRef.current.scrollToIndex({ index: currentIndex+1});
     }
-    
-     
-     
-    
   };
   const getStart = () => {
     dispatch({

@@ -235,6 +235,8 @@ const AddPostScreen = ({navigation}) => {
                 inputIconStyle: styles.inputIcon,
                 isImage: adTitle,
                 keyboardType: 'number',
+                maxLength:10
+                
               }}
             />
           </View>

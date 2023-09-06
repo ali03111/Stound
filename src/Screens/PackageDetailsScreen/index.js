@@ -75,7 +75,7 @@ const PackageDetailsScreen = ({navigation, route}) => {
     );
   }, []);
   return (
-    <View style={{flex: 1}}>
+    <ScrollView style={{flex: 1}} showsVerticalScrollIndicator={false}>
       <Header
         arrowBackIcon={arrowback}
         backText={'Back'}
@@ -115,14 +115,14 @@ const PackageDetailsScreen = ({navigation, route}) => {
             styles={styles.locationText}
           />
         </View>
-        <View style={{marginLeft: wp('2')}}>
+        <View>
           <TextComponent
             text={'Description'}
             styles={styles.descriptionHeading}
           />
           <TextComponent
             text={description}
-            numberOfLines={5}
+            numberOfLines={20}
             styles={styles.desText}
           />
         </View>
@@ -245,7 +245,7 @@ const PackageDetailsScreen = ({navigation, route}) => {
           />
         </View>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
