@@ -79,8 +79,7 @@ const PackageDetailsScreen = ({navigation, route}) => {
   }, []);
 
   return (
-    <>
-      {/* <StatusBar backgroundColor="white" /> */}
+    <View style={{flex:1,backgroundColor:'white'}}>
       <Header
         headerTitle={'Package Details'}
         arrowBackIcon={arrowback}
@@ -92,7 +91,7 @@ const PackageDetailsScreen = ({navigation, route}) => {
         // onSave={() => updateFav()}
       />
       <ScrollView
-        style={{flex: 1, backgroundColor: 'white', padding: 5}}
+        style={{ backgroundColor: 'white', padding: 5}}
         showsVerticalScrollIndicator={false}>
         <View style={styles.imageHeaderView}>
           <BlurImage
@@ -256,7 +255,7 @@ const PackageDetailsScreen = ({navigation, route}) => {
           </View>
         </View>
       </ScrollView>
-    </>
+    </View>
   );
 };
 

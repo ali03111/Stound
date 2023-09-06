@@ -9,7 +9,6 @@ export const styles = StyleSheet.create({
   },
   firstImage: length => ({
     width: length == 1 ? wp('90') : wp('68'),
-    // width: length > 0 ? wp('67') : wp('90'),
     height: hp('32'),
     borderRadius: 10,
     marginVertical: hp('0.5'),
@@ -76,7 +75,6 @@ export const styles = StyleSheet.create({
   },
   title: {
     flex: 0.8,
-    // fontWeight: 'bold',
     fontSize: hp('2.7'),
     color: Colors.primaryTextColor,
   },
@@ -169,16 +167,17 @@ export const styles = StyleSheet.create({
   },
   priceMain: {
     flexDirection: 'row',
-    paddingVertical: hp('2'),
+    paddingVertical: hp('4'),
     alignItems: 'center',
   },
   priceLeft: {
     flex: 1,
   },
   sendBtnStyle: {
+    padding:10,
     backgroundColor: Colors.primaryColor,
-    paddingHorizontal: wp('10'),
-    height: hp('7'),
+    paddingHorizontal: wp('5'),
+    height: hp('6'),
   },
   sendTextStyle: {
     color: 'white',
