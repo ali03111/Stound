@@ -146,7 +146,7 @@ export const styles = StyleSheet.create({
     flex: 0.1,
   },
   pTitle: {
-    fontSize: hp('1.5'),
+    fontSize: hp('1.7'),
     // fontWeight: '600',
     color: Colors.primaryTextColor,
 
@@ -167,7 +167,7 @@ export const styles = StyleSheet.create({
   },
   priceMain: {
     flexDirection: 'row',
-    paddingVertical: hp('4'),
+    paddingVertical: hp('3'),
     alignItems: 'center',
   },
   priceLeft: {

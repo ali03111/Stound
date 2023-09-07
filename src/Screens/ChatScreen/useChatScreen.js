@@ -45,7 +45,6 @@ const useChatScreen = ({navigate, goBack, addListener}) => {
                   console.log(innerSnap._docs, 'aaaaaa');
                   innerSnap.forEach(innerDoc => {
                     if (innerDoc.exists) {
-                      // setUsers(prev => [...prev, innerDoc.data()]);
                       console.log(
                         'innerDoc.data()',
                         innerDoc.data()?.chatUsers,
@@ -155,7 +154,7 @@ const useChatScreen = ({navigate, goBack, addListener}) => {
     userData,
     changeText,
     onChangeText,
-    searchData,
+    searchData:searchData?.slice().reverse(),
     isloading,
   };
 };

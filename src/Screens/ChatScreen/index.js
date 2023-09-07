@@ -86,11 +86,12 @@ const ChatScreen = ({navigation}) => {
           placeholderTextColor={Colors.gray}
         />
       </View>
+      
       <FlatList
         onRefresh={searchData}
         refreshing={false}
         // data={users}
-        data={searchData?.reverse()}
+        data={searchData}
         renderItem={renderItem}
         showsHorizontalScrollIndicator={false}
         showsVerticalScrollIndicator={false}

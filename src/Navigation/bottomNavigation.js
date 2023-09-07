@@ -190,7 +190,6 @@ const styles = StyleSheet.create({
   circleSvg: {
     position: 'absolute',
     zIndex: 1,
-    // bottom: isIOS ? hp('-0.6') : hp('2'),
     bottom:
       height <= 667
         ? isIOS

@@ -91,7 +91,7 @@ const PackageDetailsScreen = ({navigation, route}) => {
         // onSave={() => updateFav()}
       />
       <ScrollView
-        style={{ backgroundColor: 'white', padding: 5}}
+        style={{  padding: 5}}
         showsVerticalScrollIndicator={false}>
         <View style={styles.imageHeaderView}>
           <BlurImage
@@ -124,13 +124,13 @@ const PackageDetailsScreen = ({navigation, route}) => {
           </View>
 
           <DetailsUiComponent heading={'Property Details'} list={generalPref} />
-          <View style={{marginBottom: hp('1')}}>
+          <View style={{marginBottom: hp('1.5')}}>
             <TextComponent text={'Description'} styles={styles.pTitle} />
             <View style={styles.button}>
               <TextComponent
                 numberOfLines={12}
                 text={
-                  'aslfjlaksjdflk klj asdlkfj lkajsl kadjsl kajs lsfkj  sss  a alsdkfj klsdjf laksdjfl kajsdflk jalsdkfj lsadkfj aklsdjf klsdjfl kaj'
+                  description
                 }
                 styles={styles.desText}
               />
