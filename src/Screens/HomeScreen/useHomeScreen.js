@@ -106,7 +106,9 @@ const useHomeScreen = ({navigate, params, addListener}) => {
     const url = updateFavUrl + homeData[index].adId;
     const {ok, originalError, data} = await API.put(url);
     if (ok) successMessage(data?.message);
-    else errorMessage(data.message || 'request failed');
+    else {
+      errorMessage(data.message || 'request failed');
+    }
   };
 
   //Search Property Lists With Api

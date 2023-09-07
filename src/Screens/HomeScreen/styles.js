@@ -27,6 +27,7 @@ export const styles = StyleSheet.create({
     // paddingHorizontal: wp('2.5'),
     width: wp('46'),
     fontSize: 15,
+    color: 'black',
   },
   searchIcons: {
     flexDirection: 'row',

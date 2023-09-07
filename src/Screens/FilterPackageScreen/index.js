@@ -58,7 +58,7 @@ const FilterPackageScreen = ({navigation, route}) => {
               justifyContent: 'center',
               height: hp('80'),
             }}>
-            {/* <EmptyViewComp onRefresh={getFav} /> */}
+            <EmptyViewComp buttonTrue={true} />
           </View>
         }
       />
