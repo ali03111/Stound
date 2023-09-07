@@ -7,6 +7,7 @@ import {
   FlatList,
   ActivityIndicator,
   Platform,
+  ScrollView,
 } from 'react-native';
 import React, {
   memo,
@@ -50,7 +51,12 @@ const subscriptionSkus = Platform.select({
   ios: ['productId_10', 'productId_50', 'Ten100_1'],
   // android: ['productid_10', 'productid_30'],
   // android: ['productsid_10'],
-  android: ['productsid_10', 'productsid_30', 'productid_50'],
+  android: [
+    'productsid_10',
+    'productsid_20',
+    'productsid_30',
+    'productsid_100',
+  ],
 });
 
 // let purchaseUpdateSubscription = null;
@@ -347,25 +353,21 @@ const index = ({navigation, route}) => {
   };
 
   return (
-    <>
-      <View style={styles.container}>
-        <BuyCoinHeader
-          onPress={() => navigation.goBack()}
-          dayStyle={styles.dayStyle}
-          style={styles.topHeader}
-          headerTitle={'Buy Coins'}
-          arrowBackIcon={arrowbackwhite}
-          centerTextStyle={styles.centerHeading}
-          backText={'Back'}
-          centerImage={require('../../Assests/Images/stoundLogo.png')}
-        />
-        <View style={styles.dayBarStyle}>
-          <TextComponent
-            text={'Get your coins here!'}
-            styles={{...styles.day}}
-          />
-        </View>
-
+    <ScrollView style={styles.container}>
+      <BuyCoinHeader
+        onPress={() => navigation.goBack()}
+        dayStyle={styles.dayStyle}
+        style={styles.topHeader}
+        headerTitle={'Buy Coins'}
+        arrowBackIcon={arrowbackwhite}
+        centerTextStyle={styles.centerHeading}
+        backText={'Back'}
+        centerImage={require('../../Assests/Images/stoundLogo.png')}
+      />
+      <View style={styles.dayBarStyle}>
+        <TextComponent text={'Get your coins here!'} styles={{...styles.day}} />
+      </View>
+      <View style={{paddingBottom: hp('5')}}>
         {loading ? (
           <View style={{...styles.midContainer, marginTop: hp('10')}}>
             <ActivityIndicator />
@@ -395,6 +397,7 @@ const index = ({navigation, route}) => {
               );
             }))
         )}
+
         {console.log(products, 'askldfjklsadjfklajsdfklajsld')}
         {isBoolProduct && !isIos ? (
           <View style={{...styles.midContainer, marginTop: hp('10')}}>
@@ -422,7 +425,7 @@ const index = ({navigation, route}) => {
             })
         )}
       </View>
-    </>
+    </ScrollView>
   );
 };
 

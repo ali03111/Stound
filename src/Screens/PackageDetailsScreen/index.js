@@ -79,7 +79,7 @@ const PackageDetailsScreen = ({navigation, route}) => {
   }, []);
 
   return (
-    <View style={{flex:1,backgroundColor:'white'}}>
+    <View style={{flex: 1, backgroundColor: 'white'}}>
       <Header
         headerTitle={'Package Details'}
         arrowBackIcon={arrowback}
@@ -90,9 +90,7 @@ const PackageDetailsScreen = ({navigation, route}) => {
         onHeartPress={onFavouriteFunction}
         // onSave={() => updateFav()}
       />
-      <ScrollView
-        style={{ backgroundColor: 'white', padding: 5}}
-        showsVerticalScrollIndicator={false}>
+      <ScrollView style={{padding: 5}} showsVerticalScrollIndicator={false}>
         <View style={styles.imageHeaderView}>
           <BlurImage
             styles={styles.firstImage(imageLenght)}
@@ -129,9 +127,7 @@ const PackageDetailsScreen = ({navigation, route}) => {
             <View style={styles.button}>
               <TextComponent
                 numberOfLines={12}
-                text={
-                  'aslfjlaksjdflk klj asdlkfj lkajsl kadjsl kajs lsfkj  sss  a alsdkfj klsdjf laksdjfl kajsdflk jalsdkfj lsadkfj aklsdjf klsdjfl kaj'
-                }
+                text={description}
                 styles={styles.desText}
               />
             </View>
