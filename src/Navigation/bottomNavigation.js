@@ -64,12 +64,13 @@ function MybottomTabs() {
         tabBarBackground: () => {
           return (
             <Svg
-              width={
-                height <= 667
-                  ? wp(isIOS ? '90' : '100')
-                  : wp(isIOS ? '90' : '100')
-              }
-              height={hp('10')}
+            width={wp(isIOS?"100":"100")}
+              // width={
+              //   height <= 667
+              //     ? wp(isIOS ? '90' : '100')
+              //     : wp(isIOS ? '100' : '100')
+              // }
+              height={hp(isIOS?'9.3':"11")}
               viewBox="0 0 374 74"
               fill="none"
               style={styles.barSvg}
@@ -98,7 +99,7 @@ function MybottomTabs() {
           tabBarIcon: () => {
             return (
               <Svg
-                width={wp('50')}
+                width={wp('60')}
                 height={isIOS ? hp('6') : hp('6')}
                 viewBox="0 0 54 54"
                 style={styles.circleSvg}
