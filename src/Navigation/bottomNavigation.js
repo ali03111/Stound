@@ -99,7 +99,7 @@ function MybottomTabs() {
           tabBarIcon: () => {
             return (
               <Svg
-                width={wp('60')}
+                width={wp('20')}
                 height={isIOS ? hp('6') : hp('6')}
                 viewBox="0 0 54 54"
                 style={styles.circleSvg}
