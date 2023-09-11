@@ -48,7 +48,7 @@ const useAddPostScreen = ({navigate}) => {
   };
 
   const onSelecteTag = (item, key) => {
-    console.log(key, 'keyueueu');
+    console.log(key,item, 'keyueueu11');
     updateState({[key]: item});
   };
 

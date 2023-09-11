@@ -32,9 +32,8 @@ import {
   CollapseBody,
   AccordionList,
 } from 'accordion-collapse-react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import MsgSendButton from '../../Components/MsgSendButton';
-import {imageURL, imageUrl} from '../../Utils/Urls';
+import { imageUrl} from '../../Utils/Urls';
 import BlurBackground from '../../Components/BlurBackground';
 import BlurImage from '../../Components/BlurImage';
 import {fav} from '../../Assests';

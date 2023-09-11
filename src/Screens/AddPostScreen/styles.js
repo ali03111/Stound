@@ -1,7 +1,7 @@
 import {Dimensions, StyleSheet} from 'react-native';
 import {hp, wp} from '../../Config/responsive';
 import {Colors} from '../../Theme/Variables';
-import { height } from '../../Navigation/bottomNavigation';
+import {height} from '../../Navigation/bottomNavigation';
 
 export const styles = StyleSheet.create({
   favMain: {
@@ -41,7 +41,6 @@ export const styles = StyleSheet.create({
     marginTop: hp('2'),
   },
   pickerStyle: {
-    
     borderWidth: 1,
     borderColor: 'rgba(11, 180, 255, 0.3)',
     borderRadius: 10,
@@ -52,8 +51,20 @@ export const styles = StyleSheet.create({
     flexWrap: 'wrap',
     paddingLeft: wp('3'),
   },
+  pickerStyle1: {
+    borderWidth: 1,
+    borderColor: 'rgba(11, 180, 255, 0.3)',
+    borderRadius: 10,
+    backgroundColor: 'red',
+    flexDirection: 'row',
+    alignItems: 'center',
+    display: 'flex',
+    flexWrap: 'wrap',
+    paddingLeft: wp('3'),
+    
+  },
   pick: {
-    width: height>667? wp('84'):wp('80'),
+    width: height > 667 ? wp('84') : wp('80'),
     color: Colors.primaryTextColor,
   },
   itemHeading: {
@@ -188,7 +199,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     marginTop: hp('3'),
     marginBottom: hp('1.5'),
-    alignItems:'center'
+    alignItems: 'center',
   },
   addImage: {
     marginRight: wp('2'),
@@ -206,4 +217,51 @@ export const styles = StyleSheet.create({
     marginVertical: hp('0.5'),
     marginHorizontal: wp('1'),
   },
+  Modal: {
+    flex: 1,
+    backgroundColor: 'rgba(52, 52, 52, 0.5)',
+    justifyContent: 'center',
+    padding:10
+  },
+  modalText: {
+    fontSize:hp('2.5'),
+    color:Colors.primaryTextColor
+  },
+  innerContainer: {
+    borderRadius:10,
+    backgroundColor: '#ffff',
+    justifyContent: 'center',
+    alignItems: 'center',
+    shadowColor: "#000",
+shadowOffset: {
+	width: 0,
+	height: 2,
+},
+shadowOpacity: 0.25,
+shadowRadius: 3.84,
+
+elevation: 5,
+  },
+
+  titleContainer:{
+    padding:10,
+    justifyContent:'space-between',
+    alignSelf:'flex-end',
+    flexDirection:'row'
+    },
+    modalOverlay: {
+      flex: 1,
+      backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent black background
+      justifyContent: 'center', // Center vertically
+      alignItems: 'center', // Center horizontally
+    },
+    iosPick:{
+      marginLeft:wp('0.5'),
+      padding:hp('1.5'),
+      flex:1,
+    },
+    dropDown:{
+      marginRight:wp('4'),
+
+    }
 });

@@ -27,9 +27,7 @@ const MessagesScreen = ({route, navigation}) => {
     userDetail,
   } = route?.params;
   const [messages, setMessages] = useState([]);
-  console.log('slkdaj2fklj,', id, userDetail);
 
-  // console.log('asdasdaasdassd,', messagesData);
 
   const renderBubble = props => {
     return (
@@ -102,10 +100,7 @@ const MessagesScreen = ({route, navigation}) => {
       <>
         <Composer
           {...props}
-          // composerHeight={'50%'}
           textInputStyle={{
-            // borderWidth: 0,
-            // backgroundColor: 'red',
             borderRadius: 5,
             padding: 10,
             borderColor: props.text ? '#6200ED' : '#ccc', // Change the border color based on whether there is text or not
@@ -117,18 +112,7 @@ const MessagesScreen = ({route, navigation}) => {
   };
 
   useEffect(() => {
-    // setMessages([
-    //   {
-    //     _id: 1,
-    //     text: 'Hello developer',
-    //     createdAt: new Date(),
-    //     user: {
-    //       _id: 2,
-    //       name: 'React Native',
-    //       avatar: 'https://placeimg.com/140/140/any',
-    //     },
-    //   },
-    // ]);
+
     const subscriber = firebase
       .firestore()
       .collection('chats')
@@ -141,22 +125,12 @@ const MessagesScreen = ({route, navigation}) => {
           return {
             ...item._data,
             createdAt: item.data()?.createdAt.toDate(), //this line change only
-            // createdAt: Date.parse(item?._data?.createdAt),
-            // createdAt: item.createdAt.toDate(),
+    
           };
         });
         setMessages(allMsg);
 
-        ///COMMIT CHANGE
-        // const allMsg = querySnapshot.docs.map(item => {
-        //   const data = item.data();
-        //   return {
-        //     ...data,
-        //     createdAt: data.createdAt.toDate(), // Convert Firestore timestamp to Date object
-        //   };
-        // });
 
-        // setMessages(allMsg);
       });
     return () => subscriber();
   }, []);
@@ -246,14 +220,17 @@ const MessagesScreen = ({route, navigation}) => {
             user => user.otherUserId === userData?.agoraId,
           );
 
-          if (existingIndex !== -1) {
+          if (existingIndex !== -1) 
+          {
             // Merge the existing object
-            chatUsers[existingIndex] = {
+            chatUsers[existingIndex] = 
+            {
               ...chatUsers[existingIndex],
               lastMsg: msg.text,
               createdAt: new Date(msg.createdAt),
               isRead: false,
             };
+
           } else {
             // Add a new object to the chatUsers array
             chatUsers.push({

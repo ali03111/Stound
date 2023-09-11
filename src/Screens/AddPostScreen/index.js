@@ -1,4 +1,4 @@
-import React, {memo, useCallback, useState} from 'react';
+import React, {memo, useCallback, useEffect, useState} from 'react';
 import {
   View,
   FlatList,
@@ -9,6 +9,9 @@ import {
   TextInput,
   RefreshControl,
   TouchableOpacity,
+  Modal,
+  Pressable,
+  Platform,
 } from 'react-native';
 import useFilterScreen from './useAddPostScreen';
 import {styles} from './styles';
@@ -43,9 +46,15 @@ import {Touchable} from '../../Components/Touchable';
 import SwitchSelector from 'react-native-switch-selector';
 import {imageUrl} from '../../Utils/Urls';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const AddPostScreen = ({navigation}) => {
   const [selectedLanguage, setSelectedLanguage] = useState();
+
+
+  const [category, setCategory] = useState('');
+  const [Modal0, setModal0] = useState(false);
+  const [Modal1, setModal1] = useState(false);
   const options = [
     {label: 'Rent', value: 'Rent'},
     {label: 'Buy  ', value: 'Buy'},
@@ -88,6 +97,9 @@ const AddPostScreen = ({navigation}) => {
     );
   };
 
+  useEffect(()=>{
+    console.log(category)
+  },[category])
   const renderItemImages = ({item, index}) => {
     return (
       <>
@@ -130,7 +142,9 @@ const AddPostScreen = ({navigation}) => {
       />
     );
   };
+  console.log(' ',category)
   return (
+    <>
     <View style={{flex: 1}}>
       <Header
         saveReset={'Reset'}
@@ -158,14 +172,26 @@ const AddPostScreen = ({navigation}) => {
             height={45}
             style={styles.switcher}
           />
-          <View style={styles.pickerStyle}>
+    {Platform.OS=='ios' ? 
+    
+    <Pressable onPress={()=>setModal0(prev=>!prev)} style={styles.pickerStyle}>
             <Image source={catImage} />
-            <Picker
+          <TextComponent text={!cat ?"Select":category} styles={styles.iosPick}/>
+          <Ionicons style={styles.dropDown} color={Colors.primaryColor} name={'caret-down'} size={hp(2)} />
+
+          </Pressable>
+    :<View style={styles.pickerStyle}>
+            <Image source={catImage} />
+    
+        
+           <Picker
               dropdownIconColor={Colors.primaryColor}
               style={styles.pick}
               selectedValue={cat}
               onValueChange={(itemValue, itemIndex) =>
+                {
                 onSelecteTag(itemValue, 'cat')
+                }
               }>
               <Picker.Item
                 // color="gray"
@@ -175,8 +201,10 @@ const AddPostScreen = ({navigation}) => {
               {preferencesData.cat &&
                 preferencesData.cat.map(res => {
                   console.log('res.name', res);
+
                   return (
                     <Picker.Item
+                      
                       label={res.name}
                       // color="black"
                       // style={{color: 'black'}}
@@ -186,6 +214,7 @@ const AddPostScreen = ({navigation}) => {
                 })}
             </Picker>
           </View>
+                }
           <View>
             <InputComponent
               {...{
@@ -253,12 +282,20 @@ const AddPostScreen = ({navigation}) => {
             />
           </View>
           <TextComponent styles={styles.room} text={'Rooms '} />
-          <View style={styles.pickerStyle}>
+         {Platform.OS =='ios' ? <Pressable onPress={()=>setModal1(prev=>!prev)} style={styles.pickerStyle}>
             <Image source={bedblue} />
-            <Picker
+          <TextComponent text={!rooms ?"Select":rooms} styles={styles.iosPick}/>
+          <Ionicons style={styles.dropDown} color={Colors.primaryColor} name={'caret-down'} size={hp(2)} />
+
+          </Pressable>
+          : 
+          <View style={styles.pickerStyle}>
+          <Image source={bedblue} />
+
+          <Picker
               dropdownIconColor={Colors.primaryColor}
               // mode="dropdown"
-              style={styles.pick}
+              style={[styles.pick]}
               selectedValue={rooms}
               onValueChange={(itemValue, itemIndex) =>
                 onSelecteTag(itemValue, 'rooms')
@@ -270,7 +307,9 @@ const AddPostScreen = ({navigation}) => {
               <Picker.Item label="4" value="4" />
               <Picker.Item label="5" value="5" />
             </Picker>
-          </View>
+            </View>
+          }
+       
           <TextComponent styles={styles.room} text={'Bathrooms '} />
           <View style={styles.pickerStyle}>
             <Image source={bluebath} />
@@ -374,6 +413,101 @@ const AddPostScreen = ({navigation}) => {
         </View>
       </ScrollView>
     </View>
+              {/* Category PICKER */}
+    <Modal
+  animationType='slide'
+  visible={Modal0} 
+  transparent={true}
+  
+>
+  <View style={styles.Modal} >
+    <View style={styles.innerContainer}>
+      <View style={styles.titleContainer}>
+        <TextComponent
+          styles={styles.modalText}
+          onPress={() => setModal0(false)}
+          text={'Done'}
+        />
+      </View>
+      <Picker
+              dropdownIconColor={Colors.primaryColor}
+              style={styles.pick}
+              selectedValue={cat}
+              onValueChange={(itemValue, itemIndex) =>{
+                onSelecteTag(itemValue, 'cat')
+                  // Find the selected category name based on itemValue
+          const selectedCategory = preferencesData.cat.find(
+            (categoryItem) => categoryItem.categoryId === itemValue
+          );
+          // Update the category state with the selected category name
+          setCategory(selectedCategory ? selectedCategory.name : '');}
+              }>
+              <Picker.Item
+                // color="gray"
+                label="Select Category..."
+                value={null}
+              />
+              {preferencesData.cat &&
+                preferencesData.cat.map((res,index) => {
+                  {cat && index == 2 && 
+                    setCategory(res.name)
+                  
+                  }
+                  console.log('res.name', res);
+
+                  return (
+                    <Picker.Item
+                      label={res.name }
+                      // color="black"
+                      // style={{color: 'black'}}
+                      value={res.categoryId}
+                    />
+                  );
+                })}
+            </Picker>
+    </View>
+  </View>
+</Modal>
+          
+         {/* //ROOMS  */}
+          <Modal
+  animationType='slide'
+  visible={Modal1} 
+  transparent={true}
+  
+>
+  <View style={styles.Modal} >
+    <View style={styles.innerContainer}>
+      <View style={styles.titleContainer}>
+        <TextComponent
+          styles={styles.modalText}
+          onPress={() => setModal1(false)}
+          text={'Done'}
+        />
+      </View>
+
+      <Picker
+
+        dropdownIconColor={Colors.primaryColor}
+        style={styles.pick}
+        selectedValue={rooms}
+        onValueChange={(itemValue, itemIndex) =>
+          onSelecteTag(itemValue, 'rooms')
+          
+        }
+      >
+        <Picker.Item label="Select" value={null} />
+        <Picker.Item label="1" value="1" />
+        <Picker.Item label="2" value="2" />
+        <Picker.Item label="3" value="3" />
+        <Picker.Item label="4" value="4" />
+        <Picker.Item label="5" value="5" />
+      </Picker>
+    </View>
+  </View>
+</Modal>
+
+          </>
   );
 };
 export default memo(AddPostScreen);
