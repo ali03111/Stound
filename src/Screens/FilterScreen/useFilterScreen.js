@@ -26,7 +26,7 @@ const useFilterScreen = ({navigate}) => {
     bathRoom: 1,
     images: [],
     type: options[0]?.value,
-    locations: [],
+    locations: '',
   });
 
   const {gp, ip, op, bathRoom, rooms, cat, images, type, locations} =
@@ -106,6 +106,16 @@ const useFilterScreen = ({navigate}) => {
     }
   };
 
+  //Get Location
+  const getLocation = data => {
+    updateState({locations: data});
+
+    console.log(data);
+  };
+  const sendLocation = () => {
+    navigate('LocationScreen', {getLocation});
+  };
+
   //Reset All Value In Filter Screen
   const resetFunction = () => [
     updateState({
@@ -117,7 +127,7 @@ const useFilterScreen = ({navigate}) => {
       bathRoom: 1,
       images: [],
       type: options[0]?.value,
-      locations: [],
+      locations: '',
     }),
   ];
 
@@ -137,6 +147,7 @@ const useFilterScreen = ({navigate}) => {
     sliderValue,
     setSliderValue,
     resetFunction,
+    sendLocation,
   };
 };
 

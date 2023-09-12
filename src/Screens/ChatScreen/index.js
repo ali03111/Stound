@@ -23,29 +23,21 @@ import {EmptyViewComp} from '../../Components/EmptyViewComp';
 
 const ChatScreen = ({navigation}) => {
   const {
-    ChatData,
-    getStart,
     navigateToMsg,
-    users,
     userData,
     onChangeText,
     changeText,
-    filteredUserData,
-    filtered,
     searchData,
     isloading,
   } = useChatScreen(navigation);
   const renderItem = useCallback(({item, index}) => {
-    console.log(
-      item.chatUsers.find(res => res.otherUserId == userData?.agoraId)?.isRead,
-      Platform.OS,
-      'hshjaasdasdasshhs',
-    );
-    console.log(item, 'hshjaasdasdasasdasdshhs');
+
     const createdAtt = item?.chatUsers.find(
       res => res.otherUserId == userData?.agoraId,
     )?.createdAt;
+
     const createdAt = new Date(createdAtt?.seconds * 1000);
+    
     return (
       <View style={styles.notification}>
         <ChatComponent
@@ -71,9 +63,6 @@ const ChatScreen = ({navigation}) => {
       <Header
         style={styles.topHeader}
         headerTitle={'Chat Room'}
-        // arrowBackIcon={smsedit}
-        // icon={moredots}
-
         centerTextStyle={styles.centerHeading}
       />
       <View style={styles.searchMain}>
@@ -98,7 +87,6 @@ const ChatScreen = ({navigation}) => {
         contentContainerStyle={{
           paddingBottom: Platform.OS == 'ios' ? hp('25') : hp('22'),
           paddingHorizontal: wp('4'),
-          // height: 'auto',
         }}
         ListEmptyComponent={
           !isloading && (
@@ -107,7 +95,6 @@ const ChatScreen = ({navigation}) => {
                 justifyContent: 'center',
                 alignItems: 'center',
                 marginTop: hp('11.5'),
-                // height: hp('10'),
               }}>
               <EmptyViewComp buttonTrue={true} />
             </View>

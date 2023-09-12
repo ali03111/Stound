@@ -43,6 +43,7 @@ const FilterScreen = ({navigation}) => {
     setSliderValue,
     sliderValue,
     resetFunction,
+    sendLocation,
   } = useFilterScreen(navigation);
 
   //Render Preferences dynamics
@@ -132,7 +133,7 @@ const FilterScreen = ({navigation}) => {
                 })}
             </Picker>
           </View>
-          <TextComponent styles={styles.itemHeading} text={'Location '} />
+          {/* <TextComponent styles={styles.itemHeading} text={'Location '} />
           <View style={styles.addButton}>
             <FilterAddButton
               locations={locations}
@@ -150,6 +151,19 @@ const FilterScreen = ({navigation}) => {
                   value: locations,
                 })
               }
+            />
+          </View> */}
+
+          <TextComponent styles={styles.itemHeading} text={'Location '} />
+          <View style={{...styles.addButton, paddingHorizontal: wp('3')}}>
+            <FilterAddButton
+              onPress={sendLocation}
+              style={styles.locationBtn}
+              textStyle={styles.locationBtnText}
+              image={search}
+              isRequired={true}
+              title={locations == '' ? 'Search location here...' : locations}
+              imgStyle={styles.locationBtnImg}
             />
           </View>
           <TextComponent styles={styles.itemHeading} text={'Rooms'} />

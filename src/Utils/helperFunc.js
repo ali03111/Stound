@@ -40,17 +40,13 @@ API.addResponseTransform(response => {
 
 const {get} = API;
 
-//^ altering the get()
 API.get = async (url, params, axiosConfig) => {
   const response = await get(url, params, axiosConfig);
-  // if (response.ok) {
   return response;
-  // }
 };
 
 const formDataFunc = (url, body, imageKey, isArray) => {
   const {Auth} = store.getState();
-  console.log('bjdv dv hj hj dhjs dshj bdh∫√ dhjksbvsdhj', body);
   var myHeaders = new Headers();
   myHeaders.append('Accept', 'application/json');
   myHeaders.append('Authorization', `Bearer ${Auth.token}`);
