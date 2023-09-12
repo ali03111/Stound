@@ -174,6 +174,7 @@ const MessagesScreen = ({route, navigation}) => {
         'https://res.cloudinary.com/dd6tdswt5/image/upload/v1684830799/UserImages/mhysa2zj0sbmvnw69b35.jpg',
     };
     setMessages(previousMessages => GiftedChat.append(previousMessages, myMsg));
+    console.log(myMsg,'MYMessage File')
     firebase
       .firestore()
       .collection('chats')
@@ -219,7 +220,6 @@ const MessagesScreen = ({route, navigation}) => {
           }
 
           //Save DATA IN REDUX WITH ACTION
-          // dispatch(messagesNotification(chatUsers));
           // Update the Firestore document with the modified chatUsers array
           firebase.firestore().collection('users').doc(userData?.agoraId).set(
             {

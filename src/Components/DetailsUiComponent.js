@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'red',
   },
   detailsHeading: {
-    fontSize: hp('1.6'),
+    fontSize: hp('1.7'),
     // color: 'black',
     // fontWeight: '500',
     color: Colors.primaryTextColor,

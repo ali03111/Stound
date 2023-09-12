@@ -113,7 +113,10 @@ const PackageDetailsScreen = ({navigation, route}) => {
             <TextComponent text={`for ${adType}`} styles={styles.forRent} />
           </View>
           <View style={styles.locationMain}>
-            <Image source={locationBlueIcon} />
+            <Image
+              style={{width: wp('6'), height: hp('5'), resizeMode: 'contain'}}
+              source={locationBlueIcon}
+            />
             <TextComponent
               text={location}
               numberOfLines={2}
@@ -122,7 +125,7 @@ const PackageDetailsScreen = ({navigation, route}) => {
           </View>
 
           <DetailsUiComponent heading={'Property Details'} list={generalPref} />
-          <View style={{marginBottom: hp('1')}}>
+          <View style={{marginBottom: hp('1.5')}}>
             <TextComponent text={'Description'} styles={styles.pTitle} />
             <View style={styles.button}>
               <TextComponent
@@ -135,108 +138,6 @@ const PackageDetailsScreen = ({navigation, route}) => {
           <DetailsUiComponent heading={'General'} list={generalPref} />
           <DetailsUiComponent heading={'Inside'} list={insidePref} />
           <DetailsUiComponent heading={'Outside'} list={outsidePref} />
-          {/* <ScrollView
-          style={styles.propertyDetails}
-          showsVerticalScrollIndicator={false}>
-          <View style={{paddingBottom: hp('6')}}>
-            <Collapse style={styles.mainToggle}>
-              <CollapseHeader>
-                <View style={styles.toggleHead}>
-                  <Text style={styles.headTitle}>Profile </Text>
-                  <Ionicons color={'black'} name={'caret-down'} size={hp(2)} />
-                </View>
-              </CollapseHeader>
-              <CollapseBody>
-                <View style={styles.profileDetails}>
-                  <BlurImage
-                    uri={
-                      imageUrl(userDetail.profilePicture) ??
-                      userDetail.profilePicture
-                    }
-                    styles={styles.accProfileImg}
-                  />
-                  <View style={styles.profileData}>
-                    <TextComponent
-                      text={userDetail?.name}
-                      styles={styles.pTitle}
-                    />
-                    <TextComponent
-                      text={userDetail?.email}
-                      styles={styles.pEmail}
-                    />
-                  </View>
-                </View>
-              </CollapseBody>
-            </Collapse>
-            <Collapse style={styles.mainToggle}>
-              <CollapseHeader>
-                <View style={styles.toggleHead}>
-                  <Text style={styles.headTitle}>  </Text>
-                  <Ionicons color={'black'} name={'caret-down'} size={hp(2)} />
-                </View>
-              </CollapseHeader>
-              <CollapseBody>
-                <View style={styles.btns}>
-                  {generalPref?.map(item => {
-                    return (
-                      <FilterAddButton
-                        disabledValue={true}
-                        title={item?.name}
-                        image={imageUrl(item.image)}
-                        style={styles.btn}
-                      />
-                    );
-                  })}
-                </View>
-              </CollapseBody>
-            </Collapse>
-            <Collapse style={styles.mainToggle}>
-              <CollapseHeader>
-                <View style={styles.toggleHead}>
-                  <Text style={styles.headTitle}>Outside </Text>
-                  <Ionicons color={'black'} name={'caret-down'} size={hp(2)} />
-                </View>
-              </CollapseHeader>
-              <CollapseBody>
-                <View style={styles.btns}>
-                  {outsidePref?.map(item => {
-                    return (
-                      <FilterAddButton
-                        disabledValue={true}
-                        title={item?.name}
-                        image={imageUrl(item.image)}
-                        style={styles.btn}
-                        required={true}
-                      />
-                    );
-                  })}
-                </View>
-              </CollapseBody>
-            </Collapse>
-            <Collapse style={styles.mainToggle}>
-              <CollapseHeader>
-                <View style={styles.toggleHead}>
-                  <Text style={styles.headTitle}>Inside </Text>
-                  <Ionicons color={'black'} name={'caret-down'} size={hp(2)} />
-                </View>
-              </CollapseHeader>
-              <CollapseBody>
-                <View style={styles.btns}>
-                  {insidePref?.map(item => {
-                    return (
-                      <FilterAddButton
-                        disabledValue={true}
-                        title={item?.name}
-                        image={imageUrl(item.image)}
-                        style={styles.btn}
-                      />
-                    );
-                  })}
-                </View>
-              </CollapseBody>
-            </Collapse>
-          </View>
-        </ScrollView> */}
           <View style={styles.priceMain}>
             <View style={styles.priceLeft}>
               <TextComponent text={'$' + price} styles={styles.price} />

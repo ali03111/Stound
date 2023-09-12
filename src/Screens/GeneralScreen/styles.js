@@ -15,6 +15,7 @@ export const styles = StyleSheet.create({
     width: '100%',
     display: 'flex',
     flexWrap: 'wrap',
+    paddingBottom: hp('10'),
   },
   filterHeader: {
     // marginTop: hp('2'),

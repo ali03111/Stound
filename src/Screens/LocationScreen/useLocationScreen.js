@@ -9,7 +9,6 @@ import {loadingFalse, loadingTrue} from '../../Redux/Action/isloadingAction';
 const useLocationScreen = ({goBack}, {params}) => {
   const [location, setLocation] = useState([]);
 
-
   useEffect(() => {
     if (Platform.OS === 'ios') {
       Geolocation.requestAuthorization('always');
@@ -77,25 +76,26 @@ const useLocationScreen = ({goBack}, {params}) => {
   const getCurrentLocation = async () => {
     try {
       dispatch(loadingTrue());
-  
+
       // Request permission to access geolocation if needed
       if (Platform.OS === 'android') {
         const granted = await PermissionsAndroid.request(
-          PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
+          PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
         );
         if (granted !== PermissionsAndroid.RESULTS.GRANTED) {
           throw new Error('Location permission denied');
         }
       }
-  
+
       const position = await new Promise((resolve, reject) => {
         Geolocation.getCurrentPosition(
-          (info) => resolve(info),
-          (error) => reject(error)
+          info => resolve(info),
+          error => reject(error),
         );
       });
-  
+
       getLocationName(position?.coords?.latitude, position?.coords?.longitude);
+
       setLocation(position);
       console.log(position, 'Location information');
     } catch (error) {
@@ -133,8 +133,11 @@ const useLocationScreen = ({goBack}, {params}) => {
     fetch(geocodingAPI)
       .then(response => response.json())
       .then(data => {
+        console.log(data, 'locationDataalskjklsjaklsj');
+        console.log(data.results, 'locationDataalskjklsjaklsj');
         if (data.results.length > 0) {
-          const locationName = data.results[0].formatted_address;
+          // const locationName = data.results[0].formatted_address;
+          const locationName = data.plus_code.compound_code;
           setSelectedLocation(locationName);
         }
       })
@@ -142,8 +145,6 @@ const useLocationScreen = ({goBack}, {params}) => {
         console.log('Error:', error);
       });
   }
-
-
 
   return {
     ref,
@@ -160,4 +161,3 @@ const useLocationScreen = ({goBack}, {params}) => {
 };
 
 export default useLocationScreen;
-

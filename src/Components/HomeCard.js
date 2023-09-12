@@ -42,52 +42,17 @@ const HomeCard = ({
           resizeMode="cover"
           borderRadius={10}
           style={styles.overlay}>
-          {/* <View style={styles.cardMain}>
-            <View style={styles.cardTopbar}>
-              <View style={styles.cardTopLeft}>
-                <BlurImage
-                  styles={styles.profileImg}
-                  radius={60}
-                  uri={profile}
-                />
-                <TextComponent text={userName} styles={styles.userName} />
-              </View>
-              <View style={styles.cardTopRight}>
-                <Image source={bathtub} />
-                <TextComponent text={bath} styles={styles.bath} />
-                <Image source={bed} />
-                <TextComponent text={Beds} styles={styles.bed} />
-              </View>
-            </View>
-            <View style={styles.locationMain}>
-              <Image source={location} />
-              <TextComponent
-                numberOfLines={1}
-                text={locationText}
-                styles={styles.locationText}
-              />
-            </View>
-            <View style={styles.cardFooter}>
-              <TextComponent text={forRent} styles={styles.forRent} />
-              <View style={{flexDirection: 'row', alignItems: 'baseline'}}>
-                <TextComponent text={price} styles={styles.price} />
-                <TextComponent text={'/'} styles={styles.pillar} />
-
-                <TextComponent text={duration} styles={styles.month} />
-              </View>
-            </View>
-          </View> */}
           <View style={styles.cardMain}>
             <View style={styles.bottomNav}>
+              <View style={styles.locationInner}>
+                <Image source={location} style={styles.locationSt} />
+                <TextComponent
+                  numberOfLines={2}
+                  text={locationText}
+                  styles={styles.locationText}
+                />
+              </View>
               <View style={styles.locationMain}>
-                <View style={styles.locationInner}>
-                  <Image source={location} style={styles.locationSt} />
-                  <TextComponent
-                    numberOfLines={1}
-                    text={locationText}
-                    styles={styles.locationText}
-                  />
-                </View>
                 <View style={styles.cardTopbar}>
                   <View style={styles.cardTopRight}>
                     <Image source={bathtub} style={styles.bathImg} />
@@ -164,8 +129,10 @@ const styles = StyleSheet.create({
     aspectRatio: 1,
   },
   locationSt: {
-    aspectRatio: 1,
-    width: wp('5'),
+    resizeMode: 'contain',
+    width: wp('7'),
+    height: hp('4.0'),
+    tintColor: 'white',
   },
   userName: {
     color: 'white',
@@ -192,14 +159,16 @@ const styles = StyleSheet.create({
   },
   locationInner: {
     flexDirection: 'row',
-    alignItems: 'center',
+    // alignItems: 'center',
   },
   locationText: {
     color: 'white',
     marginLeft: wp('1.5 '),
     fontSize: hp('2'),
     fontWeight: 'bold',
-    width: wp('30'),
+    width: wp('80'),
+    marginBottom: hp('1.5'),
+    // backgroundColor: 'red',
   },
   cardFooter: {
     flexDirection: 'row',

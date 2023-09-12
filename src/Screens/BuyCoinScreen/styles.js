@@ -6,7 +6,7 @@ export const styles = StyleSheet.create({
     flex: 1,
   },
   topHeader: {
-    paddingBottom: hp('10'),
+    paddingBottom: hp('5'),
   },
   centerCustomStyles: {
     alignItems: 'center',

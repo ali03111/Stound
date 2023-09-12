@@ -194,7 +194,7 @@ const index = ({navigation, route}) => {
       purchaseToken: receipt?.purchaseToken,
     };
     let url = isIos ? iosAppUrl : androidAppUrl;
-    console.log('asfjaklsdfjlasjf1111klajaalsj');
+    console.log(body1, 'asfjaklsdfjlasjf1111klajaalsj');
 
     const response = await fetch(baseURL + url, {
       method: 'POST',
@@ -212,11 +212,11 @@ const index = ({navigation, route}) => {
           : body1,
       ),
     });
-    console.log('asfjaklsdfjlasjfklajlsj');
     if (response.status == 200) {
       store.dispatch(loadingFalse());
 
       const data = await response.json();
+      console.log('response=>>>>>', data);
       const ackResult = await acknowledgePurchaseAndroid({
         token: receipt.purchaseToken,
       });
@@ -280,17 +280,12 @@ const index = ({navigation, route}) => {
 
         if (receipt && i == 0) {
           i++;
-          console.log(i, 'ieyvaaavayassjuy');
+          console.log(i, isSub.current, 'ieyvaaavayassjuy');
 
           if (isSub.current) {
-            await hitAPIToSever(purchase);
             isSub.current = false;
+            await hitAPIToSever(purchase);
           }
-          // const {ok, data} = await API.post('inApp-android', body);
-          // if (ok) {
-          //   finishTransaction(purchase, true);
-          //   navigation.navigate('HeaderDetailScreen', items);
-          // }
         }
       });
 
@@ -416,7 +411,6 @@ const index = ({navigation, route}) => {
                         handleBuySubscription(subscription.productId);
                       }}
                       coinTitle={subscription?.name}
-                      // coinDes={'Validy until your coins finish'}
                       coinPrice={subscription?.description}
                     />
                   )}

@@ -60,7 +60,7 @@ export const styles = StyleSheet.create({
   locationText: {
     color: 'gray',
     marginLeft: wp('2'),
-    fontSize: hp('1.9'),
+    fontSize: hp('1.8'),
     width: wp('83'),
   },
   desText: {
@@ -146,7 +146,7 @@ export const styles = StyleSheet.create({
     flex: 0.1,
   },
   pTitle: {
-    fontSize: hp('1.5'),
+    fontSize: hp('1.7'),
     // fontWeight: '600',
     color: Colors.primaryTextColor,
 
@@ -167,14 +167,14 @@ export const styles = StyleSheet.create({
   },
   priceMain: {
     flexDirection: 'row',
-    paddingVertical: hp('4'),
+    paddingVertical: hp('3'),
     alignItems: 'center',
   },
   priceLeft: {
     flex: 1,
   },
   sendBtnStyle: {
-    padding:10,
+    padding: 10,
     backgroundColor: Colors.primaryColor,
     paddingHorizontal: wp('5'),
     height: hp('6'),
