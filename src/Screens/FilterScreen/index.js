@@ -26,6 +26,7 @@ import {Image} from 'react-native-animatable';
 import {imageUrl, keyExtractor} from '../../Utils/Urls';
 import {hp, wp} from '../../Config/responsive';
 import {TextInput} from 'react-native-paper';
+import RangeSlider from '../../Components/RangeSlider';
 const FilterScreen = ({navigation}) => {
   const {
     filterAdsDataFunction,
@@ -45,6 +46,11 @@ const FilterScreen = ({navigation}) => {
     resetFunction,
     sendLocation,
   } = useFilterScreen(navigation);
+
+  const MIN_DEFAULT=10;
+  const MAX_DEFAULT=300;
+  const [min,setMin]=useState(MIN_DEFAULT);
+  const [max,setMax]=useState(MAX_DEFAULT);
 
   //Render Preferences dynamics
 
@@ -265,7 +271,7 @@ const FilterScreen = ({navigation}) => {
               text={`$${'1000000'}`}
             />
           </View>
-          <Slider
+          {/* <Slider
             // style={styles.rangeSlider}
             style={[
               styles.rangeSlider,
@@ -301,8 +307,20 @@ const FilterScreen = ({navigation}) => {
             value={sliderValue == 0 ? '' : String(sliderValue)} // Convert sliderValue to a string before setting it as the value
             onChangeText={text => setSliderValue(Number(text))}
             placeholder="Enter price ranges..."
+          /> */}
+          <RangeSlider
+          sliderWidth={300}
+          min={MIN_DEFAULT}
+          max={MAX_DEFAULT}
+          step={1}
+          onValueChange={(range)=>{
+            setMin(range.min);
+            setMax(range.max);
+          }}
           />
 
+          <TextComponent text={min}/>
+          <TextComponent text={max}/>
           <ThemeButtonComp
             onPress={filterAdsDataFunction}
             title={'Apply Filter'}

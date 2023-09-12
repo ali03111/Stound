@@ -24,7 +24,7 @@ const signUpschema = yup.object().shape({
   email: yup
     .string()
     // .email('Email must be valid')
-    .required('Please Enter your email')
+    .required('Please enter your email')
     .min(3, 'Email must be valid')
     .max(50, 'Email must be valid'),
   // .matches(emailRegex, 'email is not Valid'),
@@ -32,11 +32,16 @@ const signUpschema = yup.object().shape({
     .string()
     .required('Please Enter your fullname')
     .max(100, 'Name must be less than 100 characters')
-    .matches(/^[A-Za-z ]*$/, 'Please Enter valid name')
+    .matches(/^[A-Za-z ]*$/, 'Please enter valid name')
     .min(2, 'Name must be atleast 2 characters')
     .max(50, 'Name must be of 50 characters'),
   // city: yup.string().required('Please Enter Your country'),
-  number: yup.string().required('Please enter your number'),
+  number: yup.string().required('Please enter your number') .
+  matches(/^[0-9]+$/, 'Please enter valid number')
+  .min(2, 'Number must be atleast 2 characters')
+
+    .max(25, 'Number must be of 25 characters'),
+
   // .matches(/^[A-Za-z ]*$/, 'Please enter valid name')
   // phone: yup
   //   .number()

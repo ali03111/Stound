@@ -34,7 +34,6 @@ import {fcmService} from './src/Services/Notifications';
 import {fcmRegister} from './src/Redux/Action/AuthAction';
 import {navigationRef} from './RootNavigation';
 import * as RootNavigation from './RootNavigation';
-
 function App() {
   const [isVisible, setIsVisible] = useState(true);
   const Hide_Splash_Screen = () => {

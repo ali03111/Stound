@@ -15,7 +15,6 @@ import KeyBoardWrapper from '../../Components/KeyboardWrapper';
 import ShareButton from '../../Components/ShareButton';
 import {TextComponent} from '../../Components/TextComponent';
 import {Touchable} from '../../Components/Touchable';
-import {hp} from '../../Config/responsive';
 import {Colors} from '../../Theme/Variables';
 import {styles} from './styles';
 import useRegister from './useRegisterScreen';
