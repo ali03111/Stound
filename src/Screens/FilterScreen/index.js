@@ -174,7 +174,7 @@ const FilterScreen = ({navigation}) => {
                   dropdownIconColor={Colors.primaryColor}
                   selectedValue={cat}
                   onValueChange={value => onSelecteTag(value, 'cat')}>
-                  <Picker.Item label="Select" value={null} />
+                  <Picker.Item label="Select Category" value={null} />
                   {preferencesData?.cat &&
                     preferencesData?.cat?.map(res => {
                       return (
@@ -227,7 +227,8 @@ const FilterScreen = ({navigation}) => {
             <>
           <TextComponent styles={styles.itemHeading1} text={'Country '} />
            <Dropdown
-          style={[styles.dropdown, isFocus && {borderColor: 'blue'}]}
+  itemTextStyle={{color:Colors.primaryTextColor}}
+          style={[styles.dropdown, isFocus && {borderColor:  Colors.primaryColor}]}
           placeholderStyle={styles.placeholderStyle}
           selectedTextStyle={styles.selectedTextStyle}
           inputSearchStyle={styles.inputSearchStyle}
@@ -237,6 +238,7 @@ const FilterScreen = ({navigation}) => {
           maxHeight={300}
           labelField="label"
           valueField="value"
+
           placeholder={!isFocus ? 'Select Country' : '...'}
           searchPlaceholder="Search..."
           value={country}
@@ -262,7 +264,9 @@ const FilterScreen = ({navigation}) => {
        <>
        <TextComponent styles={styles.itemHeading1} text={'States '} />
        <Dropdown
-          style={[styles.dropdown, isFocus1 && {borderColor: 'blue'}]}
+  itemTextStyle={{color:Colors.primaryTextColor}}
+
+          style={[styles.dropdown, isFocus1 && {borderColor: Colors.primaryColor}]}
           placeholderStyle={styles.placeholderStyle}
           selectedTextStyle={styles.selectedTextStyle}
           inputSearchStyle={styles.inputSearchStyle}
@@ -294,7 +298,9 @@ const FilterScreen = ({navigation}) => {
        <>
        <TextComponent styles={styles.itemHeading1} text={'City '} />
        <Dropdown
-          style={[styles.dropdown, isFocus2 && {borderColor: 'blue'}]}
+  itemTextStyle={{color:Colors.primaryTextColor}}
+
+          style={[styles.dropdown, isFocus2 && {borderColor:  Colors.primaryColor}]}
           placeholderStyle={styles.placeholderStyle}
           selectedTextStyle={styles.selectedTextStyle}
           inputSearchStyle={styles.inputSearchStyle}
