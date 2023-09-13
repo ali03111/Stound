@@ -1,11 +1,134 @@
-import {useEffect, useState} from 'react';
+import {useCallback, useEffect, useState} from 'react';
 import API from '../../Utils/helperFunc';
 import {FilterAdsUrl, getPreUrl} from '../../Utils/Urls';
 import useReduxStore from '../../Hooks/UseReduxStore';
 import {successMessage, errorMessage} from '../../Config/NotificationMessage';
 import {loadingFalse} from '../../Redux/Action/isloadingAction';
+import axios from 'axios';
 
 const useFilterScreen = ({navigate}) => {
+
+
+  // Start Dropdown
+
+    //For Picker
+    const [countryData, setCountryData] = useState([]);
+    const [stateData, setStateData] = useState([]);
+    const [cityData, setCityData] = useState([]);
+  
+    const [country, setCountry] = useState(null);
+    const [state, setState] = useState(null);
+    const [city, setCity] = useState(null);
+    const [countryName, setCountryName] = useState(null);
+    const [stateName, setStateName] = useState(null);
+    const [cityName, setCityName] = useState(null);
+    const [isFocus, setIsFocus] = useState(false);
+    const [isFocus1, setIsFocus1] = useState(false);
+    const [isFocus2, setIsFocus2] = useState(false);
+  
+    //For MODAL
+    const [category, setCategory] = useState('');
+    const [Modal0, setModal0] = useState(false);
+    const [Modal1, setModal1] = useState(false);
+    const [Modal2, setModal2] = useState(false);
+  
+    //FOR RANGE SLIDER
+    const MIN_DEFAULT = 0;
+    const MAX_DEFAULT = 300;
+    const [min, setMin] = useState(MIN_DEFAULT);
+    const [max, setMax] = useState(MAX_DEFAULT);
+  
+    //GET COUNTRY
+  //GET COUNTRY
+  useEffect(() => {
+    var config = {
+      method: 'get',
+      url: 'https://api.countrystatecity.in/v1/countries',
+      headers: {
+        'X-CSCAPI-KEY': 'NEVpNDRDN2h4aE15ckN0dXNlVHNPeGJVSXlEazRqMDVvWndiVUlDbg==',
+      },
+    };
+  
+    axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+        var count = Object.keys(response.data).length;
+        
+        let countryArray = [];
+        for (let i = 0; i < count; i++) {
+          countryArray.push({
+            value: response.data[i].iso2,
+            label: response.data[i].name,
+          });
+        }
+        setCountryData(countryArray);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, []);
+  
+  const handleState = useCallback(countryCode => {
+    var config = {
+      method: 'get',
+      url: `https://api.countrystatecity.in/v1/countries/${countryCode}/states`,
+      headers: {
+        'X-CSCAPI-KEY': 'NEVpNDRDN2h4aE15ckN0dXNlVHNPeGJVSXlEazRqMDVvWndiVUlDbg==',
+      },
+    };
+  
+    axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+
+        var count = Object.keys(response.data).length;
+        let stateArray = [];
+        for (let i = 0; i < count; i++) {
+          stateArray.push({
+            value: response.data[i].iso2,
+            label: response.data[i].name,
+          });
+        }
+
+        setStateData(stateArray);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, []);
+  
+  const handleCity = useCallback((countryCode, stateCode) => {
+    console.log(countryCode,stateCode,'aaaaaaa')
+  
+    var config = {
+      method: 'get',
+      url: `https://api.countrystatecity.in/v1/countries/${countryCode}/states/${stateCode}/cities`,
+      headers: {
+        'X-CSCAPI-KEY': 'NEVpNDRDN2h4aE15ckN0dXNlVHNPeGJVSXlEazRqMDVvWndiVUlDbg==',
+      },
+    };
+  
+    axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+        var count = Object.keys(response.data).length;
+        let cityArray = [];
+        for (let i = 0; i < count; i++) {
+          cityArray.push({
+            value: response.data[i].id,
+            label: response.data[i].name,
+          });
+        }
+        setCityData(cityArray);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, []);
+  // End Dropdown  
+
+
+
   // const [options,setOptions]=useState();
   const [sliderValue, setSliderValue] = useState(0);
   const {dispatch, getState} = useReduxStore();
@@ -148,6 +271,30 @@ const useFilterScreen = ({navigate}) => {
     setSliderValue,
     resetFunction,
     sendLocation,
+    countryData,
+    stateData,
+    cityData,
+    country,
+    setCountry,
+    state, setState,
+    city, setCity,
+    countryName, setCountryName,
+    stateName, setStateName,
+    cityName, setCityName,
+    isFocus, setIsFocus,
+    isFocus1, setIsFocus1,
+    isFocus2, setIsFocus2,
+    category, setCategory,
+    Modal0, setModal0,
+    Modal1, setModal1,
+    Modal2, setModal2,
+    MIN_DEFAULT,MAX_DEFAULT,
+    min, setMin,
+    max, setMax,
+    handleState,
+    handleCity,
+    setCityData,
+    setStateData
   };
 };
 

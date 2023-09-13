@@ -37,7 +37,6 @@ import {TextInput} from 'react-native-paper';
 import RangeSlider from '../../Components/RangeSlider';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {Dropdown} from 'react-native-element-dropdown';
-import axios from 'axios';
 
 const FilterScreen = ({navigation}) => {
   const {
@@ -57,120 +56,31 @@ const FilterScreen = ({navigation}) => {
     sliderValue,
     resetFunction,
     sendLocation,
+    countryData,
+    stateData,
+    cityData,
+    country,
+    setCountry,
+    state, setState,
+    city, setCity,
+    countryName, setCountryName,
+    stateName, setStateName,
+    cityName, setCityName,
+    isFocus, setIsFocus,
+    isFocus1, setIsFocus1,
+    isFocus2, setIsFocus2,
+    category, setCategory,
+    Modal0, setModal0,
+    Modal1, setModal1,
+    Modal2, setModal2,
+    MIN_DEFAULT,MAX_DEFAULT,
+    min, setMin,
+    max, setMax,
+    handleState,
+    handleCity,
+    setCityData,
+
   } = useFilterScreen(navigation);
-
-  //For Picker
-  const [countryData, setCountryData] = useState([]);
-  const [stateData, setStateData] = useState([]);
-  const [cityData, setCityData] = useState([]);
-
-  const [country, setCountry] = useState(null);
-  const [state, setState] = useState(null);
-  const [city, setCity] = useState(null);
-  const [countryName, setCountryName] = useState(null);
-  const [stateName, setStateName] = useState(null);
-  const [cityName, setCityName] = useState(null);
-  const [isFocus, setIsFocus] = useState(false);
-  const [isFocus1, setIsFocus1] = useState(false);
-  const [isFocus2, setIsFocus2] = useState(false);
-
-  //For MODAL
-  const [category, setCategory] = useState('');
-  const [Modal0, setModal0] = useState(false);
-  const [Modal1, setModal1] = useState(false);
-  const [Modal2, setModal2] = useState(false);
-
-  //FOR RANGE SLIDER
-  const MIN_DEFAULT = 0;
-  const MAX_DEFAULT = 300;
-  const [min, setMin] = useState(MIN_DEFAULT);
-  const [max, setMax] = useState(MAX_DEFAULT);
-
-  //GET COUNTRY
-//GET COUNTRY
-useEffect(() => {
-  var config = {
-    method: 'get',
-    url: 'https://api.countrystatecity.in/v1/countries',
-    headers: {
-      'X-CSCAPI-KEY': 'NEVpNDRDN2h4aE15ckN0dXNlVHNPeGJVSXlEazRqMDVvWndiVUlDbg==',
-    },
-  };
-
-  axios(config)
-    .then(function (response) {
-      console.log(JSON.stringify(response.data));
-      setCity([])
-      var count = Object.keys(response.data).length;
-      let countryArray = [];
-      for (let i = 0; i < count; i++) {
-        countryArray.push({
-          value: response.data[i].iso2,
-          label: response.data[i].name,
-        });
-      }
-      setCountryData(countryArray);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-}, []);
-
-const handleState = useCallback(countryCode => {
-  var config = {
-    method: 'get',
-    url: `https://api.countrystatecity.in/v1/countries/${countryCode}/states`,
-    headers: {
-      'X-CSCAPI-KEY': 'NEVpNDRDN2h4aE15ckN0dXNlVHNPeGJVSXlEazRqMDVvWndiVUlDbg==',
-    },
-  };
-
-  axios(config)
-    .then(function (response) {
-      console.log(JSON.stringify(response.data));
-      var count = Object.keys(response.data).length;
-      let stateArray = [];
-      for (let i = 0; i < count; i++) {
-        stateArray.push({
-          value: response.data[i].iso2,
-          label: response.data[i].name,
-        });
-      }
-      setStateData(stateArray);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-}, []);
-
-const handleCity = useCallback((countryCode, stateCode) => {
-  console.log(countryCode,stateCode,'aaaaaaa')
-
-  var config = {
-    method: 'get',
-    url: `https://api.countrystatecity.in/v1/countries/${countryCode}/states/${stateCode}/cities`,
-    headers: {
-      'X-CSCAPI-KEY': 'NEVpNDRDN2h4aE15ckN0dXNlVHNPeGJVSXlEazRqMDVvWndiVUlDbg==',
-    },
-  };
-
-  axios(config)
-    .then(function (response) {
-      console.log(JSON.stringify(response.data));
-      var count = Object.keys(response.data).length;
-      let cityArray = [];
-      for (let i = 0; i < count; i++) {
-        cityArray.push({
-          value: response.data[i].id,
-          label: response.data[i].name,
-        });
-      }
-      setCityData(cityArray);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-}, []);
 
   //Render Preferences dynamics
 
@@ -314,9 +224,8 @@ const handleCity = useCallback((countryCode, stateCode) => {
             </View> */}
 
             <View style={styles.dropDownView}>
-            {countryData.length>0 && 
             <>
-            <TextComponent styles={styles.itemHeading1} text={'Country '} />
+          <TextComponent styles={styles.itemHeading1} text={'Country '} />
            <Dropdown
           style={[styles.dropdown, isFocus && {borderColor: 'blue'}]}
           placeholderStyle={styles.placeholderStyle}
@@ -338,13 +247,18 @@ const handleCity = useCallback((countryCode, stateCode) => {
             setCountry(item.value);
             setCountryName(item.label)
             setIsFocus(false);
+            setState(null)
+            setStateName(null)
+            setCity(null)
+            setCityName(null)
+            setCityData([])
+
           }}
         />
         </>
-        }
             
 
-       {stateData.length > 0 && 
+    
        <>
        <TextComponent styles={styles.itemHeading1} text={'States '} />
        <Dropdown
@@ -368,16 +282,15 @@ const handleCity = useCallback((countryCode, stateCode) => {
             handleCity(country,item.value);
             setState(item.value);
             setStateName(item.label)
-
+            setCity(null)
+            setCityName(null)
             setIsFocus1(false);
           }}
         />
        </>
         
-        }
             
 
-       {cityData.length > 0 && 
        <>
        <TextComponent styles={styles.itemHeading1} text={'City '} />
        <Dropdown
@@ -399,12 +312,11 @@ const handleCity = useCallback((countryCode, stateCode) => {
           onChange={item => {
             setCity(item.value);
             setCityName(item.label)
-
             setIsFocus2(false);
           }}
         />
-         </>}
-      <TouchableOpacity onPress={()=>Alert.alert(`you have selected country ${countryName+' '+stateName+ " " +cityName}`)}>
+         </>
+      <TouchableOpacity onPress={()=>Alert.alert(`you have selected country ${countryName+country+' '+stateName+state+ " " +cityName+city}`)}>
         <Text>Submit</Text>
       </TouchableOpacity>
             </View>

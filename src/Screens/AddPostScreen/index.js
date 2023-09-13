@@ -150,9 +150,7 @@ const AddPostScreen = ({navigation}) => {
           saveReset={'Reset'}
           headerTitle={'Ad details'}
           onSave={onResetState}
-          // arrowBackIcon={arrowback}
-          // backText={'Back'}
-          // goBack={navigation.goBack}
+
         />
 
         <ScrollView
