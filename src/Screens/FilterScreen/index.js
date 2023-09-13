@@ -1,5 +1,13 @@
-import React, {memo, useCallback, useState} from 'react';
-import {View, FlatList, Text, ScrollView, Modal, Pressable} from 'react-native';
+import React, {memo, useCallback, useEffect, useState} from 'react';
+import {
+  View,
+  FlatList,
+  Text,
+  ScrollView,
+  Modal,
+  Pressable,
+  TouchableOpacity,
+} from 'react-native';
 import useFilterScreen from './useFilterScreen';
 import {styles} from './styles';
 import {TextComponent} from '../../Components/TextComponent';
@@ -27,6 +35,8 @@ import {hp, wp} from '../../Config/responsive';
 import {TextInput} from 'react-native-paper';
 import RangeSlider from '../../Components/RangeSlider';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import {Dropdown} from 'react-native-element-dropdown';
+import axios from 'axios';
 
 const FilterScreen = ({navigation}) => {
   const {
@@ -48,6 +58,18 @@ const FilterScreen = ({navigation}) => {
     sendLocation,
   } = useFilterScreen(navigation);
 
+  //For Picker
+  const [countryData, setCountryData] = useState([]);
+  const [stateData, setStateData] = useState([]);
+  const [cityData, setCityData] = useState([]);
+
+  const [country, setCountry] = useState(null);
+  const [state, setState] = useState(null);
+  const [city, setCity] = useState(null);
+  const [isFocus, setIsFocus] = useState(false);
+  const [isFocus1, setIsFocus1] = useState(false);
+  const [isFocus2, setIsFocus2] = useState(false);
+
   //For MODAL
   const [category, setCategory] = useState('');
   const [Modal0, setModal0] = useState(false);
@@ -59,6 +81,94 @@ const FilterScreen = ({navigation}) => {
   const MAX_DEFAULT = 300;
   const [min, setMin] = useState(MIN_DEFAULT);
   const [max, setMax] = useState(MAX_DEFAULT);
+
+  //GET COUNTRY
+  useEffect(() => {
+    var config = {
+      method: 'get',
+      url: 'https://api.countrystatecity.in/v1/countries',
+      headers: {
+        'X-CSCAPI-KEY':
+          'NmRYMklQZXBwS3MwUXV0OGVxN2MwN1JMTENmT0R2bWQzUFdYS1RRMQ==',
+      },
+    };
+
+    axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+        var count = Object.keys(response.data).length;
+        let countryArray = [];
+        for (let i = 0; i < count; i++) {
+          countryArray.push({
+            value: response.data[i].iso2,
+            label: response.data[i].name,
+          });
+        }
+        setCountryData(countryArray);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, []);
+
+  //GET STATE
+  const handleState = useCallback(countryCode => {
+    var config = {
+      method: 'get',
+      url: `https://api.countrystatecity.in/v1/countries/${countryCode}/states`,
+      headers: {
+        'X-CSCAPI-KEY':
+          'NmRYMklQZXBwS3MwUXV0OGVxN2MwN1JMTENmT0R2bWQzUFdYS1RRMQ==',
+      },
+    };
+
+    axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+        var count = Object.keys(response.data).length;
+        let stateArray = [];
+        for (let i = 0; i < count; i++) {
+          stateArray.push({
+            value: response.data[i].iso2,
+            label: response.data[i].name,
+          });
+        }
+        setStateData(stateArray);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, []);
+
+  const handleCity = useCallback((countryCode, stateCode) => {
+    var axios = require('axios');
+
+    var config = {
+      method: 'get',
+      url: `https://api.countrystatecity.in/v1/countries/${countryCode}/states/${stateCode}/cities`,
+      headers: {
+        'X-CSCAPI-KEY':
+          'NmRYMklQZXBwS3MwUXV0OGVxN2MwN1JMTENmT0R2bWQzUFdYS1RRMQ==',
+      },
+    };
+
+    axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+        var count = Object.keys(response.data).length;
+        let cityArray = [];
+        for (let i = 0; i < count; i++) {
+          cityArray.push({
+            value: response.data[i].iso2,
+            label: response.data[i].name,
+          });
+        }
+        setCityData(cityArray);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, []);
 
   //Render Preferences dynamics
 
@@ -189,7 +299,7 @@ const FilterScreen = ({navigation}) => {
           </View> */}
 
             <TextComponent styles={styles.itemHeading} text={'Location '} />
-            <View style={{...styles.addButton, paddingHorizontal: wp('3')}}>
+            {/* <View style={{...styles.addButton, paddingHorizontal: wp('3')}}>
               <FilterAddButton
                 onPress={sendLocation}
                 style={styles.locationBtn}
@@ -199,6 +309,86 @@ const FilterScreen = ({navigation}) => {
                 title={locations == '' ? 'Search location here...' : locations}
                 imgStyle={styles.locationBtnImg}
               />
+            </View> */}
+
+            <View style={styles.dropDownView}>
+              <Dropdown
+                style={[styles.dropdown, isFocus && {borderColor: 'blue'}]}
+                placeholderStyle={styles.placeholderStyle}
+                selectedTextStyle={styles.selectedTextStyle}
+                inputSearchStyle={styles.inputSearchStyle}
+                iconStyle={styles.iconStyle}
+                data={countryData}
+                search
+                maxHeight={300}
+                labelField="label"
+                valueField="value"
+                placeholder={!isFocus ? 'Select Country' : '...'}
+                searchPlaceholder="Search..."
+                value={country}
+                onFocus={() => setIsFocus(true)}
+                onBlur={() => setIsFocus(false)}
+                onChange={item => {
+                  handleState(item.value);
+                  setCountry(item.value);
+                  setIsFocus(false);
+                }}
+              />
+
+              <Dropdown
+                style={[styles.dropdown, isFocus1 && {borderColor: 'blue'}]}
+                placeholderStyle={styles.placeholderStyle}
+                selectedTextStyle={styles.selectedTextStyle}
+                inputSearchStyle={styles.inputSearchStyle}
+                iconStyle={styles.iconStyle}
+                data={stateData}
+                search
+                maxHeight={300}
+                labelField="label"
+                valueField="value"
+                placeholder={!isFocus1 ? 'Select State' : '...'}
+                searchPlaceholder="Search..."
+                value={state}
+                onFocus={() => setIsFocus1(true)}
+                onBlur={() => setIsFocus1(false)}
+                onChange={item => {
+                  handleCity(country, item.value);
+                  setState(item.value);
+                  setIsFocus1(false);
+                }}
+              />
+
+              <Dropdown
+                style={[styles.dropdown, isFocus2 && {borderColor: 'blue'}]}
+                placeholderStyle={styles.placeholderStyle}
+                selectedTextStyle={styles.selectedTextStyle}
+                inputSearchStyle={styles.inputSearchStyle}
+                iconStyle={styles.iconStyle}
+                data={cityData}
+                search
+                maxHeight={300}
+                labelField="label"
+                valueField="value"
+                placeholder={!isFocus2 ? 'Select City' : '...'}
+                searchPlaceholder="Search..."
+                value={city}
+                onFocus={() => setIsFocus2(true)}
+                onBlur={() => setIsFocus2(false)}
+                onChange={item => {
+                  setCity(item.value);
+                  setIsFocus2(false);
+                }}
+              />
+              <TouchableOpacity
+                onPress={() =>
+                  Alert.alert(
+                    'you have selected country ' + country,
+                    state,
+                    city,
+                  )
+                }>
+                <Text>Submit</Text>
+              </TouchableOpacity>
             </View>
             <TextComponent styles={styles.itemHeading} text={'Rooms'} />
 

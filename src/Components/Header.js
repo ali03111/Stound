@@ -87,7 +87,6 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   HeaderTitle: {
-    // fontSize: hp('2.6'),
     fontSize: FontSize.scale24,
     color: Colors.primaryTextColor,
     fontWeight: '600',
