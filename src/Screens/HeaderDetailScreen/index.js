@@ -327,12 +327,12 @@ const index = ({navigation, route}) => {
           <View style={styles.locationMain}>
             <Image source={locationBlueIcon} style={styles.loctStyle} />
             <TextComponent
-              numberOfLines={2}
+              numberOfLines={15}
               text={Item?.adDetail?.location}
               styles={styles.locationText}
             />
           </View>
-          <View style={{marginLeft: wp('2')}}>
+          <View >
             <TextComponent
               text={'Description'}
               styles={styles.descriptionHeading}
@@ -343,6 +343,7 @@ const index = ({navigation, route}) => {
               styles={styles.desText}
             />
           </View>
+
           <TextComponent
             // onPress={() => onSend('Hello World')}
             text={'General Preferences'}
@@ -366,6 +367,7 @@ const index = ({navigation, route}) => {
               );
             }}
           />
+
           <TextComponent
             text={'Outside Preferences'}
             styles={{...styles.headingStyle, marginTop: hp('2')}}

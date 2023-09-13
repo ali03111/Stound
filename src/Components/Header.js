@@ -115,6 +115,7 @@ const styles = StyleSheet.create({
     width: wp('20'),
     justifyContent: 'center',
     alignItems: 'flex-end',
+    paddingRight:wp('4')
   },
 });
 export default NotificationHeader;

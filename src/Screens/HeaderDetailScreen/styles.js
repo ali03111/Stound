@@ -1,6 +1,6 @@
 import {StyleSheet} from 'react-native';
 import {hp, wp} from '../../Config/responsive';
-import {Colors} from '../../Theme/Variables';
+import {Colors, FontSize} from '../../Theme/Variables';
 
 export const styles = StyleSheet.create({
   SocialBoxContainer: {
@@ -47,13 +47,14 @@ export const styles = StyleSheet.create({
   },
   topContainer: {
     marginTop: hp('2'),
-    marginLeft: wp('3'),
+    marginLeft:wp('3'),
+    marginRight:wp('2.5'),
+
     paddingBottom: hp('5'),
   },
   headingStyle: {
     fontSize: hp('2.2'),
     marginBottom: hp('1'),
-    marginLeft: wp('1.5'),
   },
   firstImage: length => ({
     width: length == 1 ? wp('90') : wp('68'),
@@ -91,40 +92,39 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   detail: {
-    paddingHorizontal: wp('4'),
+    // marginLeft:wp('2'),
+    // padding:10,
     flex: 1,
   },
   detailTitle: {
     flexDirection: 'row',
-    paddingHorizontal: wp('1'),
     marginTop: hp('1.4'),
     alignItems: 'center',
     justifyContent: 'space-between',
   },
   locationMain: {
     flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: hp('1.5'),
-    marginBottom: hp('1.5'),
+
+    marginVertical:hp('2')
     // paddingHorizontal: wp('1'),
   },
   locationText: {
     color: 'gray',
     marginLeft: wp('1.5'),
     fontSize: hp('1.9'),
-    width: wp('83'),
+    width: wp('80'),
   },
   loctStyle: {
-    // backgroundColor: 'red',
-    // aspectRatio: 1,
-    // width: wp('8'),
-    // height: hp('5'),
-    // resizeMode: 'contain',
+    aspectRatio: 1,
+    width: wp('8'),
+    height: hp('5'),
+    resizeMode: 'contain',
   },
   title: {
     flex: 0.8,
-    fontWeight: 'bold',
-    fontSize: hp('3'),
+    fontWeight: '600',
+    fontSize: FontSize.scale24,
+    color:Colors.primaryTextColor
   },
   forRent: {
     flex: 0.3,
@@ -139,6 +139,7 @@ export const styles = StyleSheet.create({
     paddingHorizontal: wp('2.5'),
     marginRight: wp('2'),
     marginBottom: hp('1'),
+
   },
   btns: {
     flexDirection: 'row',
@@ -220,6 +221,7 @@ export const styles = StyleSheet.create({
   sendBtnStyle: {
     backgroundColor: Colors.primaryColor,
     paddingHorizontal: wp('10'),
+
     height: hp('7'),
   },
   sendTextStyle: {
