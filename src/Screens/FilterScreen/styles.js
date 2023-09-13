@@ -239,14 +239,17 @@ export const styles = StyleSheet.create({
     borderRadius: 15,
     padding: 20,
     backgroundColor: 'white',
+    borderColor: 'rgba(11, 180, 255, 0.3)',
+    borderWidth:1
   },
   dropdown: {
     height: 50,
-    borderColor: 'gray',
-    borderWidth: 0.5,
+    borderColor: 'rgba(11, 180, 255, 0.3)',
+    borderWidth: 1,
     borderRadius: 8,
     paddingHorizontal: 8,
     marginBottom: 10,
+    marginTop:hp('1')
   },
   icon: {
     marginRight: 5,
