@@ -143,13 +143,13 @@ export const styles = StyleSheet.create({
   },
   rangeTextMain: {
     flexDirection: 'row',
+    justifyContent:'space-between'
   },
   rangeTextLeft: {
-    flex: 1,
+    flex: 1,  
     color: Colors.gray2,
   },
   rangeTextRight: {
-    flex: 1,
     textAlign: 'right',
     color: Colors.gray2,
   },
@@ -249,7 +249,8 @@ export const styles = StyleSheet.create({
     borderRadius: 8,
     paddingHorizontal: 8,
     marginBottom: 10,
-    marginTop:hp('1')
+    marginTop:hp('1'),
+    color:Colors.primaryTextColor,
   },
   icon: {
     marginRight: 5,
@@ -265,6 +266,8 @@ export const styles = StyleSheet.create({
   },
   placeholderStyle: {
     fontSize: 16,
+    color:Colors.primaryTextColor,
+
   },
   selectedTextStyle: {
     fontSize: 16,
@@ -277,4 +280,13 @@ export const styles = StyleSheet.create({
     height: 40,
     fontSize: 16,
   },
+  rightView:{
+    borderWidth:1,borderRadius:10,
+      borderColor: 'rgba(11, 180, 255, 0.3)',
+      justifyContent:'flex-end',padding:10,
+      backgroundColor:'white',
+      paddingHorizontal:wp('5')
+              
+              
+  }
 });

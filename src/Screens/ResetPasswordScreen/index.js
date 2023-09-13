@@ -28,6 +28,7 @@ const ResetPasswordScreen = ({ navigation }) => {
             styles={styles.topHeading}
           />
           <TextComponent
+            numberOfLines={2}
             text={
               'Your new password must be different from previous used passwords.'
             }

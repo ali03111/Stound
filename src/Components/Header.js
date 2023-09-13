@@ -38,7 +38,7 @@ const NotificationHeader = ({
         </Touchable>
       </View>
       <View style={styles.HeaderCenter}>
-        <TextComponent text={headerTitle} styles={styles.HeaderTitle} />
+        <TextComponent numberOfLines={1} text={headerTitle} styles={styles.HeaderTitle} />
       </View>
       <View style={styles.HeaderRight}>
         <View style={styles.backMain}>
@@ -73,6 +73,7 @@ const styles = StyleSheet.create({
     marginTop: Platform.OS == 'ios' ? hp('6') : hp('1.5'),
     paddingHorizontal: wp('5'),
     alignItems: 'center',
+
   },
   backMain: {
     alignItems: 'center',
@@ -80,9 +81,9 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     justifyContent: 'center',
     alignItems: 'flex-end',
+
   },
   backBtn: {
-    marginLeft: wp('1'),
     color: Colors.gray2,
     padding: 10,
   },
@@ -90,11 +91,13 @@ const styles = StyleSheet.create({
     fontSize: FontSize.scale24,
     color: Colors.primaryTextColor,
     fontWeight: '600',
+
   },
   HeaderLeft: {
     width: wp('20'),
     justifyContent: 'center',
     alignItems: 'flex-start',
+
   },
   arrowback: {
     alignItems: 'center',
@@ -104,8 +107,9 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   HeaderCenter: {
-    width: wp('50'),
+    width: wp('55'),
     alignItems: 'center',
+
   },
   HeaderRight: {
     width: wp('20'),

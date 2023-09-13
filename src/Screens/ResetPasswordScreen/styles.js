@@ -6,19 +6,22 @@ export const styles = StyleSheet.create({
   Header: {
     // paddingHorizontal: wp('6'),
     width: wp('100'),
+    
+    
+
   },
   headerBackText: {
     flex: 3,
+
   },
-  centerText: {
-    flex: 7,
-  },
+  
   topHeading: {
     color: Colors.black,
     fontSize: hp('3.5'),
     fontWeight: '500',
     marginTop: hp('7'),
     marginBottom: hp('1'),
+
   },
   passwordText: {
     marginBottom: hp('3'),

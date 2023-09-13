@@ -443,8 +443,12 @@ const FilterScreen = ({navigation}) => {
 
             <TextComponent styles={styles.pRange} text={'Price Range '} />
             <View style={styles.rangeTextMain}>
+            <View style={{...styles.rightView,marginLeft:wp('15')}}>
               <TextComponent styles={styles.rangeTextLeft} text={`$${min}`} />
-              <TextComponent styles={styles.rangeTextRight} text={`$${max}`} />
+            </View>
+            <View style={{...styles.rightView,marginRight:wp('15')}}>
+              <TextComponent styles={{...styles.rangeTextRight}} text={`$${max}`} />
+            </View>
             </View>
             {/* <Slider
             // style={styles.rangeSlider}
@@ -485,7 +489,7 @@ const FilterScreen = ({navigation}) => {
           /> */}
             <View style={styles.rangeSliderContainer}>
               <RangeSlider
-                sliderWidth={300}
+                sliderWidth={350}
                 min={MIN_DEFAULT}
                 max={MAX_DEFAULT}
                 step={1}
