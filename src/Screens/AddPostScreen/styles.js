@@ -1,12 +1,18 @@
 import {Dimensions, StyleSheet} from 'react-native';
 import {hp, wp} from '../../Config/responsive';
-import {Colors} from '../../Theme/Variables';
+import {Colors, FontSize} from '../../Theme/Variables';
 import {height} from '../../Navigation/bottomNavigation';
 
 export const styles = StyleSheet.create({
   favMain: {
     paddingTop: hp('1.5'),
   },
+  itemHeading1: {
+    fontWeight: '600',
+    fontSize: FontSize.scale16,
+    color: Colors.primaryTextColor,
+  },
+
   cancelImage: {
     position: 'absolute',
     zIndex: 1,
@@ -36,6 +42,7 @@ export const styles = StyleSheet.create({
     borderColor: Colors.primaryColor,
     // marginTop: hp('1.5'),
     marginBottom: hp('1.5'),
+    marginTop: hp('1.5'),
   },
   filterHeader: {
     marginTop: hp('2'),
@@ -61,7 +68,6 @@ export const styles = StyleSheet.create({
     display: 'flex',
     flexWrap: 'wrap',
     paddingLeft: wp('3'),
-    
   },
   pick: {
     width: height > 667 ? wp('84') : wp('80'),
@@ -70,7 +76,10 @@ export const styles = StyleSheet.create({
   itemHeading: {
     marginTop: hp('3'),
     marginBottom: hp('1.5'),
-    fontWeight: '500',
+    // fontWeight: '500',
+    fontWeight: '600',
+    fontSize: FontSize.scale16,
+    color: Colors.primaryTextColor,
   },
   room: {
     marginTop: hp('3'),
@@ -221,47 +230,49 @@ export const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'rgba(52, 52, 52, 0.5)',
     justifyContent: 'center',
-    padding:10
+    padding: 10,
   },
   modalText: {
-    fontSize:hp('2.5'),
-    color:Colors.primaryTextColor
+    fontSize: hp('2.5'),
+    color: Colors.primaryTextColor,
   },
   innerContainer: {
-    borderRadius:10,
+    borderRadius: 10,
     backgroundColor: '#ffff',
     justifyContent: 'center',
     alignItems: 'center',
-    shadowColor: "#000",
-shadowOffset: {
-	width: 0,
-	height: 2,
-},
-shadowOpacity: 0.25,
-shadowRadius: 3.84,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
 
-elevation: 5,
+    elevation: 5,
   },
 
-  titleContainer:{
-    padding:10,
-    justifyContent:'space-between',
-    alignSelf:'flex-end',
-    flexDirection:'row'
-    },
-    modalOverlay: {
-      flex: 1,
-      backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent black background
-      justifyContent: 'center', // Center vertically
-      alignItems: 'center', // Center horizontally
-    },
-    iosPick:{
-      marginLeft:wp('0.5'),
-      padding:hp('1.5'),
-      flex:1,
-    },
-    dropDown:{
-      marginRight:wp('4'),
-
-    }
+  titleContainer: {
+    padding: 15,
+    justifyContent: 'space-between',
+    alignSelf: 'flex-end',
+    flexDirection: 'row',
+  },
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent black background
+    justifyContent: 'center', // Center vertically
+    alignItems: 'center', // Center horizontally
+  },
+  iosPick: {
+    marginLeft: wp('0.5'),
+    padding: hp('1.5'),
+    flex: 1,
+    fontSize: FontSize.scale16,
+    color: Colors.primaryTextColor,
+    fontWeight: 400,
+  },
+  dropDown: {
+    marginRight: wp('4'),
+  },
 });

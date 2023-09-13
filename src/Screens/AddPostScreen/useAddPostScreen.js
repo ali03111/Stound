@@ -97,7 +97,7 @@ const useAddPostScreen = ({navigate}) => {
       gp.length &&
       ip.length &&
       op.length &&
-      numberRegex.test(number)
+      numberRegex.test(number)  
       
     ) {
       const body = {

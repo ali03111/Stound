@@ -1,6 +1,6 @@
 import {Dimensions, StyleSheet} from 'react-native';
 import {hp, wp} from '../../Config/responsive';
-import {Colors} from '../../Theme/Variables';
+import {Colors, FontSize} from '../../Theme/Variables';
 
 export const styles = StyleSheet.create({
   pick: {
@@ -16,7 +16,6 @@ export const styles = StyleSheet.create({
   },
   filterMain: {
     paddingHorizontal: wp('3'),
-    // paddingBottom: hp('2'),
   },
   switcher: {
     borderWidth: 1,
@@ -28,10 +27,6 @@ export const styles = StyleSheet.create({
     marginTop: hp('2'),
   },
   pickerStyle: {
-    // borderWidth: 1,
-    // borderColor: 'rgba(11, 180, 255, 0.3)',
-    // borderRadius: 10,
-    // backgroundColor: 'white',
     borderWidth: 1,
     borderColor: 'rgba(11, 180, 255, 0.3)',
     borderRadius: 10,
@@ -53,10 +48,19 @@ export const styles = StyleSheet.create({
     flexWrap: 'wrap',
     paddingLeft: wp('3'),
   },
+  itemHeading1: {
+    fontWeight: '600',
+    fontSize: FontSize.scale16,
+
+    color: Colors.primaryTextColor,
+  },
   itemHeading: {
     marginTop: hp('3'),
     marginBottom: hp('1.5'),
-    fontWeight: '500',
+    fontWeight: '600',
+    fontSize: FontSize.scale16,
+
+    color: Colors.primaryTextColor,
   },
   addButton: {
     borderWidth: 1,
@@ -88,9 +92,10 @@ export const styles = StyleSheet.create({
     height: 22,
   },
   pRange: {
-    fontWeight: '600',
     marginTop: hp('3'),
-    fontSize: hp('2.5'),
+    fontWeight: '700',
+    fontSize: FontSize.scale16,
+    color: Colors.primaryTextColor,
 
     marginBottom: hp('1.5'),
   },
@@ -166,32 +171,66 @@ export const styles = StyleSheet.create({
     color: 'black',
     // backgroundColor: 'transparent', // This works
   },
+  rangeSliderContainer: {
+    marginTop: hp('1.5'),
+  },
 
-  root: {
-    alignItems: 'stretch',
-    padding: 12,
+  Modal: {
     flex: 1,
-    backgroundColor: '#555',
+    backgroundColor: 'rgba(52, 52, 52, 0.5)',
+    justifyContent: 'center',
+    padding: 10,
   },
-  slider: {},
-  button: {},
-  header: {
+  modalText: {
+    fontSize: hp('2.5'),
+    color: Colors.primaryTextColor,
+  },
+  innerContainer: {
+    borderRadius: 10,
+    backgroundColor: '#ffff',
+    justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'black',
-    padding: 12,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+
+    elevation: 5,
   },
-  horizontalContainer: {
-    flexDirection: 'row',
+  innerContainer: {
+    borderRadius: 10,
+    backgroundColor: '#ffff',
+    justifyContent: 'center',
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+
+    elevation: 5,
+  },
+
+  titleContainer: {
+    padding: 15,
     justifyContent: 'space-between',
-    marginTop: 20,
+    alignSelf: 'flex-end',
+    flexDirection: 'row',
   },
-  text: {
-    color: 'white',
-    fontSize: 20,
+  iosPick: {
+    marginLeft: wp('0.5'),
+    padding: hp('1.5'),
+    flex: 1,
+    fontSize: FontSize.scale16,
+    color: Colors.primaryTextColor,
+    fontWeight: 400,
   },
-  valueText: {
-    width: 50,
-    color: 'white',
-    fontSize: 20,
+  dropDown: {
+    marginRight: wp('4'),
   },
 });
