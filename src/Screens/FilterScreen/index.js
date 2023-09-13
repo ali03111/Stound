@@ -21,7 +21,6 @@ import {Colors} from '../../Theme/Variables';
 import FilterAddButton from '../../Components/FilterAddButton';
 import ThemeButtonComp from '../../Components/ThemeButtonComp';
 import Slider from '@react-native-community/slider';
-import {goBack} from '../../Utils';
 import {Image} from 'react-native-animatable';
 import {imageUrl, keyExtractor} from '../../Utils/Urls';
 import {hp, wp} from '../../Config/responsive';
@@ -302,7 +301,25 @@ const FilterScreen = ({navigation}) => {
             onChangeText={text => setSliderValue(Number(text))}
             placeholder="Enter price ranges..."
           />
-
+          {/* 
+          <RangeSlider
+            style={{width: 160, height: 80}}
+            gravity={'center'}
+            min={200}
+            max={1000}
+            step={20}
+            selectionColor="#3df"
+            blankColor="#f618"
+            // onValueChanged={(low, high, fromUser) => {
+            //   // this.setState({rangeLow: low, rangeHigh: high});
+            // }}
+            onValueChanged={(low, high, fromUser) => {
+              console.log(
+                `The low value is ${low}, the high value is ${high}, it was set by the user is ${fromUser}`,
+              );
+              // this.setState({rangeLow: low, rangeHigh: high, fromUser})
+            }}
+          /> */}
           <ThemeButtonComp
             onPress={filterAdsDataFunction}
             title={'Apply Filter'}
