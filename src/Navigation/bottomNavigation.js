@@ -75,7 +75,7 @@ function MybottomTabs() {
               //     ? wp(isIOS ? '100' : '100')
               //     : wp(isIOS ? '100' : '100')
               // }
-              height={hp(isIOS ? '10' : '10')}
+              height={hp(isIOS ? '10' : '11')}
               viewBox={isIOS ? '0 0 394 78' : '0 0 414 85'}
               style={styles.barSvg}
               fill="none"
