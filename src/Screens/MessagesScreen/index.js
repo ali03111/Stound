@@ -183,6 +183,8 @@ const MessagesScreen = ({route, navigation}) => {
               ...chatUsers[existingIndex],
               lastMsg: msg.text,
               createdAt: new Date(msg?.createdAt),
+              isRead: true,
+
             };
           } else {
             // Add a new object to the chatUsers array
@@ -190,6 +192,8 @@ const MessagesScreen = ({route, navigation}) => {
               lastMsg: msg.text,
               otherUserId: id,
               createdAt: new Date(msg?.createdAt),
+              isRead: true,
+
             });
           }
 
@@ -228,7 +232,6 @@ const MessagesScreen = ({route, navigation}) => {
               ...chatUsers[existingIndex],
               lastMsg: msg.text,
               createdAt: new Date(msg.createdAt),
-              isRead: false,
             };
 
           } else {
@@ -237,7 +240,6 @@ const MessagesScreen = ({route, navigation}) => {
               lastMsg: msg.text,
               otherUserId: userData?.agoraId,
               createdAt: new Date(msg?.createdAt),
-              isRead: false,
             });
           }
 

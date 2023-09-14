@@ -6,6 +6,7 @@ import {firebase} from '@react-native-firebase/firestore';
 import useReduxStore from '../../Hooks/UseReduxStore';
 import {loadingFalse, loadingTrue} from '../../Redux/Action/isloadingAction';
 import {messagesNotification} from '../../Redux/Action/messagesAction';
+import { useFocusEffect } from '@react-navigation/native';
 const useChatScreen = ({navigate, goBack, addListener}) => {
   const [users, setUsers] = React.useState([]);
 
@@ -24,42 +25,85 @@ const useChatScreen = ({navigate, goBack, addListener}) => {
     setUsers(newSearchContact);
   }, [changeText]);
 
-  const getUsers = async () => {
-    dispatch(loadingTrue());
+  // const getUsers = async () => {
+  //   dispatch(loadingTrue());
 
+  //   if (userData.agoraId) {
+  //     var usersData = []; // Create an array to store the user data
+  //     await db
+  //       .collection('users')
+  //       .where('userId', '==', userData.agoraId)
+  //       .get()
+  //       .then(async snap => {
+  //         for (const doc of snap.docs) {
+  //           const chatUsers = doc.data().chatUsers || [];
+  //           for (const item of chatUsers) {
+  //             await db
+  //               .collection('users')
+  //               .where('userId', '==', item.otherUserId)
+  //               .get()
+  //               .then(innerSnap => {
+  //                 console.log(innerSnap._docs, 'aaaaaa');
+  //                 innerSnap.forEach(innerDoc => {
+  //                   if (innerDoc.exists) {
+  //                     console.log(
+  //                       'innerDoc.data()',
+  //                       innerDoc.data()?.chatUsers,
+  //                     );
+  //                     usersData.push(innerDoc.data());
+  //                   }
+  //                 });
+  //               });
+  //           }
+  //         }
+  //       });
+
+  //     setUsers(usersData);
+
+  //     dispatch(loadingFalse());
+  //   }
+  // };
+
+  const getUsers = () => {
+    dispatch(loadingTrue());
+  
     if (userData.agoraId) {
-      var usersData = []; // Create an array to store the user data
-      await db
-        .collection('users')
-        .where('userId', '==', userData.agoraId)
-        .get()
-        .then(async snap => {
-          for (const doc of snap.docs) {
-            const chatUsers = doc.data().chatUsers || [];
-            for (const item of chatUsers) {
-              await db
-                .collection('users')
-                .where('userId', '==', item.otherUserId)
-                .get()
-                .then(innerSnap => {
-                  console.log(innerSnap._docs, 'aaaaaa');
-                  innerSnap.forEach(innerDoc => {
-                    if (innerDoc.exists) {
-                      console.log(
-                        'innerDoc.data()',
-                        innerDoc.data()?.chatUsers,
-                      );
-                      usersData.push(innerDoc.data());
-                    }
-                  });
-                });
+      // Create an array to store the user data
+      const usersData = [];
+  
+      // Reference to the user's document
+      const userRef = db.collection('users').doc(userData.agoraId);
+  
+      // Listen for changes to the user's chat data
+      const unsubscribe = userRef.onSnapshot(async (doc) => {
+        if (doc.exists) {
+          const userData = doc.data();
+          const chatUsers = userData.chatUsers || [];
+  
+          // Clear the existing data
+          usersData.length = 0;
+  
+          // Loop through chatUsers and fetch corresponding user data
+          for (const item of chatUsers) {
+            const otherUserId = item.otherUserId;
+            const otherUserRef = db.collection('users').doc(otherUserId);
+            const otherUserDoc = await otherUserRef.get();
+  
+            if (otherUserDoc.exists) {
+              const otherUserData = otherUserDoc.data();
+              usersData.push(otherUserData);
             }
           }
-        });
-
-      setUsers(usersData);
-
+  
+          // Update the state with the new data
+          setUsers(usersData);
+          dispatch(loadingFalse());
+        }
+      });
       dispatch(loadingFalse());
+  
+      // Return the unsubscribe function to clean up the listener when needed
+      return unsubscribe;
     }
   };
 
@@ -144,6 +188,50 @@ const useChatScreen = ({navigate, goBack, addListener}) => {
 
     filterData();
   }, [changeText, users]);
+
+  const updateIsReadToFalse = async () => {
+    if (userData.agoraId) {
+      const userRef = db.collection('users').doc(userData.agoraId);
+  
+      try {
+        const chatUsersSnapshot = await userRef.get();
+  
+        if (chatUsersSnapshot.exists) {
+          const userData = chatUsersSnapshot.data();
+  
+          if (userData.chatUsers && Array.isArray(userData.chatUsers)) {
+            const updatedChatUsers = userData.chatUsers.map(chatUser => {
+              if (chatUser.isRead === true) {
+                chatUser.isRead = false;
+              }
+              return chatUser;
+            });
+  
+            await userRef.update({ chatUsers: updatedChatUsers });
+            console.log('isRead updated to false for relevant chat users');
+          } else {
+            console.log('chatUsers field is missing or not an array');
+          }
+        } else {
+          console.log('User document does not exist');
+        }
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    } else {
+      console.log('userData.agoraId is not defined');
+    }
+  };
+  
+
+  
+  // useFocusEffect(() => {
+  //   // Your logic to run when the screen gains focus
+  //   console.log('Screen is focuaasedaaa');
+  //   updateIsReadToFalse();  
+  // });
+
+
   const navigateToMsg = item =>
     navigate('MessagesScreen', {id: item.userId, userDetail: item});
 
@@ -156,6 +244,7 @@ const useChatScreen = ({navigate, goBack, addListener}) => {
     onChangeText,
     searchData:searchData?.slice().reverse(),
     isloading,
+    updateIsReadToFalse
   };
 };
 export default useChatScreen;

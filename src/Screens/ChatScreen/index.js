@@ -29,6 +29,7 @@ const ChatScreen = ({navigation}) => {
     changeText,
     searchData,
     isloading,
+    updateIsReadToFalse
   } = useChatScreen(navigation);
   const renderItem = useCallback(({item, index}) => {
 
@@ -37,7 +38,7 @@ const ChatScreen = ({navigation}) => {
     )?.createdAt;
 
     const createdAt = new Date(createdAtt?.seconds * 1000);
-    
+
     return (
       <View style={styles.notification}>
         <ChatComponent
@@ -75,10 +76,10 @@ const ChatScreen = ({navigation}) => {
           placeholderTextColor={Colors.gray}
         />
       </View>
-      
+      <Text onPress={updateIsReadToFalse}>submit</Text>
       <FlatList
-        onRefresh={searchData}
-        refreshing={false}
+        // onRefresh={searchData}
+        // refreshing={false}
         // data={users}
         data={searchData}
         renderItem={renderItem}
