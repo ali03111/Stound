@@ -46,8 +46,8 @@ const index = ({navigation, route}) => {
     onPressEMail,
     onPressCall,
     navigationChatScreen,
-
-    userData: {userData},
+    coinUsed,
+    userData: {userData}
   } = useHeaderDetailScreen(navigation, route);
   const [messages, setMessages] = useState([]);
 
@@ -105,18 +105,7 @@ const index = ({navigation, route}) => {
 
   //FIREBASE START
   useEffect(() => {
-    // setMessages([
-    //   {
-    //     _id: 1,
-    //     text: 'Hello developer',
-    //     createdAt: new Date(),
-    //     user: {
-    //       _id: 2,
-    //       name: 'React Native',
-    //       avatar: 'https://placeimg.com/140/140/any',
-    //     },
-    //   },
-    // ]);
+
     const subscriber = firebase
       .firestore()
       .collection('chats')
@@ -147,8 +136,9 @@ const index = ({navigation, route}) => {
         // setMessages(allMsg);
       });
     {
-      !Item?.useCoin && onSend(firstMsg);
+      !coinUsed && onSend(firstMsg);
     }
+
 
     return () => subscriber();
   }, []);
@@ -390,7 +380,6 @@ const index = ({navigation, route}) => {
               );
             }}
           />
-          {/* {console.log(firstMsg, 'asdfljsdlkfj')} */}
           <TextComponent
             onPress={() => onSend(firstMsg)}
             text={'Inside Preferences'}

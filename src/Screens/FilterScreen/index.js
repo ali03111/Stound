@@ -66,6 +66,9 @@ const FilterScreen = ({navigation}) => {
     countryName, setCountryName,
     stateName, setStateName,
     cityName, setCityName,
+    handleState,
+    handleCity,
+    setCityData,
     isFocus, setIsFocus,
     isFocus1, setIsFocus1,
     isFocus2, setIsFocus2,
@@ -73,12 +76,9 @@ const FilterScreen = ({navigation}) => {
     Modal0, setModal0,
     Modal1, setModal1,
     Modal2, setModal2,
-    MIN_DEFAULT,MAX_DEFAULT,
     min, setMin,
     max, setMax,
-    handleState,
-    handleCity,
-    setCityData,
+    MIN_DEFAULT,MAX_DEFAULT,
 
   } = useFilterScreen(navigation);
 
@@ -262,10 +262,11 @@ const FilterScreen = ({navigation}) => {
 
     
        <>
-       <TextComponent styles={styles.itemHeading1} text={'States '} />
+     {stateData.length>0 &&  
+     <>
+     <TextComponent styles={styles.itemHeading1} text={'States '} />
        <Dropdown
-  itemTextStyle={{color:Colors.primaryTextColor}}
-
+          itemTextStyle={{color:Colors.primaryTextColor}}
           style={[styles.dropdown, isFocus1 && {borderColor: Colors.primaryColor}]}
           placeholderStyle={styles.placeholderStyle}
           selectedTextStyle={styles.selectedTextStyle}
@@ -291,6 +292,7 @@ const FilterScreen = ({navigation}) => {
             setIsFocus1(false);
           }}
         />
+        </>}
        </>
         
             

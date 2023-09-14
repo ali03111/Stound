@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState} from 'react';
+import {useCallback, useEffect, useRef, useState} from 'react';
 import useFormHook from '../../Hooks/UseFormHooks';
 import {createAdsUrl, getPreUrl} from '../../Utils/Urls';
 import API, {formDataFunc} from '../../Utils/helperFunc';
@@ -8,6 +8,7 @@ import useReduxStore from '../../Hooks/UseReduxStore';
 import {updateAdImage} from '../../Utils/Urls';
 import {Platform} from 'react-native';
 import {loadingFalse, loadingTrue} from '../../Redux/Action/isloadingAction';
+import axios from 'axios';
 
 const {default: Schemas} = require('../../Utils/Validation');
 
@@ -22,6 +23,22 @@ const useAddPostScreen = ({navigate}) => {
     {label: 'Sale', value: 'Sale'},
     {label: 'Rent', value: 'Rent'},
   ];
+
+
+      //For Picker
+      const [countryData, setCountryData] = useState([]);
+      const [stateData, setStateData] = useState([]);
+      const [cityData, setCityData] = useState([]);
+    
+      const [country, setCountry] = useState(null);
+      const [state, setState] = useState(null);
+      const [city, setCity] = useState(null);
+      const [countryName, setCountryName] = useState(null);
+      const [stateName, setStateName] = useState(null);
+      const [cityName, setCityName] = useState(null);
+      const [isFocus, setIsFocus] = useState(false);
+      const [isFocus1, setIsFocus1] = useState(false);
+      const [isFocus2, setIsFocus2] = useState(false);
 
   const [preferencesData, setPreferencesData] = useState([]);
   const [preferencesVal, setPreferencesVal] = useState({
@@ -113,6 +130,9 @@ const useAddPostScreen = ({navigate}) => {
         photos: images,
         price: number,
         adType: type,
+        country:countryName,
+        state:stateName,
+        city:cityName
       };
       const {ok, data, status, originalError, problem} = await formDataFunc(
         createAdsUrl,
@@ -160,6 +180,96 @@ const useAddPostScreen = ({navigate}) => {
   };
   useEffect(useEffectFun, []);
 
+
+
+   //GET COUNTRY
+   useEffect(() => {
+    var config = {
+      method: 'get',
+      url: 'https://api.countrystatecity.in/v1/countries',
+      headers: {
+        'X-CSCAPI-KEY': 'NEVpNDRDN2h4aE15ckN0dXNlVHNPeGJVSXlEazRqMDVvWndiVUlDbg==',
+      },
+    };
+  
+    axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+        var count = Object.keys(response.data).length;
+        
+        let countryArray = [];
+        for (let i = 0; i < count; i++) {
+          countryArray.push({
+            value: response.data[i].iso2,
+            label: response.data[i].name,
+          });
+        }
+        setCountryData(countryArray);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, []);
+  
+  const handleState = useCallback(countryCode => {
+    var config = {
+      method: 'get',
+      url: `https://api.countrystatecity.in/v1/countries/${countryCode}/states`,
+      headers: {
+        'X-CSCAPI-KEY': 'NEVpNDRDN2h4aE15ckN0dXNlVHNPeGJVSXlEazRqMDVvWndiVUlDbg==',
+      },
+    };
+  
+    axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+
+        var count = Object.keys(response.data).length;
+        let stateArray = [];
+        for (let i = 0; i < count; i++) {
+          stateArray.push({
+            value: response.data[i].iso2,
+            label: response.data[i].name,
+          });
+        }
+
+        setStateData(stateArray);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, [stateData]);
+  
+  const handleCity = useCallback((countryCode, stateCode) => {
+    console.log(countryCode,stateCode,'aaaaaaa')
+  
+    var config = {
+      method: 'get',
+      url: `https://api.countrystatecity.in/v1/countries/${countryCode}/states/${stateCode}/cities`,
+      headers: {
+        'X-CSCAPI-KEY': 'NEVpNDRDN2h4aE15ckN0dXNlVHNPeGJVSXlEazRqMDVvWndiVUlDbg==',
+      },
+    };
+  
+    axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+        var count = Object.keys(response.data).length;
+        let cityArray = [];
+        for (let i = 0; i < count; i++) {
+          cityArray.push({
+            value: response.data[i].id,
+            label: response.data[i].name,
+          });
+        }
+        setCityData(cityArray);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, [cityData]);
+  // End Dropdown  
+
   //REST ALL STATE
   const onResetState = () => {
     updateState({
@@ -200,6 +310,22 @@ const useAddPostScreen = ({navigate}) => {
     location,
     deleteImage,
     onResetState,
+    countryData,
+    stateData,
+    cityData,
+    country,
+    setCountry,
+    state, setState,
+    city, setCity,
+    countryName, setCountryName,
+    stateName, setStateName,
+    cityName, setCityName,
+    handleState,
+    handleCity,
+    setCityData,
+    isFocus, setIsFocus,
+    isFocus1, setIsFocus1,
+    isFocus2, setIsFocus2,
     // goBack,
   };
 };

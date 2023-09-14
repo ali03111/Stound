@@ -82,6 +82,7 @@ const useHeaderDetailScreen = ({navigate}, {params}) => {
     onPressCall,
     navigationChatScreen,
     userData,
+    coinUsed
   };
 };
 

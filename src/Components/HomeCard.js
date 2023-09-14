@@ -159,7 +159,9 @@ const styles = StyleSheet.create({
   },
   locationInner: {
     flexDirection: 'row',
-    // alignItems: 'center',
+    justifyContentW: 'center',
+    alignItems:'center'
+
   },
   locationText: {
     color: 'white',
@@ -167,8 +169,6 @@ const styles = StyleSheet.create({
     fontSize: hp('2'),
     fontWeight: 'bold',
     width: wp('80'),
-    marginBottom: hp('1.5'),
-    // backgroundColor: 'red',
   },
   cardFooter: {
     flexDirection: 'row',
