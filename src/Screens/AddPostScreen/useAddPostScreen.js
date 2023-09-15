@@ -103,9 +103,56 @@ const useAddPostScreen = ({navigate}) => {
     return newArry;
   };
 
+//   const handleError=(res)=>{
+//     dispatch(loadingTrue());
+
+//     const numberRegex = /^[0-9]+$/;
+//     console.log(res,cat,rooms,bathRoom,gp,ip,op,images.length,location,countryName)
+
+//   if (
+//     title?.trim() === '' ||
+//     desc?.trim() === '' ||
+//     !numberRegex.test(number) ||
+//     cat === null ||
+//     rooms === null ||
+//     bathRoom === null ||
+//     gp.length === 0 ||
+//     ip.length === 0 ||
+//     op.length === 0 ||
+//     images.length === 0 ||
+//     location?.trim() === '' ||
+//     countryName === null 
+
+//   ) {
+//     dispatch(loadingFalse());
+//     errorMessage('Please complete all fields ');
+//     return;
+//   }
+// }
+
   const postData = async ({title, desc, number}) => {
     dispatch(loadingTrue());
     const numberRegex = /^[0-9]+$/;
+      // Check if any of the required fields are empty
+      if (
+        title?.trim() === '' ||
+        desc?.trim() === '' ||
+        !numberRegex.test(number) ||
+        cat === null ||
+        rooms === null ||
+        bathRoom === null ||
+        gp.length === 0 ||
+        ip.length === 0 ||
+        op.length === 0 ||
+        images.length === 0 ||
+        location?.trim() === '' ||
+        countryName === null 
+    
+      ) {
+        dispatch(loadingFalse());
+        errorMessage('Please complete all fields ');
+        return;
+      }
     if (
       images.length &&
       cat != null &&
@@ -326,6 +373,7 @@ const useAddPostScreen = ({navigate}) => {
     isFocus, setIsFocus,
     isFocus1, setIsFocus1,
     isFocus2, setIsFocus2,
+    // handleError
     // goBack,
   };
 };
