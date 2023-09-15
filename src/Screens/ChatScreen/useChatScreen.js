@@ -1,7 +1,7 @@
 // import useNotificationScreen from '.';
 
 import {ChatData} from '../../Utils/localDB';
-import React, {useEffect} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import {firebase} from '@react-native-firebase/firestore';
 import useReduxStore from '../../Hooks/UseReduxStore';
 import {loadingFalse, loadingTrue} from '../../Redux/Action/isloadingAction';
@@ -189,37 +189,71 @@ const useChatScreen = ({navigate, goBack, addListener}) => {
     filterData();
   }, [changeText, users]);
 
+  // const updateIsReadToFalse = async () => {
+  //   if (userData.agoraId) {
+  //     const userRef = db.collection('users').doc(userData.agoraId);
+  
+  //     try {
+  //       const chatUsersSnapshot = await userRef.get();
+  
+  //       if (chatUsersSnapshot.exists) {
+  //         const userData = chatUsersSnapshot.data();
+  
+  //         if (userData.chatUsers && Array.isArray(userData.chatUsers)) {
+  //           const updatedChatUsers = userData.chatUsers.map(chatUser => {
+  //             if (chatUser.isRead === true) {
+  //               chatUser.isRead = false;
+  //             }
+  //             return chatUser;
+  //           });
+  
+  //           await userRef.update({ chatUsers: updatedChatUsers });
+  //           console.log('isRead updated to false for relevant chat users');
+  //         } else {
+  //           console.log('chatUsers field is missing or not an array');
+  //         }
+  //       } else {
+  //         console.log('User document does not exist');
+  //       }
+  //     } catch (error) {
+  //       console.error('Error fetching user data:', error);
+  //     }
+  //   } else {
+  //     console.log('userData.agoraId is not defined');
+  //   }
+  // };
+  
   const updateIsReadToFalse = async () => {
     if (userData.agoraId) {
       const userRef = db.collection('users').doc(userData.agoraId);
+      const userSnapshot = await userRef.get();
+      const userData = userSnapshot.data();
   
-      try {
-        const chatUsersSnapshot = await userRef.get();
+      if (userData && userData.chatUsers) {
+        const batch = db.batch();
   
-        if (chatUsersSnapshot.exists) {
-          const userData = chatUsersSnapshot.data();
+        userData.chatUsers.forEach(chatUser => {
+          const otherUserId = chatUser.otherUserId;
+          const messagesRef = db.collection('users').doc(otherUserId).collection('messages');
   
-          if (userData.chatUsers && Array.isArray(userData.chatUsers)) {
-            const updatedChatUsers = userData.chatUsers.map(chatUser => {
-              if (chatUser.isRead === true) {
-                chatUser.isRead = false;
+          // Update all messages in the messages collection for the chat user
+          messagesRef.get().then(querySnapshot => {
+            querySnapshot.forEach(doc => {
+              const messageData = doc.data();
+  
+              // Check if the message belongs to the current user
+              if (messageData.userId === userData.agoraId) {
+                // Update the message's isRead status to false
+                const messageRef = messagesRef.doc(doc.id);
+                batch.update(messageRef, { isRead: false });
               }
-              return chatUser;
             });
+          });
+        });
   
-            await userRef.update({ chatUsers: updatedChatUsers });
-            console.log('isRead updated to false for relevant chat users');
-          } else {
-            console.log('chatUsers field is missing or not an array');
-          }
-        } else {
-          console.log('User document does not exist');
-        }
-      } catch (error) {
-        console.error('Error fetching user data:', error);
+        // Commit the batch update
+        await batch.commit();
       }
-    } else {
-      console.log('userData.agoraId is not defined');
     }
   };
   
@@ -231,6 +265,20 @@ const useChatScreen = ({navigate, goBack, addListener}) => {
   //   updateIsReadToFalse();  
   // });
 
+  useFocusEffect(
+    useCallback(() => {
+      // alert('Screen was focused');
+
+      // Do something when the screen is focused
+      return () => {
+    updateIsReadToFalse();
+
+        alert('Screen was unfocused');
+        // Do something when the screen is unfocused
+        // Useful for cleanup functions
+      };
+    }, [])
+  );
 
   const navigateToMsg = item =>
     navigate('MessagesScreen', {id: item.userId, userDetail: item});
@@ -244,7 +292,6 @@ const useChatScreen = ({navigate, goBack, addListener}) => {
     onChangeText,
     searchData:searchData?.slice().reverse(),
     isloading,
-    updateIsReadToFalse
   };
 };
 export default useChatScreen;
