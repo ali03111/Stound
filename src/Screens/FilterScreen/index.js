@@ -61,25 +61,39 @@ const FilterScreen = ({navigation}) => {
     cityData,
     country,
     setCountry,
-    state, setState,
-    city, setCity,
-    countryName, setCountryName,
-    stateName, setStateName,
-    cityName, setCityName,
-    isFocus, setIsFocus,
-    isFocus1, setIsFocus1,
-    isFocus2, setIsFocus2,
-    category, setCategory,
-    Modal0, setModal0,
-    Modal1, setModal1,
-    Modal2, setModal2,
-    MIN_DEFAULT,MAX_DEFAULT,
-    min, setMin,
-    max, setMax,
+    state,
+    setState,
+    city,
+    setCity,
+    countryName,
+    setCountryName,
+    stateName,
+    setStateName,
+    cityName,
+    setCityName,
+    isFocus,
+    setIsFocus,
+    isFocus1,
+    setIsFocus1,
+    isFocus2,
+    setIsFocus2,
+    category,
+    setCategory,
+    Modal0,
+    setModal0,
+    Modal1,
+    setModal1,
+    Modal2,
+    setModal2,
+    MIN_DEFAULT,
+    MAX_DEFAULT,
+    min,
+    setMin,
+    max,
+    setMax,
     handleState,
     handleCity,
     setCityData,
-
   } = useFilterScreen(navigation);
 
   //Render Preferences dynamics
@@ -209,9 +223,13 @@ const FilterScreen = ({navigation}) => {
               }
             />
           </View> */}
-
             <TextComponent styles={styles.itemHeading} text={'Location '} />
-            {/* <View style={{...styles.addButton, paddingHorizontal: wp('3')}}>
+            <View
+              style={{
+                ...styles.addButton,
+                paddingHorizontal: wp('3'),
+                marginBottom: hp('3'),
+              }}>
               <FilterAddButton
                 onPress={sendLocation}
                 style={styles.locationBtn}
@@ -221,110 +239,125 @@ const FilterScreen = ({navigation}) => {
                 title={locations == '' ? 'Search location here...' : locations}
                 imgStyle={styles.locationBtnImg}
               />
-            </View> */}
+            </View>
 
             <View style={styles.dropDownView}>
-            <>
-          <TextComponent styles={styles.itemHeading1} text={'Country '} />
-           <Dropdown
-  itemTextStyle={{color:Colors.primaryTextColor}}
-          style={[styles.dropdown, isFocus && {borderColor:  Colors.primaryColor}]}
-          placeholderStyle={styles.placeholderStyle}
-          selectedTextStyle={styles.selectedTextStyle}
-          inputSearchStyle={styles.inputSearchStyle}
-          iconStyle={styles.iconStyle}
-          data={countryData}
-          search
-          maxHeight={300}
-          labelField="label"
-          valueField="value"
+              <>
+                <TextComponent styles={styles.itemHeading1} text={'Country '} />
+                <Dropdown
+                  itemTextStyle={{color: Colors.primaryTextColor}}
+                  style={[
+                    styles.dropdown,
+                    isFocus && {borderColor: Colors.primaryColor},
+                  ]}
+                  placeholderStyle={styles.placeholderStyle}
+                  selectedTextStyle={styles.selectedTextStyle}
+                  inputSearchStyle={styles.inputSearchStyle}
+                  iconStyle={styles.iconStyle}
+                  data={countryData}
+                  search
+                  maxHeight={300}
+                  labelField="label"
+                  valueField="value"
+                  placeholder={!isFocus ? 'Select Country' : '...'}
+                  searchPlaceholder="Search..."
+                  value={country}
+                  onFocus={() => setIsFocus(true)}
+                  onBlur={() => setIsFocus(false)}
+                  onChange={item => {
+                    handleState(item.value);
+                    setCountry(item.value);
+                    setCountryName(item.label);
+                    setIsFocus(false);
+                    setState(null);
+                    setStateName(null);
+                    setCity(null);
+                    setCityName(null);
+                    setCityData([]);
+                  }}
+                />
+              </>
 
-          placeholder={!isFocus ? 'Select Country' : '...'}
-          searchPlaceholder="Search..."
-          value={country}
-          onFocus={() => setIsFocus(true)}
-          onBlur={() => setIsFocus(false)}
-          onChange={item => {
-            handleState(item.value);
-            setCountry(item.value);
-            setCountryName(item.label)
-            setIsFocus(false);
-            setState(null)
-            setStateName(null)
-            setCity(null)
-            setCityName(null)
-            setCityData([])
+              <>
+                <TextComponent styles={styles.itemHeading1} text={'States '} />
+                <Dropdown
+                  itemTextStyle={{color: Colors.primaryTextColor}}
+                  style={[
+                    styles.dropdown,
+                    isFocus1 && {borderColor: Colors.primaryColor},
+                  ]}
+                  placeholderStyle={styles.placeholderStyle}
+                  selectedTextStyle={styles.selectedTextStyle}
+                  inputSearchStyle={styles.inputSearchStyle}
+                  iconStyle={styles.iconStyle}
+                  data={stateData}
+                  search
+                  maxHeight={300}
+                  labelField="label"
+                  valueField="value"
+                  placeholder={!isFocus1 ? 'Select State' : '...'}
+                  searchPlaceholder="Search..."
+                  value={state}
+                  onFocus={() => setIsFocus1(true)}
+                  onBlur={() => setIsFocus1(false)}
+                  onChange={item => {
+                    console.log(country, 'CountryAPi');
+                    handleCity(country, item.value);
+                    setState(item.value);
+                    setStateName(item.label);
+                    setCity(null);
+                    setCityName(null);
+                    setIsFocus1(false);
+                  }}
+                />
+              </>
 
-          }}
-        />
-        </>
-            
-
-    
-       <>
-       <TextComponent styles={styles.itemHeading1} text={'States '} />
-       <Dropdown
-  itemTextStyle={{color:Colors.primaryTextColor}}
-
-          style={[styles.dropdown, isFocus1 && {borderColor: Colors.primaryColor}]}
-          placeholderStyle={styles.placeholderStyle}
-          selectedTextStyle={styles.selectedTextStyle}
-          inputSearchStyle={styles.inputSearchStyle}
-          iconStyle={styles.iconStyle}
-          data={stateData}
-          search
-          maxHeight={300}
-          labelField="label"
-          valueField="value"
-          placeholder={!isFocus1 ? 'Select State' : '...'}
-          searchPlaceholder="Search..."
-          value={state}
-          onFocus={() => setIsFocus1(true)}
-          onBlur={() => setIsFocus1(false)}
-          onChange={item => {
-            console.log(country,'CountryAPi')
-            handleCity(country,item.value);
-            setState(item.value);
-            setStateName(item.label)
-            setCity(null)
-            setCityName(null)
-            setIsFocus1(false);
-          }}
-        />
-       </>
-        
-            
-
-       <>
-       <TextComponent styles={styles.itemHeading1} text={'City '} />
-       <Dropdown
-  itemTextStyle={{color:Colors.primaryTextColor}}
-
-          style={[styles.dropdown, isFocus2 && {borderColor:  Colors.primaryColor}]}
-          placeholderStyle={styles.placeholderStyle}
-          selectedTextStyle={styles.selectedTextStyle}
-          inputSearchStyle={styles.inputSearchStyle}
-          iconStyle={styles.iconStyle}
-          data={cityData}
-          search
-          maxHeight={300}
-          labelField="label"
-          valueField="value"
-          placeholder={!isFocus2 ? 'Select City' : '...'}
-          searchPlaceholder="Search..."
-          value={city}
-          onFocus={() => setIsFocus2(true)}
-          onBlur={() => setIsFocus2(false)}
-          onChange={item => {
-            setCity(item.value);
-            setCityName(item.label)
-            setIsFocus2(false);
-          }}
-        />
-         </>
-      <TouchableOpacity onPress={()=>Alert.alert(`you have selected country ${countryName+country+' '+stateName+state+ " " +cityName+city}`)}>
-        <Text>Submit</Text>
-      </TouchableOpacity>
+              <>
+                <TextComponent styles={styles.itemHeading1} text={'City '} />
+                <Dropdown
+                  itemTextStyle={{color: Colors.primaryTextColor}}
+                  style={[
+                    styles.dropdown,
+                    isFocus2 && {borderColor: Colors.primaryColor},
+                  ]}
+                  placeholderStyle={styles.placeholderStyle}
+                  selectedTextStyle={styles.selectedTextStyle}
+                  inputSearchStyle={styles.inputSearchStyle}
+                  iconStyle={styles.iconStyle}
+                  data={cityData}
+                  search
+                  maxHeight={300}
+                  labelField="label"
+                  valueField="value"
+                  placeholder={!isFocus2 ? 'Select City' : '...'}
+                  searchPlaceholder="Search..."
+                  value={city}
+                  onFocus={() => setIsFocus2(true)}
+                  onBlur={() => setIsFocus2(false)}
+                  onChange={item => {
+                    setCity(item.value);
+                    setCityName(item.label);
+                    setIsFocus2(false);
+                  }}
+                />
+              </>
+              {/* <TouchableOpacity
+                onPress={() =>
+                  Alert.alert(
+                    `you have selected country ${
+                      countryName +
+                      country +
+                      ' ' +
+                      stateName +
+                      state +
+                      ' ' +
+                      cityName +
+                      city
+                    }`,
+                  )
+                }>
+                <Text>Submit</Text>
+              </TouchableOpacity> */}
             </View>
             <TextComponent styles={styles.itemHeading} text={'Rooms'} />
 
@@ -446,15 +479,25 @@ const FilterScreen = ({navigation}) => {
                 }
               />
             </View>
-
-            <TextComponent styles={styles.pRange} text={'Price Range '} />
+            <View
+              style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+              <TextComponent styles={styles.pRange} text={'Price Range '} />
+              <TextComponent
+                styles={{...styles.pRange, fontWeight: '400'}}
+                text={'USD'}
+              />
+            </View>
             <View style={styles.rangeTextMain}>
-            <View style={{...styles.rightView,marginLeft:wp('15')}}>
-              <TextComponent styles={styles.rangeTextLeft} text={`$${min}`} />
-            </View>
-            <View style={{...styles.rightView,marginRight:wp('15')}}>
-              <TextComponent styles={{...styles.rangeTextRight}} text={`$${max}`} />
-            </View>
+              <View style={{...styles.rightView}}>
+                <TextComponent styles={styles.rangeTextLeft} text={`${min}`} />
+              </View>
+              <TextComponent styles={styles.to} text={`To`} />
+              <View style={{...styles.rightView}}>
+                <TextComponent
+                  styles={{...styles.rangeTextRight}}
+                  text={`${max}`}
+                />
+              </View>
             </View>
             {/* <Slider
             // style={styles.rangeSlider}

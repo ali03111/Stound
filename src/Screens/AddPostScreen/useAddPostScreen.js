@@ -48,7 +48,7 @@ const useAddPostScreen = ({navigate}) => {
   };
 
   const onSelecteTag = (item, key) => {
-    console.log(key,item, 'keyueueu11');
+    console.log(key, item, 'keyueueu11');
     updateState({[key]: item});
   };
 
@@ -97,8 +97,7 @@ const useAddPostScreen = ({navigate}) => {
       gp.length &&
       ip.length &&
       op.length &&
-      numberRegex.test(number)  
-      
+      numberRegex.test(number)
     ) {
       const body = {
         title: title,
@@ -113,13 +112,18 @@ const useAddPostScreen = ({navigate}) => {
         photos: images,
         price: number,
         adType: type,
+        country: 'USA',
+        state: 'losAngelas',
+        city: 'cityName',
       };
+      console.log(body, 'alsdkaskldf');
       const {ok, data, status, originalError, problem} = await formDataFunc(
         createAdsUrl,
         body,
         'photos',
         true,
       );
+      console.log(data, 'sadlkfjlsadkfj');
       if (ok) {
         updateState({
           images: [],
@@ -142,9 +146,10 @@ const useAddPostScreen = ({navigate}) => {
       }
     } else {
       dispatch(loadingFalse());
-      !numberRegex.test(number) ? errorMessage('Please correct your price'):errorMessage('please comeplete all fields');
+      !numberRegex.test(number)
+        ? errorMessage('Please correct your price')
+        : errorMessage('please comeplete all fields');
     }
-  
   };
   const useEffectFun = () => {
     getPreferences();

@@ -57,6 +57,7 @@ export const styles = StyleSheet.create({
     display: 'flex',
     flexWrap: 'wrap',
     paddingLeft: wp('3'),
+    paddingVertical: hp('0.5'),
   },
   pickerStyle1: {
     borderWidth: 1,

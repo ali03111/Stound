@@ -71,7 +71,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderWidth: 1,
     borderColor: 'rgba(11, 180, 255, 0.3)',
-    borderRadius: 10,
     backgroundColor: 'rgba(11, 180, 255, 0.05)',
   },
   image: {
