@@ -51,10 +51,10 @@ const ChatScreen = ({navigation}) => {
           time={createdAt}
           messages={item?.messages}
           onPress={() => navigateToMsg(item)}
-          isRead={
-            item.chatUsers.find(res => res?.otherUserId == userData?.agoraId)
-              ?.isRead
-          }
+          // isRead={
+          //   item.chatUsers.find(res => res?.otherUserId == userData?.agoraId)
+          //     ?.isRead
+          // }
         />
       </View>
     );

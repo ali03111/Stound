@@ -273,7 +273,7 @@ const useChatScreen = ({navigate, goBack, addListener}) => {
       return () => {
     updateIsReadToFalse();
 
-        alert('Screen was unfocused');
+        // alert('Screen was unfocused');
         // Do something when the screen is unfocused
         // Useful for cleanup functions
       };
