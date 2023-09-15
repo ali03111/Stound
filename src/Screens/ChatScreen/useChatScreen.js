@@ -259,23 +259,15 @@ const useChatScreen = ({navigate, goBack, addListener}) => {
   
 
   
-  // useFocusEffect(() => {
-  //   // Your logic to run when the screen gains focus
-  //   console.log('Screen is focuaasedaaa');
-  //   updateIsReadToFalse();  
-  // });
+
 
   useFocusEffect(
     useCallback(() => {
       // alert('Screen was focused');
-
-      // Do something when the screen is focused
       return () => {
     updateIsReadToFalse();
-
         // alert('Screen was unfocused');
-        // Do something when the screen is unfocused
-        // Useful for cleanup functions
+
       };
     }, [])
   );

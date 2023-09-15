@@ -66,7 +66,7 @@ const HomeCard = ({
               <View style={styles.cardFooter}>
                 <TextComponent text={forRent} styles={styles.forRent} />
                 <View style={{flexDirection: 'row', alignItems: 'baseline'}}>
-                  <TextComponent text={price} styles={styles.price} />
+                  <TextComponent text={price?.toLocaleString()} styles={styles.price} />
                   <TextComponent text={'/'} styles={styles.pillar} />
 
                   <TextComponent text={duration} styles={styles.month} />

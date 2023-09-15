@@ -49,21 +49,15 @@ const FavouriteComp = ({
           </View>
           <View style={styles.cardMain}>
             <View style={styles.cardTopbar}>
-              <View style={styles.cardTopLeft}>
                 <TextComponent text={title} styles={styles.userName} />
-              </View>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'baseline',
-                }}>
-                <TextComponent text={price} styles={styles.price} />
+              <View>
+                <TextComponent text={price?.toLocaleString()} styles={styles.price} />
                 <TextComponent text={duration} styles={styles.month} />
               </View>
             </View>
             <View style={styles.locationMain}>
               <Image source={location} style={styles.locationSt} />
-              <TextComponent text={locationText} styles={styles.locationText} />
+              <TextComponent numberOfLines={2} text={locationText} styles={styles.locationText} />
             </View>
             <View style={styles.cardFooter}>
               <View
@@ -101,6 +95,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
     paddingHorizontal: wp('2.3'),
     paddingVertical: hp('1.3'),
+
   },
   fav: {
     backgroundColor: 'white',
@@ -109,6 +104,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     width: wp('13'),
     alignItems: 'center',
+
   },
   HomeCardMain: {
     width: wp('100'),
@@ -117,11 +113,13 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     borderRadius: 10,
     marginBottom: hp('1.5'),
+
   },
   image: {
     flex: 1,
     borderRadius: 10,
     overflow: 'hidden',
+
   },
   overlay: {
     flex: 1,
@@ -129,12 +127,14 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     height: hp('40'),
     width: wp('95'),
+
   },
   cardMain: {
     justifyContent: 'flex-end',
     flex: 1,
     paddingHorizontal: wp('2.3'),
-    paddingVertical: hp('1.3'),
+    paddingVertical: hp('1.0'),
+
   },
   cardTopbar: {
     flexDirection: 'row',
@@ -152,6 +152,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     width: wp('65'),
+
   },
 
   userName: {
@@ -170,22 +171,23 @@ const styles = StyleSheet.create({
     marginLeft: wp('1'),
     fontSize: hp('1.7'),
     marginRight: wp('1.5'),
+
   },
   locationMain: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: hp('1'),
   },
   locationText: {
     color: 'white',
     marginLeft: wp('3'),
     fontSize: hp('2'),
     width: wp('80'),
+
   },
   cardFooter: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: hp('1.8'),
+    marginTop: hp('1'),
     justifyContent: 'space-between',
   },
   forRent: {
@@ -197,6 +199,8 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: '500',
     fontSize: 22,
+    marginRight:wp('2'),
+
   },
   month: {
     color: 'white',
