@@ -51,6 +51,7 @@ const loginSaga = function* ({payload: {datas, type}}) {
   yield put(loadingTrue());
 
   try {
+    console.log("Google1")
     const getLoginData = loginObject[type];
     const result = yield call(getLoginData, datas);
     const {socialData, ok} = {
@@ -141,8 +142,9 @@ const loginSaga = function* ({payload: {datas, type}}) {
       }
     }
   } catch (error) {
-    errorMessage(error.message.split(' ').slice(1).join(' '));
-    console.log('err', error);
+
+    // errorMessage(error.message.split(' ').slice(1).join(' '));
+    console.log('error', error);
   } finally {
     yield put(loadingFalse());
   }

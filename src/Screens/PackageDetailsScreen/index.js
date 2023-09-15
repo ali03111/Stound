@@ -139,7 +139,7 @@ const PackageDetailsScreen = ({navigation, route}) => {
           <DetailsUiComponent heading={'Outside'} list={outsidePref} />
           <View style={styles.priceMain}>
             <View style={styles.priceLeft}>
-              <TextComponent text={'$' + price} styles={styles.price} />
+              <TextComponent text={'$' + price?.toLocaleString()} styles={styles.price} />
               <TextComponent text={'Total price'} styles={styles.priceText} />
             </View>
             <MsgSendButton

@@ -105,6 +105,8 @@ export const styles = StyleSheet.create({
     borderRadius: 0,
     justifyContent: 'flex-start',
     width: wp('88'),
+    backgroundColor:'white'
+
   },
   locationBtnText: {
     fontSize: hp('2'),

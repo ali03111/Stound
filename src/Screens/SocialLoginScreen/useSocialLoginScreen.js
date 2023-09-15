@@ -18,7 +18,7 @@ const useSocialLoginScreen = ({ navigate }) => {
       const data = await faceBookLogin();
       console.log('data', data);
     } catch (error) {
-      console.log('err', error);
+      console.log('facebookError', error);
     }
   };
 

@@ -42,12 +42,14 @@ const MessagesHeader = ({
                 style: styles.arrowback,
               }}
             />
-            <Text style={{width: 5}} />
+            <View style={{marginLeft:wp('3')}}>
+
             <BlurImage
               uri={imageUrl(image)}
               radius={50}
               styles={styles.profileImg}
             />
+            </View>
             <TextComponent
               text={backText}
               styles={{...styles.backBtn, ...backTextStyle}}
@@ -94,12 +96,13 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 20,
     paddingHorizontal: wp('4'),
   },
-  arrowback: {},
+  
   backMain: {
     alignItems: 'center',
     flexDirection: 'row',
     textAlign: 'left',
     marginTop: hp('0.2'),
+
   },
   backBtn: {
     marginRight: wp('1'),
@@ -111,13 +114,11 @@ const styles = StyleSheet.create({
     fontWeight: '500',
   },
   HeaderLeft: {
-    width: wp('20'),
-    justifyContent: 'space-between',
-    textAlign: 'left',
   },
   HeaderCenter: {
     width: wp('52'),
     alignItems: 'flex-start',
+    marginLeft:wp('3')
   },
   HeaderRight: {
     width: wp('20'),
