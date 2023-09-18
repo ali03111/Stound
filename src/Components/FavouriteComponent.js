@@ -56,6 +56,7 @@ const FavouriteComp = ({
                 style={{
                   flexDirection: 'row',
                   alignItems: 'baseline',
+                  marginRight: wp('2'),
                 }}>
                 <TextComponent text={price} styles={styles.price} />
                 <TextComponent text={duration} styles={styles.month} />
@@ -63,7 +64,11 @@ const FavouriteComp = ({
             </View>
             <View style={styles.locationMain}>
               <Image source={location} style={styles.locationSt} />
-              <TextComponent text={locationText} styles={styles.locationText} />
+              <TextComponent
+                numberOfLines={2}
+                text={locationText}
+                styles={styles.locationText}
+              />
             </View>
             <View style={styles.cardFooter}>
               <View
@@ -99,8 +104,8 @@ export default FavouriteComp;
 const styles = StyleSheet.create({
   favMain: {
     alignItems: 'flex-end',
-    paddingHorizontal: wp('2.3'),
-    paddingVertical: hp('1.3'),
+    paddingHorizontal: wp('3'),
+    paddingVertical: hp('3'),
   },
   fav: {
     backgroundColor: 'white',
@@ -111,6 +116,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   HomeCardMain: {
+    padding: 10,
     width: wp('100'),
     height: hp('40'),
     paddingHorizontal: wp('3'),
@@ -173,7 +179,6 @@ const styles = StyleSheet.create({
   },
   locationMain: {
     flexDirection: 'row',
-    alignItems: 'center',
     marginTop: hp('1'),
   },
   locationText: {

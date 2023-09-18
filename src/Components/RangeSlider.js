@@ -160,12 +160,12 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   sliderBack: {
-    height: 8,
+    height: 5,
     backgroundColor: '#DFEAFB',
     borderRadius: 20,
   },
   sliderFront: {
-    height: 8,
+    height: 5,
     // backgroundColor: '#3F4CF6',
     backgroundColor: Colors.primaryColor,
     borderRadius: 20,

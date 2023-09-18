@@ -59,10 +59,13 @@ const HomeScreen = ({navigation}) => {
     notificationLength,
     text,
     onChangeText,
+    getHomeData,
   } = useHomeScreen(navigation);
 
   // console.log('cccc',onBoardinData);
   const renderItem = useCallback(item => {
+    const formattedPrice = item?.price?.toLocaleString();
+
     return (
       <HomeCard
         userName={`${item?.userDetail?.name}`}
@@ -72,7 +75,7 @@ const HomeScreen = ({navigation}) => {
         Beds={`${item?.rooms} Rooms`}
         locationText={`${item?.location}`}
         forRent={`For ${item?.adType}`}
-        price={`$ ${item?.price}`}
+        price={`$ ${formattedPrice}`}
         duration={'month'}
       />
     );
@@ -167,7 +170,7 @@ const HomeScreen = ({navigation}) => {
                 style={{
                   marginTop: hp('40'),
                 }}>
-                <EmptyViewComp onRefresh={onRefresh} />
+                <EmptyViewComp onRefresh={getHomeData} />
               </View>
             )
           )}

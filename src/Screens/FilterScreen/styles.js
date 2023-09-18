@@ -15,7 +15,7 @@ export const styles = StyleSheet.create({
     paddingTop: hp('1.5'),
   },
   filterMain: {
-    paddingHorizontal: wp('3'),
+    // paddingHorizontal: wp('3'),
   },
   switcher: {
     borderWidth: 1,
@@ -69,7 +69,8 @@ export const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: 'white',
     paddingHorizontal: wp('2'),
-    paddingVertical: hp('0.5'),
+    paddingTop: hp('1'),
+    paddingVertical: hp('1'),
   },
   filterButton: {
     width: wp('20'),
@@ -145,14 +146,19 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    marginTop: hp('2'),
+    paddingHorizontal: hp('1.5'),
   },
   rangeTextLeft: {
     flex: 1,
-    color: Colors.gray2,
+    color: Colors.primaryTextColor,
     textAlign: 'left',
+    fontWeight: 400,
   },
   rangeTextRight: {
-    color: Colors.gray2,
+    // color: Colors.gray2,
+    color: Colors.primaryTextColor,
+
     textAlign: 'left',
   },
   max: {
@@ -174,7 +180,12 @@ export const styles = StyleSheet.create({
     // backgroundColor: 'transparent', // This works
   },
   rangeSliderContainer: {
-    marginTop: hp('1.5'),
+    marginTop: hp('0.5'),
+    borderWidth: 1,
+    borderColor: 'rgba(11, 180, 255, 0.3)',
+    justifyContent: 'flex-end',
+    padding: 10,
+    backgroundColor: 'white',
   },
 
   Modal: {
@@ -298,5 +309,14 @@ export const styles = StyleSheet.create({
     fontWeight: '400',
     fontSize: FontSize.scale16,
     color: Colors.primaryTextColor,
+    textAlign: 'center',
+  },
+  innerRangeSlider: {
+    marginLeft: 0,
+    paddingLeft: 0,
+    padding: 10,
+    backgroundColor: 'white',
+    width: wp('100'),
+    paddingTop: hp('2'),
   },
 });

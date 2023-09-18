@@ -170,6 +170,7 @@ const useHomeScreen = ({navigate, params, addListener}) => {
     notificationLength,
     text,
     onChangeText,
+    getHomeData,
   };
 };
 

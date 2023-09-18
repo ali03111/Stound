@@ -1,9 +1,10 @@
-import {useEffect, useState} from 'react';
+import {useCallback, useEffect, useState} from 'react';
 import {favouriteData} from '../../Utils/localDB';
 import API from '../../Utils/helperFunc';
 import {getfavouritesUrl, updateFavUrl} from '../../Utils/Urls';
 import {errorMessage, successMessage} from '../../Config/NotificationMessage';
 import useReduxStore from '../../Hooks/UseReduxStore';
+import { useFocusEffect } from '@react-navigation/native';
 
 const useFavourateScreen = ({navigate, addListener}) => {
   const {getState} = useReduxStore();
@@ -38,6 +39,8 @@ const useFavourateScreen = ({navigate, addListener}) => {
   };
 
   useEffect(useEffectFuc, []);
+
+
 
   return {
     favouriteData: favData.slice().reverse(),
