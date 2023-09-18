@@ -898,7 +898,10 @@ numberRegex
         keyExtractor={keyExtractor}
         contentContainerStyle={styles.flatListMain}
         horizontal
-        ListFooterComponentStyle={{marginLeft: wp('2')}}
+        ListFooterComponentStyle={{
+          
+
+        }}
         ListFooterComponent={() => {
           return (
             <FilterAddButton

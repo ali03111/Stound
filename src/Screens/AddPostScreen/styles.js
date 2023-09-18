@@ -18,6 +18,7 @@ export const styles = StyleSheet.create({
     zIndex: 1,
     right: wp('2'),
     top: hp('1'),
+
   },
   topHeader: {
     paddingTop: hp('1.5'),
@@ -33,6 +34,8 @@ export const styles = StyleSheet.create({
     width: '100%',
     display: 'flex',
     flexWrap: 'wrap',
+    alignItems:'center',
+    marginTop:hp('1')
     // backgroundColor: 'yellow',
     // justifyContent: 'space-evenly',
   },
@@ -43,6 +46,7 @@ export const styles = StyleSheet.create({
     // marginTop: hp('1.5'),
     marginBottom: hp('1.5'),
     marginTop: hp('1.5'),
+
   },
   filterHeader: {
     marginTop: hp('2'),
@@ -57,6 +61,7 @@ export const styles = StyleSheet.create({
     display: 'flex',
     flexWrap: 'wrap',
     paddingLeft: wp('3'),
+
   },
   pickerStyle1: {
     borderWidth: 1,
@@ -68,10 +73,13 @@ export const styles = StyleSheet.create({
     display: 'flex',
     flexWrap: 'wrap',
     paddingLeft: wp('3'),
+
   },
   pick: {
     width: height > 667 ? wp('84') : wp('80'),
     color: Colors.primaryTextColor,
+
+
   },
   itemHeading: {
     marginTop: hp('3'),
@@ -97,6 +105,8 @@ export const styles = StyleSheet.create({
   },
   filterButton: {
     width: wp('20'),
+    marginBottom:hp('1')
+    
   },
   locationBtn: {
     borderColor: Colors.grayBackground,
