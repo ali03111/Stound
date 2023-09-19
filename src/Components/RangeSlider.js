@@ -1,14 +1,14 @@
-import {StyleSheet, View, TextInput} from 'react-native';
-import React from 'react';
+import {StyleSheet, View, Text} from 'react-native';
+import React, {useState} from 'react';
 import {PanGestureHandler} from 'react-native-gesture-handler';
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
   useAnimatedGestureHandler,
-  useAnimatedProps,
   runOnJS,
 } from 'react-native-reanimated';
 import {Colors} from '../Theme/Variables';
+
 const RangeSlider = ({sliderWidth, min, max, step, onValueChange}) => {
   const position = useSharedValue(0);
   const position2 = useSharedValue(sliderWidth);
@@ -16,6 +16,21 @@ const RangeSlider = ({sliderWidth, min, max, step, onValueChange}) => {
   const opacity2 = useSharedValue(0);
   const zIndex = useSharedValue(0);
   const zIndex2 = useSharedValue(0);
+
+  const [minLabelText, setMinLabelText] = useState('0');
+  const [maxLabelText, setMaxLabelText] = useState('0');
+
+  const updateLabelValues = () => {
+    const minValue =
+      min +
+      Math.floor(position.value / (sliderWidth / ((max - min) / step))) * step;
+    const maxValue =
+      min +
+      Math.floor(position2.value / (sliderWidth / ((max - min) / step))) * step;
+
+    setMinLabelText(minValue.toString());
+    setMaxLabelText(maxValue.toString());
+  };
 
   const gestureHandler = useAnimatedGestureHandler({
     onStart: (_, ctx) => {
@@ -32,6 +47,7 @@ const RangeSlider = ({sliderWidth, min, max, step, onValueChange}) => {
       } else {
         position.value = ctx.startX + e.translationX;
       }
+      runOnJS(updateLabelValues)();
     },
     onEnd: () => {
       opacity.value = 0;
@@ -63,6 +79,7 @@ const RangeSlider = ({sliderWidth, min, max, step, onValueChange}) => {
       } else {
         position2.value = ctx.startX + e.translationX;
       }
+      runOnJS(updateLabelValues)();
     },
     onEnd: () => {
       opacity2.value = 0;
@@ -102,24 +119,6 @@ const RangeSlider = ({sliderWidth, min, max, step, onValueChange}) => {
     width: position2.value - position.value,
   }));
 
-  const AnimatedTextInput = Animated.createAnimatedComponent(TextInput);
-  const minLabelText = useAnimatedProps(() => {
-    return {
-      text: `$${
-        min +
-        Math.floor(position.value / (sliderWidth / ((max - min) / step))) * step
-      }`,
-    };
-  });
-  const maxLabelText = useAnimatedProps(() => {
-    return {
-      text: `$${
-        min +
-        Math.floor(position2.value / (sliderWidth / ((max - min) / step))) *
-          step
-      }`,
-    };
-  });
   return (
     <View style={[styles.sliderContainer, {width: sliderWidth}]}>
       <View style={[styles.sliderBack, {width: sliderWidth}]} />
@@ -127,24 +126,14 @@ const RangeSlider = ({sliderWidth, min, max, step, onValueChange}) => {
       <PanGestureHandler onGestureEvent={gestureHandler}>
         <Animated.View style={[animatedStyle, styles.thumb]}>
           <Animated.View style={[opacityStyle, styles.label]}>
-            <AnimatedTextInput
-              style={styles.labelText}
-              animatedProps={minLabelText}
-              editable={false}
-              defaultValue={'0'}
-            />
+            <Text style={styles.labelText}>{minLabelText}</Text>
           </Animated.View>
         </Animated.View>
       </PanGestureHandler>
       <PanGestureHandler onGestureEvent={gestureHandler2}>
         <Animated.View style={[animatedStyle2, styles.thumb]}>
           <Animated.View style={[opacityStyle2, styles.label]}>
-            <AnimatedTextInput
-              style={styles.labelText}
-              animatedProps={maxLabelText}
-              editable={false}
-              defaultValue={'0'}
-            />
+            <Text style={styles.labelText}>{maxLabelText}</Text>
           </Animated.View>
         </Animated.View>
       </PanGestureHandler>
@@ -165,8 +154,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   sliderFront: {
-    height: 5,
-    // backgroundColor: '#3F4CF6',
+    height: 8,
     backgroundColor: Colors.primaryColor,
     borderRadius: 20,
     position: 'absolute',
@@ -177,9 +165,7 @@ const styles = StyleSheet.create({
     height: 20,
     position: 'absolute',
     backgroundColor: 'white',
-    // borderColor: '#3F4CF6',
     borderColor: Colors.primaryColor,
-
     borderWidth: 5,
     borderRadius: 10,
   },
@@ -202,4 +188,4 @@ const styles = StyleSheet.create({
   },
 });
 
-//https://www.youtube.com/watch?v=sZ0BDG9PAd4&t=21s
+// //https://www.youtube.com/watch?v=sZ0BDG9PAd4&t=21s

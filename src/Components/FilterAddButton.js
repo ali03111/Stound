@@ -64,20 +64,23 @@ export default FilterAddButton;
 const styles = StyleSheet.create({
   button: {
     height: hp('5'),
+    
     // width: wp('25'),
-    borderRadius: 10,
+    
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'center',
     borderWidth: 1,
     borderColor: 'rgba(11, 180, 255, 0.3)',
     backgroundColor: 'rgba(11, 180, 255, 0.05)',
+    marginLeft:wp('2'),
   },
   image: {
     width: wp('5'),
     height: hp('4'),
     // marginBottom: 5,
     resizeMode: 'contain',
+
   },
   text: {
     // fontSize: heightPercentageToDP('2'),
@@ -92,11 +95,12 @@ const styles = StyleSheet.create({
     width: '100%',
     display: 'flex',
     flexWrap: 'wrap',
-    marginTop: hp('1'),
+    // marginTop: hp('1'),
   },
   tags: {
     paddingHorizontal: wp('2'),
     marginHorizontal: wp('1'),
     marginBottom: hp('1'),
+
   },
 });

@@ -49,16 +49,12 @@ const FavouriteComp = ({
           </View>
           <View style={styles.cardMain}>
             <View style={styles.cardTopbar}>
-              <View style={styles.cardTopLeft}>
-                <TextComponent text={title} styles={styles.userName} />
-              </View>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'baseline',
-                  marginRight: wp('2'),
-                }}>
-                <TextComponent text={price} styles={styles.price} />
+              <TextComponent text={title} styles={styles.userName} />
+              <View>
+                <TextComponent
+                  text={price?.toLocaleString()}
+                  styles={styles.price}
+                />
                 <TextComponent text={duration} styles={styles.month} />
               </View>
             </View>
@@ -104,8 +100,8 @@ export default FavouriteComp;
 const styles = StyleSheet.create({
   favMain: {
     alignItems: 'flex-end',
-    paddingHorizontal: wp('3'),
-    paddingVertical: hp('3'),
+    paddingHorizontal: wp('2.3'),
+    paddingVertical: hp('1.3'),
   },
   fav: {
     backgroundColor: 'white',
@@ -140,7 +136,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     flex: 1,
     paddingHorizontal: wp('2.3'),
-    paddingVertical: hp('1.3'),
+    paddingVertical: hp('1.0'),
   },
   cardTopbar: {
     flexDirection: 'row',
@@ -179,7 +175,7 @@ const styles = StyleSheet.create({
   },
   locationMain: {
     flexDirection: 'row',
-    marginTop: hp('1'),
+    alignItems: 'center',
   },
   locationText: {
     color: 'white',
@@ -190,7 +186,7 @@ const styles = StyleSheet.create({
   cardFooter: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: hp('1.8'),
+    marginTop: hp('1'),
     justifyContent: 'space-between',
   },
   forRent: {
@@ -202,6 +198,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: '500',
     fontSize: 22,
+    marginRight: wp('2'),
   },
   month: {
     color: 'white',

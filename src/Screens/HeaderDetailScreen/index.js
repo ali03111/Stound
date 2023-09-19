@@ -304,7 +304,7 @@ const index = ({navigation, route}) => {
           <View style={styles.detailTitle}>
             <TextComponent text={Item?.adDetail?.title} styles={styles.title} />
             <TextComponent
-              text={'$' + Item?.adDetail?.price}
+              text={'$' + Item?.adDetail?.price?.toLocaleString()}
               styles={styles.price}
             />
           </View>

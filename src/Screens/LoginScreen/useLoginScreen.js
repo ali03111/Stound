@@ -34,7 +34,7 @@ const useLogin = ({navigate, goBack}) => {
       const data = await faceBookLogin();
       console.log('data', data);
     } catch (error) {
-      console.log('err', error);
+      console.log('FaceBookdataerr', error);
     }
   };
   const register = () => navigate('RegisterScreen');

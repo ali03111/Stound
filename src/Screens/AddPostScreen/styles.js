@@ -33,6 +33,8 @@ export const styles = StyleSheet.create({
     width: '100%',
     display: 'flex',
     flexWrap: 'wrap',
+    alignItems: 'center',
+    marginTop: hp('1'),
     // backgroundColor: 'yellow',
     // justifyContent: 'space-evenly',
   },
@@ -57,7 +59,6 @@ export const styles = StyleSheet.create({
     display: 'flex',
     flexWrap: 'wrap',
     paddingLeft: wp('3'),
-    paddingVertical: hp('0.5'),
   },
   pickerStyle1: {
     borderWidth: 1,
@@ -98,6 +99,7 @@ export const styles = StyleSheet.create({
   },
   filterButton: {
     width: wp('20'),
+    marginBottom: hp('1'),
   },
   locationBtn: {
     borderColor: Colors.grayBackground,
@@ -106,6 +108,7 @@ export const styles = StyleSheet.create({
     borderRadius: 0,
     justifyContent: 'flex-start',
     width: wp('88'),
+    backgroundColor: 'white',
   },
   locationBtnText: {
     fontSize: hp('2'),
@@ -276,14 +279,13 @@ export const styles = StyleSheet.create({
   dropDown: {
     marginRight: wp('4'),
   },
-   //FOR picker style
-   dropDownView: {
+  //FOR picker style
+  dropDownView: {
     borderRadius: 15,
     padding: 20,
     backgroundColor: 'white',
     borderColor: 'rgba(11, 180, 255, 0.3)',
-    borderWidth:1,
-
+    borderWidth: 1,
   },
   dropdown: {
     height: 50,
@@ -292,9 +294,8 @@ export const styles = StyleSheet.create({
     borderRadius: 8,
     paddingHorizontal: 8,
     marginBottom: 10,
-    marginTop:hp('1'),
-    color:Colors.primaryTextColor,
-
+    marginTop: hp('1'),
+    color: Colors.primaryTextColor,
   },
   icon: {
     marginRight: 5,
@@ -307,39 +308,33 @@ export const styles = StyleSheet.create({
     zIndex: 999,
     paddingHorizontal: 8,
     fontSize: 14,
-    color:Colors.primaryTextColor,
-
+    color: Colors.primaryTextColor,
   },
   placeholderStyle: {
     fontSize: 16,
-    color:Colors.primaryTextColor,
-
+    color: Colors.primaryTextColor,
   },
   selectedTextStyle: {
     fontSize: 16,
-    color:Colors.primaryTextColor,
-
+    color: Colors.primaryTextColor,
   },
   iconStyle: {
     width: 20,
     height: 20,
-
   },
   inputSearchStyle: {
     height: 40,
     fontSize: 16,
-    color:Colors.primaryTextColor,
-
-
+    color: Colors.primaryTextColor,
   },
-  rightView:{
-    borderWidth:1,borderRadius:10,
-      borderColor: 'rgba(11, 180, 255, 0.3)',
-      justifyContent:'flex-end',padding:10,
-      backgroundColor:'white',
+  rightView: {
+    borderWidth: 1,
+    borderRadius: 10,
+    borderColor: 'rgba(11, 180, 255, 0.3)',
+    justifyContent: 'flex-end',
+    padding: 10,
+    backgroundColor: 'white',
 
-      paddingHorizontal:wp('5')
-              
-              
-  }
+    paddingHorizontal: wp('5'),
+  },
 });

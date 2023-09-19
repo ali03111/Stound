@@ -1,36 +1,36 @@
-import React, {useState} from 'react';
-import {
-  StyleSheet,
-  Text,
-  Image,
-  View,
-  Touchable,
-  TouchableOpacity,
-  Dimensions,
-} from 'react-native';
-import {TextComponent} from './TextComponent';
-import {hp, wp} from '../Config/responsive';
-import {Colors} from '../Theme/Variables';
+import React from 'react';
+import { StyleSheet, Text, Image, View, TouchableOpacity, Dimensions } from 'react-native';
+import { TextComponent } from './TextComponent';
+import { hp, wp } from '../Config/responsive';
+import { Colors } from '../Theme/Variables';
 import moment from 'moment';
 import BlurImage from './BlurImage';
 
-const NotificationComp = ({image, name, description, time, onPress}) => {
+const NotificationComp = ({ image, name, description, time, onPress }) => {
   const givenTime = new Date(time).getTime();
   const currentTime = new Date().getTime();
   const timeDifferenceMs = currentTime - givenTime;
 
-  console.log(givenTime, currentTime, 'asldkfjaklsdfj');
   const millisecondsPerMinute = 60 * 1000;
   const millisecondsPerHour = 60 * millisecondsPerMinute;
   const millisecondsPerDay = 24 * millisecondsPerHour;
 
   const days = Math.floor(timeDifferenceMs / millisecondsPerDay);
-  const hours = Math.floor(
-    (timeDifferenceMs % millisecondsPerDay) / millisecondsPerHour,
-  );
-  const minutes = Math.floor(
-    (timeDifferenceMs % millisecondsPerHour) / millisecondsPerMinute,
-  );
+  const hours = Math.floor((timeDifferenceMs % millisecondsPerDay) / millisecondsPerHour);
+  const minutes = Math.floor((timeDifferenceMs % millisecondsPerHour) / millisecondsPerMinute);
+
+  // Function to format the time string
+  const formatTime = () => {
+    if (timeDifferenceMs < 60 * 1000) {
+      return 'Just now';
+    } else if (days > 0) {
+      return `${days} day${days > 1 ? 's' : ''} ago`;
+    } else if (hours > 0) {
+      return `${hours} hour${hours > 1 ? 's' : ''} ago`;
+    } else {
+      return `${minutes} min${minutes > 1 ? 's' : ''} ago`;
+    }
+  };
 
   return (
     <TouchableOpacity onPress={onPress} style={styles.notificationMian}>
@@ -41,32 +41,13 @@ const NotificationComp = ({image, name, description, time, onPress}) => {
         <Text style={styles.nameDescription}>
           <TextComponent text={name} styles={styles.username} />
           <TextComponent
-            text={` ${
-              description ?? ' interested'
-            } your property and want to talk.`}
+            text={` ${description ?? ' interested'} your property and want to talk.`}
             styles={styles.description}
           />
         </Text>
       </View>
       <View style={styles.mainTiming}>
-        <TextComponent
-          text={
-            days > 0 ? (
-              <Text>
-                {days} day{days > 1 ? 's' : ''} ago
-              </Text>
-            ) : hours > 0 ? (
-              <Text>
-                {hours} hour{hours > 1 ? 's' : ''} ago
-              </Text>
-            ) : (
-              <Text>
-                {minutes} min{minutes > 1 ? 's' : ''} ago
-              </Text>
-            )
-          }
-          styles={styles.timing}
-        />
+        <TextComponent text={formatTime()} styles={styles.timing} />
       </View>
     </TouchableOpacity>
   );

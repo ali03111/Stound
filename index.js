@@ -38,7 +38,7 @@ messaging().setBackgroundMessageHandler(async remoteMessage => {
           'Notification caused app to open from quit state:',
           remoteMessage,
         );
-  store.dispatch(setNotificationLength(remoteMessage));    
+  // store.dispatch(setNotificationLength(remoteMessage));    
 
       });
 

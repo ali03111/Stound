@@ -92,9 +92,9 @@ const Notification = ({navigation}) => {
         buttonColor={'#0BB4FF'}
         cancel={'Not Now'}
         isVisible={coinAlert}
-        title="Use Coins"
-        message="Use 1 coins to get the details!"
-        confirmText="Use Coins"
+        title="Use Coin"
+        message="Use 1 coin to get the details!"
+        confirmText="Use Coin"
         onCancel={() => onCancel(coinAlert, 'coinAlert')}
         onConfirm={() => onConfirm(coinAlert)}
       />

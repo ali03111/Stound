@@ -16,9 +16,14 @@ const useAddPostScreen = ({navigate}) => {
   const {dispatch, getState} = useReduxStore();
 
   const {recentLocation} = getState('recentlocation');
-  const {handleSubmit, errors, reset, control, getValues} = useFormHook(
-    Schemas.addPost,
-  );
+  const {handleSubmit, errors, reset, control, getValues, resetField} =
+    useFormHook(Schemas.addPost);
+  // Retrieve values of form fields
+  const title = getValues('title');
+  const desc = getValues('desc');
+  const number = getValues('number');
+  const numberRegex = /^[0-9]+$/;
+
   const options = [
     {label: 'Sale', value: 'Sale'},
     {label: 'Rent', value: 'Rent'},
@@ -102,9 +107,37 @@ const useAddPostScreen = ({navigate}) => {
     return newArry;
   };
 
+  //   const handleError=(res)=>{
+  //     dispatch(loadingTrue());
+
+  //     const numberRegex = /^[0-9]+$/;
+  //     console.log(res,cat,rooms,bathRoom,gp,ip,op,images.length,location,countryName)
+
+  //   if (
+  //     title?.trim() === '' ||
+  //     desc?.trim() === '' ||
+  //     !numberRegex.test(number) ||
+  //     cat === null ||
+  //     rooms === null ||
+  //     bathRoom === null ||
+  //     gp.length === 0 ||
+  //     ip.length === 0 ||
+  //     op.length === 0 ||
+  //     images.length === 0 ||
+  //     location?.trim() === '' ||
+  //     countryName === null
+
+  //   ) {
+  //     dispatch(loadingFalse());
+  //     errorMessage('Please complete all fields ');
+  //     return;
+  //   }
+  // }
+
   const postData = async ({title, desc, number}) => {
     dispatch(loadingTrue());
     const numberRegex = /^[0-9]+$/;
+
     if (
       images.length &&
       cat != null &&
@@ -117,8 +150,8 @@ const useAddPostScreen = ({navigate}) => {
     ) {
       const body = {
         title: title,
-        description: desc,
         rooms: rooms,
+        description: desc,
         bathrooms: bathRoom,
         location,
         generalPref: getAllID(gp),
@@ -151,10 +184,15 @@ const useAddPostScreen = ({navigate}) => {
           bathRoom: null,
           location: '',
         });
-        reset();
+        // reset();
         dispatch(loadingFalse());
         successMessage(data?.message || 'Your Ad has been created ');
         navigate('HomeScreen');
+
+        reset();
+        setTimeout(() => {
+          onResetState();
+        }, 1000);
       } else {
         dispatch(loadingFalse());
         console.log('dfdfa', originalError, status, problem, data?.message);
@@ -162,9 +200,7 @@ const useAddPostScreen = ({navigate}) => {
       }
     } else {
       dispatch(loadingFalse());
-      !numberRegex.test(number)
-        ? errorMessage('Please correct your price')
-        : errorMessage('please comeplete all fields');
+      errorMessage('Please comeplete all fields');
     }
   };
   const useEffectFun = () => {
@@ -279,7 +315,10 @@ const useAddPostScreen = ({navigate}) => {
   // End Dropdown
 
   //REST ALL STATE
-  const onResetState = () => {
+  const onResetState = useCallback(() => {
+    // resetField('desc')
+
+    reset();
     updateState({
       images: [],
       gp: null,
@@ -290,8 +329,10 @@ const useAddPostScreen = ({navigate}) => {
       bathRoom: null,
       location: '',
     });
-    reset();
-  };
+    setCountryData([]);
+    setStateData([]);
+    setCityData([]);
+  }, []);
   return {
     handleSubmit,
     errors,
@@ -342,6 +383,11 @@ const useAddPostScreen = ({navigate}) => {
     setIsFocus1,
     isFocus2,
     setIsFocus2,
+    title,
+    desc,
+    number,
+    numberRegex,
+    // handleError
     // goBack,
   };
 };
