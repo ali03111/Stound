@@ -39,6 +39,7 @@ import {
   requestSubscription,
   useIAP,
   validateReceiptIos,
+  clearProductsIOS,
 } from 'react-native-iap';
 import useReduxStore from '../../Hooks/UseReduxStore';
 import {androidAppUrl, baseURL, iosAppUrl} from '../../Utils/Urls';
@@ -47,7 +48,7 @@ import {errorMessage, successMessage} from '../../Config/NotificationMessage';
 import {store} from '../../Redux/Reducers';
 import {loadingFalse, loadingTrue} from '../../Redux/Action/isloadingAction';
 const subscriptionSkus = Platform.select({
-  ios: ['productId_10', 'productId20', 'productId_30', 'productId_50'],
+  ios: ['productId_10', 'productId20', 'productId_30', 'productId50'],
   // android: ['productid_10', 'productid_30'],
   // android: ['productsid_10'],
   android: [
@@ -101,7 +102,7 @@ const index = ({navigation, route}) => {
 
     try {
       await clearTransaction();
-
+      // await clearProductsIOS();
       await getSubscriptions({skus: subscriptionSkus});
       setIsBoolProduct(false);
     } catch (error) {
@@ -213,7 +214,7 @@ const index = ({navigation, route}) => {
       body: JSON.stringify(
         isIos
           ? {
-              token: receipt,
+              token: receipt?.transactionReceipt,
             }
           : body1,
       ),
@@ -223,6 +224,9 @@ const index = ({navigation, route}) => {
 
       const data = await response.json();
       console.log('response=>>>>>', data);
+      {
+        isIos && navigation.navigate('HeaderDetailScreen', items);
+      }
       const ackResult = await acknowledgePurchaseAndroid({
         token: receipt.purchaseToken,
       });
