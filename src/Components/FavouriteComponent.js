@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, Image, StyleSheet, ImageBackground} from 'react-native';
-import {Colors, FontFamily} from '../Theme/Variables';
+import {Colors, FontFamily, FontSize} from '../Theme/Variables';
 import {Touchable} from './Touchable';
 import {share} from '@/Assets/Images';
 import {hp, wp} from '../Config/responsive';
@@ -50,7 +50,11 @@ const FavouriteComp = ({
           <View style={styles.cardMain}>
             <View style={styles.cardTopbar}>
               <TextComponent text={title} styles={styles.userName} />
-              <View>
+              <View
+                style={{
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}>
                 <TextComponent
                   text={price?.toLocaleString()}
                   styles={styles.price}
@@ -61,7 +65,7 @@ const FavouriteComp = ({
             <View style={styles.locationMain}>
               <Image source={location} style={styles.locationSt} />
               <TextComponent
-                numberOfLines={2}
+                numberOfLines={3}
                 text={locationText}
                 styles={styles.locationText}
               />
@@ -112,7 +116,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   HomeCardMain: {
-    padding: 10,
     width: wp('100'),
     height: hp('40'),
     paddingHorizontal: wp('3'),
@@ -140,7 +143,9 @@ const styles = StyleSheet.create({
   },
   cardTopbar: {
     flexDirection: 'row',
+    // justifyContent: 'center',
     justifyContent: 'space-between',
+    alignItems: 'center',
   },
   detail: {
     width: wp('24'),
@@ -158,7 +163,7 @@ const styles = StyleSheet.create({
 
   userName: {
     color: 'white',
-    fontSize: hp('2.5'),
+    fontSize: FontSize.scale20,
     fontWeight: '500',
   },
   bath: {
@@ -175,35 +180,34 @@ const styles = StyleSheet.create({
   },
   locationMain: {
     flexDirection: 'row',
-    alignItems: 'center',
   },
   locationText: {
     color: 'white',
     marginLeft: wp('3'),
-    fontSize: hp('2'),
+    fontSize: FontSize.scale16,
     width: wp('80'),
   },
   cardFooter: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: hp('1'),
     justifyContent: 'space-between',
   },
   forRent: {
     color: 'white',
     fontWeight: '600',
-    fontSize: 22,
+    fontSize: FontSize.scale20,
   },
   price: {
     color: 'white',
     fontWeight: '500',
-    fontSize: 22,
+    fontSize: FontSize.scale20,
     marginRight: wp('2'),
+    top: hp('1.3'),
   },
   month: {
     color: 'white',
     fontWeight: '400',
-    fontSize: 16,
+    fontSize: FontSize.scale16,
   },
   locationSt: {
     aspectRatio: 1,
