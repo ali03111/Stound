@@ -146,6 +146,7 @@ const useAddPostScreen = ({navigate}) => {
       gp.length &&
       ip.length &&
       op.length &&
+      location != '' &&
       numberRegex.test(number)
     ) {
       const body = {
@@ -329,7 +330,6 @@ const useAddPostScreen = ({navigate}) => {
       bathRoom: null,
       location: '',
     });
-    setCountryData([]);
     setStateData([]);
     setCityData([]);
   }, []);

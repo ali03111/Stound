@@ -55,6 +55,7 @@ export const styles = StyleSheet.create({
     display: 'flex',
     flexWrap: 'wrap',
     paddingLeft: wp('3'),
+    paddingVertical: hp('0.2'),
   },
   pickerStyle1: {
     borderWidth: 1,
@@ -216,7 +217,6 @@ export const styles = StyleSheet.create({
     // height: hp('6'),
     paddingHorizontal: wp('2'),
     marginHorizontal: wp('1'),
-    marginBottom: hp('1'),
   },
   imagesStyle: {
     width: wp('45'),

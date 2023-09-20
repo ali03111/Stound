@@ -610,7 +610,7 @@ const FilterScreen = ({navigation}) => {
               <View style={styles.innerRangeSlider}>
                 <View style={{marginRight: wp('2.5')}}>
                   <RangeSlider
-                    sliderWidth={340}
+                    sliderWidth={345}
                     min={MIN_DEFAULT}
                     max={MAX_DEFAULT}
                     step={100000}

@@ -272,7 +272,7 @@ const useFilterScreen = ({navigate}) => {
   };
 
   //Reset All Value In Filter Screen
-  const resetFunction = () => [
+  const resetFunction = () => {
     updateState({
       gp: [],
       ip: [],
@@ -283,8 +283,8 @@ const useFilterScreen = ({navigate}) => {
       images: [],
       type: options[0]?.value,
       locations: '',
-    }),
-  ];
+    });
+  };
 
   return {
     filterAdsDataFunction,

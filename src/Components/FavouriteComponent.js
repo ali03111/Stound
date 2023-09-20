@@ -146,6 +146,7 @@ const styles = StyleSheet.create({
     // justifyContent: 'center',
     justifyContent: 'space-between',
     alignItems: 'center',
+    marginBottom: hp('0.5'),
   },
   detail: {
     width: wp('24'),
@@ -185,7 +186,7 @@ const styles = StyleSheet.create({
     color: 'white',
     marginLeft: wp('3'),
     fontSize: FontSize.scale16,
-    width: wp('80'),
+    width: wp('65'),
   },
   cardFooter: {
     flexDirection: 'row',

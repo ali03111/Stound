@@ -224,19 +224,20 @@ const index = ({navigation, route}) => {
 
       const data = await response.json();
       console.log('response=>>>>>', data);
-      {
-        isIos && navigation.navigate('HeaderDetailScreen', items);
-      }
-      const ackResult = await acknowledgePurchaseAndroid({
-        token: receipt.purchaseToken,
-      });
-      const finishTransactionRes = await finishTransaction({
-        purchase: receipt,
-        isConsumable: true,
-      });
-      console.log('finishTransactionRes', finishTransactionRes);
-      if (finishTransactionRes.code == 'OK') {
+      if (isIos) {
         navigation.navigate('HeaderDetailScreen', items);
+      } else {
+        const ackResult = await acknowledgePurchaseAndroid({
+          token: receipt.purchaseToken,
+        });
+        const finishTransactionRes = await finishTransaction({
+          purchase: receipt,
+          isConsumable: true,
+        });
+        console.log('finishTransactionRes', finishTransactionRes);
+        if (finishTransactionRes.code == 'OK') {
+          navigation.navigate('HeaderDetailScreen', items);
+        }
       }
 
       setIsPurchasing(false);
@@ -382,12 +383,12 @@ const index = ({navigation, route}) => {
           products
             .sort((a, b) => a.price - b.price)
             .map((subscription, index) => {
-              const owned = purchaseHistory.find(
-                s => s?.productId === subscription.productId,
-              );
+              // const owned = purchaseHistory.find(
+              //   s => s?.productId === subscription.productId,
+              // );
               return (
                 <View style={styles.midContainer}>
-                  {isIos && !owned && (
+                  {isIos && (
                     <BuyCoin
                       onPress={() => {
                         setLoading(true);
