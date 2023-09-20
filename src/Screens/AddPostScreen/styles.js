@@ -28,15 +28,11 @@ export const styles = StyleSheet.create({
     paddingBottom: hp('4'),
   },
   flatListMain: {
-    // paddingHorizontal: wp('1'),
     flexDirection: 'row',
     width: '100%',
     display: 'flex',
     flexWrap: 'wrap',
     alignItems: 'center',
-    marginTop: hp('1'),
-    // backgroundColor: 'yellow',
-    // justifyContent: 'space-evenly',
   },
   switcher: {
     borderWidth: 1,
@@ -93,13 +89,12 @@ export const styles = StyleSheet.create({
     borderColor: 'rgba(11, 180, 255, 0.3)',
     borderRadius: 10,
     backgroundColor: 'white',
-    // paddingHorizontal: wp('3'),
-    paddingVertical: hp('1'),
+    paddingHorizontal: wp('2'),
+    padding: 10,
     // flexDirection: 'row',
   },
   filterButton: {
     width: wp('20'),
-    marginBottom: hp('1'),
   },
   locationBtn: {
     borderColor: Colors.grayBackground,

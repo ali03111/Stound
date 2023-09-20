@@ -903,7 +903,10 @@ const AddPostScreen = ({navigation}) => {
         keyExtractor={keyExtractor}
         contentContainerStyle={styles.flatListMain}
         horizontal
-        ListFooterComponentStyle={{}}
+        ListFooterComponentStyle={{
+          alignItems: 'center',
+          marginBottom: hp('1.5'),
+        }}
         ListFooterComponent={() => {
           return (
             <FilterAddButton

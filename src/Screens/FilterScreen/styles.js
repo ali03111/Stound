@@ -69,8 +69,9 @@ export const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: 'white',
     paddingHorizontal: wp('2'),
-    paddingTop: hp('1'),
-    paddingVertical: hp('1'),
+    padding: 10,
+    // paddingTop: hp('1'),
+    // paddingVertical: hp('1'),
   },
   filterButton: {
     width: wp('20'),
@@ -169,11 +170,12 @@ export const styles = StyleSheet.create({
     width: '100%',
     display: 'flex',
     flexWrap: 'wrap',
+    alignItems: 'center',
   },
   tags: {
     paddingHorizontal: wp('2'),
     marginHorizontal: wp('1'),
-    marginBottom: hp('1'),
+    // marginBottom: hp('1'),
   },
   priceRange: {
     color: 'black',

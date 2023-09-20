@@ -122,7 +122,10 @@ const FilterScreen = ({navigation}) => {
         keyExtractor={keyExtractor}
         contentContainerStyle={styles.flatListMain}
         horizontal
-        ListFooterComponentStyle={{marginLeft: wp('2')}}
+        ListFooterComponentStyle={{
+          alignItems: 'center',
+          marginBottom: hp('1.5'),
+        }}
         ListFooterComponent={() => {
           return (
             <FilterAddButton
