@@ -336,7 +336,6 @@
 //           }}
 //         />
 //         </>
-            
 
 //     {stateData.length > 0 &&
 //        <>
@@ -369,8 +368,6 @@
 //           }}
 //         />
 //        </>}
-        
-            
 
 //      {      cityData.length>0 &&   <>
 //        <TextComponent styles={styles.itemHeading1} text={'City '} />
@@ -796,8 +793,8 @@ import SwitchSelector from 'react-native-switch-selector';
 import {imageUrl} from '../../Utils/Urls';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { Dropdown } from 'react-native-element-dropdown';
-import { errorMessage } from '../../Config/NotificationMessage';
+import {Dropdown} from 'react-native-element-dropdown';
+import {errorMessage} from '../../Config/NotificationMessage';
 
 const AddPostScreen = ({navigation}) => {
   const [selectedLanguage, setSelectedLanguage] = useState();
@@ -806,10 +803,7 @@ const AddPostScreen = ({navigation}) => {
   const [Modal0, setModal0] = useState(false);
   const [Modal1, setModal1] = useState(false);
   const [Modal2, setModal2] = useState(false);
-  const options = [
-    {label: 'Rent', value: 'Rent'},
-    {label: 'Buy  ', value: 'Buy'},
-  ];
+
   const {
     handleSubmit,
     reset,
@@ -835,26 +829,35 @@ const AddPostScreen = ({navigation}) => {
     deleteImage,
     checkAuthentication,
     onResetState,
-    isFocus, setIsFocus,
-    isFocus1, setIsFocus1,
-    isFocus2, setIsFocus2,
+    isFocus,
+    setIsFocus,
+    isFocus1,
+    setIsFocus1,
+    isFocus2,
+    setIsFocus2,
     countryData,
     stateData,
     cityData,
     country,
     setCountry,
-    state, setState,
-    city, setCity,
-    countryName, setCountryName,
-    stateName, setStateName,
-    cityName, setCityName,
+    state,
+    setState,
+    city,
+    setCity,
+    countryName,
+    setCountryName,
+    stateName,
+    setStateName,
+    cityName,
+    setCityName,
     handleState,
     handleCity,
     setCityData,
-    title  ,
-desc   ,
-number ,
-numberRegex
+    title,
+    desc,
+    number,
+    numberRegex,
+    options,
   } = useAddPostScreen(navigation);
 
   const renderItem = ({item, index}) => {
@@ -899,8 +902,8 @@ numberRegex
         contentContainerStyle={styles.flatListMain}
         horizontal
         ListFooterComponentStyle={{
-          
-
+          alignItems: 'center',
+          marginBottom: hp('1.5'),
         }}
         ListFooterComponent={() => {
           return (
@@ -924,7 +927,6 @@ numberRegex
           saveReset={'Reset'}
           headerTitle={'Ad details'}
           onSave={onResetState}
-
         />
 
         <ScrollView
@@ -1043,7 +1045,7 @@ numberRegex
                   inputIconStyle: styles.inputIcon,
                   isImage: adTitle,
                   keyboardType: 'number',
-                  maxLength: 10,
+                  maxLength: 9,
                 }}
               />
             </View>
@@ -1059,106 +1061,114 @@ numberRegex
                 imgStyle={styles.locationBtnImg}
               />
             </View>
+            <View style={{...styles.dropDownView, marginTop: hp('3')}}>
+              <>
+                <TextComponent styles={styles.itemHeading1} text={'Country '} />
+                <Dropdown
+                  itemTextStyle={{color: Colors.primaryTextColor}}
+                  style={[
+                    styles.dropdown,
+                    isFocus && {borderColor: Colors.primaryColor},
+                  ]}
+                  placeholderStyle={styles.placeholderStyle}
+                  selectedTextStyle={styles.selectedTextStyle}
+                  inputSearchStyle={styles.inputSearchStyle}
+                  iconStyle={styles.iconStyle}
+                  data={countryData}
+                  search
+                  maxHeight={300}
+                  labelField="label"
+                  valueField="value"
+                  placeholder={!isFocus ? 'Select Country' : '...'}
+                  searchPlaceholder="Search..."
+                  value={country}
+                  onFocus={() => setIsFocus(true)}
+                  onBlur={() => setIsFocus(false)}
+                  onChange={item => {
+                    handleState(item.value);
+                    setCountry(item.value);
+                    setCountryName(item.label);
+                    setIsFocus(false);
+                    setState(null);
+                    setStateName(null);
+                    setCity(null);
+                    setCityName(null);
+                    setCityData([]);
+                  }}
+                />
+              </>
 
-                         <View style={{...styles.dropDownView,marginTop:hp('3')}}>
-             <>
-          <TextComponent styles={styles.itemHeading1} text={'Country '} />
-           <Dropdown
-  itemTextStyle={{color:Colors.primaryTextColor}}
-          style={[styles.dropdown, isFocus && {borderColor:  Colors.primaryColor}]}
-          placeholderStyle={styles.placeholderStyle}
-          selectedTextStyle={styles.selectedTextStyle}
-          inputSearchStyle={styles.inputSearchStyle}
-          iconStyle={styles.iconStyle}
-          data={countryData}
-          search
-          maxHeight={300}
-          labelField="label"
-          valueField="value"
+              {stateData.length > 0 && (
+                <>
+                  <TextComponent
+                    styles={styles.itemHeading1}
+                    text={'States '}
+                  />
+                  <Dropdown
+                    itemTextStyle={{color: Colors.primaryTextColor}}
+                    style={[
+                      styles.dropdown,
+                      isFocus1 && {borderColor: Colors.primaryColor},
+                    ]}
+                    placeholderStyle={styles.placeholderStyle}
+                    selectedTextStyle={styles.selectedTextStyle}
+                    inputSearchStyle={styles.inputSearchStyle}
+                    iconStyle={styles.iconStyle}
+                    data={stateData}
+                    search
+                    maxHeight={300}
+                    labelField="label"
+                    valueField="value"
+                    placeholder={!isFocus1 ? 'Select State' : '...'}
+                    searchPlaceholder="Search..."
+                    value={state}
+                    onFocus={() => setIsFocus1(true)}
+                    onBlur={() => setIsFocus1(false)}
+                    onChange={item => {
+                      console.log(country, 'CountryAPi');
+                      handleCity(country, item.value);
+                      setState(item.value);
+                      setStateName(item.label);
+                      setCity(null);
+                      setCityName(null);
+                      setIsFocus1(false);
+                    }}
+                  />
+                </>
+              )}
 
-          placeholder={!isFocus ? 'Select Country' : '...'}
-          searchPlaceholder="Search..."
-          value={country}
-          onFocus={() => setIsFocus(true)}
-          onBlur={() => setIsFocus(false)}
-          onChange={item => {
-            handleState(item.value);
-            setCountry(item.value);
-            setCountryName(item.label)
-            setIsFocus(false);
-            setState(null)
-            setStateName(null)
-            setCity(null)
-            setCityName(null)
-            setCityData([])
-
-          }}
-        />
-        </>
-            
-
-    {stateData.length > 0 &&
-       <>
-       <TextComponent styles={styles.itemHeading1} text={'States '} />
-       <Dropdown
-          itemTextStyle={{color:Colors.primaryTextColor}}
-          style={[styles.dropdown, isFocus1 && {borderColor: Colors.primaryColor}]}
-          placeholderStyle={styles.placeholderStyle}
-          selectedTextStyle={styles.selectedTextStyle}
-          inputSearchStyle={styles.inputSearchStyle}
-          iconStyle={styles.iconStyle}
-          data={stateData}
-          search
-          maxHeight={300}
-          labelField="label"
-          valueField="value"
-          placeholder={!isFocus1 ? 'Select State' : '...'}
-          searchPlaceholder="Search..."
-          value={state}
-          onFocus={() => setIsFocus1(true)}
-          onBlur={() => setIsFocus1(false)}
-          onChange={item => {
-            console.log(country,'CountryAPi')
-            handleCity(country,item.value);
-            setState(item.value);
-            setStateName(item.label)
-            setCity(null)
-            setCityName(null)
-            setIsFocus1(false);
-          }}
-        />
-       </>}
-        
-            
-
-     {      cityData.length>0 &&   <>
-       <TextComponent styles={styles.itemHeading1} text={'City '} />
-       <Dropdown
-  itemTextStyle={{color:Colors.primaryTextColor}}
-
-          style={[styles.dropdown, isFocus2 && {borderColor:  Colors.primaryColor}]}
-          placeholderStyle={styles.placeholderStyle}
-          selectedTextStyle={styles.selectedTextStyle}
-          inputSearchStyle={styles.inputSearchStyle}
-          iconStyle={styles.iconStyle}
-          data={cityData}
-          search
-          maxHeight={300}
-          labelField="label"
-          valueField="value"
-          placeholder={!isFocus2 ? 'Select City' : '...'}
-          searchPlaceholder="Search..."
-          value={city}
-          onFocus={() => setIsFocus2(true)}
-          onBlur={() => setIsFocus2(false)}
-          onChange={item => {
-            setCity(item.value);
-            setCityName(item.label)
-            setIsFocus2(false);
-          }}
-        />
-         </>}
-      {/* <TouchableOpacity onPress={()=>Alert.alert(`you have selected country ${countryName+country+' '+stateName+state+ " " +cityName+city}`)}>
+              {cityData.length > 0 && (
+                <>
+                  <TextComponent styles={styles.itemHeading1} text={'City '} />
+                  <Dropdown
+                    itemTextStyle={{color: Colors.primaryTextColor}}
+                    style={[
+                      styles.dropdown,
+                      isFocus2 && {borderColor: Colors.primaryColor},
+                    ]}
+                    placeholderStyle={styles.placeholderStyle}
+                    selectedTextStyle={styles.selectedTextStyle}
+                    inputSearchStyle={styles.inputSearchStyle}
+                    iconStyle={styles.iconStyle}
+                    data={cityData}
+                    search
+                    maxHeight={300}
+                    labelField="label"
+                    valueField="value"
+                    placeholder={!isFocus2 ? 'Select City' : '...'}
+                    searchPlaceholder="Search..."
+                    value={city}
+                    onFocus={() => setIsFocus2(true)}
+                    onBlur={() => setIsFocus2(false)}
+                    onChange={item => {
+                      setCity(item.value);
+                      setCityName(item.label);
+                      setIsFocus2(false);
+                    }}
+                  />
+                </>
+              )}
+              {/* <TouchableOpacity onPress={()=>Alert.alert(`you have selected country ${countryName+country+' '+stateName+state+ " " +cityName+city}`)}>
         <Text>Submit</Text>
       </TouchableOpacity> */}
             </View>
@@ -1198,6 +1208,21 @@ numberRegex
                   <Picker.Item label="3" value="3" />
                   <Picker.Item label="4" value="4" />
                   <Picker.Item label="5" value="5" />
+                  <Picker.Item label="6" value="6" />
+                  <Picker.Item label="7" value="7" />
+                  <Picker.Item label="8" value="8" />
+                  <Picker.Item label="9" value="9" />
+                  <Picker.Item label="10" value="10" />
+                  <Picker.Item label="11" value="11" />
+                  <Picker.Item label="12" value="12" />
+                  <Picker.Item label="13" value="13" />
+                  <Picker.Item label="14" value="14" />
+                  <Picker.Item label="15" value="15" />
+                  <Picker.Item label="16" value="16" />
+                  <Picker.Item label="17" value="17" />
+                  <Picker.Item label="18" value="18" />
+                  <Picker.Item label="19" value="19" />
+                  <Picker.Item label="20" value="20" />
                 </Picker>
               </View>
             )}
@@ -1236,6 +1261,21 @@ numberRegex
                   <Picker.Item label="3" value="3" />
                   <Picker.Item label="4" value="4" />
                   <Picker.Item label="5" value="5" />
+                  <Picker.Item label="6" value="6" />
+                  <Picker.Item label="7" value="7" />
+                  <Picker.Item label="8" value="8" />
+                  <Picker.Item label="9" value="9" />
+                  <Picker.Item label="10" value="10" />
+                  <Picker.Item label="11" value="11" />
+                  <Picker.Item label="12" value="12" />
+                  <Picker.Item label="13" value="13" />
+                  <Picker.Item label="14" value="14" />
+                  <Picker.Item label="15" value="15" />
+                  <Picker.Item label="16" value="16" />
+                  <Picker.Item label="17" value="17" />
+                  <Picker.Item label="18" value="18" />
+                  <Picker.Item label="19" value="19" />
+                  <Picker.Item label="20" value="20" />
                 </Picker>
               </View>
             )}
@@ -1328,11 +1368,14 @@ numberRegex
               style={styles.applyFilter}
               textStyle={styles.filterText}
               onPress={
-                title && desc && number  ?
-                
-                handleSubmit(postData)
-                :()=>!numberRegex.test(number) ? errorMessage('Please correct your price'):errorMessage('Please comeplete all fields')
-                }
+                title && desc && number
+                  ? handleSubmit(postData)
+                  : () =>
+                  number.trim() === '' ?  errorMessage('Please comeplete all fields'):
+                      !numberRegex.test(number) 
+                        ? errorMessage('Please correct your price')
+                        : errorMessage('Please comeplete all fields')
+              }
               // onPress={checkAuthentication}
             />
           </View>
@@ -1413,6 +1456,21 @@ numberRegex
               <Picker.Item label="3" value="3" />
               <Picker.Item label="4" value="4" />
               <Picker.Item label="5" value="5" />
+              <Picker.Item label="6" value="6" />
+              <Picker.Item label="7" value="7" />
+              <Picker.Item label="8" value="8" />
+              <Picker.Item label="9" value="9" />
+              <Picker.Item label="10" value="10" />
+              <Picker.Item label="11" value="11" />
+              <Picker.Item label="12" value="12" />
+              <Picker.Item label="13" value="13" />
+              <Picker.Item label="14" value="14" />
+              <Picker.Item label="15" value="15" />
+              <Picker.Item label="16" value="16" />
+              <Picker.Item label="17" value="17" />
+              <Picker.Item label="18" value="18" />
+              <Picker.Item label="19" value="19" />
+              <Picker.Item label="20" value="20" />
             </Picker>
           </View>
         </View>
@@ -1443,6 +1501,21 @@ numberRegex
               <Picker.Item label="3" value="3" />
               <Picker.Item label="4" value="4" />
               <Picker.Item label="5" value="5" />
+              <Picker.Item label="6" value="6" />
+              <Picker.Item label="7" value="7" />
+              <Picker.Item label="8" value="8" />
+              <Picker.Item label="9" value="9" />
+              <Picker.Item label="10" value="10" />
+              <Picker.Item label="11" value="11" />
+              <Picker.Item label="12" value="12" />
+              <Picker.Item label="13" value="13" />
+              <Picker.Item label="14" value="14" />
+              <Picker.Item label="15" value="15" />
+              <Picker.Item label="16" value="16" />
+              <Picker.Item label="17" value="17" />
+              <Picker.Item label="18" value="18" />
+              <Picker.Item label="19" value="19" />
+              <Picker.Item label="20" value="20" />
             </Picker>
           </View>
         </View>

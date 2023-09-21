@@ -16,35 +16,35 @@ const useAddPostScreen = ({navigate}) => {
   const {dispatch, getState} = useReduxStore();
 
   const {recentLocation} = getState('recentlocation');
-  const {handleSubmit, errors, reset, control, getValues,resetField} = useFormHook(
-    Schemas.addPost,
-  );
-    // Retrieve values of form fields
-    const title      =  getValues('title');
-    const desc       = getValues('desc');
-    const number      =  getValues('number');
-    const numberRegex = /^[0-9]+$/;
+  const {handleSubmit, errors, reset, control, getValues, resetField} =
+    useFormHook(Schemas.addPost);
+  // Retrieve values of form fields
+  const title = getValues('title');
+  const desc = getValues('desc');
+  const number = getValues('number');
+  // const numberRegex = /^[0-9]+$/;
+  const numberRegex = /^[0-9\s]+$/
+  ;
 
   const options = [
-    {label: 'Sale', value: 'Sale'},
     {label: 'Rent', value: 'Rent'},
+    {label: 'Sell', value: 'Sell'},
   ];
 
+  //For Picker
+  const [countryData, setCountryData] = useState([]);
+  const [stateData, setStateData] = useState([]);
+  const [cityData, setCityData] = useState([]);
 
-      //For Picker
-      const [countryData, setCountryData] = useState([]);
-      const [stateData, setStateData] = useState([]);
-      const [cityData, setCityData] = useState([]);
-    
-      const [country, setCountry] = useState(null);
-      const [state, setState] = useState(null);
-      const [city, setCity] = useState(null);
-      const [countryName, setCountryName] = useState(null);
-      const [stateName, setStateName] = useState(null);
-      const [cityName, setCityName] = useState(null);
-      const [isFocus, setIsFocus] = useState(false);
-      const [isFocus1, setIsFocus1] = useState(false);
-      const [isFocus2, setIsFocus2] = useState(false);
+  const [country, setCountry] = useState(null);
+  const [state, setState] = useState(null);
+  const [city, setCity] = useState(null);
+  const [countryName, setCountryName] = useState(null);
+  const [stateName, setStateName] = useState(null);
+  const [cityName, setCityName] = useState(null);
+  const [isFocus, setIsFocus] = useState(false);
+  const [isFocus1, setIsFocus1] = useState(false);
+  const [isFocus2, setIsFocus2] = useState(false);
 
   const [preferencesData, setPreferencesData] = useState([]);
   const [preferencesVal, setPreferencesVal] = useState({
@@ -71,7 +71,7 @@ const useAddPostScreen = ({navigate}) => {
   };
 
   const onSelecteTag = (item, key) => {
-    console.log(key,item, 'keyueueu11');
+    console.log(key, item, 'keyueueu11');
     updateState({[key]: item});
   };
 
@@ -109,37 +109,36 @@ const useAddPostScreen = ({navigate}) => {
     return newArry;
   };
 
-//   const handleError=(res)=>{
-//     dispatch(loadingTrue());
+  //   const handleError=(res)=>{
+  //     dispatch(loadingTrue());
 
-//     const numberRegex = /^[0-9]+$/;
-//     console.log(res,cat,rooms,bathRoom,gp,ip,op,images.length,location,countryName)
+  //     const numberRegex = /^[0-9]+$/;
+  //     console.log(res,cat,rooms,bathRoom,gp,ip,op,images.length,location,countryName)
 
-//   if (
-//     title?.trim() === '' ||
-//     desc?.trim() === '' ||
-//     !numberRegex.test(number) ||
-//     cat === null ||
-//     rooms === null ||
-//     bathRoom === null ||
-//     gp.length === 0 ||
-//     ip.length === 0 ||
-//     op.length === 0 ||
-//     images.length === 0 ||
-//     location?.trim() === '' ||
-//     countryName === null 
+  //   if (
+  //     title?.trim() === '' ||
+  //     desc?.trim() === '' ||
+  //     !numberRegex.test(number) ||
+  //     cat === null ||
+  //     rooms === null ||
+  //     bathRoom === null ||
+  //     gp.length === 0 ||
+  //     ip.length === 0 ||
+  //     op.length === 0 ||
+  //     images.length === 0 ||
+  //     location?.trim() === '' ||
+  //     countryName === null
 
-//   ) {
-//     dispatch(loadingFalse());
-//     errorMessage('Please complete all fields ');
-//     return;
-//   }
-// }
+  //   ) {
+  //     dispatch(loadingFalse());
+  //     errorMessage('Please complete all fields ');
+  //     return;
+  //   }
+  // }
 
   const postData = async ({title, desc, number}) => {
-
     dispatch(loadingTrue());
-    const numberRegex = /^[0-9]+$/;
+
 
     if (
       images.length &&
@@ -149,8 +148,8 @@ const useAddPostScreen = ({navigate}) => {
       gp.length &&
       ip.length &&
       op.length &&
-      numberRegex.test(number)  
-      
+      location != '' &&
+      numberRegex.test(number) 
     ) {
       const body = {
         title: title,
@@ -165,16 +164,18 @@ const useAddPostScreen = ({navigate}) => {
         photos: images,
         price: number,
         adType: type,
-        country:countryName,
-        state:stateName,
-        city:cityName
+        country: countryName,
+        state: stateName,
+        city: cityName,
       };
+      console.log(body, 'alsdkaskldf');
       const {ok, data, status, originalError, problem} = await formDataFunc(
         createAdsUrl,
         body,
         'photos',
         true,
       );
+      console.log(data, 'sadlkfjlsadkfj');
       if (ok) {
         updateState({
           images: [],
@@ -185,6 +186,7 @@ const useAddPostScreen = ({navigate}) => {
           rooms: null,
           bathRoom: null,
           location: '',
+          number
         });
         // reset();
         dispatch(loadingFalse());
@@ -192,10 +194,9 @@ const useAddPostScreen = ({navigate}) => {
         navigate('HomeScreen');
 
         reset();
-        setTimeout(()=>{
+        setTimeout(() => {
           onResetState();
-        },1000)
-
+        }, 1000);
       } else {
         dispatch(loadingFalse());
         console.log('dfdfa', originalError, status, problem, data?.message);
@@ -203,9 +204,9 @@ const useAddPostScreen = ({navigate}) => {
       }
     } else {
       dispatch(loadingFalse());
-      errorMessage('Please comeplete all fields');
+      !numberRegex.test(number)
+      ? errorMessage('Please correct your price'): errorMessage('Please comeplete all fields');
     }
-  
   };
   const useEffectFun = () => {
     getPreferences();
@@ -221,23 +222,22 @@ const useAddPostScreen = ({navigate}) => {
   };
   useEffect(useEffectFun, []);
 
-
-
-   //GET COUNTRY
-   useEffect(() => {
+  //GET COUNTRY
+  useEffect(() => {
     var config = {
       method: 'get',
       url: 'https://api.countrystatecity.in/v1/countries',
       headers: {
-        'X-CSCAPI-KEY': 'NEVpNDRDN2h4aE15ckN0dXNlVHNPeGJVSXlEazRqMDVvWndiVUlDbg==',
+        'X-CSCAPI-KEY':
+          'NEVpNDRDN2h4aE15ckN0dXNlVHNPeGJVSXlEazRqMDVvWndiVUlDbg==',
       },
     };
-  
+
     axios(config)
       .then(function (response) {
         console.log(JSON.stringify(response.data));
         var count = Object.keys(response.data).length;
-        
+
         let countryArray = [];
         for (let i = 0; i < count; i++) {
           countryArray.push({
@@ -251,65 +251,73 @@ const useAddPostScreen = ({navigate}) => {
         console.log(error);
       });
   }, []);
-  
-  const handleState = useCallback(countryCode => {
-    var config = {
-      method: 'get',
-      url: `https://api.countrystatecity.in/v1/countries/${countryCode}/states`,
-      headers: {
-        'X-CSCAPI-KEY': 'NEVpNDRDN2h4aE15ckN0dXNlVHNPeGJVSXlEazRqMDVvWndiVUlDbg==',
-      },
-    };
-  
-    axios(config)
-      .then(function (response) {
-        console.log(JSON.stringify(response.data));
 
-        var count = Object.keys(response.data).length;
-        let stateArray = [];
-        for (let i = 0; i < count; i++) {
-          stateArray.push({
-            value: response.data[i].iso2,
-            label: response.data[i].name,
-          });
-        }
+  const handleState = useCallback(
+    countryCode => {
+      var config = {
+        method: 'get',
+        url: `https://api.countrystatecity.in/v1/countries/${countryCode}/states`,
+        headers: {
+          'X-CSCAPI-KEY':
+            'NEVpNDRDN2h4aE15ckN0dXNlVHNPeGJVSXlEazRqMDVvWndiVUlDbg==',
+        },
+      };
 
-        setStateData(stateArray);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }, [stateData]);
-  
-  const handleCity = useCallback((countryCode, stateCode) => {
-    console.log(countryCode,stateCode,'aaaaaaa')
-  
-    var config = {
-      method: 'get',
-      url: `https://api.countrystatecity.in/v1/countries/${countryCode}/states/${stateCode}/cities`,
-      headers: {
-        'X-CSCAPI-KEY': 'NEVpNDRDN2h4aE15ckN0dXNlVHNPeGJVSXlEazRqMDVvWndiVUlDbg==',
-      },
-    };
-  
-    axios(config)
-      .then(function (response) {
-        console.log(JSON.stringify(response.data));
-        var count = Object.keys(response.data).length;
-        let cityArray = [];
-        for (let i = 0; i < count; i++) {
-          cityArray.push({
-            value: response.data[i].id,
-            label: response.data[i].name,
-          });
-        }
-        setCityData(cityArray);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }, [cityData]);
-  // End Dropdown  
+      axios(config)
+        .then(function (response) {
+          console.log(JSON.stringify(response.data));
+
+          var count = Object.keys(response.data).length;
+          let stateArray = [];
+          for (let i = 0; i < count; i++) {
+            stateArray.push({
+              value: response.data[i].iso2,
+              label: response.data[i].name,
+            });
+          }
+
+          setStateData(stateArray);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
+    [stateData],
+  );
+
+  const handleCity = useCallback(
+    (countryCode, stateCode) => {
+      console.log(countryCode, stateCode, 'aaaaaaa');
+
+      var config = {
+        method: 'get',
+        url: `https://api.countrystatecity.in/v1/countries/${countryCode}/states/${stateCode}/cities`,
+        headers: {
+          'X-CSCAPI-KEY':
+            'NEVpNDRDN2h4aE15ckN0dXNlVHNPeGJVSXlEazRqMDVvWndiVUlDbg==',
+        },
+      };
+
+      axios(config)
+        .then(function (response) {
+          console.log(JSON.stringify(response.data));
+          var count = Object.keys(response.data).length;
+          let cityArray = [];
+          for (let i = 0; i < count; i++) {
+            cityArray.push({
+              value: response.data[i].id,
+              label: response.data[i].name,
+            });
+          }
+          setCityData(cityArray);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
+    [cityData],
+  );
+  // End Dropdown
 
   //REST ALL STATE
   const onResetState = useCallback(() => {
@@ -326,13 +334,9 @@ const useAddPostScreen = ({navigate}) => {
       bathRoom: null,
       location: '',
     });
-    setCountryData([])
-    setStateData([])
-    setCityData([])
-
-
-
-  },[]);
+    setStateData([]);
+    setCityData([]);
+  }, []);
   return {
     handleSubmit,
     errors,
@@ -364,21 +368,30 @@ const useAddPostScreen = ({navigate}) => {
     cityData,
     country,
     setCountry,
-    state, setState,
-    city, setCity,
-    countryName, setCountryName,
-    stateName, setStateName,
-    cityName, setCityName,
+    state,
+    setState,
+    city,
+    setCity,
+    countryName,
+    setCountryName,
+    stateName,
+    setStateName,
+    cityName,
+    setCityName,
     handleState,
     handleCity,
     setCityData,
-    isFocus, setIsFocus,
-    isFocus1, setIsFocus1,
-    isFocus2, setIsFocus2,
-    title  ,
-desc   ,
-number ,
-numberRegex
+    isFocus,
+    setIsFocus,
+    isFocus1,
+    setIsFocus1,
+    isFocus2,
+    setIsFocus2,
+    title,
+    desc,
+    number,
+    numberRegex,
+    options,
     // handleError
     // goBack,
   };

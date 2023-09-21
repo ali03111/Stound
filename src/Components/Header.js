@@ -38,7 +38,11 @@ const NotificationHeader = ({
         </Touchable>
       </View>
       <View style={styles.HeaderCenter}>
-        <TextComponent numberOfLines={1} text={headerTitle} styles={styles.HeaderTitle} />
+        <TextComponent
+          numberOfLines={1}
+          text={headerTitle}
+          styles={styles.HeaderTitle}
+        />
       </View>
       <View style={styles.HeaderRight}>
         <View style={styles.backMain}>
@@ -73,7 +77,6 @@ const styles = StyleSheet.create({
     marginTop: Platform.OS == 'ios' ? hp('6') : hp('1.5'),
     paddingHorizontal: wp('5'),
     alignItems: 'center',
-
   },
   backMain: {
     alignItems: 'center',
@@ -81,23 +84,21 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     justifyContent: 'center',
     alignItems: 'flex-end',
-
   },
   backBtn: {
     color: Colors.gray2,
     padding: 10,
+    width: wp('18'),
   },
   HeaderTitle: {
     fontSize: FontSize.scale24,
     color: Colors.primaryTextColor,
     fontWeight: '600',
-
   },
   HeaderLeft: {
     width: wp('20'),
     justifyContent: 'center',
     alignItems: 'flex-start',
-
   },
   arrowback: {
     alignItems: 'center',
@@ -109,13 +110,12 @@ const styles = StyleSheet.create({
   HeaderCenter: {
     width: wp('55'),
     alignItems: 'center',
-
   },
   HeaderRight: {
     width: wp('20'),
     justifyContent: 'center',
     alignItems: 'flex-end',
-    paddingRight:wp('4')
+    paddingRight: wp('4'),
   },
 });
 export default NotificationHeader;

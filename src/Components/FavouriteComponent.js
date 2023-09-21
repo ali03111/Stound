@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, Image, StyleSheet, ImageBackground} from 'react-native';
-import {Colors, FontFamily} from '../Theme/Variables';
+import {Colors, FontFamily, FontSize} from '../Theme/Variables';
 import {Touchable} from './Touchable';
 import {share} from '@/Assets/Images';
 import {hp, wp} from '../Config/responsive';
@@ -49,15 +49,26 @@ const FavouriteComp = ({
           </View>
           <View style={styles.cardMain}>
             <View style={styles.cardTopbar}>
-                <TextComponent text={title} styles={styles.userName} />
-              <View>
-                <TextComponent text={price?.toLocaleString()} styles={styles.price} />
+              <TextComponent text={title} styles={styles.userName} />
+              <View
+                style={{
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}>
+                <TextComponent
+                  text={price?.toLocaleString()}
+                  styles={styles.price}
+                />
                 <TextComponent text={duration} styles={styles.month} />
               </View>
             </View>
             <View style={styles.locationMain}>
               <Image source={location} style={styles.locationSt} />
-              <TextComponent numberOfLines={2} text={locationText} styles={styles.locationText} />
+              <TextComponent
+                numberOfLines={3}
+                text={locationText}
+                styles={styles.locationText}
+              />
             </View>
             <View style={styles.cardFooter}>
               <View
@@ -95,7 +106,6 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
     paddingHorizontal: wp('2.3'),
     paddingVertical: hp('1.3'),
-
   },
   fav: {
     backgroundColor: 'white',
@@ -104,7 +114,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     width: wp('13'),
     alignItems: 'center',
-
   },
   HomeCardMain: {
     width: wp('100'),
@@ -113,13 +122,11 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     borderRadius: 10,
     marginBottom: hp('1.5'),
-
   },
   image: {
     flex: 1,
     borderRadius: 10,
     overflow: 'hidden',
-
   },
   overlay: {
     flex: 1,
@@ -127,18 +134,19 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     height: hp('40'),
     width: wp('95'),
-
   },
   cardMain: {
     justifyContent: 'flex-end',
     flex: 1,
     paddingHorizontal: wp('2.3'),
     paddingVertical: hp('1.0'),
-
   },
   cardTopbar: {
     flexDirection: 'row',
+    // justifyContent: 'center',
     justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: hp('0.5'),
   },
   detail: {
     width: wp('24'),
@@ -152,12 +160,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     width: wp('65'),
-
   },
 
   userName: {
     color: 'white',
-    fontSize: hp('2.5'),
+    fontSize: FontSize.scale20,
     fontWeight: '500',
   },
   bath: {
@@ -171,41 +178,37 @@ const styles = StyleSheet.create({
     marginLeft: wp('1'),
     fontSize: hp('1.7'),
     marginRight: wp('1.5'),
-
   },
   locationMain: {
     flexDirection: 'row',
-    alignItems: 'center',
   },
   locationText: {
     color: 'white',
     marginLeft: wp('3'),
-    fontSize: hp('2'),
-    width: wp('80'),
-
+    fontSize: FontSize.scale16,
+    width: wp('65'),
   },
   cardFooter: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: hp('1'),
     justifyContent: 'space-between',
   },
   forRent: {
     color: 'white',
     fontWeight: '600',
-    fontSize: 22,
+    fontSize: FontSize.scale20,
   },
   price: {
     color: 'white',
     fontWeight: '500',
-    fontSize: 22,
-    marginRight:wp('2'),
-
+    fontSize: FontSize.scale20,
+    marginRight: wp('2'),
+    top: hp('1.3'),
   },
   month: {
     color: 'white',
     fontWeight: '400',
-    fontSize: 16,
+    fontSize: FontSize.scale16,
   },
   locationSt: {
     aspectRatio: 1,

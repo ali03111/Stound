@@ -45,7 +45,7 @@ const useNotificationScreen = ({navigate, addListener}) => {
     //       items: notificationDataState[currentIndex],
     //       isSub,
     //     });
-
+    console.log(item?.coinUsed, 'sadfkljsdaf');
     item?.coinUsed
       ? navigate('HeaderDetailScreen', notificationDataState[index])
       : userData?.isSubscribed

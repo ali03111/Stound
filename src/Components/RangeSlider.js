@@ -1,15 +1,15 @@
-import { StyleSheet, View, Text } from 'react-native';
-import React, { useState } from 'react';
-import { PanGestureHandler } from 'react-native-gesture-handler';
+import {StyleSheet, View, Text} from 'react-native';
+import React, {useState} from 'react';
+import {PanGestureHandler} from 'react-native-gesture-handler';
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
   useAnimatedGestureHandler,
   runOnJS,
 } from 'react-native-reanimated';
-import { Colors } from '../Theme/Variables';
+import {Colors} from '../Theme/Variables';
 
-const RangeSlider = ({ sliderWidth, min, max, step, onValueChange }) => {
+const RangeSlider = ({sliderWidth, min, max, step, onValueChange}) => {
   const position = useSharedValue(0);
   const position2 = useSharedValue(sliderWidth);
   const opacity = useSharedValue(0);
@@ -97,12 +97,12 @@ const RangeSlider = ({ sliderWidth, min, max, step, onValueChange }) => {
   });
 
   const animatedStyle = useAnimatedStyle(() => ({
-    transform: [{ translateX: position.value }],
+    transform: [{translateX: position.value}],
     zIndex: zIndex.value,
   }));
 
   const animatedStyle2 = useAnimatedStyle(() => ({
-    transform: [{ translateX: position2.value }],
+    transform: [{translateX: position2.value}],
     zIndex: zIndex2.value,
   }));
 
@@ -115,13 +115,13 @@ const RangeSlider = ({ sliderWidth, min, max, step, onValueChange }) => {
   }));
 
   const sliderStyle = useAnimatedStyle(() => ({
-    transform: [{ translateX: position.value }],
+    transform: [{translateX: position.value}],
     width: position2.value - position.value,
   }));
 
   return (
-    <View style={[styles.sliderContainer, { width: sliderWidth }]}>
-      <View style={[styles.sliderBack, { width: sliderWidth }]} />
+    <View style={[styles.sliderContainer, {width: sliderWidth}]}>
+      <View style={[styles.sliderBack, {width: sliderWidth}]} />
       <Animated.View style={[sliderStyle, styles.sliderFront]} />
       <PanGestureHandler onGestureEvent={gestureHandler}>
         <Animated.View style={[animatedStyle, styles.thumb]}>
@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   sliderBack: {
-    height: 8,
+    height: 5,
     backgroundColor: '#DFEAFB',
     borderRadius: 20,
   },
@@ -187,6 +187,5 @@ const styles = StyleSheet.create({
     width: '100%',
   },
 });
-
 
 // //https://www.youtube.com/watch?v=sZ0BDG9PAd4&t=21s

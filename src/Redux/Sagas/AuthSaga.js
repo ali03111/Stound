@@ -35,6 +35,7 @@ import {
 } from '../../Services/AuthServices';
 import uuid from 'react-native-uuid';
 import {useState} from 'react';
+import {statusCodes} from '@react-native-google-signin/google-signin';
 
 const loginObject = {
   Google: () => googleLogin(),
@@ -51,7 +52,7 @@ const loginSaga = function* ({payload: {datas, type}}) {
   yield put(loadingTrue());
 
   try {
-    console.log("Google1")
+    console.log('Google1');
     const getLoginData = loginObject[type];
     const result = yield call(getLoginData, datas);
     const {socialData, ok} = {
@@ -142,7 +143,22 @@ const loginSaga = function* ({payload: {datas, type}}) {
       }
     }
   } catch (error) {
+    if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+      console.log('error1', error);
 
+      // user cancelled the login flow
+    } else if (error.code === statusCodes.IN_PROGRESS) {
+      // operation (e.g. sign in) is in progress already
+      console.log('error2', error);
+    } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+      // play services not available or outdated
+      console.log('error3', error);
+    } else {
+      console.log('error4', error);
+      errorMessage(error.message.split(' ').slice(1).join(' '));
+
+      // some other error happened
+    }
     // errorMessage(error.message.split(' ').slice(1).join(' '));
     console.log('error', error);
   } finally {

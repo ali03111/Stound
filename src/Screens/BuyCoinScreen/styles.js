@@ -7,6 +7,7 @@ export const styles = StyleSheet.create({
   },
   topHeader: {
     paddingBottom: hp('5'),
+    paddingTop: hp('5'),
   },
   centerCustomStyles: {
     alignItems: 'center',

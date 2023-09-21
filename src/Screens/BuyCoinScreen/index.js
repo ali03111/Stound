@@ -39,16 +39,16 @@ import {
   requestSubscription,
   useIAP,
   validateReceiptIos,
+  clearProductsIOS,
 } from 'react-native-iap';
 import useReduxStore from '../../Hooks/UseReduxStore';
 import {androidAppUrl, baseURL, iosAppUrl} from '../../Utils/Urls';
-import {types} from '../../Redux/types';
-import API from '../../Utils/helperFunc';
+
 import {errorMessage, successMessage} from '../../Config/NotificationMessage';
 import {store} from '../../Redux/Reducers';
 import {loadingFalse, loadingTrue} from '../../Redux/Action/isloadingAction';
 const subscriptionSkus = Platform.select({
-  ios: ['productId_10', 'productId_50', 'Ten100_1'],
+  ios: ['productId_10', 'productId20', 'productId_30', 'productId50'],
   // android: ['productid_10', 'productid_30'],
   // android: ['productsid_10'],
   android: [
@@ -98,14 +98,17 @@ const index = ({navigation, route}) => {
   }, [connected]);
 
   const handleGetSubscriptions = async () => {
-    try {
-      setIsPurchasing(true);
-      await clearTransaction();
+    setIsPurchasing(true);
 
+    try {
+      await clearTransaction();
+      // await clearProductsIOS();
       await getSubscriptions({skus: subscriptionSkus});
+      setIsBoolProduct(false);
     } catch (error) {
       setIsPurchasing(false);
       errorLog({message: 'handleGetSubscriptions', error});
+      setLoading(false);
     }
   };
 
@@ -121,11 +124,13 @@ const index = ({navigation, route}) => {
         if (!isIos) {
           console.log('android');
           await requestPurchase({sku: productId}, true);
+          setIsBoolProduct(false);
         } else {
           const reqSubs = await requestSubscription({
             sku: productId,
             andDangerouslyFinishTransactionAutomaticallyIOS: false,
           });
+          setIsBoolProduct(false);
         }
 
         setLoading(false);
@@ -135,6 +140,7 @@ const index = ({navigation, route}) => {
           errorLog({message: `[${error.code}]: ${error.message}`, error});
         } else {
           errorLog({message: 'handleBuySubscription', error});
+          setLoading(false);
         }
       }
     },
@@ -157,7 +163,8 @@ const index = ({navigation, route}) => {
               const appleReceiptResponse = await validateReceiptIos(
                 {
                   'receipt-data': receipt,
-                  password: 'b3d4281737d54f98a8b4d663569a1441',
+                  // password: 'b3d4281737d54f98a8b4d663569a1441',
+                  password: '2ed560e1272646beb57220f5818c6c46',
                 },
                 isTestEnvironment,
               );
@@ -196,6 +203,7 @@ const index = ({navigation, route}) => {
     let url = isIos ? iosAppUrl : androidAppUrl;
     console.log(body1, 'asfjaklsdfjlasjf1111klajaalsj');
 
+    console.log(receipt, 'adklfjaklsdfjReceipt');
     const response = await fetch(baseURL + url, {
       method: 'POST',
       headers: {
@@ -203,11 +211,10 @@ const index = ({navigation, route}) => {
         Authorization: `Bearer ${token}`,
         // Add authorization headers if needed
       },
-
       body: JSON.stringify(
         isIos
           ? {
-              token: receipt,
+              token: receipt?.transactionReceipt,
             }
           : body1,
       ),
@@ -217,16 +224,20 @@ const index = ({navigation, route}) => {
 
       const data = await response.json();
       console.log('response=>>>>>', data);
-      const ackResult = await acknowledgePurchaseAndroid({
-        token: receipt.purchaseToken,
-      });
-      const finishTransactionRes = await finishTransaction({
-        purchase: receipt,
-        isConsumable: true,
-      });
-      console.log('finishTransactionRes', finishTransactionRes);
-      if (finishTransactionRes.code == 'OK') {
+      if (isIos) {
         navigation.navigate('HeaderDetailScreen', items);
+      } else {
+        const ackResult = await acknowledgePurchaseAndroid({
+          token: receipt.purchaseToken,
+        });
+        const finishTransactionRes = await finishTransaction({
+          purchase: receipt,
+          isConsumable: true,
+        });
+        console.log('finishTransactionRes', finishTransactionRes);
+        if (finishTransactionRes.code == 'OK') {
+          navigation.navigate('HeaderDetailScreen', items);
+        }
       }
 
       setIsPurchasing(false);
@@ -369,19 +380,19 @@ const index = ({navigation, route}) => {
           </View>
         ) : (
           (console.log(Platform.OS, subscriptions, 'alskfjlksdjflkasjdf'),
-          subscriptions
+          products
             .sort((a, b) => a.price - b.price)
             .map((subscription, index) => {
-              const owned = purchaseHistory.find(
-                s => s?.productId === subscription.productId,
-              );
+              // const owned = purchaseHistory.find(
+              //   s => s?.productId === subscription.productId,
+              // );
               return (
                 <View style={styles.midContainer}>
-                  {isIos && !owned && (
+                  {isIos && (
                     <BuyCoin
                       onPress={() => {
                         setLoading(true);
-                        handleBuySubscription(subscription);
+                        handleBuySubscription(subscription.productId);
                       }}
                       coinTitle={subscription?.title}
                       // coinDes={'Validy until your coins finish'}

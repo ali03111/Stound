@@ -15,7 +15,7 @@ export const styles = StyleSheet.create({
     paddingTop: hp('1.5'),
   },
   filterMain: {
-    paddingHorizontal: wp('3'),
+    // paddingHorizontal: wp('3'),
   },
   switcher: {
     borderWidth: 1,
@@ -36,6 +36,7 @@ export const styles = StyleSheet.create({
     display: 'flex',
     flexWrap: 'wrap',
     paddingLeft: wp('3'),
+    paddingVertical: hp('0.2'),
   },
   pickerStyle1: {
     borderWidth: 1,
@@ -67,8 +68,10 @@ export const styles = StyleSheet.create({
     borderColor: 'rgba(11, 180, 255, 0.3)',
     borderRadius: 10,
     backgroundColor: 'white',
-    paddingHorizontal: wp('3'),
-    paddingVertical: hp('1'),
+    paddingHorizontal: wp('2'),
+    padding: 10,
+    // paddingTop: hp('1'),
+    // paddingVertical: hp('1'),
   },
   filterButton: {
     width: wp('20'),
@@ -96,7 +99,6 @@ export const styles = StyleSheet.create({
     fontWeight: '700',
     fontSize: FontSize.scale16,
     color: Colors.primaryTextColor,
-
     marginBottom: hp('1.5'),
   },
   applyFilter: {
@@ -143,15 +145,22 @@ export const styles = StyleSheet.create({
   },
   rangeTextMain: {
     flexDirection: 'row',
-    justifyContent:'space-between'
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: hp('2'),
+    paddingHorizontal: hp('1.5'),
   },
   rangeTextLeft: {
-    flex: 1,  
-    color: Colors.gray2,
+    flex: 1,
+    color: Colors.primaryTextColor,
+    textAlign: 'left',
+    fontWeight: 400,
   },
   rangeTextRight: {
-    textAlign: 'right',
-    color: Colors.gray2,
+    // color: Colors.gray2,
+    color: Colors.primaryTextColor,
+
+    textAlign: 'left',
   },
   max: {
     backgroundColor: 'red',
@@ -161,18 +170,24 @@ export const styles = StyleSheet.create({
     width: '100%',
     display: 'flex',
     flexWrap: 'wrap',
+    alignItems: 'center',
   },
   tags: {
     paddingHorizontal: wp('2'),
     marginHorizontal: wp('1'),
-    marginBottom: hp('1'),
+    // marginBottom: hp('1'),
   },
   priceRange: {
     color: 'black',
     // backgroundColor: 'transparent', // This works
   },
   rangeSliderContainer: {
-    marginTop: hp('1.5'),
+    marginTop: hp('0.5'),
+    borderWidth: 1,
+    borderColor: 'rgba(11, 180, 255, 0.3)',
+    justifyContent: 'flex-end',
+    padding: 10,
+    backgroundColor: 'white',
   },
 
   Modal: {
@@ -232,7 +247,6 @@ export const styles = StyleSheet.create({
   },
   dropDown: {
     marginRight: wp('4'),
-
   },
 
   //FOR picker style
@@ -241,8 +255,7 @@ export const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: 'white',
     borderColor: 'rgba(11, 180, 255, 0.3)',
-    borderWidth:1,
-
+    borderWidth: 1,
   },
   dropdown: {
     height: 50,
@@ -251,9 +264,8 @@ export const styles = StyleSheet.create({
     borderRadius: 8,
     paddingHorizontal: 8,
     marginBottom: 10,
-    marginTop:hp('1'),
-    color:Colors.primaryTextColor,
-
+    marginTop: hp('1'),
+    color: Colors.primaryTextColor,
   },
   icon: {
     marginRight: 5,
@@ -266,39 +278,47 @@ export const styles = StyleSheet.create({
     zIndex: 999,
     paddingHorizontal: 8,
     fontSize: 14,
-    color:Colors.primaryTextColor,
-
+    color: Colors.primaryTextColor,
   },
   placeholderStyle: {
     fontSize: 16,
-    color:Colors.primaryTextColor,
-
+    color: Colors.primaryTextColor,
   },
   selectedTextStyle: {
     fontSize: 16,
-    color:Colors.primaryTextColor,
-
+    color: Colors.primaryTextColor,
   },
   iconStyle: {
     width: 20,
     height: 20,
-
   },
   inputSearchStyle: {
     height: 40,
     fontSize: 16,
-    color:Colors.primaryTextColor,
-
-
+    color: Colors.primaryTextColor,
   },
-  rightView:{
-    borderWidth:1,borderRadius:10,
-      borderColor: 'rgba(11, 180, 255, 0.3)',
-      justifyContent:'flex-end',padding:10,
-      backgroundColor:'white',
+  rightView: {
+    borderWidth: 1,
+    borderRadius: 10,
+    borderColor: 'rgba(11, 180, 255, 0.3)',
+    justifyContent: 'flex-end',
+    padding: 10,
+    backgroundColor: 'white',
 
-      paddingHorizontal:wp('5')
-              
-              
-  }
+    paddingRight: wp('25'),
+  },
+  to: {
+    fontWeight: '400',
+    fontSize: FontSize.scale16,
+    color: Colors.primaryTextColor,
+    textAlign: 'center',
+  },
+  innerRangeSlider: {
+    marginLeft: 0,
+    paddingLeft: 0,
+    padding: 10,
+    backgroundColor: 'white',
+    width: wp('100'),
+    paddingTop: hp('2'),
+  },
 });

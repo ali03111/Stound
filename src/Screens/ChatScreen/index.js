@@ -29,10 +29,9 @@ const ChatScreen = ({navigation}) => {
     changeText,
     searchData,
     isloading,
-    updateIsReadToFalse
+    updateIsReadToFalse,
   } = useChatScreen(navigation);
   const renderItem = useCallback(({item, index}) => {
-
     const createdAtt = item?.chatUsers.find(
       res => res.otherUserId == userData?.agoraId,
     )?.createdAt;
@@ -45,7 +44,7 @@ const ChatScreen = ({navigation}) => {
           image={imageUrl(item?.profilePicture)}
           name={item?.name}
           description={
-            item?.chatUsers.find(res => res.otherUserId == userData?.agoraId)
+            item.chatUsers.find(res => res.otherUserId == userData?.agoraId)
               ?.lastMsg
           }
           time={createdAt}
@@ -78,9 +77,6 @@ const ChatScreen = ({navigation}) => {
       </View>
       {/* <Text onPress={updateIsReadToFalse}>submit</Text> */}
       <FlatList
-        // onRefresh={searchData}
-        // refreshing={false}
-        // data={users}
         data={searchData}
         renderItem={renderItem}
         showsHorizontalScrollIndicator={false}
