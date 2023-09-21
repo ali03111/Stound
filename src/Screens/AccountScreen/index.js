@@ -155,7 +155,7 @@ const AccountScreen = ({navigation}) => {
             isVisible={deactivate}
             title="Delete Account?"
             message="You’ll permanently lose all your data."
-            confirmText="Deactivate"
+            confirmText="Delete"
             onCancel={() => onCancel(deactivate, 'deactivate')}
             onConfirm={() => onDeleteConfirm(deactivate)}
           />

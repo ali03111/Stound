@@ -803,10 +803,7 @@ const AddPostScreen = ({navigation}) => {
   const [Modal0, setModal0] = useState(false);
   const [Modal1, setModal1] = useState(false);
   const [Modal2, setModal2] = useState(false);
-  const options = [
-    {label: 'Rent', value: 'Rent'},
-    {label: 'Buy  ', value: 'Buy'},
-  ];
+
   const {
     handleSubmit,
     reset,
@@ -860,6 +857,7 @@ const AddPostScreen = ({navigation}) => {
     desc,
     number,
     numberRegex,
+    options,
   } = useAddPostScreen(navigation);
 
   const renderItem = ({item, index}) => {

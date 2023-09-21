@@ -65,7 +65,7 @@ const HomeScreen = ({navigation}) => {
   // console.log('cccc',onBoardinData);
   const renderItem = useCallback(item => {
     const formattedPrice = item?.price?.toLocaleString();
-
+    console.log(item.adType, 'AdType');
     return (
       <HomeCard
         userName={`${item?.userDetail?.name}`}
@@ -76,7 +76,7 @@ const HomeScreen = ({navigation}) => {
         locationText={`${item?.location}`}
         forRent={`For ${item?.adType}`}
         price={`$ ${formattedPrice}`}
-        duration={'month'}
+        duration={item?.adType.toLowerCase() == 'rent' && 'month'}
       />
     );
   }, []);

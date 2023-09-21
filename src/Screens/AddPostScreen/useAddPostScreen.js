@@ -25,8 +25,8 @@ const useAddPostScreen = ({navigate}) => {
   const numberRegex = /^[0-9]+$/;
 
   const options = [
-    {label: 'Sale', value: 'Sale'},
     {label: 'Rent', value: 'Rent'},
+    {label: 'Buy', value: 'Buy'},
   ];
 
   //For Picker
@@ -387,6 +387,7 @@ const useAddPostScreen = ({navigate}) => {
     desc,
     number,
     numberRegex,
+    options,
     // handleError
     // goBack,
   };

@@ -144,8 +144,8 @@ const useFilterScreen = ({navigate}) => {
   console.log('preferencesDataa', preferencesData);
 
   const options = [
-    {label: 'Sale', value: 'Sale'},
     {label: 'Rent', value: 'Rent'},
+    {label: 'Buy', value: 'Buy'},
   ];
 
   const [preferencesVal, setPreferencesVal] = useState({
