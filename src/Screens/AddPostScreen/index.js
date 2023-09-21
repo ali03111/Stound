@@ -1371,7 +1371,7 @@ const AddPostScreen = ({navigation}) => {
                 title && desc && number
                   ? handleSubmit(postData)
                   : () =>
-                  number.trim() === '' ?  errorMessage('Please comeplete all fields'):
+                  number.trim() === '' && number.trim() === ''?  errorMessage('Please comeplete all fields'):
                       !numberRegex.test(number) 
                         ? errorMessage('Please correct your price')
                         : errorMessage('Please comeplete all fields')

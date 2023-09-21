@@ -128,7 +128,7 @@ const PackageDetailsScreen = ({navigation, route}) => {
             <TextComponent text={'Description'} styles={styles.pTitle} />
             <View style={styles.button}>
               <TextComponent
-                numberOfLines={12}
+                numberOfLines={50}
                 text={description}
                 styles={styles.desText}
               />
