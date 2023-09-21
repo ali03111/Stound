@@ -45,7 +45,7 @@ const ChatScreen = ({navigation}) => {
           image={imageUrl(item?.profilePicture)}
           name={item?.name}
           description={
-            item.chatUsers.find(res => res.otherUserId == userData?.agoraId)
+            item?.chatUsers.find(res => res.otherUserId == userData?.agoraId)
               ?.lastMsg
           }
           time={createdAt}
