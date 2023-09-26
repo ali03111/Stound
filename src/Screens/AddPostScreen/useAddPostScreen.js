@@ -26,7 +26,7 @@ const useAddPostScreen = ({navigate}) => {
 
   const options = [
     {label: 'Rent', value: 'Rent'},
-    {label: 'Buy', value: 'Buy'},
+    {label: 'Sell', value: 'Sell'},
   ];
 
   //For Picker

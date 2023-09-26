@@ -148,8 +148,8 @@ const FilterScreen = ({navigation}) => {
           headerTitle={'Filters'}
           arrowBackIcon={arrowback}
           backText={'Back'}
-          saveReset={'Reset'}
-          onSave={() => resetFunction()}
+          // saveReset={'Reset'}
+          // onSave={() => resetFunction()}
           goBack={() => navigation.goBack()}
         />
 

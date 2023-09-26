@@ -137,6 +137,7 @@ const index = ({navigation, route}) => {
       } catch (error) {
         setLoading(false);
         if (error instanceof PurchaseError) {
+          setLoading(false);
           errorLog({message: `[${error.code}]: ${error.message}`, error});
         } else {
           errorLog({message: 'handleBuySubscription', error});
@@ -180,9 +181,12 @@ const index = ({navigation, route}) => {
           }
         } catch (error) {
           setIsPurchasing(false);
+          setLoading(false);
+
           console.log('error', error);
         } finally {
           setCheckInProgress(false);
+          setLoading(false);
         }
       }
     },

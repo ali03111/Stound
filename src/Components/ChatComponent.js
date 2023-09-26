@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {
   StyleSheet,
   Text,
@@ -10,10 +10,10 @@ import {
 import {TextComponent} from './TextComponent';
 import {hp, wp} from '../Config/responsive';
 import {Colors} from '../Theme/Variables';
-import {CircleImageComp} from './CircleImageComp';
 import {Touchable} from './Touchable';
 import BlurImage from './BlurImage';
 import moment from 'moment';
+
 const ChatComponent = ({
   image,
   name,
@@ -30,7 +30,19 @@ const ChatComponent = ({
   const minutes = diff.minutes();
   const hours = diff.hours();
   const days = diff.days();
-  console.log(Platform.OS, 'firs1312312t', isRead);
+
+  let timeAgo = '';
+
+  if (minutes < 1) {
+    timeAgo = 'Just now';
+  } else if (days > 0) {
+    timeAgo = `${days} day${days > 1 ? 's' : ''} ago`;
+  } else if (hours > 0) {
+    timeAgo = `${hours} hour${hours > 1 ? 's' : ''} ago`;
+  } else {
+    timeAgo = `${minutes} min ago`;
+  }
+
   return (
     <Touchable style={styles.notificationMian} onPress={onPress}>
       <View style={styles.mainBannerImg}>
@@ -41,30 +53,16 @@ const ChatComponent = ({
         <TextComponent text={description} styles={styles.description} />
       </View>
       <View style={styles.mainTime}>
-        {time && (
-          <TextComponent
-            text={
-              days > 0 ? (
-                <Text>{days} day ago</Text>
-              ) : hours > 0 ? (
-                <Text>{hours} hour ago</Text>
-              ) : (
-                <Text>{minutes} min ago</Text>
-              )
-            }
-            styles={styles.timing}
-          />
-        )}
+        {time && <TextComponent text={timeAgo} styles={styles.timing} />}
 
         <View style={styles.messageView(messages)}>
           <TextComponent text={messages} styles={styles.messages} />
-          {isRead == true && <View style={styles.dotMessage}></View>}
+          {isRead === true && <View style={styles.dotMessage}></View>}
         </View>
       </View>
     </Touchable>
   );
 };
-
 const styles = StyleSheet.create({
   mainBannerImg: {
     // width: wp('18'),
