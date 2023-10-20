@@ -63,16 +63,7 @@ export const styles = StyleSheet.create({
     fontSize: hp('1.8'),
     width: wp('83'),
   },
-  desText: {
-    color: '#222',
-    // marginLeft: wp('2'),
-    fontSize: hp('1.9'),
-    textAlign: 'left',
-    marginBottom: hp('1.5'),
-    marginTop: hp('1'),
-    marginLeft: wp('3'),
-    marginRight: wp('2'),
-  },
+
   title: {
     flex: 0.8,
     fontSize: hp('2.7'),
@@ -145,13 +136,6 @@ export const styles = StyleSheet.create({
   accChat: {
     flex: 0.1,
   },
-  pTitle: {
-    fontSize: hp('1.7'),
-    // fontWeight: '600',
-    color: Colors.primaryTextColor,
-
-    marginBottom: hp('1'),
-  },
   pEmail: {
     fontSize: hp('1.8 '),
     // fontWeight: '600',
@@ -198,16 +182,28 @@ export const styles = StyleSheet.create({
     color: 'black',
   },
   button: {
-    // padding: 10,
-    // height: hp('5'),
-    // width: wp('25'),
-    borderRadius: 10,
-    // alignItems: 'center',
     flexDirection: 'row',
-    // justifyContent: 'center',
     borderWidth: 1,
     borderColor: 'rgba(11, 180, 255, 0.3)',
     borderRadius: 10,
     backgroundColor: 'rgb(248, 248, 248)',
   },
+  pTitle: {
+    fontSize: hp('1.7'),
+    // fontWeight: '600',
+    color: Colors.primaryTextColor,
+  
+    marginBottom: hp('1'),
+  },
+  desText: {
+    color: '#222',
+    // marginLeft: wp('2'),
+    fontSize: hp('1.9'),
+    textAlign: 'left',
+    marginBottom: hp('1.5'),
+    marginTop: hp('1'),
+    marginLeft: wp('3'),
+    marginRight: wp('2'),
+  },
 });
+

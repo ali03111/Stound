@@ -33,7 +33,7 @@ import {
   AccordionList,
 } from 'accordion-collapse-react-native';
 import MsgSendButton from '../../Components/MsgSendButton';
-import { imageUrl} from '../../Utils/Urls';
+import {imageUrl} from '../../Utils/Urls';
 import BlurBackground from '../../Components/BlurBackground';
 import BlurImage from '../../Components/BlurImage';
 import {fav} from '../../Assests';
@@ -122,13 +122,13 @@ const PackageDetailsScreen = ({navigation, route}) => {
               styles={styles.locationText}
             />
           </View>
-
+          {console.log(generalPref, 'afjdalskfj')}
           <DetailsUiComponent heading={'Property Details'} list={generalPref} />
           <View style={{marginBottom: hp('1.5')}}>
             <TextComponent text={'Description'} styles={styles.pTitle} />
             <View style={styles.button}>
               <TextComponent
-                numberOfLines={12}
+                numberOfLines={50}
                 text={description}
                 styles={styles.desText}
               />
@@ -139,7 +139,10 @@ const PackageDetailsScreen = ({navigation, route}) => {
           <DetailsUiComponent heading={'Outside'} list={outsidePref} />
           <View style={styles.priceMain}>
             <View style={styles.priceLeft}>
-              <TextComponent text={'$' + price?.toLocaleString()} styles={styles.price} />
+              <TextComponent
+                text={'$' + price?.toLocaleString()}
+                styles={styles.price}
+              />
               <TextComponent text={'Total price'} styles={styles.priceText} />
             </View>
             <MsgSendButton

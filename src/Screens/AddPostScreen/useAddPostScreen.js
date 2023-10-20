@@ -136,7 +136,6 @@ const useAddPostScreen = ({navigate}) => {
 
   const postData = async ({title, desc, number}) => {
     dispatch(loadingTrue());
-    const numberRegex = /^[0-9]+$/;
 
     if (
       images.length &&
@@ -184,6 +183,7 @@ const useAddPostScreen = ({navigate}) => {
           rooms: null,
           bathRoom: null,
           location: '',
+          number,
         });
         // reset();
         dispatch(loadingFalse());
@@ -201,7 +201,9 @@ const useAddPostScreen = ({navigate}) => {
       }
     } else {
       dispatch(loadingFalse());
-      errorMessage('Please comeplete all fields');
+      !numberRegex.test(number)
+        ? errorMessage('Please correct your price')
+        : errorMessage('Please comeplete all fields');
     }
   };
   const useEffectFun = () => {

@@ -361,7 +361,21 @@ const index = ({navigation, route}) => {
       </TouchableOpacity>
     );
   };
+  if (loading && isIos) {
+    return (
+      <View style={{...styles.midContainer, flex: 1}}>
+        <ActivityIndicator />
+      </View>
+    );
+  }
 
+  if (isBoolProduct && !isIos) {
+    return (
+      <View style={{...styles.midContainer, flex: 1}}>
+        <ActivityIndicator />
+      </View>
+    );
+  }
   return (
     <ScrollView style={styles.container}>
       <BuyCoinHeader

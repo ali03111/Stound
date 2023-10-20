@@ -322,7 +322,7 @@ const index = ({navigation, route}) => {
               styles={styles.locationText}
             />
           </View>
-          <View >
+          {/* <View >
             <TextComponent
               text={'Description'}
               styles={styles.descriptionHeading}
@@ -332,8 +332,15 @@ const index = ({navigation, route}) => {
               numberOfLines={20}
               styles={styles.desText}
             />
-          </View>
+          </View> */}
 
+
+          <View style={{ marginBottom: hp('1.5') }}>
+            <TextComponent text={'Description'} styles={styles.pTitle} />
+            <ScrollView contentContainerStyle={styles.descriptionScrollContainer}>
+              <Text style={styles.desText}>{Item?.adDetail.description}</Text>
+            </ScrollView>
+          </View>
           <TextComponent
             // onPress={() => onSend('Hello World')}
             text={'General Preferences'}

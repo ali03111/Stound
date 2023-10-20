@@ -861,6 +861,7 @@ const AddPostScreen = ({navigation}) => {
   } = useAddPostScreen(navigation);
 
   const renderItem = ({item, index}) => {
+    console.log(item.path, 'asdklfjaklsdjflkasjd');
     return (
       <FilterAddButton
         style={styles.tags}

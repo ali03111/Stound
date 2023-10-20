@@ -12,15 +12,56 @@ export const styles = StyleSheet.create({
     fontWeight: '600',
     color: 'black',
   },
-  desText: {
-    color: 'gray',
-    // marginLeft: wp('2'),
-    fontSize: hp('1.9'),
-    width: wp('95'),
-    textAlign: 'left',
-    marginBottom: hp('1.5'),
-    marginTop: hp('0.5'),
+
+  input: {
+    height:120,
+    margin: 20,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderColor: 'gray',
+    borderWidth: 1,
+
+    color:'black'
   },
+
+  descriptionScrollContainer: {
+    // flex: 1,
+    borderWidth: 1,
+    borderColor: 'rgba(11, 180, 255, 0.3)',
+    borderRadius: 10,
+    backgroundColor: 'rgb(248, 248, 248)',
+  },
+  // desText: {
+  //   color: 'gray',
+  //   // marginLeft: wp('2'),
+  //   fontSize: hp('1.9'),
+  //   width: wp('95'),
+  //   textAlign: 'left',
+  //   marginBottom: hp('1.5'),
+  //   marginTop: hp('0.5'),
+  // },
+  // desText: {
+  //   color: '#222',
+  //   // marginLeft: wp('2'),
+  //   fontSize: hp('1.9'),
+  //   textAlign: 'left',
+  //   marginBottom: hp('1.5'),
+  //   marginTop: hp('1'),
+  //   marginLeft: wp('3'),
+  //   marginRight: wp('2'),
+  // },
+  // button: {
+  //   // height: hp('5'),
+  //   // width: wp('25'),
+  //   borderRadius: 10,
+  //   // alignItems: 'center',
+  //   flexDirection: 'row',
+  //   // justifyContent: 'center',
+  //   borderWidth: 1,
+  //   borderColor: 'rgba(11, 180, 255, 0.3)',
+  //   borderRadius: 10,
+  //   backgroundColor: 'rgb(248, 248, 248)',
+  // },
   socialbox: {
     flexDirection: 'row',
     justifyContent: 'space-evenly',
@@ -236,5 +277,31 @@ export const styles = StyleSheet.create({
   priceText: {
     color: 'black',
     fontSize: hp('1.5'),
+  },
+  button: {
+    padding:10,
+    height:hp('12'),
+    borderWidth: 1,
+    borderColor: 'rgba(11, 180, 255, 0.3)',
+    borderRadius: 10,
+    backgroundColor: 'rgb(248, 248, 248)',
+    color:'black'
+  },
+  // pTitle: {
+  //   fontSize: hp('1.7'),
+  //   // fontWeight: '600',
+  //   color: Colors.primaryTextColor,
+  
+  //   marginBottom: hp('1'),
+  // },
+  desText: {
+    color: '#222',
+    // marginLeft: wp('2'),
+    fontSize: hp('1.9'),
+    textAlign: 'left',
+    marginBottom: hp('1.5'),
+    marginTop: hp('1'),
+    marginLeft: wp('3'),
+    marginRight: wp('2'),
   },
 });

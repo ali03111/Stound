@@ -1,15 +1,20 @@
 const getCredentials = () => {
   if (__DEV__)
     return {
-      baseURL: 'https://virtualrealitycreators.com/stound/api/',
-      imageURL: 'https://virtualrealitycreators.com/stound/',
+      // baseURL: 'https://virtualrealitycreators.com/stound/api/',
+      // imageURL: 'https://virtualrealitycreators.com/stound/',
+      baseURL: 'https://stound.co/stound/api/',
+      imageURL: 'https://stound.co/stound/',
       // inAppUrl: 'https://sandbox.itunes.apple.com/verifyReceipt',
     };
   else {
     console.log = () => {};
     return {
-      baseURL: 'https://virtualrealitycreators.com/stound/api/',
-      imageURL: 'https://virtualrealitycreators.com/stound/',
+      baseURL: 'https://stound.co/stound/api/',
+      imageURL: 'https://stound.co/stound/',
+
+      // baseURL: 'https://virtualrealitycreators.com/stound/api/',
+      // imageURL: 'https://virtualrealitycreators.com/stound/',
       // inAppUrl: 'https://buy.itunes.apple.com/verifyReceipt',
     };
   }

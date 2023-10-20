@@ -80,12 +80,23 @@ const useChatScreen = ({navigate, goBack, addListener}) => {
           const userData = doc.data();
           const chatUsers = userData.chatUsers || [];
 
+          // Flatten chatUsers into a single array
+          const allChatUsers = chatUsers.map(chatUser => ({
+            ...chatUser,
+            userId: userData.agoraId, // Add user ID to each chat user
+          }));
+
+          // Sort allChatUsers array by createdAt timestamp in descending order
+          allChatUsers.sort(
+            (a, b) => a.createdAt.seconds - b.createdAt.seconds,
+          );
+
           // Clear the existing data
           usersData.length = 0;
 
-          // Loop through chatUsers and fetch corresponding user data
-          for (const item of chatUsers) {
-            const otherUserId = item.otherUserId;
+          // Loop through sorted chatUsers and fetch corresponding user data
+          for (const chatUser of allChatUsers) {
+            const otherUserId = chatUser.otherUserId;
             const otherUserRef = db.collection('users').doc(otherUserId);
             const otherUserDoc = await otherUserRef.get();
 
@@ -100,12 +111,60 @@ const useChatScreen = ({navigate, goBack, addListener}) => {
           dispatch(loadingFalse());
         }
       });
-      // dispatch(loadingFalse());
 
       // Return the unsubscribe function to clean up the listener when needed
       return unsubscribe;
     }
   };
+
+  // const getUsers = () => {
+  //   dispatch(loadingTrue());
+
+  //   if (userData.agoraId) {
+  //     // Create an array to store the user data
+  //     const usersData = [];
+
+  //     // Reference to the user's document
+  //     const userRef = db.collection('users').doc(userData.agoraId);
+  //     console.log(userRef,'ksisksiksiksi')
+  //     // Listen for changes to the user's chat data
+  //     const unsubscribe = userRef.onSnapshot(async doc => {
+  //       if (doc.exists) {
+  //         const userData = doc.data();
+  //         const chatUsers = userData.chatUsers || [];
+
+  //         // Clear the existing data
+  //         usersData.length = 0;
+
+  //         // Loop through chatUsers and fetch corresponding user data
+  //         for (const item of chatUsers) {
+  //           const otherUserId = item.otherUserId;
+  //           const otherUserRef = db.collection('users').doc(otherUserId);
+  //           const otherUserDoc = await otherUserRef.get();
+
+  //           if (otherUserDoc.exists) {
+  //             const otherUserData = otherUserDoc.data();
+  //             console.log(otherUserData,'iekifkiekei')
+  //             usersData.push(otherUserData);
+  //           }
+  //         }
+
+  //         console.log(
+  //         JSON.stringify(usersData),
+  //         'asdasdasdasdasdasdasda'
+  //         )
+
+  //         // Update the state with the new data
+  //         setUsers(usersData);
+  //         dispatch(loadingFalse());
+  //       }
+  //     });
+  //     // dispatch(loadingFalse());
+
+  //     // Return the unsubscribe function to clean up the listener when needed
+  //     return unsubscribe;
+  //   }
+  // };
 
   //IsRead True in User Chat in on
   // Function to update isRead to true
@@ -116,6 +175,7 @@ const useChatScreen = ({navigate, goBack, addListener}) => {
       await db
         .collection('users')
         .where('userId', '==', userData.agoraId)
+
         .get()
         .then(async snap => {
           for (const doc of snap.docs) {
