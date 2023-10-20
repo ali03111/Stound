@@ -11,6 +11,7 @@
     "clean": "cd android && ./gradlew clean && cd ..",
     "apk": "cd android && ./gradlew assembleRelease && cd ..",
     "pod": "cd ios && pod install && cd ..",
+    "pod1": "cd ios && bundle exec pod install && cd ..",
     "android:staging": "react-native run-android --variant=stagingdebug",
     "android:staging-release": "react-native run-android --variant=stagingrelease",
     "android:dev": "react-native run-android --variant=developmentdebug",

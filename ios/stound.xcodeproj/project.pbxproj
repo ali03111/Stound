@@ -20,7 +20,6 @@
 		A65C0A4429C20DAA00E9D067 /* Proxima-Nova-Alt-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = A65C0A3C29C20DA900E9D067 /* Proxima-Nova-Alt-Thin.otf */; };
 		A65C0A4529C20DAA00E9D067 /* Proxima-Nova-Extrabold.otf in Resources */ = {isa = PBXBuildFile; fileRef = A65C0A3D29C20DA900E9D067 /* Proxima-Nova-Extrabold.otf */; };
 		A65C0A4629C20DAA00E9D067 /* Proxima-Nova-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = A65C0A3E29C20DA900E9D067 /* Proxima-Nova-Thin.otf */; };
-		A65C0A4729C20DAA00E9D067 /* ProximaNova-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = A65C0A3F29C20DA900E9D067 /* ProximaNova-Regular.otf */; };
 		A65C0A4829C20DAA00E9D067 /* Proxima-Nova-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = A65C0A4029C20DAA00E9D067 /* Proxima-Nova-Bold.otf */; };
 /* End PBXBuildFile section */
 
@@ -383,7 +382,6 @@
 			files = (
 				A65C0A4329C20DAA00E9D067 /* Proxima-Nova-Black.otf in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
-				A65C0A4729C20DAA00E9D067 /* ProximaNova-Regular.otf in Resources */,
 				A65C0A4229C20DAA00E9D067 /* Proxima-Nova-Alt-Bold.otf in Resources */,
 				A65C0A4429C20DAA00E9D067 /* Proxima-Nova-Alt-Thin.otf in Resources */,
 				A65C0A4529C20DAA00E9D067 /* Proxima-Nova-Extrabold.otf in Resources */,
