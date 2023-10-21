@@ -35,10 +35,11 @@ import Slider from '@react-native-community/slider';
 import {Image} from 'react-native-animatable';
 import {imageUrl, keyExtractor} from '../../Utils/Urls';
 import {hp, wp} from '../../Config/responsive';
-import RangeSlider from '../../Components/RangeSlider';
+// import RangeSlider from '../../Components/RangeSlider';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {Dropdown} from 'react-native-element-dropdown';
 import {InputComponent} from '../../Components/InputComponent';
+import RangeSlider from 'rn-range-slider';
 
 const FilterScreen = ({navigation}) => {
   const {
@@ -609,7 +610,7 @@ const FilterScreen = ({navigation}) => {
             <View style={styles.rangeSliderContainer}>
               <View style={styles.innerRangeSlider}>
                 <View style={{marginRight: wp('2.5')}}>
-                  <RangeSlider
+                  {/* <RangeSlider
                     sliderWidth={345}
                     min={MIN_DEFAULT}
                     max={MAX_DEFAULT}
@@ -618,7 +619,20 @@ const FilterScreen = ({navigation}) => {
                       setMin(range.min);
                       setMax(range.max);
                     }}
-                  />
+                  /> */}
+             <RangeSlider
+    style={{width: wp('95'), height: 80}}
+    gravity={'center'}
+    min={200}
+    max={1000}
+    step={20}
+    selectionColor="#3df"
+    blankColor="#feff"
+    onValueChanged={(low, high, fromUser) => {
+          setMin(min);
+          setMax(max);
+        // this.setState({rangeLow: low, rangeHigh: high})
+    }}/>
                 </View>
 
                 <View style={styles.rangeTextMain}>

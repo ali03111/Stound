@@ -7262,6 +7262,11 @@ rimraf@~2.6.2:
   dependencies:
     glob "^7.1.3"
 
+rn-range-slider@1.3.3:
+  version "1.3.3"
+  resolved "https://registry.yarnpkg.com/rn-range-slider/-/rn-range-slider-1.3.3.tgz#e872a6685d5b9cda21376e7ded905ece16d3a167"
+  integrity sha512-SN9Y/ZPIIjiImNa9x6HmGee1V/tiZhAEJ/jTGV58zdLyPDPm380tgcpoQNbZ6J51khWQjG12AVWJ19FXwdKd4Q==
+
 run-parallel@^1.1.9:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/run-parallel/-/run-parallel-1.2.0.tgz#66d1368da7bdf921eb9d95bd1a9229e7f21a43ee"

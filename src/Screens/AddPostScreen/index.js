@@ -968,7 +968,6 @@ const AddPostScreen = ({navigation}) => {
             ) : (
               <View style={styles.pickerStyle}>
                 <Image source={catImage} />
-
                 <Picker
                   dropdownIconColor={Colors.primaryColor}
                   style={styles.pick}
@@ -981,15 +980,13 @@ const AddPostScreen = ({navigation}) => {
                     label="Select Category..."
                     value={null}
                   />
+
                   {preferencesData.cat &&
                     preferencesData.cat.map(res => {
                       console.log('res.name', res);
-
                       return (
                         <Picker.Item
                           label={res.name}
-                          // color="black"
-                          // style={{color: 'black'}}
                           value={res.categoryId}
                         />
                       );
