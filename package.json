@@ -9,7 +9,7 @@
     "test": "jest",
     "lint": "eslint .",
     "clean": "cd android && ./gradlew clean && cd ..",
-    "apk": "cd android && ./gradlew assembleRelease && cd ..",
+    "apk": "cd android && ./gradlew app:assembleRelease && cd ..",
     "pod": "cd ios && pod install && cd ..",
     "android:staging": "react-native run-android --variant=stagingdebug",
     "android:staging-release": "react-native run-android --variant=stagingrelease",

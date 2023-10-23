@@ -621,16 +621,18 @@ const FilterScreen = ({navigation}) => {
                     }}
                   /> */}
              <RangeSlider
+             labelBackgroundColor={Colors.primaryColor}
+             labelBorderColor={Colors.border2}
     style={{width: wp('95'), height: 80}}
     gravity={'center'}
-    min={200}
-    max={1000}
+    min={MIN_DEFAULT}
+    max={MAX_DEFAULT}
     step={20}
-    selectionColor="#3df"
+    selectionColor={Colors.primaryColor}
     blankColor="#feff"
     onValueChanged={(low, high, fromUser) => {
-          setMin(min);
-          setMax(max);
+          setMin(low);
+          setMax(high);
         // this.setState({rangeLow: low, rangeHigh: high})
     }}/>
                 </View>

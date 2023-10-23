@@ -5,8 +5,6 @@ import API, {formDataFunc} from '../../Utils/helperFunc';
 import {errorMessage, successMessage} from '../../Config/NotificationMessage';
 import {launchImageLibrary} from 'react-native-image-picker';
 import useReduxStore from '../../Hooks/UseReduxStore';
-import {updateAdImage} from '../../Utils/Urls';
-import {Platform} from 'react-native';
 import {loadingFalse, loadingTrue} from '../../Redux/Action/isloadingAction';
 import axios from 'axios';
 
@@ -76,7 +74,7 @@ const useAddPostScreen = ({navigate}) => {
   const uploadFromGalary = () => {
     launchImageLibrary(
       {
-        selectionLimit: 10,
+        selectionLimit:0,
         mediaType: 'photo',
         quality: 1,
         // maxWidth: 300,
@@ -84,16 +82,21 @@ const useAddPostScreen = ({navigate}) => {
       },
       res => {
         if (!res?.didCancel) {
-          if (images.length == 0) {
-            updateState({images: res?.assets});
+          const selectedImages = res?.assets || [];
+          
+          if (images.length + selectedImages.length <= 10) {
+            updateState({ images: [...images, ...selectedImages] });
           } else {
-            updateState({images: [...images, ...res?.assets]});
+            // You've reached the maximum limit, show an error message or take appropriate action.
+            // You can also limit the selection in a different way here.
+            console.log("You can't select more than 10 images.");
+            errorMessage("You can't select more than 10 images.")
           }
         }
       },
     );
   };
-
+  
   const deleteImage = index => {
     const updatedImages = [...preferencesVal.images];
     updatedImages.splice(index, 1);

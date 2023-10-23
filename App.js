@@ -103,7 +103,7 @@ function App() {
     dispatch(fcmRegister(fcm_token));
   };
 
-  const onOpenNotification = notify => {
+   const onOpenNotification = notify => {
     console.log('notify', notify);
     if (navigationRef.isReady()) {
       // Perform navigation if the react navigation is ready to handle actions

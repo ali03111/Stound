@@ -227,7 +227,7 @@ const useFilterScreen = ({navigate}) => {
     'aldfjajksdflkaaj',
   );
   const filterAdsDataFunction = async () => {
-    if (rooms != null && bathRoom != null && cat != null) {
+    if ( cat != null) {
       const body = {
         propertyType: cat,
         adType: type,
@@ -257,7 +257,7 @@ const useFilterScreen = ({navigate}) => {
       }
     } else {
       dispatch(loadingFalse());
-      errorMessage('please comeplete all fields');
+      errorMessage(`Please make sure to select a "Property Type"`);
     }
   };
 
