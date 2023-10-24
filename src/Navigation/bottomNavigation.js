@@ -75,7 +75,10 @@ function MybottomTabs() {
               //     ? wp(isIOS ? '100' : '100')
               //     : wp(isIOS ? '100' : '100')
               // }
-              height={hp(isIOS ? '10' : '11')}
+              height={
+                width<=375?
+                hp(isIOS ? '13.5' : '14.5'):
+                hp(isIOS ? '10' : '11')}
               viewBox={isIOS ? '0 0 394 78' : '0 0 414 85'}
               style={styles.barSvg}
               fill="none"
@@ -112,7 +115,11 @@ function MybottomTabs() {
             return (
               <Svg
                 width={wp('15')}
-                height={isIOS ? hp('6.2') : hp('6.2')}
+                height={
+                  width <= 400 ?
+                  
+                  hp('6.5') :
+                  hp('6.2')}
                 viewBox="0 0 54 54"
                 style={styles.circleSvg}
                 fill="none"
@@ -178,7 +185,7 @@ const styles = StyleSheet.create({
       Dimensions.get('window').width + Dimensions.get('window').height,
     ),
     alignSelf: 'center',
-    width: Dimensions.get('screen').width * 0.15,
+    width:Dimensions.get('screen').width * 0.15,
     height: Dimensions.get('screen').width * 0.15,
     alignContent: 'center',
     justifyContent: 'center',
@@ -204,9 +211,10 @@ const styles = StyleSheet.create({
     position: 'absolute',
     zIndex: 1,
     bottom:
-      height <= 667 ? (isIOS ? hp('2') : hp('2')) : isIOS ? hp('-1') : hp('2'),
+      height <= 667 ? (isIOS ? hp('3') : hp('6')) : isIOS ? hp('-1') : hp('2'),
     justifyContent: 'center',
     alignItems: 'center',
+    // backgroundColor:'red'
   },
   barSvg: {
     position: 'absolute',

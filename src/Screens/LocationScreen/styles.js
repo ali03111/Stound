@@ -37,6 +37,7 @@ export const styles = StyleSheet.create({
   image: {
     width: wp('6'),
     aspectRatio: 1,
+    color:Colors.grayborder
   },
   text: {
     fontSize: hp('1.8'),

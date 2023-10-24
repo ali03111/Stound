@@ -123,6 +123,7 @@ const Index = ({navigation, route}) => {
 
             {location.coords ? (
               <Image
+              
                 style={styles.image}
                 source={require('../../Assests/Icons/gps.png')}
               />

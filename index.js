@@ -30,7 +30,6 @@ const Stound = () => (
 messaging().setBackgroundMessageHandler(async remoteMessage => {
   console.log('Message handled in the background!', remoteMessage);
   store.dispatch(setNotificationLength(remoteMessage));
-  console.log('notify', notify);
   if (navigationRef.isReady()) {
     // Perform navigation if the react navigation is ready to handle actions
     console.log('if navigationRef');
@@ -49,7 +48,6 @@ messaging().setBackgroundMessageHandler(async remoteMessage => {
           'Notification caused app to open from quit state:',
           remoteMessage,
         );
-        console.log('notify', notify);
         if (navigationRef.isReady()) {
           // Perform navigation if the react navigation is ready to handle actions
           console.log('if navigationRef');
