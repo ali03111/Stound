@@ -301,10 +301,10 @@ const index = ({navigation, route}) => {
           i++;
           console.log(i, isSub.current, purchase, 'ieyvaaavayassjuy');
 
-          if (isSub.current) {
-            isSub.current = false;
-            await hitAPIToSever(purchase);
-          }
+          // if (isSub.current) {
+          // isSub.current = false;
+          await hitAPIToSever(purchase);
+          // }
         }
       });
 
@@ -328,6 +328,50 @@ const index = ({navigation, route}) => {
     };
   };
 
+  // new code Full debug
+  // const hasExecutedRef = useRef(false);
+  // let purchaseUpdateSubscription;
+  // let purchaseErrorSubscription;
+
+  // const updateListenerFunction = () => {
+  //   console.log('updateListner');
+  //   let i = 0;
+
+  //   if (!hasExecutedRef.current) {
+  //     purchaseUpdateSubscription = purchaseUpdatedListener(async purchase => {
+  //       const receipt = purchase.transactionReceipt;
+  //       console.log(purchase.packageNameAndroid, 'PurchaseAaaaaaAaaas');
+  //       console.log(purchase.productId, 'PurchaseAaaaaaAaaas');
+  //       console.log(purchase.purchaseToken, 'PurchaseAaaaaaAaaas');
+  //       console.log(i, 'ieyvaaaaavayassjuy');
+
+  //       if (receipt && i === 0) {
+  //         i++;
+  //         console.log(i, purchase, 'ieyvaaavayassjuy');
+
+  //         await hitAPIToSever(purchase);
+  //       }
+  //     });
+
+  //     purchaseErrorSubscription = purchaseErrorListener(error => {
+  //       console.log(error, 'purchaseErrorListener');
+  //     });
+
+  //     hasExecutedRef.current = true;
+  //   }
+
+  //   return async () => {
+  //     if (purchaseUpdateSubscription) {
+  //       purchaseUpdateSubscription.remove();
+  //       purchaseUpdateSubscription = null;
+  //     }
+  //     if (purchaseErrorSubscription) {
+  //       purchaseErrorSubscription.remove();
+  //       purchaseErrorSubscription = null;
+  //     }
+  //     await endConnection();
+  //   };
+  // };
   useEffect(() => {
     {
       !isIos && updateListenerFunction();
