@@ -449,17 +449,17 @@ export const PackageDetailData = {
 export const RadioButtons = [
   {
     id: '1', // acts as primary key, should be unique and non-empty string
-    label: 'Just looking',
-    value: 'Just looking',
+    label: 'just looking',
+    value: 'just looking',
   },
   {
     id: '2',
-    label: 'Interested',
-    value: 'Interested',
+    label: 'interested',
+    value: 'interested',
   },
   {
     id: '3',
-    label: 'Serious',
-    value: 'Serious',
+    label: 'serious',
+    value: 'serious',
   },
 ];

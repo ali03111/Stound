@@ -80,7 +80,7 @@ const index = ({navigation, route}) => {
     getPurchaseHistory, //gets users purchase history
   } = useIAP();
   const {items, isSub} = route.params;
-  console.log(isSub, 'asdkjfklsajfklj');
+  console.log(isSub, 'asdkjfklsajfaaaaklj');
   const [loading, setLoading] = useState(false);
   const [isPurchasing, setIsPurchasing] = useState(false);
   const handleGetPurchaseHistory = async () => {
@@ -198,6 +198,7 @@ const index = ({navigation, route}) => {
   }, [checkCurrentPurchase, currentPurchase, isPurchasing]);
 
   const hitAPIToSever = useCallback(async receipt => {
+    console.log(receipt, 'aklsdfjaklsdjfl');
     store.dispatch(loadingTrue());
     const body1 = {
       packageName: receipt?.packageNameAndroid,
@@ -295,7 +296,7 @@ const index = ({navigation, route}) => {
 
         if (receipt && i == 0) {
           i++;
-          console.log(i, isSub.current, 'ieyvaaavayassjuy');
+          console.log(i, isSub.current, purchase, 'ieyvaaavayassjuy');
 
           if (isSub.current) {
             isSub.current = false;

@@ -8,7 +8,7 @@ import {setNotificationLength} from '../../Redux/Action/recentNotification';
 import {types} from '../../Redux/types';
 
 const useNotificationScreen = ({navigate, addListener}) => {
-  const isSub = useRef(null);
+  const isSub = useRef(true);
   const {dispatch, getState} = useReduxStore();
   const {userData} = getState('Auth');
   console.log({Usersatasad: userData?.isSubscribed});
@@ -35,36 +35,23 @@ const useNotificationScreen = ({navigate, addListener}) => {
   };
 
   const onCancel = (state, stateName, index, item) => {
-    console.log('onCancelalsdfjlaksdjfkl');
-    isSub.current = true;
-    // item.coinUsed
-    //   ? navigate('HeaderDetailScreen', notificationDataState[currentIndex])
-    //   : userData?.isSubscribed
-    //   ? updateState({[stateName]: !state, currentIndex: index})
-    //   : navigate('BuyCoinScreen', {
-    //       items: notificationDataState[currentIndex],
-    //       isSub,
-    //     });
-    console.log(item?.coinUsed, 'sadfkljsdaf');
-    item?.coinUsed
-      ? navigate('HeaderDetailScreen', notificationDataState[index])
-      : userData?.isSubscribed
-      ? updateState({[stateName]: !state, currentIndex: index})
-      : navigate('BuyCoinScreen', {
-          items: notificationDataState[index],
-          isSub,
-        });
+    console.log(isSub.current, 'onCancelalsdfjlaksdjfkl');
 
-    //NAVIGATE SUBSCRIPTION
-
-    // item?.coinUsed
-    //   ? navigate('HeaderDetailScreen', notificationDataState[index])
-    //   : userData?.isSubscribed
-    //   ? updateState({[stateName]: !state, currentIndex: index})
-    //   : navigate('Subscriptions', {
-    //       items: notificationDataState[index],
-    //       isSub,
-    //     });
+    if (item?.coinUsed) {
+      // If coin is used, navigate directly to the detail screen.
+      navigate('HeaderDetailScreen', notificationDataState[index]);
+    } else if (userData?.isSubscribed) {
+      // If the user is subscribed, set the state and navigate to the detail screen.
+      updateState({[stateName]: !state, currentIndex: index});
+      navigate('HeaderDetailScreen', notificationDataState[index]);
+    } else {
+      // If the user is not subscribed, navigate to the BuyCoinScreen and pass isSub.
+      navigate('BuyCoinScreen', {
+        items: notificationDataState[index],
+        isSub,
+      });
+    }
+    console.log(isSub, 'onCancelalsdfjlaksaadjfkl');
   };
 
   // console.log(notificationDataState[0].userDetail, 'Data');
