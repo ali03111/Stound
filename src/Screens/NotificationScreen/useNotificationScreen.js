@@ -37,15 +37,8 @@ const useNotificationScreen = ({navigate, addListener}) => {
   const onCancel = (state, stateName, index, item) => {
     console.log('onCancelalsdfjlaksdjfkl');
     isSub.current = true;
-    // item.coinUsed
-    //   ? navigate('HeaderDetailScreen', notificationDataState[currentIndex])
-    //   : userData?.isSubscribed
-    //   ? updateState({[stateName]: !state, currentIndex: index})
-    //   : navigate('BuyCoinScreen', {
-    //       items: notificationDataState[currentIndex],
-    //       isSub,
-    //     });
-    console.log(item?.coinUsed, 'sadfkljsdaf');
+  
+    console.log(item?.coinUsed, isSub.current, 'sadfkljsdaf');
     item?.coinUsed
       ? navigate('HeaderDetailScreen', notificationDataState[index])
       : userData?.isSubscribed
@@ -54,17 +47,6 @@ const useNotificationScreen = ({navigate, addListener}) => {
           items: notificationDataState[index],
           isSub,
         });
-
-    //NAVIGATE SUBSCRIPTION
-
-    // item?.coinUsed
-    //   ? navigate('HeaderDetailScreen', notificationDataState[index])
-    //   : userData?.isSubscribed
-    //   ? updateState({[stateName]: !state, currentIndex: index})
-    //   : navigate('Subscriptions', {
-    //       items: notificationDataState[index],
-    //       isSub,
-    //     });
   };
 
   // console.log(notificationDataState[0].userDetail, 'Data');
