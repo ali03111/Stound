@@ -152,6 +152,8 @@ const index = ({navigation, route}) => {
 
   const checkCurrentPurchase = useCallback(
     async purchase => {
+      console.log('checkCurrentPurchase');
+
       if (isPurchasing && purchase && !checkInProgress) {
         setCheckInProgress(true);
 
@@ -284,6 +286,7 @@ const index = ({navigation, route}) => {
   let purchaseErrorSubscription;
 
   const updateListenerFunction = () => {
+    console.log('updateListner');
     let i = 0;
 
     if (!hasExecutedRef.current) {
