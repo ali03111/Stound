@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import * as Screens from '../Screens/index';
 import useReduxStore from '../Hooks/UseReduxStore';
 import MybottomTabs from './bottomNavigation';
-
+import messaging from '@react-native-firebase/messaging';
 import {withIAPContext} from 'react-native-iap';
 
 const Stack = createNativeStackNavigator();
@@ -33,9 +33,28 @@ const StackNavigatior = () => {
   const {getState} = useReduxStore();
   const {onboarding} = getState('onboarding');
   const {isLogin} = getState('Auth');
+
+  const [bool,setBool] = useState(true);
+
+  useEffect(() => {
+    const checkInitialNotification = async () => {
+      const remoteMessage = await messaging().getInitialNotification();
+      if (remoteMessage) {
+      setBool(false)
+        console.log(
+          'Notification caused app to open from quit state:',
+          remoteMessage.notification,
+        );
+        // initialRouteRef.current = 'Onboarding'; // Update the ref value to "Home"
+      }
+    };
+    checkInitialNotification();
+  }, [bool]);
   // console.log('AIUth token', token);
   return (
+    
     <Stack.Navigator
+      initialRouteName={!bool && 'NotificationScreen'}
       screenOptions={{
         headerTransparent: true,
         headerTitle: null,
@@ -65,6 +84,10 @@ const StackNavigatior = () => {
       {isLogin && (
         <>
           <Stack.Screen name="MybottomTabs" component={MybottomTabs} />
+          <Stack.Screen
+           name="NotificationScreen"
+           component={Screens.NotificationScreen}
+         />
           <Stack.Screen name="ChatScreen" component={Screens.ChatScreen} />
           <Stack.Screen
             name="MessagesScreen"
@@ -105,10 +128,7 @@ const StackNavigatior = () => {
             name="PackageDetailsScreen"
             component={Screens.PackageDetailsScreen}
           />
-          <Stack.Screen
-            name="NotificationScreen"
-            component={Screens.NotificationScreen}
-          />
+         
           <Stack.Screen
             name="BuyCoinScreen"
             component={withIAPContext(Screens.BuyCoinScreen)}

@@ -34,6 +34,8 @@ import {fcmService} from './src/Services/Notifications';
 import {fcmRegister} from './src/Redux/Action/AuthAction';
 import {navigationRef} from './RootNavigation';
 import * as RootNavigation from './RootNavigation';
+import messaging from '@react-native-firebase/messaging';
+
 function App() {
   const [isVisible, setIsVisible] = useState(true);
   const Hide_Splash_Screen = () => {
@@ -121,6 +123,24 @@ function App() {
       source={SplashScreen}
       style={styles.SplashScreen_RootView}></ImageBackground>
   );
+
+    //Get Token for firebase
+    const getTokenFunction = async()=>{
+      const authStatus = await messaging().requestPermission();
+    const enabled =
+      authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+      authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+  
+    if (enabled) {
+      const authToken = await messaging().getToken();
+      console.log('Authorization status:', authStatus);
+      console.log({authToken})
+    }
+  
+    }
+    useEffect(()=>{
+      getTokenFunction();
+    },[])
   return (
     <>
       {isloading && <Overlay />}

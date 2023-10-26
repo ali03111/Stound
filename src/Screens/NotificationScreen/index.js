@@ -61,7 +61,7 @@ const Notification = ({navigation}) => {
           headerTitle={'Notification'}
           backText={'Back'}
           arrowBackIcon={arrowback}
-          goBack={navigation.goBack}
+          goBack={()=>navigation.navigate('MybottomTabs')}
         />
         <View>
           <FlatList
