@@ -234,6 +234,8 @@ const index = ({navigation, route}) => {
       if (isIos) {
         navigation.navigate('HeaderDetailScreen', items);
       } else {
+        navigation.navigate('HeaderDetailScreen', items);
+
         const ackResult = await acknowledgePurchaseAndroid({
           token: receipt.purchaseToken,
         });
@@ -243,7 +245,7 @@ const index = ({navigation, route}) => {
         });
         console.log('finishTransactionRes', finishTransactionRes);
         if (finishTransactionRes.code == 'OK') {
-          navigation.navigate('HeaderDetailScreen', items);
+          console.log('OK');
         }
       }
 
@@ -285,48 +287,114 @@ const index = ({navigation, route}) => {
   let purchaseUpdateSubscription;
   let purchaseErrorSubscription;
 
-  const updateListenerFunction = () => {
-    console.log('updateListner');
-    let i = 0;
+  // Define a flag to track if the listener has been set up
+  let hasListenerBeenSet = false;
 
-    if (!hasExecutedRef.current) {
-      purchaseUpdateSubscription = purchaseUpdatedListener(async purchase => {
+  const updateListenerFunction = () => {
+    console.log(hasListenerBeenSet, 'updateListener');
+
+    // Check if the listener has already been set up
+    if (!hasListenerBeenSet) {
+      console.log('Setting up the listener for the first time');
+
+      // Define the purchase update subscription outside the function
+      const purchaseUpdateListener = async purchase => {
         const receipt = purchase.transactionReceipt;
         console.log(purchase.packageNameAndroid, 'PurchaseAaaaaaAaaas');
         console.log(purchase.productId, 'PurchaseAaaaaaAaaas');
         console.log(purchase.purchaseToken, 'PurchaseAaaaaaAaaas');
-        console.log(i, 'ieyvaaaaavayassjuy');
+        console.log(isSub.current, 'ieyvaaaaavayassjuy');
 
-        if (receipt && i == 0) {
-          i++;
-          console.log(i, isSub.current, purchase, 'ieyvaaavayassjuy');
+        if (receipt) {
+          console.log(isSub.current, 'ieyvaaavayassjuy');
 
-          // if (isSub.current) {
-          // isSub.current = false;
-          await hitAPIToSever(purchase);
-          // }
+          if (isSub.current) {
+            isSub.current = false;
+            try {
+              await hitAPIToSever(purchase);
+            } catch (error) {
+              console.error('Error in hitAPIToSever:', error);
+              // Handle the error here (e.g., log it or take appropriate action)
+            }
+          }
         }
-      });
+      };
 
+      // Set up the purchase update listener
+      purchaseUpdateSubscription = purchaseUpdatedListener(
+        purchaseUpdateListener,
+      );
+
+      // Set up the purchase error listener
       purchaseErrorSubscription = purchaseErrorListener(error => {
-        console.log(error, 'purchaseErrorListener');
+        console.error(error, 'purchaseErrorListener'); // Use console.error for errors
       });
 
-      hasExecutedRef.current = true;
+      // Mark the listener as executed
+      hasListenerBeenSet = true;
     }
 
     return async () => {
+      // Remove the purchase update subscription
       if (purchaseUpdateSubscription) {
         purchaseUpdateSubscription.remove();
         purchaseUpdateSubscription = null;
       }
+
+      // Remove the purchase error subscription
       if (purchaseErrorSubscription) {
         purchaseErrorSubscription.remove();
         purchaseErrorSubscription = null;
       }
-      await endConnection();
+
+      // Perform cleanup or end the connection
+      // await endConnection();
     };
   };
+
+  ///OLD
+  // const updateListenerFunction = () => {
+  //   console.log('updateListner');
+  //   let i = 0;
+
+  //   if (!hasExecutedRef.current) {
+  //     purchaseUpdateSubscription = purchaseUpdatedListener(async purchase => {
+  //       const receipt = purchase.transactionReceipt;
+  //       console.log(purchase.packageNameAndroid, 'PurchaseAaaaaaAaaas');
+  //       console.log(purchase.productId, 'PurchaseAaaaaaAaaas');
+  //       console.log(purchase.purchaseToken, 'PurchaseAaaaaaAaaas');
+  //       console.log(i, 'ieyvaaaaavayassjuy');
+
+  //       if (receipt && i == 0) {
+  //         i++;
+  //         console.log(i, isSub.current, purchase, 'ieyvaaavayassjuy');
+
+  //         // if (isSub.current) {
+  //         // isSub.current = false;
+  //         await hitAPIToSever(purchase);
+  //         // }
+  //       }
+  //     });
+
+  //     purchaseErrorSubscription = purchaseErrorListener(error => {
+  //       console.log(error, 'purchaseErrorListener');
+  //     });
+
+  //     hasExecutedRef.current = true;
+  //   }
+
+  //   return async () => {
+  //     if (purchaseUpdateSubscription) {
+  //       purchaseUpdateSubscription.remove();
+  //       purchaseUpdateSubscription = null;
+  //     }
+  //     if (purchaseErrorSubscription) {
+  //       purchaseErrorSubscription.remove();
+  //       purchaseErrorSubscription = null;
+  //     }
+  //     await endConnection();
+  //   };
+  // };
 
   // new code Full debug
   // const hasExecutedRef = useRef(false);

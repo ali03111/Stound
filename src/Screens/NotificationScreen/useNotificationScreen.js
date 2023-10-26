@@ -31,13 +31,15 @@ const useNotificationScreen = ({navigate, addListener}) => {
     // navigate('HeaderDetailScreen', notificationDataState[currentIndex]);
     navigate('HeaderDetailScreen', notificationDataState[currentIndex]);
 
-    isSub.current = false;
+    // isSub.current = false;
   };
 
   const onCancel = (state, stateName, index, item) => {
     console.log(isSub.current, 'onCancelalsdfjlaksdjfkl');
 
     if (item?.coinUsed) {
+      // isSub.current = true;
+
       // If coin is used, navigate directly to the detail screen.
       navigate('HeaderDetailScreen', notificationDataState[index]);
     } else if (userData?.isSubscribed) {
@@ -45,11 +47,14 @@ const useNotificationScreen = ({navigate, addListener}) => {
       updateState({[stateName]: !state, currentIndex: index});
       navigate('HeaderDetailScreen', notificationDataState[index]);
     } else {
+      isSub.current = true;
+
       // If the user is not subscribed, navigate to the BuyCoinScreen and pass isSub.
       navigate('BuyCoinScreen', {
         items: notificationDataState[index],
         isSub,
       });
+      isSub.current = true;
     }
     console.log(isSub, 'onCancelalsdfjlaksaadjfkl');
   };

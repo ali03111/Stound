@@ -56,7 +56,7 @@ const useHeaderDetailScreen = ({navigate}, {params}) => {
           notificationId: id,
         }), // Provide an empty JSON object as the POST body
       });
-      console.log(response.json(), 'alksdklajsldkjalksjdklj');
+      // console.log(await response.json(), 'alksdklajsldkjalksjdklj');
       if (response.ok) {
         const data = await response.json();
         dispatch({type: types.UpdateProfile, payload: data.data});
@@ -82,7 +82,7 @@ const useHeaderDetailScreen = ({navigate}, {params}) => {
     onPressCall,
     navigationChatScreen,
     userData,
-    coinUsed
+    coinUsed,
   };
 };
 
