@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import * as Screens from '../Screens/index';
 import useReduxStore from '../Hooks/UseReduxStore';
@@ -29,18 +29,19 @@ export const screens = [
     color: '#cebf38',
   },
 ];
+
 const StackNavigatior = () => {
   const {getState} = useReduxStore();
   const {onboarding} = getState('onboarding');
   const {isLogin} = getState('Auth');
 
-  const [bool,setBool] = useState(true);
+  const [bool, setBool] = useState(true);
 
   useEffect(() => {
     const checkInitialNotification = async () => {
       const remoteMessage = await messaging().getInitialNotification();
       if (remoteMessage) {
-      setBool(false)
+        setBool(false);
         console.log(
           'Notification caused app to open from quit state:',
           remoteMessage.notification,
@@ -52,7 +53,6 @@ const StackNavigatior = () => {
   }, [bool]);
   // console.log('AIUth token', token);
   return (
-    
     <Stack.Navigator
       initialRouteName={!bool && 'NotificationScreen'}
       screenOptions={{
@@ -85,9 +85,9 @@ const StackNavigatior = () => {
         <>
           <Stack.Screen name="MybottomTabs" component={MybottomTabs} />
           <Stack.Screen
-           name="NotificationScreen"
-           component={Screens.NotificationScreen}
-         />
+            name="NotificationScreen"
+            component={Screens.NotificationScreen}
+          />
           <Stack.Screen name="ChatScreen" component={Screens.ChatScreen} />
           <Stack.Screen
             name="MessagesScreen"
@@ -128,7 +128,7 @@ const StackNavigatior = () => {
             name="PackageDetailsScreen"
             component={Screens.PackageDetailsScreen}
           />
-         
+
           <Stack.Screen
             name="BuyCoinScreen"
             component={withIAPContext(Screens.BuyCoinScreen)}
