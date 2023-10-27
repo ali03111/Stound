@@ -5,6 +5,8 @@ import useReduxStore from '../Hooks/UseReduxStore';
 import MybottomTabs from './bottomNavigation';
 import messaging from '@react-native-firebase/messaging';
 import {withIAPContext} from 'react-native-iap';
+import {store} from '../Redux/Reducers';
+import {setNotificationLength} from '../Redux/Action/recentNotification';
 
 const Stack = createNativeStackNavigator();
 export const screens = [
@@ -34,6 +36,9 @@ const StackNavigatior = () => {
   const {getState} = useReduxStore();
   const {onboarding} = getState('onboarding');
   const {isLogin} = getState('Auth');
+  const {notificationLength} = getState('notification');
+
+  console.log('notificasad1aasdtion', notificationLength);
 
   const [bool, setBool] = useState(true);
 
@@ -41,22 +46,28 @@ const StackNavigatior = () => {
     const checkInitialNotification = async () => {
       const remoteMessage = await messaging().getInitialNotification();
       if (remoteMessage) {
-        setBool(false);
+        // setBool(false);
         console.log(
           'Notification caused app to open from quit state:',
           remoteMessage.notification,
         );
+        store.dispatch(setNotificationLength(remoteMessage));
+
         // initialRouteRef.current = 'Onboarding'; // Update the ref value to "Home"
       }
     };
-    checkInitialNotification();
+    // checkInitialNotification();
   }, [bool]);
-  console.log(bool,'ldkdkidkdikdidkdikdi')
-  
+  console.log(bool, 'ldkdkidkdikdidkdikdi');
+
   // console.log('AIUth token', token);
   return (
     <Stack.Navigator
-    initialRouteName={bool ? 'OnboardScreen' : 'NotificationScreen'}
+      initialRouteName={
+        Boolean(notificationLength.notification?.title)
+          ? 'NotificationScreen'
+          : 'OnboardScreen'
+      }
       screenOptions={{
         headerTransparent: true,
         headerTitle: null,
