@@ -105,7 +105,7 @@ function App() {
     dispatch(fcmRegister(fcm_token));
   };
 
-   const onOpenNotification = notify => {
+    const onOpenNotification = notify => {
     console.log('notify', notify);
     if (navigationRef.isReady()) {
       // Perform navigation if the react navigation is ready to handle actions
@@ -126,16 +126,9 @@ function App() {
 
     //Get Token for firebase
     const getTokenFunction = async()=>{
-      const authStatus = await messaging().requestPermission();
-    const enabled =
-      authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
-      authStatus === messaging.AuthorizationStatus.PROVISIONAL;
-  
-    if (enabled) {
+    
       const authToken = await messaging().getToken();
-      console.log('Authorization status:', authStatus);
       console.log({authToken})
-    }
   
     }
     useEffect(()=>{

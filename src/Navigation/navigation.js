@@ -51,10 +51,12 @@ const StackNavigatior = () => {
     };
     checkInitialNotification();
   }, [bool]);
+  console.log(bool,'ldkdkidkdikdidkdikdi')
+  
   // console.log('AIUth token', token);
   return (
     <Stack.Navigator
-      initialRouteName={!bool && 'NotificationScreen'}
+    initialRouteName={bool ? 'OnboardScreen' : 'NotificationScreen'}
       screenOptions={{
         headerTransparent: true,
         headerTitle: null,
