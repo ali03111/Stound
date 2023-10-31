@@ -126,7 +126,8 @@ const useLocationScreen = ({goBack}, {params}) => {
   };
 
   function getLocationName(latitude, longitude) {
-    const geocodingAPI = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=AIzaSyBWU9HrMQUigxX7_ry_HpHNvEdn_Vve4DI`;
+    // const geocodingAPI = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=AIzaSyBWU9HrMQUigxX7_ry_HpHNvEdn_Vve4DI`;
+    const geocodingAPI = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=AIzaSyBZbrelj6pX2E593uWnF8FIboHhwbFAcnE`;
 
     // Replace "YOUR_API_KEY" with your actual Google Maps Geocoding API key
 
