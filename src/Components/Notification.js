@@ -41,7 +41,7 @@ const NotificationComp = ({ image, name, description, time, onPress }) => {
         <Text style={styles.nameDescription}>
           <TextComponent text={name} styles={styles.username} />
           <TextComponent
-            text={` ${description ?? ' interested'} your property and want to talk.`}
+            text={` ${description ?? ' interested'} in your property and want to talk.`}
             styles={styles.description}
           />
         </Text>

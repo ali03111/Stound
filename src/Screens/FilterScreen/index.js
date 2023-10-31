@@ -102,7 +102,7 @@ const FilterScreen = ({navigation}) => {
   } = useFilterScreen(navigation);
 
   //Render Preferences dynamics
-
+const [value,setValue]=useState(false)
   const renderItem = ({item, index}) => {
     console.log('itmemmemem', item);
     return (
@@ -114,6 +114,27 @@ const FilterScreen = ({navigation}) => {
       />
     );
   };
+  
+
+
+
+  const handleRangeChange = (low, high, fromUser) => {
+    setMin(low);
+    setMax(high);
+  };
+
+
+  const handleTouchStart = (newMinValue) => {
+    // Handle the onTouchEnd logic
+    // For example, set the values to a specific state when the touch ends.
+    setValue(true)
+  };
+  const handleTouchEnd = () => {
+    // Handle the onTouchEnd logic
+
+    setValue(false)
+  };
+
   const FlatListComp = ({data, onPress}) => {
     return (
       <FlatList
@@ -154,7 +175,7 @@ const FilterScreen = ({navigation}) => {
           goBack={() => navigation.goBack()}
         />
 
-        <ScrollView showsVerticalScrollIndicator={false}>
+        <ScrollView scrollEnabled={!value} showsVerticalScrollIndicator={false}>
           <View style={styles.filterMain}>
             <View style={{paddingHorizontal: wp('3')}}>
               <TextComponent styles={styles.itemHeading1} text={'I Want To'} />
@@ -407,6 +428,9 @@ const FilterScreen = ({navigation}) => {
                     onValueChange={(itemValue, itemIndex) =>
                       onSelecteTag(itemValue, 'rooms')
                     }>
+                    {/* ADD */}
+                    <Picker.Item label="Select" value={null} />
+                    {/* ADD */}
                     <Picker.Item label="1" value="1" />
                     <Picker.Item label="2" value="2" />
                     <Picker.Item label="3" value="3" />
@@ -458,6 +482,9 @@ const FilterScreen = ({navigation}) => {
                     onValueChange={(itemValue, itemIndex) =>
                       onSelecteTag(itemValue, 'bathRoom')
                     }>
+                             {/* ADD */}
+              <Picker.Item label="Select" value={null} />
+              {/* ADD */}
                     <Picker.Item label="1" value="1" />
                     <Picker.Item label="2" value="2" />
                     <Picker.Item label="3" value="3" />
@@ -621,24 +648,25 @@ const FilterScreen = ({navigation}) => {
                     }}
                   /> */}
              <RangeSlider
+             
              labelBackgroundColor={Colors.primaryColor}
              labelBorderColor={Colors.border2}
     style={{width: wp('95'), height: 80}}
     gravity={'center'}
     min={MIN_DEFAULT}
     max={MAX_DEFAULT}
-    step={20}
+    step={100000}
     selectionColor={Colors.primaryColor}
     blankColor="#feff"
-    onValueChanged={(low, high, fromUser) => {
-          setMin(low);
-          setMax(high);
-        // this.setState({rangeLow: low, rangeHigh: high})
-    }}/>
+    onTouchStart={handleTouchStart}
+    onTouchEnd={() => handleTouchEnd(min,max)} // Pass the callback function for onTouchEnd
+    onValueChanged={handleRangeChange} 
+    // onTouchEnd={handleTouchEnd}
+    // onValueChanged={handleRangeChange}
+    />
                 </View>
 
                 <View style={styles.rangeTextMain}>
-                  {/* <View style={{...styles.rightView}}> */}
                   <TextComponent
                     styles={styles.rangeTextLeft}
                     text={`$${min}`}
@@ -646,7 +674,6 @@ const FilterScreen = ({navigation}) => {
                   {/* </View> */}
                   <View
                     style={{justifyContent: 'center', alignItems: 'center'}}>
-                    {/* <TextComponent styles={styles.to} text={`To`} /> */}
                   </View>
 
                   {/* <View style={{...styles.rightView}}> */}
@@ -739,6 +766,10 @@ const FilterScreen = ({navigation}) => {
               onValueChange={(itemValue, itemIndex) =>
                 onSelecteTag(itemValue, 'rooms')
               }>
+              {/* ADD */}
+              <Picker.Item label="Select" value={null} />
+              {/* ADD */}
+
               <Picker.Item label="1" value="1" />
               <Picker.Item label="2" value="2" />
               <Picker.Item label="3" value="3" />
@@ -783,6 +814,9 @@ const FilterScreen = ({navigation}) => {
               onValueChange={(itemValue, itemIndex) =>
                 onSelecteTag(itemValue, 'bathRoom')
               }>
+              {/* ADD */}
+              <Picker.Item label="Select" value={null} />
+              {/* ADD */}
               <Picker.Item label="1" value="1" />
               <Picker.Item label="2" value="2" />
               <Picker.Item label="3" value="3" />
