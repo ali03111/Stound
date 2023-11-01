@@ -76,9 +76,9 @@ function MybottomTabs() {
               //     : wp(isIOS ? '100' : '100')
               // }
               height={
-                width<=375?
-                hp(isIOS ? '13.5' : '14.5'):
-                hp(isIOS ? '10' : '11')}
+                width<=415?
+                hp(isIOS ? '13.5' : '11.8'):
+                hp(isIOS ? '10' : '10')}
               viewBox={isIOS ? '0 0 394 78' : '0 0 414 85'}
               style={styles.barSvg}
               fill="none"
@@ -116,9 +116,9 @@ function MybottomTabs() {
               <Svg
                 width={wp('15')}
                 height={
-                  width <= 400 ?
+                  width <= 415 ?
                   
-                  hp('6.5') :
+                  hp('7.2') :
                   hp('6.2')}
                 viewBox="0 0 54 54"
                 style={styles.circleSvg}
@@ -205,7 +205,7 @@ const styles = StyleSheet.create({
   tabarView: (focused, last) => ({
     width: 'auto',
     backgroundColor: 'transparent',
-    bottom: height <= 667 ? hp('1.5') : isIOS ? hp('-0.5') : hp('0.5 '),
+    bottom: height <= 667 ? isIOS?hp('1.5'):hp('1.5') : isIOS ? hp('-0.5') : hp('0.5 '),
   }),
   circleSvg: {
     position: 'absolute',
@@ -218,7 +218,7 @@ const styles = StyleSheet.create({
   },
   barSvg: {
     position: 'absolute',
-    bottom: isIOS ? hp('0') : hp('-0.5'),
+    bottom: height <= 667?isIOS ?  hp('0') : hp('-0.5'):isIOS ?  hp('0') : hp('-1'),
     zIndex: 1,
     alignSelf: 'center',
   },

@@ -87,7 +87,7 @@ const verificationSchema = yup.object().shape({
 const resetPasswordScheme = yup.object().shape({
   password: yup
     .string()
-    .required('Please Enter your password')
+    .required('Please enter your new password')
     .max(25, 'Password must be less than 25 characters')
     .matches(
       /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
@@ -95,12 +95,12 @@ const resetPasswordScheme = yup.object().shape({
     ),
   new_password: yup
     .string()
-    .required('Please Enter your new password')
+    .required('Please enter your confirm password')
     .max(25, 'Password must be less than 25 characters')
     .matches(
       /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
       'Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character',
-    ),
+    )  .oneOf([yup.ref('password'), null], 'Password must match'),
 });
 
 const addPlaylistScheme = yup.object().shape({
