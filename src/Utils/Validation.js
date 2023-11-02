@@ -36,9 +36,11 @@ const signUpschema = yup.object().shape({
     .min(2, 'Name must be atleast 2 characters')
     .max(50, 'Name must be of 50 characters'),
   // city: yup.string().required('Please Enter Your country'),
-  number: yup.string().required('Please enter your number') .
-  matches(/^[0-9]+$/, 'Please enter valid number')
-  .min(2, 'Number must be atleast 2 characters')
+  number: yup
+    .string()
+    .required('Please enter your number')
+    .matches(/^[0-9]+$/, 'Please enter valid number')
+    .min(2, 'Number must be atleast 2 characters')
 
     .max(25, 'Number must be of 25 characters'),
 
@@ -87,7 +89,7 @@ const verificationSchema = yup.object().shape({
 const resetPasswordScheme = yup.object().shape({
   password: yup
     .string()
-    .required('Please Enter your password')
+    .required('Please enter your new password')
     .max(25, 'Password must be less than 25 characters')
     .matches(
       /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
@@ -95,7 +97,9 @@ const resetPasswordScheme = yup.object().shape({
     ),
   new_password: yup
     .string()
-    .required('Please Enter your new password')
+    .required(
+      'Please enter your confirm password and should be same as new password',
+    )
     .max(25, 'Password must be less than 25 characters')
     .matches(
       /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
