@@ -502,10 +502,10 @@ const Subscriptions = () => {
         onPress={onPress}
         style={styles.mainContainer}>
         <View style={{flexDirection: 'row'}}>
-          <Image
+          {/* <Image
             style={styles.CoinImage}
             source={require('../../Assests/Icons/usdCoin.png')}
-          />
+          /> */}
           <View style={styles.midTextContainer}>
             <TextComponent text={coinTitle} styles={styles.coinText} />
             <TextComponent text={coinDes} styles={styles.coinDesText} />

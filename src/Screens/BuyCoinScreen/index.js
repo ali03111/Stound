@@ -463,7 +463,7 @@ const index = ({navigation, route}) => {
         <View style={{flexDirection: 'row'}}>
           <Image
             style={styles.CoinImage}
-            source={require('../../Assests/Icons/usdCoin.png')}
+            // source={require('../../Assests/Icons/usdCoin.png')}
           />
           <View style={styles.midTextContainer}>
             <TextComponent text={coinTitle} styles={styles.coinText} />

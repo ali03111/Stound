@@ -74,7 +74,7 @@ const useAddPostScreen = ({navigate}) => {
   const uploadFromGalary = () => {
     launchImageLibrary(
       {
-        selectionLimit:0,
+        selectionLimit: 0,
         mediaType: 'photo',
         quality: 1,
         // maxWidth: 300,
@@ -83,20 +83,20 @@ const useAddPostScreen = ({navigate}) => {
       res => {
         if (!res?.didCancel) {
           const selectedImages = res?.assets || [];
-          
+
           if (images.length + selectedImages.length <= 10) {
-            updateState({ images: [...images, ...selectedImages] });
+            updateState({images: [...images, ...selectedImages]});
           } else {
             // You've reached the maximum limit, show an error message or take appropriate action.
             // You can also limit the selection in a different way here.
             console.log("You can't select more than 10 images.");
-            errorMessage("You can't select more than 10 images.")
+            errorMessage("You can't select more than 10 images.");
           }
         }
       },
     );
   };
-  
+
   const deleteImage = index => {
     const updatedImages = [...preferencesVal.images];
     updatedImages.splice(index, 1);
@@ -109,7 +109,6 @@ const useAddPostScreen = ({navigate}) => {
     data.map(res => newArry.push(res.id));
     return newArry;
   };
-
 
   const postData = async ({title, desc, number}) => {
     dispatch(loadingTrue());

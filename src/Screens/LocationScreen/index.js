@@ -28,7 +28,7 @@ const Index = ({navigation, route}) => {
   return (
     <>
       {console.log('CurrentLocaoitnqw', location)}
-      <View style={{flex: 1,}}>
+      <View style={{flex: 1}}>
         <Header
           headerTitle={'Location'}
           arrowBackIcon={arrowback}
@@ -110,7 +110,8 @@ const Index = ({navigation, route}) => {
               handleButtonClick(data);
             }}
             query={{
-              key: 'AIzaSyBWU9HrMQUigxX7_ry_HpHNvEdn_Vve4DI',
+              key: 'AIzaSyCiM-Wf1kpX4urdLekdjuSjGQSIqB8dVm8',
+              // key: 'AIzaSyBWU9HrMQUigxX7_ry_HpHNvEdn_Vve4DI',
               language: 'en',
               // components: 'country:us',
             }}
@@ -123,7 +124,6 @@ const Index = ({navigation, route}) => {
 
             {location.coords ? (
               <Image
-              
                 style={styles.image}
                 source={require('../../Assests/Icons/gps.png')}
               />

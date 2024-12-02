@@ -60,10 +60,12 @@ const loginSaga = function* ({payload: {datas, type}}) {
       ok: true,
       isNewUser: result.isNewUser,
     };
+    console.log(result, 'sallslsls');
 
     if (ok) {
       const idTokenResult = yield call(getFbResult);
       const jwtToken = idTokenResult.token;
+      console.log(jwtToken, 'soeooeooeoeooeo');
       if (jwtToken) {
         const {data, ok} = yield call(loginService, {
           token: jwtToken,
@@ -171,6 +173,7 @@ an action object as an argument, destructures its `payload` property to get `dat
 performs a series of asynchronous operations using the `yield` keyword. */
 function* registerSaga({payload: {datas}}) {
   const agoraId = uuid.v4();
+  console.log(agoraId, 'aklsdjalsjflkasjdflkj');
   yield put(loadingTrue());
   try {
     const result = yield call(emailSignUp, datas);
@@ -184,8 +187,8 @@ function* registerSaga({payload: {datas}}) {
           token: jwtToken,
           data: {...datas, agoraId},
         });
-        console.log(data, 'DAATATAA');
-        console.log(datas, 'DASTASSASA');
+        console.log(data, 'DAATAT111AA');
+        console.log(datas, jwtToken, agoraId, 'DASTASSASA');
         //Add new user to firestore
         yield call(createUserFirestore, {datas, data});
 

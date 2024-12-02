@@ -91,6 +91,7 @@ const useHomeScreen = ({navigate, params, addListener}) => {
 
   const getHomeData = async () => {
     const {ok, data} = await API.get(getAdsUrl);
+    console.log(data, 'alksjdlkajsdlfkjaklsd');
     if (ok) {
       dispatch({type: types.UpdateProfile, payload: data.user});
       setHomeData(data?.data);

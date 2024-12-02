@@ -76,9 +76,10 @@ function MybottomTabs() {
               //     : wp(isIOS ? '100' : '100')
               // }
               height={
-                width<=415?
-                hp(isIOS ? '13.5' : '11.8'):
-                hp(isIOS ? '10' : '10')}
+                width <= 415
+                  ? hp(isIOS ? '13.5' : '11.8')
+                  : hp(isIOS ? '10' : '10')
+              }
               viewBox={isIOS ? '0 0 394 78' : '0 0 414 85'}
               style={styles.barSvg}
               fill="none"
@@ -115,11 +116,7 @@ function MybottomTabs() {
             return (
               <Svg
                 width={wp('15')}
-                height={
-                  width <= 415 ?
-                  
-                  hp('7.2') :
-                  hp('6.2')}
+                height={width <= 415 ? hp('7.2') : hp('6.2')}
                 viewBox="0 0 54 54"
                 style={styles.circleSvg}
                 fill="none"
@@ -185,7 +182,7 @@ const styles = StyleSheet.create({
       Dimensions.get('window').width + Dimensions.get('window').height,
     ),
     alignSelf: 'center',
-    width:Dimensions.get('screen').width * 0.15,
+    width: Dimensions.get('screen').width * 0.15,
     height: Dimensions.get('screen').width * 0.15,
     alignContent: 'center',
     justifyContent: 'center',
@@ -205,20 +202,40 @@ const styles = StyleSheet.create({
   tabarView: (focused, last) => ({
     width: 'auto',
     backgroundColor: 'transparent',
-    bottom: height <= 667 ? isIOS?hp('1.5'):hp('1.5') : isIOS ? hp('-0.5') : hp('0.5 '),
+    bottom:
+      height <= 667
+        ? isIOS
+          ? hp('1.5')
+          : hp('1.5')
+        : isIOS
+        ? hp('-0.5')
+        : hp('0.5 '),
   }),
   circleSvg: {
     position: 'absolute',
     zIndex: 1,
     bottom:
-      height <= 667 ? (isIOS ? hp('3') : hp('6')) : isIOS ? hp('-1') : hp('2'),
+      height <= 667
+        ? isIOS
+          ? hp('3')
+          : hp('6')
+        : isIOS
+        ? hp('-0.5')
+        : hp('2'),
     justifyContent: 'center',
     alignItems: 'center',
     // backgroundColor:'red'
   },
   barSvg: {
     position: 'absolute',
-    bottom: height <= 667?isIOS ?  hp('0') : hp('-0.5'):isIOS ?  hp('0') : hp('-1'),
+    bottom:
+      height <= 667
+        ? isIOS
+          ? hp('0')
+          : hp('-0.5')
+        : isIOS
+        ? hp('0')
+        : hp('-1'),
     zIndex: 1,
     alignSelf: 'center',
   },
