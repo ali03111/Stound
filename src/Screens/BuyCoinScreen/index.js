@@ -460,14 +460,19 @@ const index = ({navigation, route}) => {
   const BuyCoin = ({coinTitle, coinDes, coinPrice, onPress}) => {
     return (
       <TouchableOpacity onPress={onPress} style={styles.mainContainer}>
-        <View style={{flexDirection: 'row'}}>
+        <View
+          style={{
+            flexDirection: 'row',
+          }}>
           <Image
             style={styles.CoinImage}
-            // source={require('../../Assests/Icons/usdCoin.png')}
+            source={require('../../Assests/Icons/coin.png')}
           />
           <View style={styles.midTextContainer}>
             <TextComponent text={coinTitle} styles={styles.coinText} />
-            <TextComponent text={coinDes} styles={styles.coinDesText} />
+            {coinDes ? (
+              <TextComponent text={coinDes} styles={styles.coinDesText} />
+            ) : null}
           </View>
         </View>
         <View style={styles.lastTextContainer}>
@@ -529,7 +534,7 @@ const index = ({navigation, route}) => {
                         handleBuySubscription(subscription.productId);
                       }}
                       coinTitle={subscription?.title}
-                      // coinDes={'Validy until your coins finish'}
+                      coinDes={'Validy until your coins finish'}
                       coinPrice={subscription?.localizedPrice}
                     />
                   )}

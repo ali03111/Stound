@@ -1,7 +1,7 @@
 import {Dimensions, StyleSheet} from 'react-native';
 import {hp, wp} from '../../Config/responsive';
 import {Colors} from '../../Theme/Variables';
-import { height } from '../../Navigation/bottomNavigation';
+import {height} from '../../Navigation/bottomNavigation';
 
 export const styles = StyleSheet.create({
   topContainer: {
@@ -9,7 +9,7 @@ export const styles = StyleSheet.create({
     borderRadius: 10,
   },
   recentLocationContainer: {
-    borderColor: '#0BB4FF',
+    // borderColor: '#0BB4FF',
     justifyContent: 'space-between',
     backgroundColor: 'white',
     borderRadius: 10,
@@ -21,7 +21,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'row', // Added to align icon and input
     alignItems: 'center',
     position: 'absolute',
-    top: height>667? hp('10'):hp('13'),
+    top: height > 667 ? hp('10') : hp('13'),
     zIndex: -1,
     overflow: 'hidden',
     shadowColor: '#000',
@@ -37,7 +37,7 @@ export const styles = StyleSheet.create({
   image: {
     width: wp('6'),
     aspectRatio: 1,
-    color:Colors.grayborder
+    color: Colors.grayborder,
   },
   text: {
     fontSize: hp('1.8'),
@@ -60,7 +60,7 @@ export const styles = StyleSheet.create({
   },
   innerRecentContainer: {
     // borderColor: Colors.primaryTextColor,
-    borderColor: '#0BB4FF',
+    // borderColor: '#0BB4FF',
 
     justifyContent: 'space-between',
     backgroundColor: 'white',
