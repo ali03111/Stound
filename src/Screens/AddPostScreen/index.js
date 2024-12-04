@@ -858,6 +858,7 @@ const AddPostScreen = ({navigation}) => {
     number,
     numberRegex,
     options,
+    validateForm,
   } = useAddPostScreen(navigation);
 
   const renderItem = ({item, index}) => {
@@ -985,10 +986,7 @@ const AddPostScreen = ({navigation}) => {
                     preferencesData.cat.map(res => {
                       console.log('res.name', res);
                       return (
-                        <Picker.Item
-                          label={res.name}
-                          value={res.categoryId}
-                        />
+                        <Picker.Item label={res.name} value={res.categoryId} />
                       );
                     })}
                 </Picker>
@@ -1366,12 +1364,17 @@ const AddPostScreen = ({navigation}) => {
               style={styles.applyFilter}
               textStyle={styles.filterText}
               onPress={
-                title && desc && number
-                  ? handleSubmit(postData)
-                  : () =>
-                      !numberRegex.test(number)
-                        ? errorMessage('Please correct your price')
-                        : errorMessage('Please comeplete all fields')
+                () => {
+                  if (validateForm()) {
+                    handleSubmit(postData);
+                  }
+                }
+                // title && desc && number
+                //   ? handleSubmit(postData)
+                //   : () =>
+                //       !numberRegex.test(number)
+                //         ? errorMessage('Please correct your price')
+                //         : errorMessage('Please comeplete all fields')
               }
               // onPress={checkAuthentication}
             />

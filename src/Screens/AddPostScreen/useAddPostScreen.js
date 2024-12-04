@@ -111,8 +111,18 @@ const useAddPostScreen = ({navigate}) => {
   };
 
   const postData = async ({title, desc, number}) => {
+    console.log('asljdflkajsdflkajsdlfkjasldfkj');
     dispatch(loadingTrue());
+    if (!number || Number(number) === 0 || numberRegex.test(number)) {
+      // Display error message if proposed_price is null or 0
+      Alert.alert('Invalid', 'Price cannot be empty or zero.');
+      return; // Exit the function early
+    }
 
+    if (!title || !desc || !number) {
+      errorMessage('Please complete all fields before submitting.');
+      return;
+    }
     if (
       images.length &&
       cat != null &&
@@ -121,8 +131,7 @@ const useAddPostScreen = ({navigate}) => {
       gp.length &&
       ip.length &&
       op.length &&
-      location != '' &&
-      numberRegex.test(number)
+      location != ''
     ) {
       const body = {
         title: title,
@@ -135,7 +144,7 @@ const useAddPostScreen = ({navigate}) => {
         outsidePref: getAllID(op),
         category: cat,
         photos: images,
-        price: number,
+        // price: number,
         adType: type,
         country: countryName,
         state: stateName,
@@ -177,9 +186,9 @@ const useAddPostScreen = ({navigate}) => {
       }
     } else {
       dispatch(loadingFalse());
-      !numberRegex.test(number)
-        ? errorMessage('Please correct your price')
-        : errorMessage('Please comeplete all fields');
+      // !numberRegex.test(number)
+      //   ? errorMessage('Please correct your price')
+      errorMessage('Please comeplete all fields');
     }
   };
   const useEffectFun = () => {
@@ -311,6 +320,75 @@ const useAddPostScreen = ({navigate}) => {
     setStateData([]);
     setCityData([]);
   }, []);
+
+  const validateForm = () => {
+    const title = getValues('title');
+    const desc = getValues('desc');
+    const number = getValues('number');
+
+    console.log(title?.length, desc.length, 'Title length');
+
+    if (!title || title.length < 15) {
+      errorMessage(
+        'Title cannot be null and must be at least 15 characters long',
+      );
+      return;
+    }
+
+    if (!desc || desc.length < 20) {
+      errorMessage(
+        'Description cannot be null or description must be at least 20 characters long ',
+      );
+      return;
+    }
+
+    if (!number) {
+      errorMessage('Price is required');
+      return;
+    }
+
+    if (isNaN(number) || Number(number) <= 0) {
+      errorMessage('Please enter a valid positive number for price');
+      return;
+    }
+
+    if (location == '') {
+      errorMessage('Location cannot be empty');
+      return;
+    }
+
+    if (!country) {
+      errorMessage('Country cannot be empty');
+      return;
+    }
+    if (!bathRoom) {
+      errorMessage('Bathrooms must select');
+      return;
+    }
+    if (!rooms) {
+      errorMessage('Rooms must select');
+      return;
+    }
+    // if (images.length > 0) {
+    //   errorMessage('Please upload the image');
+    //   return;
+    // }
+
+    // if (gp.length > 0) {
+    //   errorMessage('General Preferences please must select');
+    //   return;
+    // }
+    // if (op.length > 0) {
+    //   errorMessage('Outside Preferences please must select');
+    //   return;
+    // }
+    // if (ip.length > 0) {
+    //   errorMessage('Inside Preferences please must select');
+    //   return;
+    // }
+
+    return true;
+  };
   return {
     handleSubmit,
     errors,
@@ -366,6 +444,7 @@ const useAddPostScreen = ({navigate}) => {
     number,
     numberRegex,
     options,
+    validateForm,
     // handleError
     // goBack,
   };

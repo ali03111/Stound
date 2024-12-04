@@ -7,50 +7,23 @@ import {arrowback} from '../../Assests';
 import MyListingComp from '../../Components/MyListingComp';
 import {hp} from '../../Config/responsive';
 import {isIOS} from '../../Theme/Variables';
+import {keyExtractor} from '../../Utils';
 MyListingComp;
 const MyListing = ({navigation}) => {
-  const {} = useMyListing(navigation);
+  const {listingData} = useMyListing(navigation);
 
-  const data = [
-    {
-      price: '1500',
-      apartmentName: 'Apartment for rent',
-      location: '1050 Old Nichols Rd Islandia.',
-      Baths: '3',
-      Beds: '4',
-      sqft: '120',
-    },
-    // {
-    //   price: '1500',
-    //   apartmentName: 'Apartment for rent',
-    //   location: '1050 Old Nichols Rd Islandia.',
-    //   Baths: '3',
-    //   Beds: '4',
-    //   sqft: '120',
-    // },
-    // {
-    //   price: '1500',
-    //   apartmentName: 'Apartment for rent',
-    //   location: '1050 Old Nichols Rd Islandia.',
-    //   Baths: '3',
-    //   Beds: '4',
-    //   sqft: '120',
-    // },
-    // {
-    //   price: '1500',
-    //   apartmentName: 'Apartment for rent',
-    //   location: '1050 Old Nichols Rd Islandia.',
-    //   Baths: '3',
-    //   Beds: '4',
-    //   sqft: '120',
-    // },
-  ];
-
-  const renderItem = useCallback((item, index) => {
+  const renderItem = useCallback(({item, index}) => {
     console.log(item, index, 'MY LISTINGIGNIGNIGN');
     return (
-      <View>
-        <MyListingComp />
+      <View style={{marginBottom: hp('2')}}>
+        <MyListingComp
+          price={item?.price}
+          location={item?.location}
+          title={item?.title}
+          bathrooms={item?.bathrooms}
+          rooms={item?.rooms}
+          onPressInquires={() => navigation.navigate('MybottomTabs')}
+        />
       </View>
     );
   }, []);
@@ -59,7 +32,8 @@ const MyListing = ({navigation}) => {
       style={{
         flex: 1,
         paddingTop: hp(isIOS ? '1' : '3'),
-        paddingBottom: hp('15'),
+        alignItems: 'center',
+        marginBottom: hp('2'),
       }}>
       <Header
         style={styles.topHeader}
@@ -69,11 +43,12 @@ const MyListing = ({navigation}) => {
         goBack={() => navigation.navigate('MybottomTabs')}
       />
       <FlatList
-        data={data}
+        showsVerticalScrollIndicator={false}
+        data={listingData}
         renderItem={renderItem}
-        contentContainerStyle={{alignItems: 'center'}}
+        contentContainerStyle={{marginBottom: hp('1')}}
+        keyExtractor={keyExtractor}
       />
-      <Text>MyListing</Text>
     </View>
   );
 };

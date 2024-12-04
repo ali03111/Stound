@@ -1,7 +1,7 @@
 import {Image, ImageBackground, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {TextComponent} from './TextComponent';
-import {Colors, FontSize} from '../Theme/Variables';
+import {Colors, FontSize, isIOS} from '../Theme/Variables';
 import {hp, wp} from '../Config/responsive';
 import {bathtub, bed, locationIcon, scaleIcon} from '../Assests';
 import {Touchable} from './Touchable';
@@ -19,7 +19,15 @@ const DetailButton = ({title, onPress, hide, style, textStyle}) => {
   );
 };
 
-const MyListingComp = ({onPressInquires, onPressEdit}) => {
+const MyListingComp = ({
+  price,
+  location,
+  title,
+  bathrooms,
+  rooms,
+  onPressInquires,
+  onPressEdit,
+}) => {
   return (
     <>
       <ImageBackground
@@ -36,7 +44,7 @@ const MyListingComp = ({onPressInquires, onPressEdit}) => {
       >
         <View style={{padding: 10}}>
           <Text style={styles.price}>
-            ${1500}/
+            ${price}/
             <TextComponent
               text={`month`}
               styles={{
@@ -46,15 +54,13 @@ const MyListingComp = ({onPressInquires, onPressEdit}) => {
               }}
             />
           </Text>
-          <TextComponent
-            text={`Apartment for rent`}
-            styles={styles.apartitle}
-          />
+          <TextComponent text={`${title}`} styles={styles.apartitle} />
           <View
             style={{
               flexDirection: 'row',
               alignItems: 'center',
               marginTop: hp('3'),
+              width: wp('60'),
             }}>
             <Image
               resizeMode="contain"
@@ -65,7 +71,7 @@ const MyListingComp = ({onPressInquires, onPressEdit}) => {
             <TextComponent
               numberOfLines={2}
               // text={locationName}
-              text={'1050 Old Nichols Rd Islandia.'}
+              text={location}
               styles={styles.userlocation}
             />
             {/* )} */}
@@ -78,19 +84,22 @@ const MyListingComp = ({onPressInquires, onPressEdit}) => {
               }}>
               <View style={styles.cardTopRight}>
                 <Image source={bathtub} />
-                <TextComponent text={'3' + ' Bath'} styles={styles.bath} />
+                <TextComponent
+                  text={bathrooms + ' Bath'}
+                  styles={styles.bath}
+                />
 
                 <Image source={bed} />
-                <TextComponent text={'4' + ' Bed'} styles={styles.bed} />
+                <TextComponent text={rooms + ' Bed'} styles={styles.bed} />
 
-                <Image source={scaleIcon} />
-                <TextComponent text={'2' + ' sqft'} styles={styles.bed} />
+                {/* <Image source={scaleIcon} />
+                <TextComponent text={'2' + ' sqft'} styles={styles.bed} /> */}
               </View>
             </View>
           </View>
         </View>
         <View style={styles.inquires}>
-          <DetailButton title={'Details'} onPress={onPressInquires} />
+          <DetailButton title={'Inquiries'} onPress={onPressInquires} />
         </View>
         <View style={styles.edit}>
           <DetailButton title={'Edit'} onPress={onPressEdit} />
@@ -105,12 +114,11 @@ export default MyListingComp;
 const styles = StyleSheet.create({
   button: {
     width: wp('25'),
-    borderRadius: 8,
+    borderRadius: 5,
     paddingVertical: hp('1'),
     alignItems: 'center',
     justifyContent: 'center',
-    borderWidth: 0.2,
-
+    borderWidth: 0.3,
     borderColor: Colors.white,
     backgroundColor: 'rgba(0, 0, 0, 0.65)',
   },
@@ -127,7 +135,7 @@ const styles = StyleSheet.create({
   },
   inquires: {
     alignSelf: 'flex-end',
-    bottom: hp('7'),
+    bottom: hp(isIOS ? '7' : '7.5'),
     right: wp('1'),
     overflow: 'hidden',
     position: 'absolute',
@@ -143,12 +151,12 @@ const styles = StyleSheet.create({
     color: 'white',
     marginLeft: wp('1'),
     marginRight: wp('1.5'),
-    fontSize: hp('1.7'),
+    fontSize: FontSize.scale12,
   },
   bed: {
     color: 'white',
     marginLeft: wp('1'),
-    fontSize: hp('1.7'),
+    fontSize: FontSize.scale12,
     marginRight: wp('1.5'),
   },
   cardTopRight: {
