@@ -110,19 +110,92 @@ const useAddPostScreen = ({navigate}) => {
     return newArry;
   };
 
-  const postData = async ({title, desc, number}) => {
-    console.log('asljdflkajsdflkajsdlfkjasldfkj');
-    dispatch(loadingTrue());
-    if (!number || Number(number) === 0 || numberRegex.test(number)) {
-      // Display error message if proposed_price is null or 0
-      Alert.alert('Invalid', 'Price cannot be empty or zero.');
-      return; // Exit the function early
-    }
+  // const postData = async ({title, desc, number}) => {
+  //   console.log('asljdflkajsdflkajsdlfkjasldfkj');
+  //   dispatch(loadingTrue());
+  //   // if (!number || Number(number) === 0 || numberRegex.test(number)) {
+  //   //   // Display error message if proposed_price is null or 0
+  //   //   Alert.alert('Invalid', 'Price cannot be empty or zero.');
+  //   //   return; // Exit the function early
+  //   // }
 
-    if (!title || !desc || !number) {
-      errorMessage('Please complete all fields before submitting.');
-      return;
-    }
+  //   // if (!title || !desc || !number) {
+  //   //   errorMessage('Please complete all fields before submitting.');
+  //   //   return;
+  //   // }
+  //   if (
+  //     images.length &&
+  //     cat != null &&
+  //     rooms != null &&
+  //     bathRoom != null &&
+  //     gp.length &&
+  //     ip.length &&
+  //     op.length &&
+  //     location != ''
+  //   ) {
+  //     const body = {
+  //       title: title,
+  //       rooms: rooms,
+  //       description: desc,
+  //       bathrooms: bathRoom,
+  //       location,
+  //       generalPref: getAllID(gp),
+  //       insidePref: getAllID(ip),
+  //       outsidePref: getAllID(op),
+  //       category: cat,
+  //       photos: images,
+  //       // price: number,
+  //       adType: type,
+  //       country: countryName,
+  //       state: stateName,
+  //       city: cityName,
+  //     };
+  //     console.log(body, 'alsdkaskldf');
+  //     const {ok, data, status, originalError, problem} = await formDataFunc(
+  //       createAdsUrl,
+  //       body,
+  //       'photos',
+  //       true,
+  //     );
+  //     console.log(data, 'sadlkfjlsadkfj');
+  //     if (ok) {
+  //       updateState({
+  //         images: [],
+  //         gp: null,
+  //         op: null,
+  //         ip: null,
+  //         cat: null,
+  //         rooms: null,
+  //         bathRoom: null,
+  //         location: '',
+  //         number,
+  //       });
+  //       // reset();
+  //       dispatch(loadingFalse());
+  //       successMessage(data?.message || 'Your Ad has been created ');
+  //       navigate('HomeScreen');
+
+  //       reset();
+  //       setTimeout(() => {
+  //         onResetState();
+  //       }, 1000);
+  //     } else {
+  //       dispatch(loadingFalse());
+  //       console.log('dfdfa', originalError, status, problem, data?.message);
+  //       errorMessage(originalError?.message?.split(' ')?.slice(1)?.join(' '));
+  //     }
+  //   } else {
+  //     dispatch(loadingFalse());
+  //     // !numberRegex.test(number)
+  //     //   ? errorMessage('Please correct your price')
+  //     errorMessage('Please comeplete all fields');
+  //   }
+  // };
+
+  const postData = async ({title, desc, number}) => {
+    console.log('alsdkfjlakjsdiedkddi');
+    dispatch(loadingTrue());
+
     if (
       images.length &&
       cat != null &&
@@ -131,7 +204,8 @@ const useAddPostScreen = ({navigate}) => {
       gp.length &&
       ip.length &&
       op.length &&
-      location != ''
+      location != '' &&
+      numberRegex.test(number)
     ) {
       const body = {
         title: title,
@@ -144,7 +218,7 @@ const useAddPostScreen = ({navigate}) => {
         outsidePref: getAllID(op),
         category: cat,
         photos: images,
-        // price: number,
+        price: number,
         adType: type,
         country: countryName,
         state: stateName,
@@ -186,9 +260,9 @@ const useAddPostScreen = ({navigate}) => {
       }
     } else {
       dispatch(loadingFalse());
-      // !numberRegex.test(number)
-      //   ? errorMessage('Please correct your price')
-      errorMessage('Please comeplete all fields');
+      !numberRegex.test(number)
+        ? errorMessage('Please correct your price')
+        : errorMessage('Please comeplete all fields');
     }
   };
   const useEffectFun = () => {
@@ -326,8 +400,6 @@ const useAddPostScreen = ({navigate}) => {
     const desc = getValues('desc');
     const number = getValues('number');
 
-    console.log(title?.length, desc.length, 'Title length');
-
     if (!title || title.length < 15) {
       errorMessage(
         'Title cannot be null and must be at least 15 characters long',
@@ -369,6 +441,7 @@ const useAddPostScreen = ({navigate}) => {
       errorMessage('Rooms must select');
       return;
     }
+    return true;
     // if (images.length > 0) {
     //   errorMessage('Please upload the image');
     //   return;
@@ -386,8 +459,6 @@ const useAddPostScreen = ({navigate}) => {
     //   errorMessage('Inside Preferences please must select');
     //   return;
     // }
-
-    return true;
   };
   return {
     handleSubmit,

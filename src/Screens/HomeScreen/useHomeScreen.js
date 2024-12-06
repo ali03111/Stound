@@ -59,7 +59,11 @@ const useHomeScreen = ({navigate, params, addListener}) => {
   };
 
   const askQuestion = async index => {
-    console.log(homeData[index].adId, 'alkdjljrujvjvjvjvj');
+    console.log(
+      homeData[index].adId,
+      userData.isAnswered,
+      'alkdjljrujvjvjvjvj',
+    );
 
     if (!userData.isAnswered) {
       dispatch(setAdId(homeData[index].adId));
@@ -79,6 +83,7 @@ const useHomeScreen = ({navigate, params, addListener}) => {
     const {ok, data} = await API.post(addQuesUrl, {
       answer: selectedId.label,
     });
+    console.log(data, 'sdklfjalksdfjlaksdfj');
     if (ok) {
       dispatch({type: types.UpdateProfile, payload: data.data});
       navigate('PackageDetailsScreen', {items: homeData[currentIndex]});
