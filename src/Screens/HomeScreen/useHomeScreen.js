@@ -60,18 +60,20 @@ const useHomeScreen = ({navigate, params, addListener}) => {
 
   const askQuestion = async index => {
     console.log(homeData[index].adId, 'alkdjljrujvjvjvjvj');
+    dispatch(setAdId(homeData[index].adId));
+    dispatch(questionTrue());
 
-    if (!userData.isAnswered) {
-      dispatch(setAdId(homeData[index].adId));
-      dispatch(questionTrue());
-      // await API.put(notifyUserUrl + homeData[index].adId);
-    } else {
-      const response = await API.put(notifyUserUrl + homeData[index].adId);
-      console.log(response, 'asfkljaklsdfjl');
-      if (response.ok) {
-        successMessage(response?.data.message);
-      }
-    }
+    // if (!userData.isAnswered) {
+    //   dispatch(setAdId(homeData[index].adId));
+    //   dispatch(questionTrue());
+    //   // await API.put(notifyUserUrl + homeData[index].adId);
+    // } else {
+    //   const response = await API.put(notifyUserUrl + homeData[index].adId);
+    //   console.log(response.data, 'asfkljaklsdfjl');
+    //   if (response.ok) {
+    //     successMessage(response?.data.message);
+    //   }
+    // }
   };
 
   const onConfirmPressed = async () => {

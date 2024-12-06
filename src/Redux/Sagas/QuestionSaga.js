@@ -16,8 +16,10 @@ function* setQuestionSaga(action) {
     });
     if (ok) yield put({type: types.UpdateProfile, payload: data.data});
     const {isQuestion} = yield call(store.getState, 'isQuestion');
-    successMessage('You like this property');
-    yield call(API.put, notifyUserUrl + isQuestion?.adId);
+    // successMessage('You like this property');
+    const likeApi = yield call(API.put, notifyUserUrl + isQuestion?.adId);
+    if (likeApi?.ok) successMessage(likeApi?.data?.message);
+    else errorMessage(likeApi?.data?.message);
   } catch (error) {
     errorMessage(data.message);
   } finally {

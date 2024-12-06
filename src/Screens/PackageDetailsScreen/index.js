@@ -122,7 +122,6 @@ const PackageDetailsScreen = ({navigation, route}) => {
               styles={styles.locationText}
             />
           </View>
-          {console.log(generalPref, 'afjdalskfj')}
           <DetailsUiComponent heading={'Property Details'} list={generalPref} />
           <View style={{marginBottom: hp('1.5')}}>
             <TextComponent text={'Description'} styles={styles.pTitle} />
