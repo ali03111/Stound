@@ -12,7 +12,7 @@ function* setQuestionSaga(action) {
     yield put(questionFalse());
     const {ok, data} = yield call(randomService, {
       url: addQuesUrl,
-      params: action.payload.label,
+      params: action.payload.value,
     });
     if (ok) yield put({type: types.UpdateProfile, payload: data.data});
     const {isQuestion} = yield call(store.getState, 'isQuestion');

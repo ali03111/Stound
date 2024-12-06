@@ -251,6 +251,8 @@ const animationConfig = {
   // cardStyleInterpolator: ({current}) => ({opacity: current.progress}),
 };
 
+const isIOS = Boolean(Platform.OS == 'ios');
+
 export {
   Colors,
   FontSize,
@@ -263,4 +265,5 @@ export {
   screenOptions,
   NavigationColors,
   animationConfig,
+  isIOS,
 };

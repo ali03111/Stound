@@ -50,12 +50,14 @@ export const styles = StyleSheet.create({
     marginTop: hp('3'),
     justifyContent: 'space-between',
     alignItems: 'center',
+
     // backgroundColor: 'red',
   },
   coinText: {
     fontSize: hp('2'),
     color: Colors.primaryTextColor,
     fontWeight: '500',
+    alignSelf: 'center',
   },
   coinDesText: {
     fontSize: hp('1.6'),

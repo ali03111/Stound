@@ -25,6 +25,9 @@ export {default as stars} from './Images/stars.png';
 export {default as lineleft} from './Images/lineleft.png';
 export {default as lineright} from './Images/lineright.png';
 export {default as addGalleryImage} from './Images/addgalleryimage.png';
+export {default as property} from './Images/property.png';
+export {default as property1} from './Images/property1.png';
+export {default as locationIcon} from './Icons/locationicon.png';
 
 //  Icons
 

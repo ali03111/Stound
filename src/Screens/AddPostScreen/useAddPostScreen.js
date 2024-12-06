@@ -110,7 +110,90 @@ const useAddPostScreen = ({navigate}) => {
     return newArry;
   };
 
+  // const postData = async ({title, desc, number}) => {
+  //   console.log('asljdflkajsdflkajsdlfkjasldfkj');
+  //   dispatch(loadingTrue());
+  //   // if (!number || Number(number) === 0 || numberRegex.test(number)) {
+  //   //   // Display error message if proposed_price is null or 0
+  //   //   Alert.alert('Invalid', 'Price cannot be empty or zero.');
+  //   //   return; // Exit the function early
+  //   // }
+
+  //   // if (!title || !desc || !number) {
+  //   //   errorMessage('Please complete all fields before submitting.');
+  //   //   return;
+  //   // }
+  //   if (
+  //     images.length &&
+  //     cat != null &&
+  //     rooms != null &&
+  //     bathRoom != null &&
+  //     gp.length &&
+  //     ip.length &&
+  //     op.length &&
+  //     location != ''
+  //   ) {
+  //     const body = {
+  //       title: title,
+  //       rooms: rooms,
+  //       description: desc,
+  //       bathrooms: bathRoom,
+  //       location,
+  //       generalPref: getAllID(gp),
+  //       insidePref: getAllID(ip),
+  //       outsidePref: getAllID(op),
+  //       category: cat,
+  //       photos: images,
+  //       // price: number,
+  //       adType: type,
+  //       country: countryName,
+  //       state: stateName,
+  //       city: cityName,
+  //     };
+  //     console.log(body, 'alsdkaskldf');
+  //     const {ok, data, status, originalError, problem} = await formDataFunc(
+  //       createAdsUrl,
+  //       body,
+  //       'photos',
+  //       true,
+  //     );
+  //     console.log(data, 'sadlkfjlsadkfj');
+  //     if (ok) {
+  //       updateState({
+  //         images: [],
+  //         gp: null,
+  //         op: null,
+  //         ip: null,
+  //         cat: null,
+  //         rooms: null,
+  //         bathRoom: null,
+  //         location: '',
+  //         number,
+  //       });
+  //       // reset();
+  //       dispatch(loadingFalse());
+  //       successMessage(data?.message || 'Your Ad has been created ');
+  //       navigate('HomeScreen');
+
+  //       reset();
+  //       setTimeout(() => {
+  //         onResetState();
+  //       }, 1000);
+  //     } else {
+  //       dispatch(loadingFalse());
+  //       console.log('dfdfa', originalError, status, problem, data?.message);
+  //       errorMessage(originalError?.message?.split(' ')?.slice(1)?.join(' '));
+  //     }
+  //   } else {
+  //     dispatch(loadingFalse());
+  //     // !numberRegex.test(number)
+  //     //   ? errorMessage('Please correct your price')
+  //     errorMessage('Please comeplete all fields');
+  //   }
+  // };
+
   const postData = async ({title, desc, number}) => {
+    console.log('alsdkfjlakjsdiedkddi');
     dispatch(loadingTrue());
 
     if (
@@ -311,6 +394,72 @@ const useAddPostScreen = ({navigate}) => {
     setStateData([]);
     setCityData([]);
   }, []);
+
+  const validateForm = () => {
+    const title = getValues('title');
+    const desc = getValues('desc');
+    const number = getValues('number');
+
+    if (!title || title.length < 15) {
+      errorMessage(
+        'Title cannot be null and must be at least 15 characters long',
+      );
+      return;
+    }
+
+    if (!desc || desc.length < 20) {
+      errorMessage(
+        'Description cannot be null or description must be at least 20 characters long ',
+      );
+      return;
+    }
+
+    if (!number) {
+      errorMessage('Price is required');
+      return;
+    }
+
+    if (isNaN(number) || Number(number) <= 0) {
+      errorMessage('Please enter a valid positive number for price');
+      return;
+    }
+
+    if (location == '') {
+      errorMessage('Location cannot be empty');
+      return;
+    }
+
+    if (!country) {
+      errorMessage('Country cannot be empty');
+      return;
+    }
+    if (!bathRoom) {
+      errorMessage('Bathrooms must select');
+      return;
+    }
+    if (!rooms) {
+      errorMessage('Rooms must select');
+      return;
+    }
+    return true;
+    // if (images.length > 0) {
+    //   errorMessage('Please upload the image');
+    //   return;
+    // }
+
+    // if (gp.length > 0) {
+    //   errorMessage('General Preferences please must select');
+    //   return;
+    // }
+    // if (op.length > 0) {
+    //   errorMessage('Outside Preferences please must select');
+    //   return;
+    // }
+    // if (ip.length > 0) {
+    //   errorMessage('Inside Preferences please must select');
+    //   return;
+    // }
+  };
   return {
     handleSubmit,
     errors,
@@ -366,6 +515,7 @@ const useAddPostScreen = ({navigate}) => {
     number,
     numberRegex,
     options,
+    validateForm,
     // handleError
     // goBack,
   };

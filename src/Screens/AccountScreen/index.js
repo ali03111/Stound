@@ -56,8 +56,8 @@ const AccountScreen = ({navigation}) => {
           />
           <CoinsComponent RemainingCoins={userData?.coins} />
           <ProfileButton
-            onPress={() => dynamicNav('EditProfileScreen')}
-            title={'My Profile'}
+            onPress={() => dynamicNav('MyListing')}
+            title={'My Listing'}
             iconLeft={AccountProfile}
             iconRight={arrowRight}
             style={styles.button}
@@ -135,7 +135,7 @@ const AccountScreen = ({navigation}) => {
             onPress={() => onCancel(logOut, 'logOut')}
           />
           <ProfileButton
-            title={'Delete Account'}
+            title={'Deactivate Account'}
             iconLeft={profileremove}
             style={styles.button}
             textStyle={styles.deActivateAccText}
@@ -146,7 +146,7 @@ const AccountScreen = ({navigation}) => {
           <AlertDesign
             isVisible={logOut}
             title="Log Out?"
-            message="Are you sure, you want to log out ?"
+            message="Are you sure, you want to log out?"
             confirmText="Log Out"
             onCancel={() => onCancel(logOut, 'logOut')}
             onConfirm={() => onConfirm(logOut)}

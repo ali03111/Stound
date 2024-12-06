@@ -61,7 +61,7 @@ const Notification = ({navigation}) => {
           headerTitle={'Notification'}
           backText={'Back'}
           arrowBackIcon={arrowback}
-          goBack={()=>navigation.navigate('MybottomTabs')}
+          goBack={() => navigation.navigate('MybottomTabs')}
         />
         <View>
           <FlatList
@@ -89,7 +89,7 @@ const Notification = ({navigation}) => {
         </View>
       </View>
       <AlertDesign
-        buttonColor={'#0BB4FF'}
+        // buttonColor={'#0BB4FF'}
         cancel={'Not Now'}
         isVisible={coinAlert}
         title="Use Coin"

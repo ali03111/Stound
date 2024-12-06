@@ -97,6 +97,11 @@ const StackNavigatior = () => {
       {isLogin && (
         <>
           <Stack.Screen name="MybottomTabs" component={MybottomTabs} />
+          <Stack.Screen name="MyListing" component={Screens.MyListing} />
+          <Stack.Screen
+            name="ListingQueryScreen"
+            component={Screens.ListingQueryScreen}
+          />
           <Stack.Screen
             name="NotificationScreen"
             component={Screens.NotificationScreen}
