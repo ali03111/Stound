@@ -8,7 +8,7 @@ import {types} from '../../Redux/types';
 
 const useHeaderDetailScreen = ({navigate}, {params}) => {
   const {dispatch, getState} = useReduxStore();
-  const {receipt, coinUsed, id} = params;
+  const {coinUsed, id} = params;
   console.log('asdidfijakldsfjklasdsj', params.id);
   const userData = getState('Auth');
   console.log('HEaderDetailScreeaan', id, coinUsed);

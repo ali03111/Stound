@@ -11,7 +11,10 @@ import {imageUrl} from '../../Utils/Urls';
 import {EmptyViewComp} from '../../Components/EmptyViewComp';
 
 const ListingQueryScreen = ({navigation, route}) => {
-  const {queryData, getListingData} = useListingQueryScreen(navigation, route);
+  const {queryData, getListingData, toSeeDetails} = useListingQueryScreen(
+    navigation,
+    route,
+  );
 
   const renderItem = useCallback(({item, index}) => {
     console.log(item, index, 'MY LISTINGIGNIGNIGN');
@@ -22,6 +25,11 @@ const ListingQueryScreen = ({navigation, route}) => {
         description={item?.answer}
         time={item?.createdAt}
         onPress={() => {
+          toSeeDetails(item);
+          // navigation.navigate('HeaderDetailScreen', {
+          //   userDetail: item,
+          //   adDetail: queryData?.ad,
+          // });
           //   onCancel(coinAlert, 'coinAlert', index, item);
           // onCancel(item);
         }}
@@ -40,7 +48,7 @@ const ListingQueryScreen = ({navigation, route}) => {
       />
       <FlatList
         showsVerticalScrollIndicator={false}
-        data={queryData}
+        data={queryData?.interested_users}
         renderItem={renderItem}
         contentContainerStyle={{
           alignSelf: 'center',

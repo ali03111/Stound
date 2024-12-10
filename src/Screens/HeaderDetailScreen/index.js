@@ -47,13 +47,13 @@ const index = ({navigation, route}) => {
     onPressCall,
     navigationChatScreen,
     coinUsed,
-    userData: {userData}
+    userData: {userData},
   } = useHeaderDetailScreen(navigation, route);
   const [messages, setMessages] = useState([]);
 
   const Item = route.params;
-  const imageLenght = Item?.adDetail.photos.length;
-  console.log({routeparam: route.params});
+  const imageLenght = Item?.adDetail?.photos?.length;
+  console.log({routeparam: Item});
   const renderItem = useCallback(({item, index}) => {
     return (
       index > 0 &&
@@ -92,7 +92,7 @@ const index = ({navigation, route}) => {
 
   const firstMsg = [
     {
-      _id: Item?.userDetail.agoraId,
+      _id: Item?.userDetail?.agoraId,
       createdAt: new Date(),
       text: 'Hi how can i help you!',
       user: {
@@ -105,12 +105,11 @@ const index = ({navigation, route}) => {
 
   //FIREBASE START
   useEffect(() => {
-
     const subscriber = firebase
       .firestore()
       .collection('chats')
 
-      .doc('' + userData?.agoraId + Item?.userDetail.agoraId)
+      .doc('' + userData?.agoraId + Item?.userDetail?.agoraId)
       .collection('messages')
       .orderBy('createdAt', 'desc')
       .onSnapshot(querySnapshot => {
@@ -138,7 +137,6 @@ const index = ({navigation, route}) => {
     {
       !coinUsed && onSend(firstMsg);
     }
-
 
     return () => subscriber();
   }, []);
@@ -267,7 +265,7 @@ const index = ({navigation, route}) => {
   return (
     <>
       <HeaderDetailComponent
-        onPress={() => navigation.navigate('NotificationScreen')}
+        onPress={() => navigation.goBack()}
         profileName={Item?.userDetail?.name}
         headerTitle={'Details'}
         arrowBackIcon={arrowbackwhite}
@@ -287,12 +285,12 @@ const index = ({navigation, route}) => {
           <Image
             style={styles.firstImage(imageLenght)}
             // uri={imageUrl(Item?.adDetail.photos[0])}
-            source={{uri: imageUrl(Item?.adDetail.photos[0])}}
+            source={{uri: imageUrl(Item?.adDetail?.photos[0])}}
           />
-          {Item?.adDetail.photos.length > 0 && (
+          {Item?.adDetail?.photos?.length > 0 && (
             <FlatList
               refreshing={false}
-              data={Item?.adDetail.photos}
+              data={Item?.adDetail?.photos}
               renderItem={renderItem}
               showsHorizontalScrollIndicator={false}
               keyExtractor={keyExtractor}
@@ -334,11 +332,11 @@ const index = ({navigation, route}) => {
             />
           </View> */}
 
-
-          <View style={{ marginBottom: hp('1.5') }}>
+          <View style={{marginBottom: hp('1.5')}}>
             <TextComponent text={'Description'} styles={styles.pTitle} />
-            <ScrollView contentContainerStyle={styles.descriptionScrollContainer}>
-              <Text style={styles.desText}>{Item?.adDetail.description}</Text>
+            <ScrollView
+              contentContainerStyle={styles.descriptionScrollContainer}>
+              <Text style={styles.desText}>{Item?.adDetail?.description}</Text>
             </ScrollView>
           </View>
           <TextComponent
