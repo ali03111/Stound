@@ -113,6 +113,10 @@ const StackNavigatior = () => {
           />
           <Stack.Screen name="RatingScreen" component={Screens.RatingScreen} />
           <Stack.Screen
+            name="AddPostScreen"
+            component={Screens.AddPostScreen}
+          />
+          <Stack.Screen
             name="ResetPasswordScreen"
             component={Screens.ResetPasswordScreen}
           />

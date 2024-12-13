@@ -10,12 +10,24 @@ import axios from 'axios';
 
 const {default: Schemas} = require('../../Utils/Validation');
 
-const useAddPostScreen = ({navigate}) => {
+const useAddPostScreen = ({navigate}, {params}) => {
+  const item = params;
+
+  console.log(
+    'paramsparamsparamsparamsparamsparamsparamsparamsparams',
+    params?.price,
+  );
+
   const {dispatch, getState} = useReduxStore();
 
   const {recentLocation} = getState('recentlocation');
   const {handleSubmit, errors, reset, control, getValues, resetField} =
-    useFormHook(Schemas.addPost);
+    useFormHook(Schemas.addPost, {
+      title: item?.title ?? '',
+      desc: item?.description ?? '',
+      // number: item?.price ?? '',
+      number: '77',
+    });
   // Retrieve values of form fields
   const title = getValues('title');
   const desc = getValues('desc');
@@ -32,31 +44,54 @@ const useAddPostScreen = ({navigate}) => {
   const [stateData, setStateData] = useState([]);
   const [cityData, setCityData] = useState([]);
 
-  const [country, setCountry] = useState(null);
+  const [country, setCountry] = useState({
+    value: item?.country,
+    label: item?.country,
+  });
   const [state, setState] = useState(null);
   const [city, setCity] = useState(null);
-  const [countryName, setCountryName] = useState(null);
+  const [countryName, setCountryName] = useState({
+    value: item?.country,
+    label: item?.country,
+  });
   const [stateName, setStateName] = useState(null);
   const [cityName, setCityName] = useState(null);
   const [isFocus, setIsFocus] = useState(false);
   const [isFocus1, setIsFocus1] = useState(false);
   const [isFocus2, setIsFocus2] = useState(false);
+  const [category, setCategory] = useState(item?.category);
 
   const [preferencesData, setPreferencesData] = useState([]);
   const [preferencesVal, setPreferencesVal] = useState({
-    gp: [],
-    ip: [],
-    op: [],
-    cat: null,
-    rooms: null,
-    bathRoom: null,
+    gp: item?.generalPref ?? [],
+    ip: item?.insidePref ?? [],
+    op: item?.outsidePref ?? [],
+    cat: item?.category ?? null,
+    rooms: item?.rooms,
+    bathRoom: item?.bathrooms,
     images: [],
-    type: options[0].value,
-    location: '',
+    type: item?.adType ?? options[0].value,
+    location: item?.location,
+    uploadedImages: item?.photos ?? [],
   });
 
-  const {gp, ip, op, bathRoom, rooms, cat, images, type, location} =
-    preferencesVal;
+  console.log(
+    'preferencesDatapreferencesDatapreferencesDatapreferencesDatapreferencesData',
+    preferencesData,
+  );
+
+  const {
+    gp,
+    ip,
+    op,
+    bathRoom,
+    rooms,
+    cat,
+    images,
+    type,
+    location,
+    uploadedImages,
+  } = preferencesVal;
 
   const updateState = data => setPreferencesVal(prev => ({...prev, ...data}));
 
@@ -516,6 +551,9 @@ const useAddPostScreen = ({navigate}) => {
     numberRegex,
     options,
     validateForm,
+    category,
+    setCategory,
+    uploadedImages,
     // handleError
     // goBack,
   };

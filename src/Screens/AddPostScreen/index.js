@@ -796,10 +796,9 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {Dropdown} from 'react-native-element-dropdown';
 import {errorMessage} from '../../Config/NotificationMessage';
 
-const AddPostScreen = ({navigation}) => {
+const AddPostScreen = ({navigation, route}) => {
   const [selectedLanguage, setSelectedLanguage] = useState();
 
-  const [category, setCategory] = useState('');
   const [Modal0, setModal0] = useState(false);
   const [Modal1, setModal1] = useState(false);
   const [Modal2, setModal2] = useState(false);
@@ -859,10 +858,12 @@ const AddPostScreen = ({navigation}) => {
     numberRegex,
     options,
     validateForm,
-  } = useAddPostScreen(navigation);
+    category,
+    setCategory,
+    uploadedImages,
+  } = useAddPostScreen(navigation, route);
 
   const renderItem = ({item, index}) => {
-    console.log(item.path, 'asdklfjaklsdjflkasjd');
     return (
       <FilterAddButton
         style={styles.tags}
@@ -873,9 +874,6 @@ const AddPostScreen = ({navigation}) => {
     );
   };
 
-  useEffect(() => {
-    console.log(category);
-  }, [category]);
   const renderItemImages = ({item, index}) => {
     return (
       <>
@@ -889,7 +887,10 @@ const AddPostScreen = ({navigation}) => {
           />
         </TouchableOpacity>
 
-        <Image source={{uri: item?.uri}} style={styles.imagesStyle} />
+        <Image
+          source={{uri: item?.type ? item?.uri : imageUrl(item)}}
+          style={styles.imagesStyle}
+        />
       </>
     );
   };
@@ -921,7 +922,7 @@ const AddPostScreen = ({navigation}) => {
       />
     );
   };
-  console.log(' ', category);
+
   return (
     <>
       <View style={{flex: 1}}>
@@ -984,7 +985,6 @@ const AddPostScreen = ({navigation}) => {
 
                   {preferencesData.cat &&
                     preferencesData.cat.map(res => {
-                      console.log('res.name', res);
                       return (
                         <Picker.Item label={res.name} value={res.categoryId} />
                       );
@@ -1121,7 +1121,6 @@ const AddPostScreen = ({navigation}) => {
                     onFocus={() => setIsFocus1(true)}
                     onBlur={() => setIsFocus1(false)}
                     onChange={item => {
-                      console.log(country, 'CountryAPi');
                       handleCity(country, item.value);
                       setState(item.value);
                       setStateName(item.label);
@@ -1288,7 +1287,7 @@ const AddPostScreen = ({navigation}) => {
             </View>
             <FlatList
               refreshing={false}
-              data={images}
+              data={[...images, ...uploadedImages]}
               renderItem={renderItemImages}
               keyExtractor={keyExtractor}
               contentContainerStyle={{
@@ -1423,7 +1422,6 @@ const AddPostScreen = ({navigation}) => {
                   {
                     cat && index == 2 && setCategory(res.name);
                   }
-                  console.log('res.name', res);
 
                   return (
                     <Picker.Item

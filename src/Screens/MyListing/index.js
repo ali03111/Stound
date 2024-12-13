@@ -25,6 +25,7 @@ const MyListing = ({navigation}) => {
           onPressInquires={() =>
             navigation.navigate('ListingQueryScreen', item)
           }
+          onPressEdit={() => navigation.navigate('AddPostScreen', item)}
         />
       </View>
     );
