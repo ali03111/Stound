@@ -25,8 +25,8 @@ const useAddPostScreen = ({navigate}, {params}) => {
     useFormHook(Schemas.addPost, {
       title: item?.title ?? '',
       desc: item?.description ?? '',
-      // number: item?.price ?? '',
-      number: '77',
+      number: item?.price.toString() ?? '',
+      // number: '77',
     });
   // Retrieve values of form fields
   const title = getValues('title');
