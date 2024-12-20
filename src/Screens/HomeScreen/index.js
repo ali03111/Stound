@@ -23,6 +23,9 @@ import {
   radioFill,
   search,
   setting,
+  setting1,
+  trendingOutline,
+  trending as notTrending
 } from '../../Assests';
 
 import * as Animatable from 'react-native-animatable';
@@ -60,6 +63,9 @@ const HomeScreen = ({navigation}) => {
     text,
     onChangeText,
     getHomeData,
+    trending,
+    toggleTrending,
+    setTrending
   } = useHomeScreen(navigation);
 
   // console.log('cccc',onBoardinData);
@@ -85,7 +91,7 @@ const HomeScreen = ({navigation}) => {
     <>
       <View style={{paddingTop: Platform.OS == 'ios' ? hp('3') : hp('0')}}>
         <View style={styles.searchBarMain}>
-          <View style={styles.searchMain}>
+          {/* <View style={styles.searchMain}>
             <Image style={styles.setting} source={search} />
             <TextInput
               onSubmitEditing={() => searchPropertyFunction(text)}
@@ -95,14 +101,28 @@ const HomeScreen = ({navigation}) => {
               placeholder={'Search property here...'}
               placeholderTextColor={Colors.gray}
             />
+          </View> */}
+          <View style={styles.searchIcons}>
+            <Touchable
+              onPress={toggleTrending}
+              // onPress={() => {setTrending(!trending)}}
+              style={styles.rightIcon}>
+              <Image source={!trending ? trendingOutline : notTrending} style={styles.setting1} />
+            </Touchable>
           </View>
+          <TextComponent
+            numberOfLines={1}
+            text={'Stound'}
+            styles={styles.HeaderTitle}
+          />
           <View style={styles.searchIcons}>
             <Touchable
               onPress={() => navigation.navigate('FilterScreen')}
               style={styles.rightIcon}>
-              <Image source={setting} style={styles.setting} />
+              {/* <Image source={setting} style={styles.setting} /> */}
+              <Image source={setting1} style={styles.setting1} />
             </Touchable>
-            {notificationLength.length > 0 ? (
+            {/* {notificationLength.length > 0 ? (
               <Touchable
                 onPress={() => navigateToNotificationScreen()}
                 style={styles.rightIcon}>
@@ -130,7 +150,7 @@ const HomeScreen = ({navigation}) => {
                   }}></View>
                 <Image source={notification} style={styles.setting} />
               </Touchable>
-            )}
+            )} */}
           </View>
         </View>
         <View style={styles.cardMainView}>

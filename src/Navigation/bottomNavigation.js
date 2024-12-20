@@ -99,20 +99,26 @@ function MybottomTabs() {
           );
         },
       })}>
-      <Tab.Screen
+      {/* <Tab.Screen
         name="HomeScreen"
         options={tabarComponent('home', 'Home')}
         component={Screens.HomeScreen}
-      />
+      /> */}
       <Tab.Screen
         name="FavourateScreen"
         options={tabarComponent('heart', 'Favourite', 0)}
         component={Screens.FavourateScreen}
       />
       <Tab.Screen
-        name="SomeComponent"
+        name="ChatScreen"
+        options={tabarComponent('chatbox-ellipses', 'Message', 1)}
+        component={Screens.ChatScreen}
+      />
+      <Tab.Screen
+        // name="SomeComponent"
+        name='HomeScreen'
         options={{
-          tabBarIcon: () => {
+          tabBarIcon: ({ focused }) => {
             return (
               <Svg
                 width={wp('15')}
@@ -125,7 +131,17 @@ function MybottomTabs() {
                   d="M27 54C41.9117 54 54 41.9117 54 27C54 12.0883 41.9117 0 27 0C12.0883 0 0 12.0883 0 27C0 41.9117 12.0883 54 27 54Z"
                   fill="#0BB4FF"
                 />
+                {/* Home icon path */}
                 <Path
+                  d="M19 27L27 19L35 27V39H19V27Z"
+                  fill={focused ? Colors.white : "none"}
+                  stroke={focused ? "none" : Colors.white}
+                  // strokeWidth={focused ? 0 : 2}
+                  strokeWidth='1.5'
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                {/* <Path
                   d="M21 27H33"
                   stroke="white"
                   stroke-width="1.5"
@@ -138,18 +154,19 @@ function MybottomTabs() {
                   stroke-width="1.5"
                   stroke-linecap="round"
                   stroke-linejoin="round"
-                />
+                /> */}
               </Svg>
             );
           },
           title: '',
         }}
-        component={Screens.AddPostScreen}
+        // component={Screens.AddPostScreen}
+        component={Screens.HomeScreen}
       />
       <Tab.Screen
-        name="ChatScreen"
-        options={tabarComponent('chatbox-ellipses', 'Message', 1)}
-        component={Screens.ChatScreen}
+        name="NotificationScreen"
+        options={tabarComponent('notifications', 'Notification')}
+        component={Screens.NotificationScreen}
       />
       <Tab.Screen
         name="AccountScreen"

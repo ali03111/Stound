@@ -24,6 +24,8 @@ const useHomeScreen = ({navigate, params, addListener}) => {
   const [showAlert, setShowAlert] = useState(false);
   const [homeData, setHomeData] = useState([]);
   const [text, onChangeText] = useState('');
+  const [trending, setTrending] = useState(false);
+  console.log("trending", trending)
 
   const [selectedId, setSelectedId] = useState({
     id: '1', // acts as primary key, should be unique and non-empty string
@@ -92,8 +94,19 @@ const useHomeScreen = ({navigate, params, addListener}) => {
     navigate('PackageDetailsScreen', {items: homeData[index]});
   };
 
-  const getHomeData = async () => {
-    const {ok, data} = await API.get(getAdsUrl);
+  const toggleTrending = () => {
+    setTrending(prevState => {
+      const newTrending = !prevState;
+      getHomeData(newTrending);
+      return newTrending;
+    });
+  };
+
+  const getHomeData = async (trending = false) => {
+    const url = trending ? `${getAdsUrl}?trending=true` : getAdsUrl;
+    console.log("trending params", trending, url)
+    const { ok, data } = await API.get(url);
+    // const {ok, data} = await API.get(getAdsUrl);
     console.log(data, 'alksjdlkajsdlfkjaklsd');
     if (ok) {
       dispatch({type: types.UpdateProfile, payload: data.user});
@@ -102,9 +115,16 @@ const useHomeScreen = ({navigate, params, addListener}) => {
   };
 
   const useEffectFun = () => {
-    const event = addListener('focus', getHomeData);
+    const event = addListener('focus', () => {
+      getHomeData(trending);  // Use the state `trending` directly
+    });
     return event;
   };
+  
+  // const useEffectFun = () => {
+  //   const event = addListener('focus', getHomeData);
+  //   return event;
+  // };
 
   const updateFav = async index => {
     const url = updateFavUrl + homeData[index].adId;
@@ -175,6 +195,9 @@ const useHomeScreen = ({navigate, params, addListener}) => {
     text,
     onChangeText,
     getHomeData,
+    trending,
+    setTrending,
+    toggleTrending
   };
 };
 

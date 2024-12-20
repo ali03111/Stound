@@ -59,9 +59,9 @@ const Notification = ({navigation}) => {
         <Header
           style={styles.topHeader}
           headerTitle={'Notification'}
-          backText={'Back'}
-          arrowBackIcon={arrowback}
-          goBack={() => navigation.navigate('MybottomTabs')}
+          // backText={'Back'}
+          // arrowBackIcon={arrowback}
+          // goBack={() => navigation.navigate('MybottomTabs')}
         />
         <View>
           <FlatList

@@ -1,6 +1,6 @@
 import {Dimensions, StyleSheet} from 'react-native';
 import {hp, wp} from '../../Config/responsive';
-import {Colors} from '../../Theme/Variables';
+import {Colors, FontSize} from '../../Theme/Variables';
 
 export const styles = StyleSheet.create({
   searchBarMain: {
@@ -9,6 +9,8 @@ export const styles = StyleSheet.create({
     paddingHorizontal: wp('3'),
     paddingVertical: hp('1'),
     paddingTop: hp('3.5'),
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   searchMain: {
     flexDirection: 'row',
@@ -42,8 +44,10 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     textAlign: 'center',
     borderColor: Colors.lightblue,
-    width: wp('14'),
-    marginLeft: 5,
+    // width: wp('14'),
+    // marginLeft: 5,
+    width: wp('12'),
+    marginHorizontal: 10
   },
   homeCard: {
     backgroundColor: 'red',
@@ -114,5 +118,15 @@ export const styles = StyleSheet.create({
     resizeMode: 'contain',
     height: hp('5'),
     width: wp('7'),
+  },
+  setting1: {
+    resizeMode: 'contain',
+    height: hp('15'),
+    width: wp('18'),
+  },
+  HeaderTitle: {
+    fontSize: FontSize.scale24,
+    color: Colors.primaryColor,
+    fontWeight: 'bold',
   },
 });

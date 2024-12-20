@@ -1,7 +1,7 @@
 import {useCallback, useEffect, useState} from 'react';
 import {PackageDetailData} from '../../Utils/localDB';
 import API from '../../Utils/helperFunc';
-import {notifyUserUrl, updateFavUrl} from '../../Utils/Urls';
+import {clickAdsUrl, notifyUserUrl, updateFavUrl} from '../../Utils/Urls';
 import {questionTrue} from '../../Redux/Action/isQuestionAction copy';
 import useReduxStore from '../../Hooks/UseReduxStore';
 import {successMessage} from '../../Config/NotificationMessage';
@@ -62,6 +62,22 @@ const usePackageDetailsScreen = ({params}, {navigate}) => {
       successMessage(data?.message);
     } else errorMessage(originalError.message.split(' ').slice(1).join(' '));
   }, [isFav]);
+
+    const clickAddData = async () => {
+      try {
+        const {ok, data} = await API.get(clickAdsUrl + params?.items?.adId);
+        console.log('data success', data);
+        if (ok) {
+          // dispatch({type: types.UpdateProfile, payload: data.user});
+        } else errorMessage(data.message || 'request failed');
+      } catch (error) {
+        console.log("error", error)
+      }
+    };
+
+    useEffect(() => {
+      clickAddData()
+    }, [params])
 
   return {
     PackageDetailData,

@@ -93,3 +93,6 @@ export {default as bedblue} from './Icons/bedblue.png';
 export {default as bluebath} from './Icons/bathtubblue.png';
 export {default as radioEmtpy} from './Icons/radioEmtpy.png';
 export {default as radioFill} from './Icons/radioFill.png';
+export {default as trendingOutline} from './Icons/trending-outline.png';
+export {default as trending} from './Icons/trending.png';
+export {default as setting1} from './Icons/setting1.png';

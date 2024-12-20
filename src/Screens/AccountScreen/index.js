@@ -5,6 +5,7 @@ import {styles} from './styles';
 import Header from '../../Components/Header';
 import {
   AccountProfile,
+  addcircle,
   EditProfile,
   accountprofile,
   arrowRight,
@@ -59,6 +60,16 @@ const AccountScreen = ({navigation}) => {
             onPress={() => dynamicNav('MyListing')}
             title={'My Listing'}
             iconLeft={AccountProfile}
+            iconRight={arrowRight}
+            style={styles.button}
+            textStyle={styles.buttonText}
+            leftImgStyle={styles.iconLeft}
+            rightImgStyle={styles.iconRight}
+          />
+          <ProfileButton
+            onPress={() => dynamicNav('AddPostScreen')}
+            title={'Add Listing'}
+            iconLeft={addcircle}
             iconRight={arrowRight}
             style={styles.button}
             textStyle={styles.buttonText}

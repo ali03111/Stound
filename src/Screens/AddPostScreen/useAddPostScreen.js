@@ -1,12 +1,13 @@
 import {useCallback, useEffect, useRef, useState} from 'react';
 import useFormHook from '../../Hooks/UseFormHooks';
-import {createAdsUrl, getPreUrl} from '../../Utils/Urls';
+import {createAdsUrl, updateAdsUrl, getPreUrl} from '../../Utils/Urls';
 import API, {formDataFunc} from '../../Utils/helperFunc';
 import {errorMessage, successMessage} from '../../Config/NotificationMessage';
 import {launchImageLibrary} from 'react-native-image-picker';
 import useReduxStore from '../../Hooks/UseReduxStore';
 import {loadingFalse, loadingTrue} from '../../Redux/Action/isloadingAction';
 import axios from 'axios';
+import { navigationRef } from '../../../RootNavigation';
 
 const {default: Schemas} = require('../../Utils/Validation');
 
@@ -44,16 +45,10 @@ const useAddPostScreen = ({navigate}, {params}) => {
   const [stateData, setStateData] = useState([]);
   const [cityData, setCityData] = useState([]);
 
-  const [country, setCountry] = useState({
-    value: item?.country,
-    label: item?.country,
-  });
+  const [country, setCountry] = useState(item?.country_code.toUpperCase());
   const [state, setState] = useState(null);
   const [city, setCity] = useState(null);
-  const [countryName, setCountryName] = useState({
-    value: item?.country,
-    label: item?.country,
-  });
+  const [countryName, setCountryName] = useState(item?.country);
   const [stateName, setStateName] = useState(null);
   const [cityName, setCityName] = useState(null);
   const [isFocus, setIsFocus] = useState(false);
@@ -66,7 +61,7 @@ const useAddPostScreen = ({navigate}, {params}) => {
     gp: item?.generalPref ?? [],
     ip: item?.insidePref ?? [],
     op: item?.outsidePref ?? [],
-    cat: item?.category ?? null,
+    cat: item?.categoryDetail?.categoryId ?? null,
     rooms: item?.rooms,
     bathRoom: item?.bathrooms,
     images: [],
@@ -92,7 +87,9 @@ const useAddPostScreen = ({navigate}, {params}) => {
     location,
     uploadedImages,
   } = preferencesVal;
-
+  // console.log("preference val", preferencesVal)
+  // console.log("room bathroom", rooms, bathRoom, images, type , location, uploadedImages)
+  
   const updateState = data => setPreferencesVal(prev => ({...prev, ...data}));
 
   const getPreferences = async () => {
@@ -227,7 +224,7 @@ const useAddPostScreen = ({navigate}, {params}) => {
   //   }
   // };
 
-  const postData = async ({title, desc, number}) => {
+  const postAddData = async ({title, desc, number}) => {
     console.log('alsdkfjlakjsdiedkddi');
     dispatch(loadingTrue());
 
@@ -298,6 +295,91 @@ const useAddPostScreen = ({navigate}, {params}) => {
       !numberRegex.test(number)
         ? errorMessage('Please correct your price')
         : errorMessage('Please comeplete all fields');
+    }
+  };
+
+  const postEditData = async ({title, desc, number}) => {
+    console.log('edit post');
+    dispatch(loadingTrue());
+
+    if (
+      images.length || uploadedImages.length &&
+      cat != null &&
+      rooms != null &&
+      bathRoom != null &&
+      gp.length &&
+      ip.length &&
+      op.length &&
+      location != '' &&
+      numberRegex.test(number)
+    ) {
+      const body = {
+        adId: item?.adId,
+        title: title,
+        rooms: rooms,
+        description: desc,
+        bathrooms: bathRoom,
+        location,
+        generalPref: getAllID(gp),
+        insidePref: getAllID(ip),
+        outsidePref: getAllID(op),
+        category: cat,
+        photos: images,
+        oldImagesPaths: uploadedImages,
+        price: number,
+        adType: type,
+        country: countryName,
+        state: item?.state ?? stateName,
+        city: item?.city ?? cityName,
+      };
+      console.log('edit post body', body,);
+      const {ok, data, status, originalError, problem} = await formDataFunc(
+        updateAdsUrl,
+        body,
+        'photos',
+        true,
+      );
+      console.log('data', data);
+      if (ok) {
+        updateState({
+          images: [],
+          gp: null,
+          op: null,
+          ip: null,
+          cat: null,
+          rooms: null,
+          bathRoom: null,
+          location: '',
+          number,
+        });
+        // reset();
+        dispatch(loadingFalse());
+        successMessage(data?.message || 'Your Ad has been created ');
+        navigationRef.goBack()
+
+        reset();
+        setTimeout(() => {
+          onResetState();
+        }, 1000);
+      } else {
+        dispatch(loadingFalse());
+        console.log('error', originalError, status, problem, data?.message);
+        errorMessage(originalError?.message?.split(' ')?.slice(1)?.join(' '));
+      }
+    } else {
+      dispatch(loadingFalse());
+      !numberRegex.test(number)
+        ? errorMessage('Please correct your price')
+        : errorMessage('Please comeplete all fields');
+    }
+  };
+
+  const postData = async ({title, desc, number}) => {
+    if (params?.price) {
+      postEditData({title, desc, number})
+    }
+    else {
+      postAddData({title, desc, number})
     }
   };
   const useEffectFun = () => {
