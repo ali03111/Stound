@@ -58,6 +58,7 @@ const ListingQueryScreen = ({navigation, route}) => {
         onRefresh={getListingData}
         keyExtractor={keyExtractor}
         ListEmptyComponent={
+            queryData?.interested_users.length == 0 && (
           <View
             style={{
               justifyContent: 'center',
@@ -65,6 +66,7 @@ const ListingQueryScreen = ({navigation, route}) => {
             }}>
             <EmptyViewComp onRefresh={getListingData} />
           </View>
+            )
         }
       />
     </View>
