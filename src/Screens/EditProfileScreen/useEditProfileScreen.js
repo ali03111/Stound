@@ -1,8 +1,10 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import Schemas from '../../Utils/Validation';
 import useReduxStore from '../../Hooks/UseReduxStore';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {updateAuth, updateUser} from '../../Redux/Action/AuthAction';
+import API from '../../Utils/helperFunc';
+import { getPreUrl } from '../../Utils/Urls';
 
 const {default: useFormHook} = require('../../Hooks/UseFormHooks');
 
@@ -16,6 +18,40 @@ const useEditProfileScreen = ({navigate, goBack}) => {
   const {userData} = getState('Auth');
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
 
+  const options = [
+    {label: 'Rent', value: 'Rent'},
+    {label: 'Buy', value: 'Buy'},
+  ];
+  const item = null
+  const [category, setCategory] = useState(item?.category);
+  const [preferencesData, setPreferencesData] = useState([]);
+  const [preferencesVal, setPreferencesVal] = useState({
+    gp: item?.generalPref ?? [],
+    ip: item?.insidePref ?? [],
+    op: item?.outsidePref ?? [],
+    cat: item?.categoryDetail?.categoryId ?? null,
+    rooms: item?.rooms,
+    bathRoom: item?.bathrooms,
+    images: [],
+    type: item?.adType ?? options[0].value,
+    location: item?.location,
+    uploadedImages: item?.photos ?? [],
+  });
+
+  const {
+    gp,
+    ip,
+    op,
+    bathRoom,
+    rooms,
+    cat,
+    images,
+    type,
+    location,
+    uploadedImages,
+  } = preferencesVal;
+  const updateState1 = data => setPreferencesVal(prev => ({...prev, ...data}));
+  
   const [profileData, setProfileData] = useState({});
 
   const showDatePicker = () => {
@@ -77,6 +113,24 @@ const useEditProfileScreen = ({navigate, goBack}) => {
     console.warn('A date has been picked: ', date);
     hideDatePicker();
   };
+
+    useEffect(() => {
+      getPreferences()
+    }, []);
+
+    const getPreferences = async () => {
+      const {ok, data, originalError} = await API.get(getPreUrl);
+      if (ok) setPreferencesData(data);
+      else errorMessage(originalError);
+    };
+
+  const onSelecteTag = (item, key) => {
+    console.log(key, item, 'keyueueu11');
+    updateState1({[key]: item});
+  };
+
+  const dynamicNav = data => navigate('GeneralScreen', {...data, onSelecteTag});
+
   return {
     handleSubmit,
     errors,
@@ -93,6 +147,17 @@ const useEditProfileScreen = ({navigate, goBack}) => {
     profileData,
     // images,
     updateProfile,
+    options,
+    onSelecteTag,
+    cat,
+    category,
+    setCategory,
+    preferencesData,
+    preferencesVal,
+    gp,
+    ip,
+    op,
+    dynamicNav
   };
 };
 
