@@ -117,6 +117,10 @@ const StackNavigatior = () => {
             component={Screens.AddPostScreen}
           />
           <Stack.Screen
+            name="PreferenceScreen"
+            component={Screens.PreferenceScreen}
+          />
+          <Stack.Screen
             name="ResetPasswordScreen"
             component={Screens.ResetPasswordScreen}
           />

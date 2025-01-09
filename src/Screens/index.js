@@ -28,3 +28,4 @@ export {default as Home} from './Home';
 export {default as FilterPackageScreen} from './FilterPackageScreen';
 export {default as MyListing} from './MyListing';
 export {default as ListingQueryScreen} from './ListingQueryScreen';
+export {default as PreferenceScreen} from './PreferenceScreen';

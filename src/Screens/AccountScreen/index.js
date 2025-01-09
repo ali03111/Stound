@@ -16,6 +16,7 @@ import {
   receiptsearch,
   star,
   tasksquare,
+  setting
 } from '../../Assests';
 import {Colors} from '../../Theme/Variables';
 import ProfileButton from '../../Components/ProfileButton';
@@ -70,6 +71,16 @@ const AccountScreen = ({navigation}) => {
             onPress={() => dynamicNav('AddPostScreen')}
             title={'Add Listing'}
             iconLeft={addcircle}
+            iconRight={arrowRight}
+            style={styles.button}
+            textStyle={styles.buttonText}
+            leftImgStyle={styles.iconLeft}
+            rightImgStyle={styles.iconRight}
+          />
+          <ProfileButton
+            onPress={() => dynamicNav('PreferenceScreen')}
+            title={'My Preferences'}
+            iconLeft={setting}
             iconRight={arrowRight}
             style={styles.button}
             textStyle={styles.buttonText}

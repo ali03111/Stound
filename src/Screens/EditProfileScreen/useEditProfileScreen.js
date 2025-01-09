@@ -86,7 +86,7 @@ const useEditProfileScreen = ({navigate, goBack}) => {
     setDatePickerVisibility(false);
   };
   // , image: images
-  const updateProfile = ({name, number}) => {
+  const updateProfile = ({name, number, description}) => {
     console.log(number, name, profileData, 'ueiueieieu');
     console.log('sdfhjalksdfjkldjsfkj', profileData.uri);
     console.log('sdfhjalksdfjkldjsfkj', Boolean(profileData.uri));
@@ -95,6 +95,7 @@ const useEditProfileScreen = ({navigate, goBack}) => {
         profileData: {
           name,
           number,
+          description,
           image:  profileData
         },
       }),
@@ -104,6 +105,7 @@ const useEditProfileScreen = ({navigate, goBack}) => {
         profileData: {
           name,
           number,
+          description,
         },
       }),
       )}

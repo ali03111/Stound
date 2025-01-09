@@ -1,6 +1,6 @@
 import {useCallback, useEffect, useRef, useState} from 'react';
 import useFormHook from '../../Hooks/UseFormHooks';
-import {createAdsUrl, updateAdsUrl, getPreUrl} from '../../Utils/Urls';
+import {savePreUrl, getPreUrl} from '../../Utils/Urls';
 import API, {formDataFunc} from '../../Utils/helperFunc';
 import {errorMessage, successMessage} from '../../Config/NotificationMessage';
 import {launchImageLibrary} from 'react-native-image-picker';
@@ -11,7 +11,7 @@ import { navigationRef } from '../../../RootNavigation';
 
 const {default: Schemas} = require('../../Utils/Validation');
 
-const useAddPostScreen = ({navigate}, {params}) => {
+const usePreferenceScreen = ({navigate}, {params}) => {
   const item = params;
 
   console.log(
@@ -45,7 +45,7 @@ const useAddPostScreen = ({navigate}, {params}) => {
   const [stateData, setStateData] = useState([]);
   const [cityData, setCityData] = useState([]);
 
-  const [country, setCountry] = useState(item?.country_code?.toUpperCase());
+  const [country, setCountry] = useState(item?.country_code.toUpperCase());
   const [state, setState] = useState(null);
   const [city, setCity] = useState(null);
   const [countryName, setCountryName] = useState(item?.country);
@@ -94,6 +94,7 @@ const useAddPostScreen = ({navigate}, {params}) => {
 
   const getPreferences = async () => {
     const {ok, data, originalError} = await API.get(getPreUrl);
+    console.log("data preferences", data)
     if (ok) setPreferencesData(data);
     else errorMessage(originalError);
   };
@@ -224,46 +225,47 @@ const useAddPostScreen = ({navigate}, {params}) => {
   //   }
   // };
 
-  const postAddData = async ({title, desc, number}) => {
-    console.log('alsdkfjlakjsdiedkddi');
+  // const postData = async ({title, desc, number}) => {
+  const postData = async () => {
+    console.log('preferences post');
     dispatch(loadingTrue());
 
     if (
-      images.length &&
+      // images.length &&
       cat != null &&
-      rooms != null &&
-      bathRoom != null &&
+      // rooms != null &&
+      // bathRoom != null &&
       gp.length &&
       ip.length &&
-      op.length &&
-      location != '' &&
-      numberRegex.test(number)
+      op.length
+      // location != '' &&
+      // numberRegex.test(number)
     ) {
       const body = {
-        title: title,
-        rooms: rooms,
-        description: desc,
-        bathrooms: bathRoom,
-        location,
+        // title: title,
+        // rooms: rooms,
+        // description: desc,
+        // bathrooms: bathRoom,
+        // location,
         generalPref: getAllID(gp),
         insidePref: getAllID(ip),
         outsidePref: getAllID(op),
         category: cat,
-        photos: images,
-        price: number,
+        // photos: images,
+        // price: number,
         adType: type,
-        country: countryName,
-        state: stateName,
-        city: cityName,
+        // country: countryName,
+        // state: stateName,
+        // city: cityName,
       };
-      console.log(body, 'alsdkaskldf');
+      console.log('body',body);
       const {ok, data, status, originalError, problem} = await formDataFunc(
-        createAdsUrl,
+        savePreUrl,
         body,
-        'photos',
-        true,
+        // 'photos',
+        // true,
       );
-      console.log(data, 'sadlkfjlsadkfj');
+      console.log('preferences data post',data);
       if (ok) {
         updateState({
           images: [],
@@ -278,7 +280,7 @@ const useAddPostScreen = ({navigate}, {params}) => {
         });
         // reset();
         dispatch(loadingFalse());
-        successMessage(data?.message || 'Your Ad has been created ');
+        successMessage(data?.message || 'Your Preferences has been updated ');
         navigate('HomeScreen');
 
         reset();
@@ -292,96 +294,13 @@ const useAddPostScreen = ({navigate}, {params}) => {
       }
     } else {
       dispatch(loadingFalse());
-      !numberRegex.test(number)
-        ? errorMessage('Please correct your price')
-        : errorMessage('Please comeplete all fields');
+      // !numberRegex.test(number)
+      //   ? errorMessage('Please correct your price')
+      //   : errorMessage('Please comeplete all fields');
+      errorMessage('Please comeplete all fields')
     }
   };
 
-  const postEditData = async ({title, desc, number}) => {
-    console.log('edit post');
-    dispatch(loadingTrue());
-
-    if (
-      images.length || uploadedImages.length &&
-      cat != null &&
-      rooms != null &&
-      bathRoom != null &&
-      gp.length &&
-      ip.length &&
-      op.length &&
-      location != '' &&
-      numberRegex.test(number)
-    ) {
-      const body = {
-        adId: item?.adId,
-        title: title,
-        rooms: rooms,
-        description: desc,
-        bathrooms: bathRoom,
-        location,
-        generalPref: getAllID(gp),
-        insidePref: getAllID(ip),
-        outsidePref: getAllID(op),
-        category: cat,
-        photos: images,
-        oldImagesPaths: uploadedImages,
-        price: number,
-        adType: type,
-        country: countryName,
-        state: item?.state ?? stateName,
-        city: item?.city ?? cityName,
-      };
-      console.log('edit post body', body,);
-      const {ok, data, status, originalError, problem} = await formDataFunc(
-        updateAdsUrl,
-        body,
-        'photos',
-        true,
-      );
-      console.log('data', data);
-      if (ok) {
-        updateState({
-          images: [],
-          gp: null,
-          op: null,
-          ip: null,
-          cat: null,
-          rooms: null,
-          bathRoom: null,
-          location: '',
-          number,
-        });
-        // reset();
-        dispatch(loadingFalse());
-        successMessage(data?.message || 'Your Ad has been created ');
-        navigationRef.goBack()
-
-        reset();
-        setTimeout(() => {
-          onResetState();
-        }, 1000);
-      } else {
-        dispatch(loadingFalse());
-        console.log('error', originalError, status, problem, data?.message);
-        errorMessage(originalError?.message?.split(' ')?.slice(1)?.join(' '));
-      }
-    } else {
-      dispatch(loadingFalse());
-      !numberRegex.test(number)
-        ? errorMessage('Please correct your price')
-        : errorMessage('Please comeplete all fields');
-    }
-  };
-
-  const postData = async ({title, desc, number}) => {
-    if (params?.price) {
-      postEditData({title, desc, number})
-    }
-    else {
-      postAddData({title, desc, number})
-    }
-  };
   const useEffectFun = () => {
     getPreferences();
   };
@@ -641,4 +560,4 @@ const useAddPostScreen = ({navigate}, {params}) => {
   };
 };
 
-export default useAddPostScreen;
+export default usePreferenceScreen;

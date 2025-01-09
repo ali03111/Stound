@@ -213,8 +213,28 @@ const EditProfileScreen = ({navigation}) => {
               defaultValue: userData?.number ?? 'xxx-xxx-xxxx',
             }}
           />
+          <InputComponent
+                {...{
+                  name: 'description',
+                  handleSubmit,
+                  errors,
+                  reset,
+                  control,
+                  getValues,
+                  placeholder: 'Ad description...',
+                  viewStyle: styles.inputDesc,
+                  textStyle: styles.inputTextarea,
+                  inputIconStyle: styles.msgIcon,
+                  isImage: chat,
+                  inputLines: 4,
+                  maxLength: 200,
+                  multiline: true,
+                  inputLength: true,
+                  defaultValue: userData?.description
+                }}
+              />
 
-<View style={styles.collapseContainer}>
+{/* <View style={styles.collapseContainer}>
       <Collapse>
         <CollapseHeader>
           <View style={[styles.header,styles.loginInput]}>
@@ -381,7 +401,7 @@ const EditProfileScreen = ({navigation}) => {
           </View>
         </CollapseBody>
       </Collapse>
-    </View>
+    </View> */}
 
         </View>
         <View style={styles.saveBtnMain}>

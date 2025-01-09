@@ -37,6 +37,7 @@ export const loginUrl = 'auth/login';
 export const logoutUrl = 'auth/logout';
 export const updateUserUrl = 'auth/update-user';
 export const getPreUrl = 'get-preferences';
+export const savePreUrl = 'save-pref';
 export const getAdsUrl = 'get-ads';
 export const clickAdsUrl = 'click-ad/';
 export const getMyAdsUrl = 'get-my-ads';
