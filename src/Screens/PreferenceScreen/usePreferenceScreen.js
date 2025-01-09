@@ -99,6 +99,23 @@ const usePreferenceScreen = ({navigate}, {params}) => {
     else errorMessage(originalError);
   };
 
+  useEffect(() => {
+    // Whenever preferencesData changes, update the state
+    setPreferencesVal({
+      gp: preferencesData?.gp?.filter(item => item.isSelected) ?? [],
+      ip: preferencesData?.ip?.filter(item => item.isSelected) ?? [],
+      op: preferencesData?.op?.filter(item => item.isSelected) ?? [],
+      cat: preferencesData?.property_type ?? [],
+      // cat: preferencesData.cat && preferencesData.cat[0]?.categoryId ?? null, // Select first category or null
+      rooms: null, // Default to null if no value available
+      bathRoom: null, // Default to null if no value available
+      images: [],
+      type: preferencesData?.type ?? "Rent", // Default to "Rent"
+      // location: preferencesData.locations && preferencesData.locations[0]?.name ?? null, // Use the first location or null
+      uploadedImages: [],
+    });
+  }, [preferencesData]);
+
   const onSelecteTag = (item, key) => {
     console.log(key, item, 'keyueueu11');
     updateState({[key]: item});
@@ -247,10 +264,10 @@ const usePreferenceScreen = ({navigate}, {params}) => {
         // description: desc,
         // bathrooms: bathRoom,
         // location,
-        generalPref: getAllID(gp),
-        insidePref: getAllID(ip),
-        outsidePref: getAllID(op),
-        category: cat,
+        generalPrefIds: getAllID(gp),
+        insidePrefIds: getAllID(ip),
+        outsidePrefIds: getAllID(op),
+        categoryId: cat,
         // photos: images,
         // price: number,
         adType: type,

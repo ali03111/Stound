@@ -1,6 +1,6 @@
 import {useCallback, useEffect, useState} from 'react';
 import API from '../../Utils/helperFunc';
-import {FilterAdsUrl, getPreUrl} from '../../Utils/Urls';
+import {FilterAdsUrl, getPreUrl, savePreUrl} from '../../Utils/Urls';
 import useReduxStore from '../../Hooks/UseReduxStore';
 import {successMessage, errorMessage} from '../../Config/NotificationMessage';
 import {loadingFalse} from '../../Redux/Action/isloadingAction';
@@ -184,6 +184,18 @@ const useFilterScreen = ({navigate}) => {
     getPreferences();
   }, []);
 
+  useEffect(() => {
+    // Whenever preferencesData changes, update the state
+    setPreferencesVal({
+      gp: preferencesData?.gp?.filter(item => item.isSelected) ?? [],
+      ip: preferencesData?.ip?.filter(item => item.isSelected) ?? [],
+      op: preferencesData?.op?.filter(item => item.isSelected) ?? [],
+      cat: preferencesData?.property_type ?? [],
+      type: preferencesData?.type ?? "Rent", // Default to "Rent"
+    });
+  }, [preferencesData]);
+
+
   //GET LOCATION
 
   //Navigate Preferences with onSelectTag Function
@@ -249,6 +261,20 @@ const useFilterScreen = ({navigate}) => {
       console.log('h12312eheha;', body);
       const {ok, data, originalError} = await API.post(FilterAdsUrl, body);
       console.log('h12312eh121121eh;', data);
+
+      const body1 = {
+        generalPrefIds: getAllID(gp),
+        insidePrefIds: getAllID(ip),
+        outsidePrefIds: getAllID(op),
+        categoryId: cat,
+        adType: type,
+      };
+      console.log('body1',body1);
+      const response = await API.post(
+        savePreUrl,
+        body1,
+      );
+      console.log('preferences data post filter',response);
 
       if (ok) {
         navigate('FilterPackageScreen', {items: data});
