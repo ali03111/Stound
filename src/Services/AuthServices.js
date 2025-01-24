@@ -127,28 +127,6 @@ const updateProfileFirebase = params => {
   firestore().collection('users').doc(Auth.userData.agoraId).update(params);
 };
 
-// const updateProfileServices = async params => {
-//   // return data;
-//   console.log('ksfjlks5adja', params.profileData);
-//   const formData = new FormData();
-
-//   Object.entries(params.profileData).forEach(([key, val]) => {
-//     if (key == 'image' && val?.type) {
-//       formData.append('image', {
-//         uri: params.profileData.uri,
-//         type: params.profileData.type,
-//         name: params.profileData.fileName || 'image.jpg',
-//       });
-//     } else formData.append(key, val);
-//   });
-//   return await API.post(updateUserUrl, formData, {
-//     headers: {
-//       'Content-Type': 'multipart/form-data',
-//       // Authorization: `Bearer ${token}`, // Include bearer token in the request header
-//     },
-//   });
-// };
-
 const updateProfileServices = async params => {
   console.log(params.profileData, 'iiiiiidididiaid');
   const {ok, data} = await formDataFunc(

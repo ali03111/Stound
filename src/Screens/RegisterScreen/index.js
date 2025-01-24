@@ -18,6 +18,7 @@ import {Touchable} from '../../Components/Touchable';
 import {Colors} from '../../Theme/Variables';
 import {styles} from './styles';
 import useRegister from './useRegisterScreen';
+import {formatPhoneNumber} from '../../Utils/glodbalFunction';
 
 const RegisterScreen = ({navigation}) => {
   const {
@@ -32,6 +33,12 @@ const RegisterScreen = ({navigation}) => {
     register,
     registerWithEmail,
     goBack,
+    countryCode,
+    setCountryCode,
+    phoneNumber,
+    setPhoneNumber,
+    isFocus,
+    setIsFocus,
   } = useRegister(navigation);
   return (
     <View style={styles.mainView}>
@@ -93,6 +100,27 @@ const RegisterScreen = ({navigation}) => {
             defaultValue: __DEV__ ? '1214634564654' : '',
           }}
         />
+
+        {/* <InputComponent
+          {...{
+            flagNumber: true,
+            countryCode: countryCode,
+            setCountryCode,
+            phoneNumber,
+            setPhoneNumber,
+            isFocus,
+            setIsFocus,
+            name: 'number',
+            handleSubmit,
+            errors,
+            reset,
+            control,
+            getValues,
+            placeholder: 'Contact Number',
+            isImage: phoneIcon,
+            defaultValue: __DEV__ ? formatPhoneNumber('1548484585') : '',
+          }}
+        /> */}
         <InputComponent
           {...{
             name: 'password',

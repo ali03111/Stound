@@ -116,9 +116,9 @@ function MybottomTabs() {
       />
       <Tab.Screen
         // name="SomeComponent"
-        name='HomeScreen'
+        name="HomeScreen"
         options={{
-          tabBarIcon: ({ focused }) => {
+          tabBarIcon: ({focused}) => {
             return (
               <Svg
                 width={wp('15')}
@@ -134,27 +134,13 @@ function MybottomTabs() {
                 {/* Home icon path */}
                 <Path
                   d="M19 27L27 19L35 27V39H19V27Z"
-                  fill={focused ? Colors.white : "none"}
-                  stroke={focused ? "none" : Colors.white}
+                  fill={focused ? Colors.white : 'none'}
+                  stroke={focused ? 'none' : Colors.white}
                   // strokeWidth={focused ? 0 : 2}
-                  strokeWidth='1.5'
+                  strokeWidth="1.5"
                   stroke-linecap="round"
                   stroke-linejoin="round"
                 />
-                {/* <Path
-                  d="M21 27H33"
-                  stroke="white"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-                <Path
-                  d="M27 33V21"
-                  stroke="white"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                /> */}
               </Svg>
             );
           },
@@ -238,10 +224,9 @@ const styles = StyleSheet.create({
           : hp('6')
         : isIOS
         ? hp('-0.5')
-        : hp('2'),
+        : hp('1.5'),
     justifyContent: 'center',
     alignItems: 'center',
-    // backgroundColor:'red'
   },
   barSvg: {
     position: 'absolute',

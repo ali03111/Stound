@@ -173,8 +173,8 @@ an action object as an argument, destructures its `payload` property to get `dat
 performs a series of asynchronous operations using the `yield` keyword. */
 function* registerSaga({payload: {datas}}) {
   const agoraId = uuid.v4();
-  console.log(agoraId, 'aklsdjalsjflkasjdflkj');
   yield put(loadingTrue());
+  console.log(datas, 'MyDATAAAAAAA');
   try {
     const result = yield call(emailSignUp, datas);
 
@@ -187,38 +187,40 @@ function* registerSaga({payload: {datas}}) {
           token: jwtToken,
           data: {...datas, agoraId},
         });
-        console.log(data, 'DAATAT111AA');
-        console.log(datas, jwtToken, agoraId, 'DASTASSASA');
+        console.log(data, ok, 'Response Registererrrr');
+        console.log(datas, {jwtToken}, agoraId, 'DASTASSASA');
         //Add new user to firestore
         yield call(createUserFirestore, {datas, data});
-
-        console.log(data, ok, 'regesterServices');
-
         if (ok) {
-          console.log('OKSERVICESSS');
-          //Create Agora User
-          const {ok, agorData} = yield call(createAgoraUser, {
-            username: data.user.agoraId,
-            password: datas.password,
-            nickname: datas.email,
-          });
-          console.log(ok, agorData, 'ok1111');
-
-          if (ok) {
-            const {ok, token} = yield call(AgoraServerToken, {
-              uid: data.user.agoraId,
-            });
-            // const statusdata = yield call(loginWithAgora, {
-            //   username: data.user.agoraId,
-            //   password: token.userToken,
-            // });
-            // console.log(statusdata, 'aljklfjlskdj');
-            // if (!statusdata) {
-            yield call(emailLogin, datas);
-            yield put(updateAuth(data));
-            // }
-          }
+          yield call(emailLogin, datas);
+          yield put(updateAuth(data));
         }
+
+        // if (ok) {
+        //   // console.log('OKSERVICESSS');
+        //   // //Create Agora User
+        //   // const {ok, agorData} = yield call(createAgoraUser, {
+        //   //   username: data.user.agoraId,
+        //   //   password: datas.password,
+        //   //   nickname: datas.email,
+        //   // });
+        //   // console.log(ok, agorData, 'ok1111');
+
+        //   // if (ok) {
+        //   //   const {ok, token} = yield call(AgoraServerToken, {
+        //   //     uid: data.user.agoraId,
+        //   //   });
+        //   // const statusdata = yield call(loginWithAgora, {
+        //   //   username: data.user.agoraId,
+        //   //   password: token.userToken,
+        //   // });
+        //   // console.log(statusdata, 'aljklfjlskdj');
+        //   // if (!statusdata) {
+        //   yield call(emailLogin, datas);
+        //   yield put(updateAuth(data));
+        //   // }
+        //   // }
+        // }
       }
     }
   } catch (error) {
