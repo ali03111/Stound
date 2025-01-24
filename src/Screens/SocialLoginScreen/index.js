@@ -1,5 +1,5 @@
 import React, {memo} from 'react';
-import {View, Image} from 'react-native';
+import {View, Image, Platform} from 'react-native';
 import ShareButton from '../../Components/ShareButton';
 import {Colors} from '../../Theme/Variables';
 import {styles} from './styles';
@@ -25,12 +25,14 @@ const SocialLoginScreen = ({navigation}) => {
         onPress={googleAuth}
         style={{...styles.socialBtn, backgroundColor: Colors.redfaded}}
       />
-      <ShareButton
-        title={'Continue with Apple'}
-        image={appleIconWhite}
-        onPress={appleIdAuth}
-        style={{...styles.socialBtn, backgroundColor: Colors.black}}
-      />
+      {Platform.OS === 'ios' ? (
+        <ShareButton
+          title={'Continue with Apple'}
+          image={appleIconWhite}
+          onPress={appleIdAuth}
+          style={{...styles.socialBtn, backgroundColor: Colors.black}}
+        />
+      ) : null}
       <ShareButton
         title={'Continue with Facebook'}
         image={facebookIconWhite}

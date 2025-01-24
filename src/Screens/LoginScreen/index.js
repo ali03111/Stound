@@ -1,5 +1,5 @@
 import React, {memo, useCallback} from 'react';
-import {View, Text, Image} from 'react-native';
+import {View, Text, Image, Platform} from 'react-native';
 import {
   appleIcon,
   arrowback,
@@ -114,9 +114,11 @@ const LoginScreen = ({navigation}) => {
           <Touchable onPress={facebookLoginFunc}>
             <Image source={facebookIcon} style={styles.socialIcon} />
           </Touchable>
-          <Touchable onPress={appleIdAuth}>
-            <Image source={appleIcon} style={styles.socialIcon} />
-          </Touchable>
+          {Platform.OS === 'ios' ? (
+            <Touchable onPress={appleIdAuth}>
+              <Image source={appleIcon} style={styles.socialIcon} />
+            </Touchable>
+          ) : null}
           <Touchable onPress={googleLoginFunc}>
             <Image source={googleIcon} style={styles.socialIcon} />
           </Touchable>
