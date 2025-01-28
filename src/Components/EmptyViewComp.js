@@ -19,12 +19,12 @@ export const EmptyViewComp = ({onRefresh, buttonTrue}) => {
         borderRadius: 10,
       }}>
       <Image
-        source={require('../Assests/Icons/dataNotFound2.png')}
+        source={require('../Assets/Icons/dataNotFound2.png')}
         resizeMode="contain"
         style={styles.dataNotFound}
       />
       <Image
-        source={require('../Assests/Icons/clipboard-close.png')}
+        source={require('../Assets/Icons/clipboard-close.png')}
         resizeMode="contain"
         style={styles.noDataIcon}
       />
@@ -37,7 +37,7 @@ export const EmptyViewComp = ({onRefresh, buttonTrue}) => {
         styles={styles.text}
       />
       <Image
-        source={require('../Assests/Icons/dataNotFound1.png')}
+        source={require('../Assets/Icons/dataNotFound1.png')}
         resizeMode="contain"
         style={styles.dataNotFoundTwo}
       />

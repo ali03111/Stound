@@ -1,14 +1,15 @@
 import {StyleSheet} from 'react-native';
 import {hp, wp} from '../../Config/responsive';
-import {Colors} from '../../Theme/Variables';
+import {Colors, FontFamily, FontSize} from '../../Theme/Variables';
 
 export const styles = StyleSheet.create({
   topHeading: {
     color: Colors.primaryColor,
-    fontSize: hp('3.5'),
     fontWeight: '500',
     marginTop: hp('7'),
     marginBottom: hp('3'),
+    fontSize: FontSize.scale26,
+    fontFamily: FontFamily.semiBold,
   },
   mainView: {
     paddingHorizontal: hp('3'),
@@ -41,9 +42,13 @@ export const styles = StyleSheet.create({
   appHeadingView: {
     flexDirection: 'row',
     justifyContent: 'center',
+    alignItems: 'center',
+
     marginTop: hp('2'),
   },
   account: {
-    marginRight: wp('3.5'),
+    fontSize: FontSize.scale16,
+    fontFamily: FontFamily.regular,
+    marginRight: wp('1.5'),
   },
 });

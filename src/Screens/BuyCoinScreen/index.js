@@ -19,7 +19,7 @@ import React, {
 } from 'react';
 import {styles} from './styles';
 import Header from '../../Components/Header';
-import {arrowbackwhite} from '../../Assests';
+import {arrowbackwhite} from '../../Assets';
 import BuyCoinHeader from '../../Components/BuyCoinHeader';
 import {TextComponent} from '../../Components/TextComponent';
 import {hp, wp} from '../../Config/responsive';
@@ -466,7 +466,7 @@ const index = ({navigation, route}) => {
           }}>
           <Image
             style={styles.CoinImage}
-            source={require('../../Assests/Icons/coin.png')}
+            source={require('../../Assets/Icons/coin.png')}
           />
           <View style={styles.midTextContainer}>
             <TextComponent text={coinTitle} styles={styles.coinText} />
@@ -507,7 +507,7 @@ const index = ({navigation, route}) => {
         arrowBackIcon={arrowbackwhite}
         centerTextStyle={styles.centerHeading}
         backText={'Back'}
-        centerImage={require('../../Assests/Images/stoundLogo.png')}
+        centerImage={require('../../Assets/Images/stoundLogo.png')}
       />
       <View style={styles.dayBarStyle}>
         <TextComponent text={'Get your coins here!'} styles={{...styles.day}} />

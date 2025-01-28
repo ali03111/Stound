@@ -1,6 +1,6 @@
 import {StyleSheet} from 'react-native';
 import {hp, wp} from '../../Config/responsive';
-import {Colors} from '../../Theme/Variables';
+import {Colors, FontFamily, FontSize} from '../../Theme/Variables';
 
 export const styles = StyleSheet.create({
   topHeading: {
@@ -9,6 +9,8 @@ export const styles = StyleSheet.create({
     fontWeight: '500',
     marginTop: hp('7'),
     marginBottom: hp('3'),
+    fontSize: FontSize.scale26,
+    fontFamily: FontFamily.semiBold,
   },
   mainView: {
     paddingHorizontal: hp('3'),

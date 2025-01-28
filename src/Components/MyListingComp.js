@@ -3,7 +3,7 @@ import React from 'react';
 import {TextComponent} from './TextComponent';
 import {Colors, FontSize, isIOS} from '../Theme/Variables';
 import {hp, wp} from '../Config/responsive';
-import {bathtub, bed, locationIcon, scaleIcon} from '../Assests';
+import {bathtub, bed, locationIcon, scaleIcon} from '../Assets';
 import {Touchable} from './Touchable';
 
 const DetailButton = ({title, onPress, hide, style, textStyle}) => {
@@ -38,7 +38,7 @@ const MyListingComp = ({
           paddingVertical: hp('1'),
           paddingHorizontal: wp('1'),
         }}
-        source={require('../Assests/Images/property1.png')}
+        source={require('../Assets/Images/property1.png')}
         //   blurRadius={1} for blur
       >
         <View style={{padding: 10}}>

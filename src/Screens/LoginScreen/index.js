@@ -7,7 +7,7 @@ import {
   googleIcon,
   lock,
   sms,
-} from '../../Assests';
+} from '../../Assets';
 import {InputComponent} from '../../Components/InputComponent';
 import KeyBoardWrapper from '../../Components/KeyboardWrapper';
 import ShareButton from '../../Components/ShareButton';

@@ -32,7 +32,7 @@ import {
   UploadProfileImage,
   addGalleryImage,
   accessibleforward,
-} from '../../Assests';
+} from '../../Assets';
 import {Colors, FontSize} from '../../Theme/Variables';
 import FilterAddButton from '../../Components/FilterAddButton';
 import ThemeButtonComp from '../../Components/ThemeButtonComp';
@@ -51,7 +51,7 @@ import {errorMessage} from '../../Config/NotificationMessage';
 import {
   Collapse,
   CollapseHeader,
-  CollapseBody
+  CollapseBody,
 } from 'accordion-collapse-react-native';
 
 const PreferenceScreen = ({navigation, route}) => {
@@ -203,78 +203,83 @@ const PreferenceScreen = ({navigation, route}) => {
             {/* <TextComponent styles={styles.itemHeading1} text={'I Want To'} /> */}
 
             <View style={styles.collapseContainer}>
-      <Collapse>
-        <CollapseHeader>
-          <View style={[styles.header,styles.loginInput]}>
-            <View style={styles.dropDown} />
-            <TextComponent text={'Your Preferences'} styles={styles.text} />
-            <Ionicons
-                  style={styles.dropDown}
-                  color={Colors.primaryColor}
-                  name={'caret-down'}
-                  size={hp(2)}
-                />
-          </View>
-        </CollapseHeader>
-        <CollapseBody>
-          <View style={styles.body}>
-
-            <SwitchSelector
-              options={options}
-              initial={0}
-              onPress={value => onSelecteTag(value, 'type')}
-              backgroundColor="rgba(11, 180, 255, 0.03);"
-              buttonColor={Colors.primaryColor}
-              borderRadius={10}
-              height={45}
-              style={styles.switcher}
-            />
-            <TextComponent
-                          styles={styles.itemHeading}
-                          text={'Property Type '}
+              <Collapse>
+                <CollapseHeader>
+                  <View style={[styles.header, styles.loginInput]}>
+                    <View style={styles.dropDown} />
+                    <TextComponent
+                      text={'Your Preferences'}
+                      styles={styles.text}
+                    />
+                    <Ionicons
+                      style={styles.dropDown}
+                      color={Colors.primaryColor}
+                      name={'caret-down'}
+                      size={hp(2)}
+                    />
+                  </View>
+                </CollapseHeader>
+                <CollapseBody>
+                  <View style={styles.body}>
+                    <SwitchSelector
+                      options={options}
+                      initial={0}
+                      onPress={value => onSelecteTag(value, 'type')}
+                      backgroundColor="rgba(11, 180, 255, 0.03);"
+                      buttonColor={Colors.primaryColor}
+                      borderRadius={10}
+                      height={45}
+                      style={styles.switcher}
+                    />
+                    <TextComponent
+                      styles={styles.itemHeading}
+                      text={'Property Type '}
+                    />
+                    {Platform.OS == 'ios' ? (
+                      <Pressable
+                        onPress={() => setModal0(prev => !prev)}
+                        style={styles.pickerStyle}>
+                        <Image source={catImage} />
+                        <TextComponent
+                          text={!cat ? 'Select' : category}
+                          styles={styles.iosPick}
                         />
-            {Platform.OS == 'ios' ? (
-              <Pressable
-                onPress={() => setModal0(prev => !prev)}
-                style={styles.pickerStyle}>
-                <Image source={catImage} />
-                <TextComponent
-                  text={!cat ? 'Select' : category}
-                  styles={styles.iosPick}
-                />
-                <Ionicons
-                  style={styles.dropDown}
-                  color={Colors.primaryColor}
-                  name={'caret-down'}
-                  size={hp(2)}
-                />
-              </Pressable>
-            ) : (
-              <View style={styles.pickerStyle}>
-                <Image source={catImage} />
-                <Picker
-                  dropdownIconColor={Colors.primaryColor}
-                  style={styles.pick}
-                  selectedValue={cat}
-                  onValueChange={(itemValue, itemIndex) => {
-                    onSelecteTag(itemValue, 'cat');
-                  }}>
-                  <Picker.Item
-                    // color="gray"
-                    label="Select Category..."
-                    value={null}
-                  />
+                        <Ionicons
+                          style={styles.dropDown}
+                          color={Colors.primaryColor}
+                          name={'caret-down'}
+                          size={hp(2)}
+                        />
+                      </Pressable>
+                    ) : (
+                      <View style={styles.pickerStyle}>
+                        <Image source={catImage} />
+                        <Picker
+                          dropdownIconColor={Colors.primaryColor}
+                          style={styles.pick}
+                          selectedValue={cat}
+                          onValueChange={(itemValue, itemIndex) => {
+                            onSelecteTag(itemValue, 'cat');
+                          }}>
+                          <Picker.Item
+                            // color="gray"
+                            label="Select Category..."
+                            value={null}
+                          />
 
-                  {preferencesData.cat &&
-                    preferencesData.cat.map(res => {
-                      return (
-                        <Picker.Item label={res.name} value={res.categoryId} />
-                      );
-                    })}
-                </Picker>
-              </View>
-            )}
-            {/* <View>
+                          {preferencesData.cat &&
+                            preferencesData.cat.map(res => {
+                              return (
+                                <Picker.Item
+                                  label={res.name}
+                                  value={res.categoryId}
+                                />
+                              );
+                            })}
+                        </Picker>
+                      </View>
+                    )}
+                    {/* <View>
               <InputComponent
                 {...{
                   name: 'title',
@@ -450,7 +455,7 @@ const PreferenceScreen = ({navigation, route}) => {
             </TouchableOpacity>
             </View> */}
 
-            {/* <TextComponent styles={styles.itemHeading} text={'Rooms '} />
+                    {/* <TextComponent styles={styles.itemHeading} text={'Rooms '} />
             {Platform.OS == 'ios' ? (
               <Pressable
                 onPress={() => setModal1(prev => !prev)}
@@ -588,62 +593,61 @@ const PreferenceScreen = ({navigation, route}) => {
               }}
             /> */}
 
-            <TextComponent
-              styles={styles.itemHeading}
-              text={'General Preferences '}
-            />
-            <View style={styles.addButton}>
-              <FlatListComp
-                data={gp}
-                onPress={() =>
-                  dynamicNav({
-                    title: 'General',
-                    data: preferencesData.gp,
-                    key: 'gp',
-                    value: gp,
-                  })
-                }
-              />
+                    <TextComponent
+                      styles={styles.itemHeading}
+                      text={'General Preferences '}
+                    />
+                    <View style={styles.addButton}>
+                      <FlatListComp
+                        data={gp}
+                        onPress={() =>
+                          dynamicNav({
+                            title: 'General',
+                            data: preferencesData.gp,
+                            key: 'gp',
+                            value: gp,
+                          })
+                        }
+                      />
+                    </View>
+                    <TextComponent
+                      styles={styles.itemHeading}
+                      text={'Outside Preferences '}
+                    />
+                    <View style={styles.addButton}>
+                      <FlatListComp
+                        data={op}
+                        onPress={() =>
+                          dynamicNav({
+                            title: 'Outside',
+                            data: preferencesData.op,
+                            key: 'op',
+                            value: op,
+                          })
+                        }
+                      />
+                    </View>
+                    <TextComponent
+                      styles={styles.itemHeading}
+                      text={'Inside Preferences '}
+                    />
+                    <View style={styles.addButton}>
+                      <FlatListComp
+                        data={ip}
+                        onPress={() =>
+                          dynamicNav({
+                            title: 'Inside',
+                            data: preferencesData.ip,
+                            key: 'ip',
+                            value: ip,
+                          })
+                        }
+                      />
+                    </View>
+                  </View>
+                </CollapseBody>
+              </Collapse>
             </View>
-            <TextComponent
-              styles={styles.itemHeading}
-              text={'Outside Preferences '}
-            />
-            <View style={styles.addButton}>
-              <FlatListComp
-                data={op}
-                onPress={() =>
-                  dynamicNav({
-                    title: 'Outside',
-                    data: preferencesData.op,
-                    key: 'op',
-                    value: op,
-                  })
-                }
-              />
-            </View>
-            <TextComponent
-              styles={styles.itemHeading}
-              text={'Inside Preferences '}
-            />
-            <View style={styles.addButton}>
-              <FlatListComp
-                data={ip}
-                onPress={() =>
-                  dynamicNav({
-                    title: 'Inside',
-                    data: preferencesData.ip,
-                    key: 'ip',
-                    value: ip,
-                  })
-                }
-              />
-            </View>
-
-            </View>
-              </CollapseBody>
-            </Collapse>
-          </View>
 
             <ThemeButtonComp
               title={'Save'}

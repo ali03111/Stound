@@ -16,7 +16,7 @@ import {styles} from './styles';
 import useChatScreen from './useChatScreen';
 import {NotificationHeader} from '../../Components/Header';
 import {hp, wp} from '../../Config/responsive';
-import {arrowback, moredots, search, smsedit} from '../../Assests';
+import {arrowback, moredots, search, smsedit} from '../../Assets';
 import {Colors} from '../../Theme/Variables';
 import {imageUrl} from '../../Utils/Urls';
 import {EmptyViewComp} from '../../Components/EmptyViewComp';

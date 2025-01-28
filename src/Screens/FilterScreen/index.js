@@ -26,7 +26,7 @@ import {
   bedblue,
   bluebath,
   catImage,
-} from '../../Assests';
+} from '../../Assets';
 import SwitchSelector from 'react-native-switch-selector';
 import {Colors} from '../../Theme/Variables';
 import FilterAddButton from '../../Components/FilterAddButton';
@@ -102,7 +102,7 @@ const FilterScreen = ({navigation}) => {
   } = useFilterScreen(navigation);
 
   //Render Preferences dynamics
-const [value,setValue]=useState(false)
+  const [value, setValue] = useState(false);
   const renderItem = ({item, index}) => {
     console.log('itmemmemem', item);
     return (
@@ -114,25 +114,21 @@ const [value,setValue]=useState(false)
       />
     );
   };
-  
-
-
 
   const handleRangeChange = (low, high, fromUser) => {
     setMin(low);
     setMax(high);
   };
 
-
-  const handleTouchStart = (newMinValue) => {
+  const handleTouchStart = newMinValue => {
     // Handle the onTouchEnd logic
     // For example, set the values to a specific state when the touch ends.
-    setValue(true)
+    setValue(true);
   };
   const handleTouchEnd = () => {
     // Handle the onTouchEnd logic
 
-    setValue(false)
+    setValue(false);
   };
 
   const FlatListComp = ({data, onPress}) => {
@@ -482,9 +478,9 @@ const [value,setValue]=useState(false)
                     onValueChange={(itemValue, itemIndex) =>
                       onSelecteTag(itemValue, 'bathRoom')
                     }>
-                             {/* ADD */}
-              <Picker.Item label="Select" value={null} />
-              {/* ADD */}
+                    {/* ADD */}
+                    <Picker.Item label="Select" value={null} />
+                    {/* ADD */}
                     <Picker.Item label="1" value="1" />
                     <Picker.Item label="2" value="2" />
                     <Picker.Item label="3" value="3" />
@@ -647,23 +643,22 @@ const [value,setValue]=useState(false)
                       setMax(range.max);
                     }}
                   /> */}
-             <RangeSlider
-             
-             labelBackgroundColor={Colors.primaryColor}
-             labelBorderColor={Colors.border2}
-    style={{width: wp('95'), height: 80}}
-    gravity={'center'}
-    min={MIN_DEFAULT}
-    max={MAX_DEFAULT}
-    step={100000}
-    selectionColor={Colors.primaryColor}
-    blankColor="#feff"
-    onTouchStart={handleTouchStart}
-    onTouchEnd={() => handleTouchEnd(min,max)} // Pass the callback function for onTouchEnd
-    onValueChanged={handleRangeChange} 
-    // onTouchEnd={handleTouchEnd}
-    // onValueChanged={handleRangeChange}
-    />
+                  <RangeSlider
+                    labelBackgroundColor={Colors.primaryColor}
+                    labelBorderColor={Colors.border2}
+                    style={{width: wp('95'), height: 80}}
+                    gravity={'center'}
+                    min={MIN_DEFAULT}
+                    max={MAX_DEFAULT}
+                    step={100000}
+                    selectionColor={Colors.primaryColor}
+                    blankColor="#feff"
+                    onTouchStart={handleTouchStart}
+                    onTouchEnd={() => handleTouchEnd(min, max)} // Pass the callback function for onTouchEnd
+                    onValueChanged={handleRangeChange}
+                    // onTouchEnd={handleTouchEnd}
+                    // onValueChanged={handleRangeChange}
+                  />
                 </View>
 
                 <View style={styles.rangeTextMain}>
@@ -673,8 +668,10 @@ const [value,setValue]=useState(false)
                   />
                   {/* </View> */}
                   <View
-                    style={{justifyContent: 'center', alignItems: 'center'}}>
-                  </View>
+                    style={{
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}></View>
 
                   {/* <View style={{...styles.rightView}}> */}
                   <TextComponent

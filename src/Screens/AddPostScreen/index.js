@@ -32,7 +32,7 @@ import {
   UploadProfileImage,
   addGalleryImage,
   accessibleforward,
-} from '../../Assests';
+} from '../../Assets';
 import {Colors, FontSize} from '../../Theme/Variables';
 import FilterAddButton from '../../Components/FilterAddButton';
 import ThemeButtonComp from '../../Components/ThemeButtonComp';
@@ -178,7 +178,7 @@ const AddPostScreen = ({navigation, route}) => {
       <View style={{flex: 1}}>
         <Header
           saveReset={'Reset'}
-          headerTitle={'Ad details'}
+          headerTitle={'Post Ad'}
           onSave={onResetState}
           backText={'Back'}
           arrowBackIcon={arrowback}

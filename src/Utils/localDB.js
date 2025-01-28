@@ -14,7 +14,7 @@ import {
   DetailBed,
   DetailBathtub,
   profile,
-} from '../Assests';
+} from '../Assets';
 
 export const APP_STORE_SECRET = '80263efda96949308ef41ea36ff7b72c';
 

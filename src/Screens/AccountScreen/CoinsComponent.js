@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {View, Text, Image, Pressable} from 'react-native';
 import useAccountScreen from './useAccountScreen';
 import {styles} from './styles';
-import {AccountProfile, coin} from '../../Assests';
+import {AccountProfile, coin} from '../../Assets';
 import {TextComponent} from '../../Components/TextComponent';
 import {Touchable} from '../../Components/Touchable';
 const CoinsComponent = ({RemainingCoins}) => {

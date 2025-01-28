@@ -1,12 +1,28 @@
 import {Dimensions, StyleSheet} from 'react-native';
 import {hp, wp} from '../../Config/responsive';
-import {Colors,FontSize} from '../../Theme/Variables';
+import {Colors, FontSize} from '../../Theme/Variables';
 import {height} from '../../Navigation/bottomNavigation';
 
 export const styles = StyleSheet.create({
   editProfileContainer: {
     paddingHorizontal: wp('4'),
     paddingTop: hp('5'),
+  },
+
+  regular: {
+    fontSize: 20,
+  },
+  regular1: {
+    fontFamily: 'ProximaNova-Regular',
+    fontSize: 20,
+  },
+  semibold: {
+    fontSize: 20,
+    fontFamily: 'ProximaNova-Semibold',
+  },
+  bold: {
+    fontFamily: 'ProximaNova-Bold',
+    fontSize: 20,
   },
   porfileInfo: {
     alignItems: 'center',
@@ -94,17 +110,17 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   header: {
-      width: '100%',
-      borderWidth: 1,
-      height: hp('7'),
-      borderRadius: 15,
-      marginVertical: hp('1'),
-      alignItems: 'center',
-      justifyContent: 'space-between',
-      flexDirection: 'row',
-      borderColor: Colors.lightblue,
-      marginTop: hp('2.5'),
-      backgroundColor: 'transparent',
+    width: '100%',
+    borderWidth: 1,
+    height: hp('7'),
+    borderRadius: 15,
+    marginVertical: hp('1'),
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    borderColor: Colors.lightblue,
+    marginTop: hp('2.5'),
+    backgroundColor: 'transparent',
   },
   body: {
     marginBottom: 15,

@@ -3,7 +3,7 @@ import React, {memo, useCallback} from 'react';
 import useMyListing from './useMyListing';
 import Header from '../../Components/Header';
 import {styles} from './styles';
-import {arrowback} from '../../Assests';
+import {arrowback} from '../../Assets';
 import MyListingComp from '../../Components/MyListingComp';
 import {hp} from '../../Config/responsive';
 import {isIOS} from '../../Theme/Variables';

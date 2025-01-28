@@ -16,6 +16,18 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginTop: hp('3'),
   },
+  regular: {
+    fontFamily: 'PN_Regular',
+    fontSize: 20,
+  },
+  semibold: {
+    fontFamily: 'PN_Semibold',
+    fontSize: 20,
+  },
+  proxima: {
+    fontFamily: 'Proxima_Nova',
+    fontSize: 20,
+  },
   getStart: {
     width: wp('90'),
     justifyContent: 'center',

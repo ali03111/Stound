@@ -1,6 +1,6 @@
 import React from 'react';
 import {Text, Image, StyleSheet} from 'react-native';
-import {Colors, FontFamily} from '../Theme/Variables';
+import {Colors, FontFamily, FontSize} from '../Theme/Variables';
 import {Touchable} from './Touchable';
 import {share} from '@/Assets/Images';
 import {hp, wp} from '../Config/responsive';
@@ -43,10 +43,10 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   text: {
-    // fontSize: heightPercentageToDP('2'),
+    fontSize: FontSize.scale16,
+    fontFamily: FontFamily.semiBold,
     color: Colors.white,
     textAlign: 'center',
     marginLeft: wp('3'),
-    // fontFamily: FontFamily.regular,
   },
 });

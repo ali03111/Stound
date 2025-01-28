@@ -11,7 +11,7 @@ import useMessagesScreen from './useMessagesScreen';
 import {Image, Platform, Text, View} from 'react-native';
 import MessagesHeader from './MessagesHeader';
 import {styles} from './styles';
-import {arrowbackwhite} from '../../Assests';
+import {arrowbackwhite} from '../../Assets';
 import {Colors} from '../../Theme/Variables';
 import {hp, wp} from '../../Config/responsive';
 import {TextComponent} from '../../Components/TextComponent';
@@ -27,7 +27,6 @@ const MessagesScreen = ({route, navigation}) => {
     userDetail,
   } = route?.params;
   const [messages, setMessages] = useState([]);
-
 
   const renderBubble = props => {
     return (
@@ -112,7 +111,6 @@ const MessagesScreen = ({route, navigation}) => {
   };
 
   useEffect(() => {
-
     const subscriber = firebase
       .firestore()
       .collection('chats')
@@ -125,12 +123,9 @@ const MessagesScreen = ({route, navigation}) => {
           return {
             ...item._data,
             createdAt: item.data()?.createdAt.toDate(), //this line change only
-    
           };
         });
         setMessages(allMsg);
-
-
       });
     return () => subscriber();
   }, []);
@@ -148,7 +143,7 @@ const MessagesScreen = ({route, navigation}) => {
         'https://res.cloudinary.com/dd6tdswt5/image/upload/v1684830799/UserImages/mhysa2zj0sbmvnw69b35.jpg',
     };
     setMessages(previousMessages => GiftedChat.append(previousMessages, myMsg));
-    console.log(myMsg,'MYMessage File')
+    console.log(myMsg, 'MYMessage File');
     firebase
       .firestore()
       .collection('chats')
@@ -184,7 +179,6 @@ const MessagesScreen = ({route, navigation}) => {
               lastMsg: msg.text,
               createdAt: new Date(msg?.createdAt),
               isRead: true,
-
             };
           } else {
             // Add a new object to the chatUsers array
@@ -193,7 +187,6 @@ const MessagesScreen = ({route, navigation}) => {
               otherUserId: id,
               createdAt: new Date(msg?.createdAt),
               isRead: true,
-
             });
           }
 
@@ -224,16 +217,13 @@ const MessagesScreen = ({route, navigation}) => {
             user => user.otherUserId === userData?.agoraId,
           );
 
-          if (existingIndex !== -1) 
-          {
+          if (existingIndex !== -1) {
             // Merge the existing object
-            chatUsers[existingIndex] = 
-            {
+            chatUsers[existingIndex] = {
               ...chatUsers[existingIndex],
               lastMsg: msg.text,
               createdAt: new Date(msg.createdAt),
             };
-
           } else {
             // Add a new object to the chatUsers array
             chatUsers.push({

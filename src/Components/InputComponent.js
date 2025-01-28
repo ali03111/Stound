@@ -1,10 +1,10 @@
 import React, {useCallback, useRef, useState} from 'react';
 import {View, Text, TextInput, StyleSheet, Image} from 'react-native';
 import {Controller, useForm} from 'react-hook-form';
-import {Colors} from '../Theme/Variables';
+import {Colors, FontFamily, FontSize} from '../Theme/Variables';
 import {Touchable} from './Touchable';
 import {hp, wp} from '../Config/responsive';
-import {eye, eyeOff} from '../Assests';
+import {eye, eyeOff} from '../Assets';
 import {TextComponent} from './TextComponent';
 
 export const InputComponent = ({
@@ -35,17 +35,7 @@ export const InputComponent = ({
   const keyboardType = ['number', 'reset_code'].includes(name)
     ? 'phone-pad'
     : 'default';
-  // const [countLine, setLines] = useState();
-  // const textLengthRef = useRef(0);
-  // const TextCount = useCallback(() => {
-  //   return (
-  //     <TextComponent
-  //       styles={styles.textInput}
-  //       text={`${textLengthRef.current.length}/200`}
-  //     />
-  //   );
-  // }, [textLengthRef]);
-  // const {getValues} = useForm();
+
   const [length, setLength] = useState('');
   return (
     <>
@@ -82,7 +72,8 @@ export const InputComponent = ({
                   secureTextEntry: !show,
                   onChangeText: onChange,
                   placeholderTextColor: Colors.gray,
-                  fontSize: hp('2'),
+                  fontSize: FontSize.scale16,
+
                   autoCapitalize,
                   autoCorrect: false,
                   spellCheck: false,
@@ -178,6 +169,9 @@ const styles = StyleSheet.create({
   },
   error: {
     color: Colors.redFade,
+    fontSize: FontSize.scale14,
+    fontFamily: FontFamily.semiBold,
+    marginLeft: wp('2'),
   },
   inputIcon: {
     marginLeft: hp('2'),

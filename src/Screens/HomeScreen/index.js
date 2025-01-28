@@ -25,8 +25,8 @@ import {
   setting,
   setting1,
   trendingOutline,
-  trending as notTrending
-} from '../../Assests';
+  trending as notTrending,
+} from '../../Assets';
 
 import * as Animatable from 'react-native-animatable';
 import {Touchable} from '../../Components/Touchable';
@@ -65,7 +65,7 @@ const HomeScreen = ({navigation}) => {
     getHomeData,
     trending,
     toggleTrending,
-    setTrending
+    setTrending,
   } = useHomeScreen(navigation);
 
   // console.log('cccc',onBoardinData);
@@ -107,7 +107,10 @@ const HomeScreen = ({navigation}) => {
               onPress={toggleTrending}
               // onPress={() => {setTrending(!trending)}}
               style={styles.rightIcon}>
-              <Image source={!trending ? trendingOutline : notTrending} style={styles.setting1} />
+              <Image
+                source={!trending ? trendingOutline : notTrending}
+                style={styles.setting1}
+              />
             </Touchable>
           </View>
           <TextComponent

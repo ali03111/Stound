@@ -1,5 +1,14 @@
 import React, {memo, useState} from 'react';
-import {View, Text, Image, Button, Pressable, Modal, Platform, FlatList} from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  Button,
+  Pressable,
+  Modal,
+  Platform,
+  FlatList,
+} from 'react-native';
 import useEditProfileScreen from './useEditProfileScreen';
 import {styles} from './styles';
 import Header from '../../Components/Header';
@@ -13,8 +22,8 @@ import {
   UploadProfileImage,
   catImage,
   addcircle,
-  chat
-} from '../../Assests';
+  chat,
+} from '../../Assets';
 import {TextComponent} from '../../Components/TextComponent';
 import {InputComponent} from '../../Components/InputComponent';
 import ShareButton from '../../Components/ShareButton';
@@ -26,7 +35,7 @@ import {imageUrl} from '../../Utils/Urls';
 import {
   Collapse,
   CollapseHeader,
-  CollapseBody
+  CollapseBody,
 } from 'accordion-collapse-react-native';
 import SwitchSelector from 'react-native-switch-selector';
 import {Picker} from '@react-native-picker/picker';
@@ -71,7 +80,7 @@ const EditProfileScreen = ({navigation}) => {
     gp,
     ip,
     op,
-    dynamicNav
+    dynamicNav,
   } = useEditProfileScreen(navigation);
 
   const renderItem = ({item, index}) => {
@@ -136,105 +145,89 @@ const EditProfileScreen = ({navigation}) => {
 
   return (
     <>
-    <KeyBoardWrapper>
-      <View style={{flex: 1}}>
-        <Header
-          headerTitle={'Edit Profile'}
-          arrowBackIcon={arrowback}
-          backText={'Back'}
-          goBack={goBack}
-          // style={styles.filterHeader}
-          saveResetStyle={styles.save}
-        />
-        <View style={styles.editProfileContainer}>
-          <View style={styles.porfileInfo}>
-            <View style={styles.porfileTopImages}>
-              <BlurImage
-                styles={styles.ProfileImage}
-                uri={profileData?.uri || imageUrl(userData?.profilePicture)}
-              />
-              <Image
-                source={editProfileShadow}
-                style={styles.ProfileImageShadow}
-              />
-              <Touchable
-                onPress={uploadFromGalary}
-                style={styles.UploadProfile}>
-                <Image
-                  source={UploadProfileImage}
-                  style={styles.UploadProfileIcon}
+      <KeyBoardWrapper>
+        <View style={{flex: 1}}>
+          <Header
+            headerTitle={'Edit Profile'}
+            arrowBackIcon={arrowback}
+            backText={'Back'}
+            goBack={goBack}
+            // style={styles.filterHeader}
+            saveResetStyle={styles.save}
+          />
+          <View style={styles.editProfileContainer}>
+            <View style={styles.porfileInfo}>
+              <View style={styles.porfileTopImages}>
+                <BlurImage
+                  styles={styles.ProfileImage}
+                  uri={profileData?.uri || imageUrl(userData?.profilePicture)}
                 />
-              </Touchable>
+                <Image
+                  source={editProfileShadow}
+                  style={styles.ProfileImageShadow}
+                />
+                <Touchable
+                  onPress={uploadFromGalary}
+                  style={styles.UploadProfile}>
+                  <Image
+                    source={UploadProfileImage}
+                    style={styles.UploadProfileIcon}
+                  />
+                </Touchable>
+              </View>
+              <TextComponent text={userData?.name} styles={styles.userName} />
+              <TextComponent text={userData?.email} styles={styles.userEmail} />
             </View>
-            <TextComponent text={userData?.name} styles={styles.userName} />
-            <TextComponent text={userData?.email} styles={styles.userEmail} />
-          </View>
 
-          <InputComponent
-            {...{
-              name: 'name',
-              handleSubmit,
-              errors,
-              reset,
-              control,
-              getValues,
-              viewStyle: styles.loginInput,
-              isImage: user,
-              defaultValue: userData?.name,
-            }}
-          />
-          {/* <View>
-            <View style={styles.datePickerBtn}>
-              <Image source={calendar} style={styles.calenderImg} />
-              <Touchable
-                title="20 - 07 - 1995"
-                onPress={showDatePicker}
-                style={styles.datePickerBtnInner}>
-                <Text style={styles.date}>20 - 07 - 1995</Text>
-              </Touchable>
-            </View>
-            <DateTimePickerModal
-              isVisible={isDatePickerVisible}
-              mode="date"
-              onConfirm={handleConfirm}
-              onCancel={hideDatePicker}
+            <InputComponent
+              {...{
+                name: 'name',
+                handleSubmit,
+                errors,
+                reset,
+                control,
+                getValues,
+                viewStyle: styles.loginInput,
+                isImage: user,
+                defaultValue: userData?.name,
+              }}
             />
-          </View> */}
-          <InputComponent
-            {...{
-              name: 'number',
-              handleSubmit,
-              errors,
-              reset,
-              control,
-              getValues,
-              viewStyle: styles.loginInput,
-              isImage: phoneIcon,
-              defaultValue: userData?.number ?? 'xxx-xxx-xxxx',
-            }}
-          />
-          <InputComponent
-                {...{
-                  name: 'description',
-                  handleSubmit,
-                  errors,
-                  reset,
-                  control,
-                  getValues,
-                  placeholder: 'Ad description...',
-                  viewStyle: styles.inputDesc,
-                  textStyle: styles.inputTextarea,
-                  inputIconStyle: styles.msgIcon,
-                  isImage: chat,
-                  inputLines: 4,
-                  maxLength: 200,
-                  multiline: true,
-                  inputLength: true,
-                  defaultValue: userData?.description
-                }}
-              />
 
-{/* <View style={styles.collapseContainer}>
+            <InputComponent
+              {...{
+                name: 'number',
+                handleSubmit,
+                errors,
+                reset,
+                control,
+                getValues,
+                viewStyle: styles.loginInput,
+                isImage: phoneIcon,
+                defaultValue: userData?.number ?? 'xxx-xxx-xxxx',
+              }}
+            />
+            <InputComponent
+              {...{
+                name: 'description',
+                handleSubmit,
+                errors,
+                reset,
+                control,
+                getValues,
+                placeholder: 'Ad description...',
+                viewStyle: styles.inputDesc,
+                textStyle: styles.inputTextarea,
+                inputIconStyle: styles.msgIcon,
+                isImage: chat,
+                inputLines: 4,
+                maxLength: 200,
+                multiline: true,
+                inputLength: true,
+                defaultValue: userData?.description,
+              }}
+            />
+
+            {/* <View style={styles.collapseContainer}>
       <Collapse>
         <CollapseHeader>
           <View style={[styles.header,styles.loginInput]}>
@@ -402,68 +395,67 @@ const EditProfileScreen = ({navigation}) => {
         </CollapseBody>
       </Collapse>
     </View> */}
-
+          </View>
+          <View style={styles.saveBtnMain}>
+            <ShareButton
+              title={'Save'}
+              style={styles.saveBtn}
+              onPress={handleSubmit(updateProfile)}
+            />
+          </View>
         </View>
-        <View style={styles.saveBtnMain}>
-          <ShareButton
-            title={'Save'}
-            style={styles.saveBtn}
-            onPress={handleSubmit(updateProfile)}
-          />
-        </View>
-      </View>
-    </KeyBoardWrapper>
+      </KeyBoardWrapper>
 
-    {/* Category PICKER */}
-          <Modal animationType="slide" visible={Modal0} transparent={true}>
-            <View style={styles.Modal}>
-              <View style={styles.innerContainer}>
-                <View style={styles.titleContainer}>
-                  <TextComponent
-                    styles={styles.modalText}
-                    onPress={() => setModal0(false)}
-                    text={'Done'}
-                  />
-                </View>
-                <Picker
-                  dropdownIconColor={Colors.primaryColor}
-                  style={styles.pick}
-                  selectedValue={cat}
-                  onValueChange={(itemValue, itemIndex) => {
-                    onSelecteTag(itemValue, 'cat');
-                    // Find the selected category name based on itemValue
-                    const selectedCategory = preferencesData.cat.find(
-                      // categoryItem => categoryItem.categoryId === itemValue,
-                      categoryItem => categoryItem.name === itemValue,
-                    );
-                    // Update the category state with the selected category name
-                    setCategory(selectedCategory ? selectedCategory.name : '');
-                  }}>
-                  <Picker.Item
-                    // color="gray"
-                    label="Select Category..."
-                    value={null}
-                  />
-                  {preferencesData.cat &&
-                    preferencesData.cat.map((res, index) => {
-                      {
-                        cat && index == 2 && setCategory(res.name);
-                      }
-    
-                      return (
-                        <Picker.Item
-                          label={res.name}
-                          // color="black"
-                          // style={{color: 'black'}}
-                          // value={res.categoryId}
-                          value={res?.name}
-                        />
-                      );
-                    })}
-                </Picker>
-              </View>
+      {/* Category PICKER */}
+      <Modal animationType="slide" visible={Modal0} transparent={true}>
+        <View style={styles.Modal}>
+          <View style={styles.innerContainer}>
+            <View style={styles.titleContainer}>
+              <TextComponent
+                styles={styles.modalText}
+                onPress={() => setModal0(false)}
+                text={'Done'}
+              />
             </View>
-          </Modal>
+            <Picker
+              dropdownIconColor={Colors.primaryColor}
+              style={styles.pick}
+              selectedValue={cat}
+              onValueChange={(itemValue, itemIndex) => {
+                onSelecteTag(itemValue, 'cat');
+                // Find the selected category name based on itemValue
+                const selectedCategory = preferencesData.cat.find(
+                  // categoryItem => categoryItem.categoryId === itemValue,
+                  categoryItem => categoryItem.name === itemValue,
+                );
+                // Update the category state with the selected category name
+                setCategory(selectedCategory ? selectedCategory.name : '');
+              }}>
+              <Picker.Item
+                // color="gray"
+                label="Select Category..."
+                value={null}
+              />
+              {preferencesData.cat &&
+                preferencesData.cat.map((res, index) => {
+                  {
+                    cat && index == 2 && setCategory(res.name);
+                  }
+
+                  return (
+                    <Picker.Item
+                      label={res.name}
+                      // color="black"
+                      // style={{color: 'black'}}
+                      // value={res.categoryId}
+                      value={res?.name}
+                    />
+                  );
+                })}
+            </Picker>
+          </View>
+        </View>
+      </Modal>
     </>
   );
 };

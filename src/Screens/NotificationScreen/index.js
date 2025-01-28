@@ -14,7 +14,7 @@ import {styles} from './styles';
 import useNotificationScreen from './useNotificationScreen';
 import {NotificationHeader} from '../../Components/Header';
 import {hp, wp} from '../../Config/responsive';
-import {arrowback} from '../../Assests';
+import {arrowback} from '../../Assets';
 import {AlertDesign} from '../../Components/AlertDesign';
 import {Colors} from '../../Theme/Variables';
 import {EmptyViewComp} from '../../Components/EmptyViewComp';

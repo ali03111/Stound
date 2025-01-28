@@ -5,7 +5,7 @@ import Header from '../../Components/Header';
 import {wp, hp} from '../../Config/responsive';
 import React from 'react';
 import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
-import {arrowback} from '../../Assests';
+import {arrowback} from '../../Assets';
 import {styles} from '../LocationScreen/styles';
 import useLocationScreen from './useLocationScreen';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -125,12 +125,12 @@ const Index = ({navigation, route}) => {
             {location.coords ? (
               <Image
                 style={styles.image}
-                source={require('../../Assests/Icons/gps.png')}
+                source={require('../../Assets/Icons/gps.png')}
               />
             ) : (
               <Image
                 style={{...styles.image, tintColor: 'gray'}}
-                source={require('../../Assests/Icons/gps.png')}
+                source={require('../../Assets/Icons/gps.png')}
               />
             )}
           </TouchableOpacity>

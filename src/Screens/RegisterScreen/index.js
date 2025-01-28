@@ -9,13 +9,13 @@ import {
   phoneIcon,
   sms,
   user,
-} from '../../Assests';
+} from '../../Assets';
 import {InputComponent} from '../../Components/InputComponent';
 import KeyBoardWrapper from '../../Components/KeyboardWrapper';
 import ShareButton from '../../Components/ShareButton';
 import {TextComponent} from '../../Components/TextComponent';
 import {Touchable} from '../../Components/Touchable';
-import {Colors} from '../../Theme/Variables';
+import {Colors, FontFamily, FontSize} from '../../Theme/Variables';
 import {styles} from './styles';
 import useRegister from './useRegisterScreen';
 import {formatPhoneNumber} from '../../Utils/glodbalFunction';
@@ -165,7 +165,11 @@ const RegisterScreen = ({navigation}) => {
           <TextComponent
             onPress={register}
             text={'Log In'}
-            styles={{color: Colors.primaryColor}}
+            styles={{
+              color: Colors.primaryColor,
+              fontSize: FontSize.scale16,
+              fontFamily: FontFamily.semiBold,
+            }}
           />
         </View>
       </KeyBoardWrapper>

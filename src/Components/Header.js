@@ -2,9 +2,9 @@ import React from 'react';
 import {StyleSheet, Text, Image, View, Platform} from 'react-native';
 import {TextComponent} from './TextComponent';
 import {Touchable} from './Touchable';
-import {arrowback} from '../Assests';
+
 import {hp, wp} from '../Config/responsive';
-import {Colors, FontSize} from '../Theme/Variables';
+import {Colors, FontFamily, FontSize} from '../Theme/Variables';
 
 const NotificationHeader = ({
   headerTitle,
@@ -93,7 +93,8 @@ const styles = StyleSheet.create({
   HeaderTitle: {
     fontSize: FontSize.scale24,
     color: Colors.primaryTextColor,
-    fontWeight: '600',
+    fontFamily: FontFamily.semiBold,
+    // fontWeight: '600',
   },
   HeaderLeft: {
     width: wp('20'),

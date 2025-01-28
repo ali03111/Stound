@@ -31,7 +31,7 @@ const BuyCoinHeader = ({
   return (
     <View>
       <ImageBackground
-        source={require('../Assests//Images/bugCoinbackImage.png')}
+        source={require('../Assets/Images/bugCoinbackImage.png')}
         style={[styles.TopHeader, {...style}]}>
         <View style={{flexDirection: 'row'}}>
           <View style={styles.HeaderLeft}>

@@ -7,7 +7,7 @@ import {
   lineleft,
   lineright,
   notificationProfile2,
-} from '../../Assests';
+} from '../../Assets';
 import {hp, wp} from '../../Config/responsive';
 import {Colors} from '../../Theme/Variables';
 // import { goBack } from '../../Utils';
@@ -42,13 +42,12 @@ const MessagesHeader = ({
                 style: styles.arrowback,
               }}
             />
-            <View style={{marginLeft:wp('3')}}>
-
-            <BlurImage
-              uri={imageUrl(image)}
-              radius={50}
-              styles={styles.profileImg}
-            />
+            <View style={{marginLeft: wp('3')}}>
+              <BlurImage
+                uri={imageUrl(image)}
+                radius={50}
+                styles={styles.profileImg}
+              />
             </View>
             <TextComponent
               text={backText}
@@ -96,13 +95,12 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 20,
     paddingHorizontal: wp('4'),
   },
-  
+
   backMain: {
     alignItems: 'center',
     flexDirection: 'row',
     textAlign: 'left',
     marginTop: hp('0.2'),
-
   },
   backBtn: {
     marginRight: wp('1'),
@@ -113,12 +111,11 @@ const styles = StyleSheet.create({
     color: Colors.white,
     fontWeight: '500',
   },
-  HeaderLeft: {
-  },
+  HeaderLeft: {},
   HeaderCenter: {
     width: wp('52'),
     alignItems: 'flex-start',
-    marginLeft:wp('3')
+    marginLeft: wp('3'),
   },
   HeaderRight: {
     width: wp('20'),

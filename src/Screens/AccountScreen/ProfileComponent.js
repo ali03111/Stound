@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {View, Text, Image} from 'react-native';
 import useAccountScreen from './useAccountScreen';
 import {styles} from './styles';
-import {AccountProfile} from '../../Assests';
+import {AccountProfile} from '../../Assets';
 import {TextComponent} from '../../Components/TextComponent';
 import {Touchable} from '../../Components/Touchable';
 import {imageUrl} from '../../Utils/Urls';

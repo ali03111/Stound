@@ -23,7 +23,7 @@ import {
   chat,
   favEmpty,
   locationBlueIcon,
-} from '../../Assests';
+} from '../../Assets';
 import FilterAddButton from '../../Components/FilterAddButton';
 import usePackageDetailsScreen from './usePackageDetailsScreen';
 import {
@@ -36,7 +36,7 @@ import MsgSendButton from '../../Components/MsgSendButton';
 import {imageUrl} from '../../Utils/Urls';
 import BlurBackground from '../../Components/BlurBackground';
 import BlurImage from '../../Components/BlurImage';
-import {fav} from '../../Assests';
+import {fav} from '../../Assets';
 import DetailsUiComponent from '../../Components/DetailsUiComponent';
 const PackageDetailsScreen = ({navigation, route}) => {
   const {

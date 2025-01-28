@@ -1,17 +1,17 @@
-import React, { memo, useCallback } from 'react';
-import { View, FlatList, Dimensions } from 'react-native';
+import React, {memo, useCallback} from 'react';
+import {View, FlatList, Dimensions} from 'react-native';
 import useProfileScreen from './useProfileScreen';
-import { styles } from './styles';
-import { keyExtractor } from '../../Utils';
-import { TextComponent } from '../../Components/TextComponent';
+import {styles} from './styles';
+import {keyExtractor} from '../../Utils';
+import {TextComponent} from '../../Components/TextComponent';
 import * as Animatable from 'react-native-animatable';
 import ShareButton from '../../Components/ShareButton';
 
-const OnboardScreen = ({ navigation }) => {
-  const { onBoardinData, currentIndex, onSnapToItem, getStart } =
+const OnboardScreen = ({navigation}) => {
+  const {onBoardinData, currentIndex, onSnapToItem, getStart} =
     useProfileScreen(navigation);
   const renderItem = useCallback(
-    ({ item, index }) => {
+    ({item, index}) => {
       return (
         <View style={styles.centerMainView}>
           <TextComponent text={item?.heading} styles={styles.centerHeading} />
@@ -22,16 +22,13 @@ const OnboardScreen = ({ navigation }) => {
     [currentIndex],
   );
   const renderItemDots = useCallback(
-    ({ item, index }) => {
+    ({item, index}) => {
       return <View style={styles.dot(currentIndex, index)} />;
     },
     [currentIndex],
   );
   return (
-    <View style={{ alignItems: 'center' }}>
-
-
-
+    <View style={{alignItems: 'center'}}>
       <FlatList
         refreshing={false}
         data={onBoardinData}
@@ -41,8 +38,9 @@ const OnboardScreen = ({ navigation }) => {
         onMomentumScrollEnd={onSnapToItem}
         keyExtractor={keyExtractor}
         pagingEnabled={true}
-        contentContainerStyle={{ flexDirection: 'row' }}
+        contentContainerStyle={{flexDirection: 'row'}}
       />
+
       <FlatList
         refreshing={false}
         data={[0, 1, 2]}
@@ -59,7 +57,7 @@ const OnboardScreen = ({ navigation }) => {
           <ShareButton
             title={'Get Start'}
             style={styles.getStart}
-          // onPress={getStart}
+            // onPress={getStart}
           />
         </Animatable.View>
       )}

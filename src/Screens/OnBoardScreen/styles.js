@@ -1,6 +1,6 @@
 import {Dimensions, StyleSheet} from 'react-native';
 import {hp, wp} from '../../Config/responsive';
-import {Colors} from '../../Theme/Variables';
+import {Colors, FontFamily, FontSize} from '../../Theme/Variables';
 
 export const styles = StyleSheet.create({
   appHeadingView: {
@@ -35,10 +35,10 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
   centerHeading: {
-    fontSize: hp('3'),
-    fontWeight: 'bold',
+    fontSize: FontSize.scale30,
+    fontFamily: FontFamily.semiBold,
     marginVertical: hp('1.5'),
-    marginBottom: hp('2'),
+    marginBottom: hp('3'),
     width: wp('90'),
     textAlign: 'center',
     color: Colors.primaryColor,

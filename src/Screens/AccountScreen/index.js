@@ -16,8 +16,8 @@ import {
   receiptsearch,
   star,
   tasksquare,
-  setting
-} from '../../Assests';
+  setting,
+} from '../../Assets';
 import {Colors} from '../../Theme/Variables';
 import ProfileButton from '../../Components/ProfileButton';
 import ProfileArea from './ProfileComponent';

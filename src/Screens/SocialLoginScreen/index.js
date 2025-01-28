@@ -10,7 +10,7 @@ import {
   googleIconWhite,
   smsWhite,
   logo,
-} from '../../Assests';
+} from '../../Assets';
 import useSocialLoginScreen from './useSocialLoginScreen';
 
 const SocialLoginScreen = ({navigation}) => {

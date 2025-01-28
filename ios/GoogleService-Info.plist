@@ -38,5 +38,6 @@
 	<string>Ask The Permission Current Location</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Ask The Permission Current Location</string>
+
 </dict>
 </plist>

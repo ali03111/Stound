@@ -22,7 +22,7 @@ import {
   chat,
   favEmpty,
   locationBlueIcon,
-} from '../../Assests';
+} from '../../Assets';
 import FilterAddButton from '../../Components/FilterAddButton';
 import {
   Collapse,

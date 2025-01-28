@@ -129,17 +129,17 @@ const BuyCoinHeader = ({
           }}>
           <SocialBox
             onPress={onPressMessage}
-            image={require('../Assests/Icons/chat.png')}
+            image={require('../Assets/Icons/chat.png')}
             imageText={'Message'}
           />
           <SocialBox
             onPress={onPressCall}
-            image={require('../Assests/Icons/phone.png')}
+            image={require('../Assets/Icons/phone.png')}
             imageText={'Call'}
           />
           <SocialBox
             onPress={onPressEMail}
-            image={require('../Assests/Icons/send.png')}
+            image={require('../Assets/Icons/send.png')}
             imageText={'Email'}
           />
         </View>
@@ -256,6 +256,7 @@ const styles = StyleSheet.create({
   HeaderCenter: {
     width: wp('52'),
     alignItems: 'center',
+    fontFamily: 'Proxima_Nova',
   },
   HeaderRight: {
     width: wp('20'),

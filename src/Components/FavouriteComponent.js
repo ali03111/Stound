@@ -12,7 +12,7 @@ import {
   location,
   scaleIcon,
   fav,
-} from '../Assests';
+} from '../Assets';
 import {TextComponent} from './TextComponent';
 import {white} from 'react-native-paper/lib/typescript/src/styles/themes/v2/colors';
 import DetailButton from './detailButton';

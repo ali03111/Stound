@@ -2,7 +2,7 @@ import {memo, useCallback} from 'react';
 import useListingQueryScreen from './useListingQueryScreen';
 import {FlatList, View} from 'react-native';
 import Header from '../../Components/Header';
-import {arrowback} from '../../Assests';
+import {arrowback} from '../../Assets';
 import {styles} from './styles';
 import {keyExtractor} from '../../Utils';
 import {hp, wp} from '../../Config/responsive';
@@ -58,15 +58,15 @@ const ListingQueryScreen = ({navigation, route}) => {
         onRefresh={getListingData}
         keyExtractor={keyExtractor}
         ListEmptyComponent={
-            queryData?.interested_users.length == 0 && (
-          <View
-            style={{
-              justifyContent: 'center',
-              height: hp('80'),
-            }}>
-            <EmptyViewComp onRefresh={getListingData} />
-          </View>
-            )
+          queryData?.interested_users.length == 0 && (
+            <View
+              style={{
+                justifyContent: 'center',
+                height: hp('80'),
+              }}>
+              <EmptyViewComp onRefresh={getListingData} />
+            </View>
+          )
         }
       />
     </View>

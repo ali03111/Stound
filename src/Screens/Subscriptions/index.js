@@ -120,7 +120,7 @@ const Subscriptions = () => {
         <View style={{flexDirection: 'row'}}>
           <Image
             style={styles.CoinImage}
-            source={require('../../Assests/Icons/coin.png')}
+            source={require('../../Assets/Icons/coin.png')}
           />
           <View style={styles.midTextContainer}>
             <TextComponent text={coinTitle} styles={styles.coinText} />

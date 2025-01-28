@@ -8,7 +8,7 @@ import {hp} from '../../Config/responsive';
 import {imageUrl} from '../../Utils/Urls';
 import {EmptyViewComp} from '../../Components/EmptyViewComp';
 import useFilterPackageScreen from './useFilterPackageScreen';
-import {arrowback} from '../../Assests';
+import {arrowback} from '../../Assets';
 
 const FilterPackageScreen = ({navigation, route}) => {
   const {favouriteData, onPress, updateFav} = useFilterPackageScreen(

@@ -15,7 +15,7 @@ import {
   createNavigationContainerRef,
 } from '@react-navigation/native';
 import StackNavigatior from './src/Navigation/navigation';
-import {SplashScreen, radioEmtpy, radioFill} from './src/Assests';
+import {SplashScreen, radioEmtpy, radioFill} from './src/Assets';
 import {Settings} from 'react-native-fbsdk-next';
 import useReduxStore from './src/Hooks/UseReduxStore';
 import Overlay from './src/Components/Overlay';
@@ -105,7 +105,7 @@ function App() {
     dispatch(fcmRegister(fcm_token));
   };
 
-    const onOpenNotification = notify => {
+  const onOpenNotification = notify => {
     console.log('notify', notify);
     if (navigationRef.isReady()) {
       // Perform navigation if the react navigation is ready to handle actions
@@ -124,16 +124,14 @@ function App() {
       style={styles.SplashScreen_RootView}></ImageBackground>
   );
 
-    //Get Token for firebase
-    const getTokenFunction = async()=>{
-    
-      const authToken = await messaging().getToken();
-      console.log({authToken})
-  
-    }
-    useEffect(()=>{
-      getTokenFunction();
-    },[])
+  //Get Token for firebase
+  const getTokenFunction = async () => {
+    const authToken = await messaging().getToken();
+    console.log({authToken});
+  };
+  useEffect(() => {
+    getTokenFunction();
+  }, []);
   return (
     <>
       {isloading && <Overlay />}

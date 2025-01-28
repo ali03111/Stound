@@ -3,7 +3,7 @@ import {View, FlatList, Text, ScrollView, SafeAreaView} from 'react-native';
 import useFavourateScreen from './useGeneralScreen';
 import {styles} from './styles';
 import Header from '../../Components/Header';
-import {arrowback, accessibleforward} from '../../Assests';
+import {arrowback, accessibleforward} from '../../Assets';
 import {Colors} from '../../Theme/Variables';
 import FilterAddButton from '../../Components/FilterAddButton';
 import useGeneralScreen from './useGeneralScreen';
