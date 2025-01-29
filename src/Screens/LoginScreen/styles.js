@@ -14,16 +14,21 @@ export const styles = StyleSheet.create({
   },
   mainView: {
     paddingHorizontal: hp('3'),
+    flex: 1,
+    backgroundColor: Colors.white,
   },
   loginInput: {
     fontWeight: '600',
     color: 'red',
+    backgroundColor: 'white',
   },
   forgetPass: {
     color: Colors.primaryColor,
     textAlign: 'right',
     marginTop: hp('1'),
     marginBottom: hp('5'),
+    fontFamily: FontFamily.regular,
+    fontSize: FontSize.scale14,
   },
   getStart: {
     justifyContent: 'center',
@@ -43,14 +48,19 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     marginTop: hp('2'),
+    alignItems: 'center',
   },
   account: {
     marginRight: wp('3.5'),
+    fontFamily: FontFamily.regular,
+    fontSize: FontSize.scale16,
   },
   or: {
     textAlign: 'center',
     color: Colors.gray2,
     marginVertical: hp('3'),
+    fontFamily: FontFamily.regular,
+    fontSize: FontSize.scale14,
   },
   signUpWith: {
     flexDirection: 'row',
@@ -60,6 +70,8 @@ export const styles = StyleSheet.create({
   signUpText: {
     paddingHorizontal: wp('3'),
     color: Colors.grayborder,
+    fontFamily: FontFamily.regular,
+    fontSize: FontSize.scale16,
   },
   signUpBorder: {
     width: wp('20'),

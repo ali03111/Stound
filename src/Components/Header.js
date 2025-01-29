@@ -18,6 +18,8 @@ const NotificationHeader = ({
   backTextStyle,
   onSave,
   onHeartPress,
+  tintColor,
+  arrowBackStyle,
 }) => {
   return (
     <View style={[styles.TopHeader, {...style}]}>
@@ -28,6 +30,8 @@ const NotificationHeader = ({
             style={{
               resizeMode: 'contain',
               ...styles.arrowback,
+              arrowBackStyle,
+              tintColor: tintColor,
             }}
           />
           <TextComponent

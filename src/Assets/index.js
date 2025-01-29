@@ -28,6 +28,7 @@ export {default as addGalleryImage} from './Images/addgalleryimage.png';
 export {default as property} from './Images/property.png';
 export {default as property1} from './Images/property1.png';
 export {default as locationIcon} from './Icons/locationicon.png';
+export {default as forgotimage} from './Images/forgotimage.png';
 
 //  Icons
 

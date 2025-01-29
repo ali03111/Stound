@@ -1,10 +1,11 @@
-import {Dimensions, Platform, Image, Text} from 'react-native';
+import {Dimensions, Platform, Image, Text, PixelRatio} from 'react-native';
 import {CardStyleInterpolators} from '@react-navigation/stack';
 const {width, height} = Dimensions.get('window');
 
 const Colors = {
   primaryColor: '#0BB4FF',
   primaryColorFaded: '#759CFA',
+  backgroundColor: 'FDFDFD',
   yellow2: '#F2E3B5',
   lightGray2: '#98A1BD',
   barFaded: 'rgba(49,74,138,0.63)',
@@ -95,6 +96,26 @@ const NavigationColors = {
   primary: Colors.primary,
 };
 
+// FontSize
+
+// Function to determine the base width dynamically
+const getBaseWidth = () => {
+  if (width <= 320) return 320; // Small Android devices (e.g., old phones, iPhone SE)
+  if (width <= 360) return 360; // Common Android devices (Samsung A-series, Moto G)
+  if (width <= 375) return 375; // iPhones 12/13/14 (Standard width)
+  if (width <= 414) return 414; // iPhone 14 Pro Max, Pixel 6 Pro, larger Android phones
+  if (width <= 480) return 480; // Small tablets (iPad Mini, Galaxy Tab A7 Lite)
+  if (width <= 600) return 600; // Mid-sized tablets (Amazon Fire HD, iPad Mini)
+  if (width <= 768) return 768; // Standard tablets (iPad 9th/10th Gen, Samsung Tab S6 Lite)
+  if (width <= 1024) return 1024; // Large tablets (iPad Pro, Galaxy Tab S8, larger Android)
+  return 1280; // Extra-large screens (Desktop-like, foldable screens, large Android tablets)
+};
+
+const BASE_WIDTH = getBaseWidth(); // Auto-detect base width
+
+// Function to scale font size based on base width
+const scaleFont = size => (size * width) / BASE_WIDTH;
+
 /** FontSize **/
 const FontSize = {
   scale12: Math.round(width / 36),
@@ -109,6 +130,7 @@ const FontSize = {
   scale21: Math.round(width / 20),
   scale22: Math.round(width / 19.5),
   scale24: Math.round(width / 18),
+  scale25: PixelRatio.getFontScale() * 25,
   scale26: Math.round(width / 16.5),
   scale28: Math.round(width / 15.5),
   scale30: Math.round(width / 14.5),
@@ -171,6 +193,7 @@ const FontSize = {
   xxlarge: 20,
   xxxlarge: 22,
 };
+
 const FontFamily = {
   regular: 'ProximaNova-Regular',
   semiBold: 'ProximaNova-Semibold',
@@ -319,4 +342,5 @@ export {
   NavigationColors,
   animationConfig,
   isIOS,
+  scaleFont,
 };

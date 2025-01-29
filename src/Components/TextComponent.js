@@ -1,17 +1,20 @@
 import React from 'react';
 import {Text} from 'react-native';
 import {hp} from '../Config/responsive';
-import {Colors, FontFamily} from '../Theme/Variables';
+import {Colors, FontFamily, scaleFont} from '../Theme/Variables';
 
 export const TextComponent = ({text, styles, onPress, numberOfLines}) => {
   return (
     <Text
+      adjustsFontSizeToFit
       numberOfLines={numberOfLines ?? 1}
       onPress={onPress}
       style={{
         color: Colors.black,
-        fontSize: hp('2'),
+        fontSize: scaleFont(16),
+
         fontFamily: FontFamily.regular,
+
         ...styles,
       }}>
       {text}

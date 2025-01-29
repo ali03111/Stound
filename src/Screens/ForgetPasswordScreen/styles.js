@@ -1,27 +1,32 @@
-import { StyleSheet } from 'react-native';
-import { hp, wp } from '../../Config/responsive';
-import { Colors } from '../../Theme/Variables';
+import {StyleSheet} from 'react-native';
+import {hp, wp} from '../../Config/responsive';
+import {Colors, FontFamily, FontSize, scaleFont} from '../../Theme/Variables';
 
 export const styles = StyleSheet.create({
   centerText: {
     flex: 7,
   },
+  imageBackground: {
+    resizeMode: 'cover',
+    height: hp('55'),
+  },
   topHeading: {
-    color: Colors.primaryTextColor
-    ,
-    fontSize: hp('3.5'),
-    fontWeight: '500',
-    marginTop: hp('7'),
-    marginBottom: hp('3'),
-
-
+    color: Colors.primaryColor,
+    fontSize: scaleFont(25),
+    fontFamily: FontFamily.semiBold,
+    marginTop: hp('3'),
+    marginBottom: hp('1'),
   },
   passwordText: {
     marginBottom: hp('3'),
     width: wp('80'),
+    fontSize: scaleFont(16),
+    fontFamily: FontFamily.regular,
+    color: 'rgba(41, 45, 50, 0.5)',
   },
   mainView: {
     flex: 1,
+    backgroundColor: Colors.white,
   },
   loginInput: {
     fontWeight: '600',
@@ -35,6 +40,7 @@ export const styles = StyleSheet.create({
   },
   getStart: {
     justifyContent: 'center',
+    marginTop: hp('6'),
   },
 
   backMain: {

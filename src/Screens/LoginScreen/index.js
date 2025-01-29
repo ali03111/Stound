@@ -14,7 +14,7 @@ import ShareButton from '../../Components/ShareButton';
 import {TextComponent} from '../../Components/TextComponent';
 import {Touchable} from '../../Components/Touchable';
 import {hp} from '../../Config/responsive';
-import {Colors} from '../../Theme/Variables';
+import {Colors, FontFamily, FontSize} from '../../Theme/Variables';
 import {styles} from './styles';
 import useLogin from './useLoginScreen';
 
@@ -100,7 +100,12 @@ const LoginScreen = ({navigation}) => {
           <TextComponent
             onPress={register}
             text={'Sign Up'}
-            styles={{color: Colors.primaryColor}}
+            styles={{
+              color: Colors.primaryColor,
+              fontFamily: FontFamily.semiBold,
+              fontSize: FontSize.scale16,
+              textDecorationLine: 'underline',
+            }}
           />
         </View>
         <TextComponent text={'Or'} styles={styles.or} />

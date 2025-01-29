@@ -1,7 +1,7 @@
 import React, {useCallback, useRef, useState} from 'react';
 import {View, Text, TextInput, StyleSheet, Image} from 'react-native';
 import {Controller, useForm} from 'react-hook-form';
-import {Colors, FontFamily, FontSize} from '../Theme/Variables';
+import {Colors, FontFamily, FontSize, scaleFont} from '../Theme/Variables';
 import {Touchable} from './Touchable';
 import {hp, wp} from '../Config/responsive';
 import {eye, eyeOff} from '../Assets';
@@ -72,8 +72,7 @@ export const InputComponent = ({
                   secureTextEntry: !show,
                   onChangeText: onChange,
                   placeholderTextColor: Colors.gray,
-                  fontSize: FontSize.scale16,
-
+                  fontSize: scaleFont(16),
                   autoCapitalize,
                   autoCorrect: false,
                   spellCheck: false,
@@ -145,7 +144,16 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     borderColor: Colors.lightblue,
     marginTop: hp('2.5'),
-    backgroundColor: 'transparent',
+    backgroundColor: 'white',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.18,
+    shadowRadius: 1.0,
+
+    elevation: 1,
   },
   input: isSecure => ({
     height: '100%',
@@ -155,7 +163,7 @@ const styles = StyleSheet.create({
     color: Colors.black,
     paddingHorizontal: wp('2'),
     paddingLeft: wp('3'),
-    fontWeight: '600',
+    fontSize: FontSize.scale16,
   }),
   eyeContainer: {
     width: 30,
@@ -172,6 +180,7 @@ const styles = StyleSheet.create({
     fontSize: FontSize.scale14,
     fontFamily: FontFamily.semiBold,
     marginLeft: wp('2'),
+    marginBottom: hp('1'),
   },
   inputIcon: {
     marginLeft: hp('2'),

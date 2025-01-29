@@ -169,6 +169,7 @@ const RegisterScreen = ({navigation}) => {
               color: Colors.primaryColor,
               fontSize: FontSize.scale16,
               fontFamily: FontFamily.semiBold,
+              textDecorationLine: 'underline',
             }}
           />
         </View>

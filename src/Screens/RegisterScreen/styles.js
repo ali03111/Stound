@@ -12,6 +12,8 @@ export const styles = StyleSheet.create({
     fontFamily: FontFamily.semiBold,
   },
   mainView: {
+    flex: 1,
+    backgroundColor: 'white',
     paddingHorizontal: hp('3'),
   },
   loginInput: {
