@@ -175,8 +175,6 @@ const EditProfileScreen = ({navigation}) => {
                   />
                 </Touchable>
               </View>
-              <TextComponent text={userData?.name} styles={styles.userName} />
-              <TextComponent text={userData?.email} styles={styles.userEmail} />
             </View>
 
             <InputComponent
@@ -190,6 +188,7 @@ const EditProfileScreen = ({navigation}) => {
                 viewStyle: styles.loginInput,
                 isImage: user,
                 defaultValue: userData?.name,
+                EditText: true,
               }}
             />
 
@@ -204,6 +203,7 @@ const EditProfileScreen = ({navigation}) => {
                 viewStyle: styles.loginInput,
                 isImage: phoneIcon,
                 defaultValue: userData?.number ?? 'xxx-xxx-xxxx',
+                EditText: true,
               }}
             />
             <InputComponent

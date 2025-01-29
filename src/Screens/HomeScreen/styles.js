@@ -1,6 +1,6 @@
 import {Dimensions, StyleSheet} from 'react-native';
 import {hp, wp} from '../../Config/responsive';
-import {Colors, FontSize} from '../../Theme/Variables';
+import {Colors, FontFamily, FontSize, scaleFont} from '../../Theme/Variables';
 
 export const styles = StyleSheet.create({
   searchBarMain: {
@@ -47,7 +47,7 @@ export const styles = StyleSheet.create({
     // width: wp('14'),
     // marginLeft: 5,
     width: wp('12'),
-    marginHorizontal: 10
+    marginHorizontal: 10,
   },
   homeCard: {
     backgroundColor: 'red',
@@ -125,8 +125,9 @@ export const styles = StyleSheet.create({
     width: wp('18'),
   },
   HeaderTitle: {
-    fontSize: FontSize.scale24,
+    fontSize: scaleFont(24),
+
+    fontFamily: FontFamily.bold,
     color: Colors.primaryColor,
-    fontWeight: 'bold',
   },
 });

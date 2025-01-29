@@ -101,5 +101,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: wp('2'),
     marginHorizontal: wp('1'),
     marginBottom: hp('1'),
+    marginTop: hp('1'),
+    backgroundColor: 'red',
   },
 });

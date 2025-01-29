@@ -1,6 +1,6 @@
 import {Dimensions, StyleSheet} from 'react-native';
 import {hp, wp} from '../../Config/responsive';
-import {Colors, FontSize} from '../../Theme/Variables';
+import {Colors, FontFamily, FontSize, scaleFont} from '../../Theme/Variables';
 import {height} from '../../Navigation/bottomNavigation';
 
 export const styles = StyleSheet.create({
@@ -76,8 +76,8 @@ export const styles = StyleSheet.create({
     marginTop: hp('3'),
     marginBottom: hp('1.5'),
     // fontWeight: '500',
-    fontWeight: '600',
-    fontSize: FontSize.scale16,
+    fontSize: scaleFont(16),
+    fontFamily: FontFamily.semiBold,
     color: Colors.primaryTextColor,
   },
   room: {
@@ -92,7 +92,6 @@ export const styles = StyleSheet.create({
     backgroundColor: 'white',
     paddingHorizontal: wp('2'),
     padding: 10,
-    // flexDirection: 'row',
   },
   filterButton: {
     width: wp('20'),
@@ -333,25 +332,23 @@ export const styles = StyleSheet.create({
     paddingHorizontal: wp('5'),
   },
 
-
-
   // new style
   collapseContainer: {
     flex: 1,
     justifyContent: 'center',
   },
   header: {
-      width: '100%',
-      borderWidth: 1,
-      height: hp('7'),
-      borderRadius: 15,
-      marginVertical: hp('1'),
-      alignItems: 'center',
-      justifyContent: 'space-between',
-      flexDirection: 'row',
-      borderColor: Colors.lightblue,
-      marginTop: hp('2.5'),
-      backgroundColor: 'transparent',
+    width: '100%',
+    borderWidth: 1,
+    height: hp('7'),
+    borderRadius: 15,
+    marginVertical: hp('1'),
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    borderColor: Colors.lightblue,
+    marginTop: hp('2.5'),
+    backgroundColor: 'transparent',
   },
   body: {
     marginBottom: 15,
@@ -360,5 +357,4 @@ export const styles = StyleSheet.create({
     fontSize: hp('2.2'),
     fontWeight: '600',
   },
-
 });

@@ -8,6 +8,7 @@ import {TextComponent} from '../../Components/TextComponent';
 import Header from '../../Components/Header';
 import {styles} from './styles';
 import useResetPasswordScreen from './useResetPasswordScreen';
+import {Colors} from '../../Theme/Variables';
 
 const ResetPasswordScreen = ({navigation}) => {
   const {
@@ -20,7 +21,7 @@ const ResetPasswordScreen = ({navigation}) => {
     changePassword,
   } = useResetPasswordScreen(navigation);
   return (
-    <View style={{flex: 1}}>
+    <View style={{flex: 1, backgroundColor: Colors.white}}>
       <Header
         headerTitle={'Change Password'}
         backText={'Back'}

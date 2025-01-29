@@ -1,7 +1,7 @@
 import React from 'react';
 import AwesomeAlert from 'react-native-awesome-alerts';
 import {StyleSheet} from 'react-native';
-import {Colors} from '../Theme/Variables';
+import {Colors, FontFamily, scaleFont} from '../Theme/Variables';
 import {hp, wp} from '../Config/responsive';
 
 export const AlertDesign = ({
@@ -44,15 +44,15 @@ export const AlertDesign = ({
 
 const styles = StyleSheet.create({
   modalTitle: {
-    fontWeight: '600',
     color: Colors.black,
-    fontSize: hp('2.5'),
+    fontSize: scaleFont(25),
+    fontFamily: FontFamily.semiBold,
   },
   modalMsg: {
+    fontSize: scaleFont(16),
+    fontFamily: FontFamily.regular,
     color: Colors.bubbleText,
-    fontSize: hp('1.8'),
     marginBottom: hp('3'),
-    fontWeight: '500',
   },
   cancelBtnMain: {
     backgroundColor: '#F6F6F6',

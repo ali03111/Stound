@@ -36,12 +36,11 @@ const AccountScreen = ({navigation}) => {
     onConfirm,
     userData,
     onDeleteConfirm,
-    handleContentSizeChange,
-    scrollViewRef,
-    handleUrl,
   } = useAccountScreen(navigation);
+
+  console.log(userData, 'asdjkflakjsdfklja23lsk21123!@');
   return (
-    <View style={{flex: 1}}>
+    <View style={{flex: 1, backgroundColor: Colors.white}}>
       <Header headerTitle={'Account'} />
       <ScrollView
         showsVerticalScrollIndicator={false}
@@ -175,7 +174,7 @@ const AccountScreen = ({navigation}) => {
           />
           <AlertDesign
             isVisible={deactivate}
-            title="Delete Account?"
+            title="Deactivate Account?"
             message="You’ll permanently lose all your data."
             confirmText="Delete"
             onCancel={() => onCancel(deactivate, 'deactivate')}

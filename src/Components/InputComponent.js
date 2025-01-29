@@ -29,6 +29,7 @@ export const InputComponent = ({
   inputLines,
   multiline,
   inputLength,
+  EditText,
 }) => {
   const [show, setShow] = useState(!isSecure);
   const handleClick = () => setShow(!show);
@@ -73,6 +74,7 @@ export const InputComponent = ({
                   onChangeText: onChange,
                   placeholderTextColor: Colors.gray,
                   fontSize: scaleFont(16),
+                  fontFamily: FontFamily.semiBold,
                   autoCapitalize,
                   autoCorrect: false,
                   spellCheck: false,
@@ -91,6 +93,10 @@ export const InputComponent = ({
                   />
                 </Touchable>
               )}
+
+              {EditText ? (
+                <TextComponent text={'Edit'} styles={styles.editText} />
+              ) : null}
             </View>
           )
         )}
@@ -134,6 +140,11 @@ const styles = StyleSheet.create({
     fontSize: hp('1.5'),
     color: Colors.label,
   },
+  editText: {
+    color: Colors.background,
+    fontSize: scaleFont(16),
+    fontFamily: FontFamily.regular,
+  },
   textfield: {
     width: '100%',
     borderWidth: 1,
@@ -157,9 +168,8 @@ const styles = StyleSheet.create({
   },
   input: isSecure => ({
     height: '100%',
-    width: isSecure ? '75%' : '86%',
+    width: isSecure ? wp('75') : wp('70'),
     borderRadius: 2,
-    // textAlign: 'left',
     color: Colors.black,
     paddingHorizontal: wp('2'),
     paddingLeft: wp('3'),

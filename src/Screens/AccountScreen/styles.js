@@ -1,6 +1,6 @@
 import {Dimensions, StyleSheet} from 'react-native';
 import {hp, wp} from '../../Config/responsive';
-import {Colors} from '../../Theme/Variables';
+import {Colors, FontFamily, scaleFont} from '../../Theme/Variables';
 
 export const styles = StyleSheet.create({
   topHeader: {
@@ -57,6 +57,15 @@ export const styles = StyleSheet.create({
     paddingHorizontal: wp('2'),
     paddingVertical: hp('1'),
     marginBottom: hp('3'),
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.18,
+    shadowRadius: 1.0,
+
+    elevation: 1,
   },
   porfileImg: {
     borderRadius: 7,
@@ -76,11 +85,12 @@ export const styles = StyleSheet.create({
     textAlign: 'right',
   },
   userName: {
-    fontSize: hp('2.2'),
-    fontWeight: 'bold',
+    fontSize: scaleFont(20),
+    fontFamily: FontFamily.semiBold,
   },
   userEmail: {
-    fontSize: hp('1.7'),
+    fontSize: scaleFont(14),
+    fontFamily: FontFamily.regular,
     color: Colors.gray2,
   },
   coinText: {
@@ -88,7 +98,9 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   coinInnerText: {
-    fontSize: hp('1.8'),
+    fontSize: scaleFont(16),
+    fontFamily: FontFamily.regular,
+    color: Colors.black2,
   },
   cBtn: {
     flexDirection: 'row',
@@ -101,11 +113,14 @@ export const styles = StyleSheet.create({
   },
   coinNumber: {
     color: 'white',
-    fontWeight: 'bold',
+    fontSize: scaleFont(20),
+    fontFamily: FontFamily.semiBold,
+    color: Colors.white,
   },
   BtnText: {
     color: 'white',
-    fontSize: hp('1.7'),
+    fontSize: scaleFont(16),
+    fontFamily: FontFamily.regular,
   },
   coinIcon: {
     justifyContent: 'center',

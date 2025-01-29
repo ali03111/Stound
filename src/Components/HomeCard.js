@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, Image, StyleSheet, ImageBackground} from 'react-native';
-import {Colors, FontFamily} from '../Theme/Variables';
+import {Colors, FontFamily, scaleFont} from '../Theme/Variables';
 import {Touchable} from './Touchable';
 import {share} from '@/Assets/Images';
 import {hp, wp} from '../Config/responsive';
@@ -43,41 +43,44 @@ const HomeCard = ({
           borderRadius={10}
           style={styles.overlay}>
           <View style={styles.cardMain}>
-            <View style={styles.bottomNav}>
-              <View style={styles.locationInner}>
-                <Image source={location} style={styles.locationSt} />
-                <TextComponent
-                  numberOfLines={2}
-                  text={locationText}
-                  styles={styles.locationText}
-                />
-              </View>
-              <View style={styles.locationMain}>
-                <View style={styles.cardTopbar}>
-                  <View style={styles.cardTopRight}>
-                    <Image source={bathtub} style={styles.bathImg} />
-                    <TextComponent text={bath} styles={styles.bath} />
-                    <Image source={bed} style={styles.bathImg} />
-                    <TextComponent text={Beds} styles={styles.bed} />
-                  </View>
-                </View>
-              </View>
-
-              <View style={styles.cardFooter}>
-                <TextComponent text={forRent} styles={styles.forRent} />
-                <View style={{flexDirection: 'row', alignItems: 'baseline'}}>
-                  <TextComponent
-                    text={price?.toLocaleString()}
-                    styles={styles.price}
+            {/* <View style={styles.bottomNav}> */}
+            <View style={styles.locationInner}>
+              <Image source={location} style={styles.locationSt} />
+              <TextComponent
+                numberOfLines={2}
+                text={locationText}
+                styles={styles.locationText}
+              />
+            </View>
+            <View style={styles.locationMain}>
+              <View style={styles.cardTopbar}>
+                <View style={styles.cardTopRight}>
+                  <Image source={bathtub} style={styles.bathImg} />
+                  <TextComponent text={bath} styles={styles.bath} />
+                  <Image
+                    source={bed}
+                    style={{...styles.bathImg, marginLeft: wp('3')}}
                   />
-                  {duration && (
-                    <TextComponent text={'/'} styles={styles.pillar} />
-                  )}
-                  <TextComponent text={duration} styles={styles.month} />
+                  <TextComponent text={Beds} styles={styles.bed} />
                 </View>
               </View>
             </View>
+
+            <View style={styles.cardFooter}>
+              <TextComponent text={forRent} styles={styles.forRent} />
+              <View style={{flexDirection: 'row', alignItems: 'baseline'}}>
+                <TextComponent
+                  text={price?.toLocaleString()}
+                  styles={styles.price}
+                />
+                {duration && (
+                  <TextComponent text={'/'} styles={styles.pillar} />
+                )}
+                <TextComponent text={duration} styles={styles.month} />
+              </View>
+            </View>
           </View>
+          {/* </View> */}
         </ImageBackground>
       </BlurBackground>
     </View>
@@ -134,8 +137,7 @@ const styles = StyleSheet.create({
   },
   locationSt: {
     resizeMode: 'contain',
-    width: wp('7'),
-    height: hp('4.0'),
+    width: wp('5'),
     tintColor: 'white',
   },
   userName: {
@@ -147,19 +149,22 @@ const styles = StyleSheet.create({
   },
   bath: {
     color: 'white',
-    marginLeft: wp('1'),
+    marginLeft: wp('1.5'),
     marginRight: wp('1.5'),
-    fontSize: hp('1.4'),
+    fontSize: scaleFont(14),
+    fontFamily: FontFamily.semiBold,
   },
   bed: {
     color: 'white',
-    marginLeft: wp('1'),
-    fontSize: hp('1.4'),
+    marginLeft: wp('1.5'),
+    fontSize: scaleFont(14),
+    fontFamily: FontFamily.semiBold,
   },
   locationMain: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    marginTop: hp('-2'),
   },
   locationInner: {
     flexDirection: 'row',
@@ -169,8 +174,8 @@ const styles = StyleSheet.create({
   locationText: {
     color: 'white',
     marginLeft: wp('1.5 '),
-    fontSize: hp('2'),
-    fontWeight: 'bold',
+    fontSize: scaleFont(14),
+    fontFamily: FontFamily.semiBold,
     width: wp('80'),
   },
   cardFooter: {
@@ -181,17 +186,21 @@ const styles = StyleSheet.create({
   },
   forRent: {
     color: 'white',
-    fontSize: hp('2.9'),
+    fontSize: scaleFont(25),
+    fontFamily: FontFamily.bold,
+
     marginLeft: wp('1'),
   },
   price: {
     color: 'white',
-    fontSize: hp('2.8'),
+    fontSize: scaleFont(25),
+    fontFamily: FontFamily.semiBold,
     textAlignVertical: 'bottom',
   },
   month: {
     color: 'white',
-    fontSize: hp('2'),
+    fontSize: scaleFont(16),
+    fontFamily: FontFamily.semiBold,
   },
   pillar: {
     color: 'white',

@@ -1,6 +1,6 @@
 import {Dimensions, StyleSheet} from 'react-native';
 import {hp, wp} from '../../Config/responsive';
-import {Colors} from '../../Theme/Variables';
+import {Colors, FontFamily, FontSize, scaleFont} from '../../Theme/Variables';
 
 export const styles = StyleSheet.create({
   ratingMain: {
@@ -16,14 +16,15 @@ export const styles = StyleSheet.create({
     marginBottom: hp('5'),
   },
   userName: {
-    fontSize: hp('2.6'),
-    fontWeight: 'bold',
+    fontFamily: FontFamily.semiBold,
+    fontSize: scaleFont(20),
     marginTop: hp('-1.5'),
     color: 'white',
     marginBottom: hp('2'),
   },
   userEmail: {
-    fontSize: hp('1.7'),
+    fontFamily: FontFamily.regular,
+    fontSize: scaleFont(16),
     color: Colors.gray2,
   },
   ProfileImageShadow: {
@@ -71,17 +72,17 @@ export const styles = StyleSheet.create({
   },
   rateHd: {
     color: 'white',
-    fontSize: hp('2.5'),
-    fontWeight: 'bold',
     marginTop: hp('8'),
+    fontFamily: FontFamily.semiBold,
+    fontSize: scaleFont(25),
   },
-  profileTopImages:{
-    justifyContent:'center',
-    alignItems:'center'
+  profileTopImages: {
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   ProfileImage: {
     borderRadius: 25,
-    height: hp('20'),
+    height: hp('15'),
     aspectRatio: 1,
   },
 });

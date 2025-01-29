@@ -4,9 +4,8 @@ import {logOutUser} from '../../Redux/Action/AuthAction';
 import API from '../../Utils/helperFunc';
 import {deleteAccUrl} from '../../Utils/Urls';
 import {errorMessage, successMessage} from '../../Config/NotificationMessage';
-import {initializeApp} from '@react-native-firebase/app';
-import auth from '@react-native-firebase/auth';
-import { Linking } from 'react-native';
+
+import {Linking} from 'react-native';
 const useAccountScreen = ({navigate}) => {
   const scrollViewRef = useRef(null);
 
@@ -49,9 +48,7 @@ const useAccountScreen = ({navigate}) => {
     }
   };
 
-
-
-  const handleUrl = useCallback(async (url) => {
+  const handleUrl = useCallback(async url => {
     // Checking if the link is supported for links with custom URL scheme.
     const supported = await Linking.canOpenURL(url);
 
@@ -74,7 +71,7 @@ const useAccountScreen = ({navigate}) => {
     onDeleteConfirm,
     handleContentSizeChange,
     scrollViewRef,
-    handleUrl
+    handleUrl,
   };
 };
 

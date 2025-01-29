@@ -1,6 +1,6 @@
 import {Dimensions, StyleSheet} from 'react-native';
 import {hp, wp} from '../../Config/responsive';
-import {Colors, FontSize} from '../../Theme/Variables';
+import {Colors, FontFamily, FontSize, scaleFont} from '../../Theme/Variables';
 import {height} from '../../Navigation/bottomNavigation';
 
 export const styles = StyleSheet.create({
@@ -9,27 +9,13 @@ export const styles = StyleSheet.create({
     paddingTop: hp('5'),
   },
 
-  regular: {
-    fontSize: 20,
-  },
-  regular1: {
-    fontFamily: 'ProximaNova-Regular',
-    fontSize: 20,
-  },
-  semibold: {
-    fontSize: 20,
-    fontFamily: 'ProximaNova-Semibold',
-  },
-  bold: {
-    fontFamily: 'ProximaNova-Bold',
-    fontSize: 20,
-  },
   porfileInfo: {
     alignItems: 'center',
     marginBottom: hp('5'),
   },
   userName: {
-    fontSize: hp('2.2'),
+    fontSize: scaleFont(16),
+    fontFamily: FontFamily.semiBold,
     fontWeight: 'bold',
   },
   userEmail: {
@@ -73,8 +59,8 @@ export const styles = StyleSheet.create({
   },
   loginInput: {
     backgroundColor: 'white',
-    // marginBottom: hp('1.5'),
-    fontSize: hp('2.2'),
+    fontSize: scaleFont(16),
+    fontFamily: FontFamily.semiBold,
     marginTop: hp('1'),
   },
   calendar: {
@@ -295,10 +281,12 @@ export const styles = StyleSheet.create({
     marginTop: hp('2'),
   },
   inputTextarea: {
-    fontWeight: '400',
     paddingLeft: wp('2'),
     textAlignVertical: 'top',
     paddingTop: hp('2'),
+    fontSize: scaleFont(16),
+    fontFamily: FontFamily.semiBold,
+    marginTop: hp('1'),
   },
   galleryHd: {
     flexDirection: 'row',

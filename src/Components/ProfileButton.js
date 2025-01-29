@@ -1,6 +1,6 @@
 import React from 'react';
 import {Text, Image, StyleSheet} from 'react-native';
-import {Colors, FontFamily} from '../Theme/Variables';
+import {Colors, FontFamily, scaleFont} from '../Theme/Variables';
 import {Touchable} from './Touchable';
 import {hp, wp} from '../Config/responsive';
 
@@ -46,12 +46,23 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'rgba(11, 180, 255, 0.3)',
     borderRadius: 10,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.18,
+    shadowRadius: 1.0,
+
+    elevation: 1,
   },
   image: {
     // resizeMode: 'contain',
   },
   text: {
-    color: Colors.black,
+    fontSize: scaleFont(16),
+    fontFamily: FontFamily.regular,
     textAlign: 'center',
+    color: Colors.black,
   },
 });

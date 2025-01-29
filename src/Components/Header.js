@@ -4,7 +4,7 @@ import {TextComponent} from './TextComponent';
 import {Touchable} from './Touchable';
 
 import {hp, wp} from '../Config/responsive';
-import {Colors, FontFamily, FontSize} from '../Theme/Variables';
+import {Colors, FontFamily, FontSize, scaleFont} from '../Theme/Variables';
 
 const NotificationHeader = ({
   headerTitle,
@@ -95,10 +95,9 @@ const styles = StyleSheet.create({
     width: wp('18'),
   },
   HeaderTitle: {
-    fontSize: FontSize.scale24,
+    fontSize: scaleFont(24),
     color: Colors.primaryTextColor,
-    fontFamily: FontFamily.semiBold,
-    // fontWeight: '600',
+    fontFamily: FontFamily.bold,
   },
   HeaderLeft: {
     width: wp('20'),

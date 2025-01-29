@@ -1,30 +1,29 @@
 import {StyleSheet} from 'react-native';
 import {hp, wp} from '../../Config/responsive';
-import {Colors} from '../../Theme/Variables';
+import {Colors, FontFamily, scaleFont} from '../../Theme/Variables';
 
 export const styles = StyleSheet.create({
   Header: {
     // paddingHorizontal: wp('6'),
     width: wp('100'),
-    
-    
-
   },
   headerBackText: {
     flex: 3,
-
   },
-  
+
   topHeading: {
     color: Colors.black,
-    fontSize: hp('3.5'),
-    fontWeight: '500',
+    fontSize: scaleFont(25),
+    fontFamily: FontFamily.semiBold,
+
     marginTop: hp('7'),
     marginBottom: hp('1'),
-
   },
   passwordText: {
     marginBottom: hp('3'),
+    fontSize: scaleFont(16),
+    fontFamily: FontFamily.regular,
+    color: Colors.black,
   },
   mainView: {
     paddingHorizontal: wp('4'),

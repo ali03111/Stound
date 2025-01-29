@@ -81,7 +81,7 @@ const HomeScreen = ({navigation}) => {
         Beds={`${item?.rooms} Rooms`}
         locationText={`${item?.location}`}
         forRent={`For ${item?.adType}`}
-        price={`$ ${formattedPrice}`}
+        price={`$${formattedPrice}`}
         duration={item?.adType.toLowerCase() == 'rent' && 'month'}
       />
     );
@@ -91,17 +91,6 @@ const HomeScreen = ({navigation}) => {
     <>
       <View style={{paddingTop: Platform.OS == 'ios' ? hp('3') : hp('0')}}>
         <View style={styles.searchBarMain}>
-          {/* <View style={styles.searchMain}>
-            <Image style={styles.setting} source={search} />
-            <TextInput
-              onSubmitEditing={() => searchPropertyFunction(text)}
-              style={styles.searchinput}
-              onChangeText={onChangeText}
-              value={text}
-              placeholder={'Search property here...'}
-              placeholderTextColor={Colors.gray}
-            />
-          </View> */}
           <View style={styles.searchIcons}>
             <Touchable
               onPress={toggleTrending}
