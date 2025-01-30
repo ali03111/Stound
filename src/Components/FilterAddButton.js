@@ -4,8 +4,6 @@ import {Colors, FontFamily} from '../Theme/Variables';
 import {Touchable} from './Touchable';
 import {hp, wp} from '../Config/responsive';
 import {TextComponent} from './TextComponent';
-import {imageUrl} from '../Utils/Urls';
-import {View} from 'react-native-animatable';
 
 const FilterAddButton = ({
   title,
@@ -20,13 +18,11 @@ const FilterAddButton = ({
   locations,
 }) => {
   const renderItem = ({item, index}) => {
-    console.log('itmemmemem', item);
     return (
       <FilterAddButton style={styles.tags} title={item?.name} required={true} />
     );
   };
   return (
-    // <ShadowButton>
     <>
       <Touchable
         Opacity={0.7}
@@ -54,8 +50,6 @@ const FilterAddButton = ({
         />
       )}
     </>
-
-    // </ShadowButton>
   );
 };
 
@@ -64,9 +58,6 @@ export default FilterAddButton;
 const styles = StyleSheet.create({
   button: {
     height: hp('5'),
-
-    // width: wp('25'),
-
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'center',
@@ -79,16 +70,13 @@ const styles = StyleSheet.create({
   image: {
     width: wp('5'),
     height: hp('4'),
-    // marginBottom: 5,
     resizeMode: 'contain',
   },
   text: {
-    // fontSize: heightPercentageToDP('2'),
     color: Colors.black,
     textAlign: 'center',
     marginLeft: wp('2'),
     fontSize: hp('1.5'),
-    // fontFamily: FontFamily.regular,
   },
   flatListMain: {
     flexDirection: 'row',

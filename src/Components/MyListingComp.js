@@ -1,7 +1,13 @@
 import {Image, ImageBackground, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {TextComponent} from './TextComponent';
-import {Colors, FontSize, isIOS} from '../Theme/Variables';
+import {
+  Colors,
+  FontFamily,
+  FontSize,
+  isIOS,
+  scaleFont,
+} from '../Theme/Variables';
 import {hp, wp} from '../Config/responsive';
 import {bathtub, bed, locationIcon, scaleIcon} from '../Assets';
 import {Touchable} from './Touchable';
@@ -47,8 +53,8 @@ const MyListingComp = ({
             <TextComponent
               text={`month`}
               styles={{
-                fontWeight: '500',
-                fontSize: FontSize.scale12,
+                fontFamily: FontFamily.semiBold,
+                fontSize: scaleFont(12),
                 color: Colors.white,
               }}
             />
@@ -128,8 +134,8 @@ const styles = StyleSheet.create({
     // fontFamily: FontFamily.regular,
   },
   price: {
-    fontWeight: '600',
-    fontSize: FontSize.scale20,
+    fontFamily: FontFamily.semiBold,
+    fontSize: scaleFont(20),
     color: Colors.white,
   },
   inquires: {
@@ -164,14 +170,14 @@ const styles = StyleSheet.create({
     width: wp('65'),
   },
   apartitle: {
-    fontWeight: '600',
-    fontSize: FontSize.scale20,
+    fontFamily: FontFamily.semiBold,
+    fontSize: scaleFont(20),
     color: Colors.white,
     marginTop: hp('2'),
   },
   userlocation: {
-    fontWeight: '400',
-    fontSize: FontSize.scale16,
+    fontFamily: FontFamily.regular,
+    fontSize: scaleFont(15),
     color: Colors.white,
   },
   loc: {

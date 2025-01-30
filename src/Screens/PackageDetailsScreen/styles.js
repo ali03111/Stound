@@ -1,6 +1,6 @@
 import {StyleSheet} from 'react-native';
 import {hp, wp} from '../../Config/responsive';
-import {Colors} from '../../Theme/Variables';
+import {Colors, FontFamily, scaleFont} from '../../Theme/Variables';
 
 export const styles = StyleSheet.create({
   headerStyle: {
@@ -13,6 +13,8 @@ export const styles = StyleSheet.create({
     borderRadius: 10,
     marginVertical: hp('0.5'),
     overflow: 'hidden',
+    borderWidth: 0.5,
+    borderColor: Colors.primaryColor,
   }),
   secondImage: index => ({
     width: wp('20'),
@@ -22,6 +24,8 @@ export const styles = StyleSheet.create({
     overflow: 'hidden',
     marginLeft: wp('2'),
     marginVertical: hp('0.5'),
+    borderWidth: 0.5,
+    borderColor: Colors.primaryColor,
   }),
   overlayView: {
     flex: 1,
@@ -60,19 +64,21 @@ export const styles = StyleSheet.create({
   locationText: {
     color: 'gray',
     marginLeft: wp('2'),
-    fontSize: hp('1.8'),
+    fontFamily: FontFamily.regular,
+    fontSize: scaleFont(16),
     width: wp('83'),
   },
 
   title: {
     flex: 0.8,
-    fontSize: hp('2.7'),
+    fontFamily: FontFamily.semiBold,
+    fontSize: scaleFont(25),
     color: Colors.primaryTextColor,
   },
   forRent: {
     flex: 0.3,
-    fontWeight: 'bold',
-    fontSize: hp('1.8'),
+    fontFamily: FontFamily.semiBold,
+    fontSize: scaleFont(16),
     textAlign: 'right',
     color: Colors.primaryColor,
   },
@@ -146,12 +152,12 @@ export const styles = StyleSheet.create({
     width: wp('15'),
     height: hp('7.2'),
     borderRadius: 7,
-    // overflow: 'hidden',
     aspectRatio: 1,
   },
   priceMain: {
     flexDirection: 'row',
     paddingVertical: hp('3'),
+    paddingHorizontal: wp('6'),
     alignItems: 'center',
   },
   priceLeft: {
@@ -192,7 +198,7 @@ export const styles = StyleSheet.create({
     fontSize: hp('1.7'),
     // fontWeight: '600',
     color: Colors.primaryTextColor,
-  
+
     marginBottom: hp('1'),
   },
   desText: {
@@ -205,5 +211,18 @@ export const styles = StyleSheet.create({
     marginLeft: wp('3'),
     marginRight: wp('2'),
   },
+  grayAreaOfModal: {
+    flex: 1,
+    backgroundColor: Colors.black,
+    paddingTop: Platform.OS === 'ios' ? hp('4') : null,
+  },
+  mainBodyOfModal: {
+    alignItems: 'center',
+  },
+  checkView: {
+    position: 'absolute',
+    zIndex: 1,
+    left: 10,
+    top: 10,
+  },
 });
-

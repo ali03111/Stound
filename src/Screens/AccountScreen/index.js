@@ -38,11 +38,11 @@ const AccountScreen = ({navigation}) => {
     onDeleteConfirm,
   } = useAccountScreen(navigation);
 
-  console.log(userData, 'asdjkflakjsdfklja23lsk21123!@');
   return (
     <View style={{flex: 1, backgroundColor: Colors.white}}>
       <Header headerTitle={'Account'} />
       <ScrollView
+        bounces={false}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{paddingBottom: hp('6')}}>
         <View style={styles.accountMain}>

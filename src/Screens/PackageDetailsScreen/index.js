@@ -1,4 +1,4 @@
-import React, {memo, useCallback, useEffect, useState} from 'react';
+import React, {memo, useCallback, useEffect, useRef, useState} from 'react';
 import {
   View,
   Text,
@@ -8,6 +8,11 @@ import {
   ScrollView,
   SafeAreaView,
   StatusBar,
+  Pressable,
+  Modal,
+  ActivityIndicator,
+  Dimensions,
+  Platform,
 } from 'react-native';
 import {hp, wp} from '../../Config/responsive';
 import {goBack, keyExtractor} from '../../Utils';
@@ -38,6 +43,9 @@ import BlurBackground from '../../Components/BlurBackground';
 import BlurImage from '../../Components/BlurImage';
 import {fav} from '../../Assets';
 import DetailsUiComponent from '../../Components/DetailsUiComponent';
+import {Colors} from '../../Theme/Variables';
+import Entypo from 'react-native-vector-icons/Entypo';
+
 const PackageDetailsScreen = ({navigation, route}) => {
   const {
     PackageDetailData,
@@ -56,104 +64,238 @@ const PackageDetailsScreen = ({navigation, route}) => {
     onFavouriteFunction,
     isFav,
   } = usePackageDetailsScreen(route, navigation);
+  const imgFlatListRef = useRef(null);
+
+  const [imageModal, setImageModal] = useState(false);
+  const [imageLoading, setImageLoading] = useState(true);
+
+  const onSnapToItem = e => {
+    const contentOffsetX = e.nativeEvent.contentOffset.x;
+    const currentIndex = Math.round(
+      contentOffsetX / Dimensions.get('window').width,
+    );
+  };
 
   const imageLenght = photos.length;
-  console.log('itemsssss', route.params);
   const renderItem = useCallback(({item, index}) => {
     return (
       index > 0 &&
       index < 4 && (
-        <BlurBackground uri={imageUrl(item)} styles={styles.secondImage(index)}>
-          {index == 4 && (
-            <View style={styles.overlayView}>
-              <TextComponent
-                text={`+${imageLenght - 4}`}
-                styles={styles.overlayText}
-              />
-            </View>
-          )}
-        </BlurBackground>
+        <Touchable onPress={() => setImageModal(true)}>
+          <BlurBackground
+            uri={imageUrl(item)}
+            styles={styles.secondImage(index)}>
+            {index == 3 && (
+              <View style={styles.overlayView}>
+                <TextComponent
+                  text={`+${imageLenght - 4}`}
+                  styles={styles.overlayText}
+                />
+              </View>
+            )}
+          </BlurBackground>
+        </Touchable>
       )
     );
   }, []);
 
   return (
-    <View style={{flex: 1, backgroundColor: 'white'}}>
-      <Header
-        headerTitle={'Package Details'}
-        arrowBackIcon={arrowback}
-        backText={'Back'}
-        icon={!isFav ? fav : favEmpty}
-        style={styles.headerStyle}
-        goBack={navigation.goBack}
-        onHeartPress={onFavouriteFunction}
-        // onSave={() => updateFav()}
-      />
-      <ScrollView style={{padding: 5}} showsVerticalScrollIndicator={false}>
-        <View style={styles.imageHeaderView}>
-          <BlurImage
-            styles={styles.firstImage(imageLenght)}
-            uri={imageUrl(photos[0])}
-          />
-          {photos.length > 0 && (
-            <FlatList
-              refreshing={false}
-              data={photos}
-              renderItem={renderItem}
-              showsHorizontalScrollIndicator={false}
-              keyExtractor={keyExtractor}
-            />
-          )}
-        </View>
+    <>
+      <View style={{flex: 1, backgroundColor: 'white'}}>
+        <Header
+          headerTitle={'Package Details'}
+          arrowBackIcon={arrowback}
+          backText={'Back'}
+          icon={!isFav ? fav : favEmpty}
+          style={styles.headerStyle}
+          goBack={navigation.goBack}
+          onHeartPress={onFavouriteFunction}
+          // onSave={() => updateFav()}
+        />
+        <ScrollView
+          bounces={false}
+          style={{padding: 5}}
+          showsVerticalScrollIndicator={false}>
+          <View style={styles.imageHeaderView}>
+            <Touchable
+              onPress={() => {
+                setImageModal(true);
+              }}>
+              <BlurImage
+                styles={styles.firstImage(imageLenght)}
+                uri={imageUrl(photos[0])}
+              />
+            </Touchable>
+            {console.log(photos, 'kskieekdkkd')}
+            {photos.length > 0 && (
+              <FlatList
+                refreshing={false}
+                data={photos}
+                renderItem={renderItem}
+                showsHorizontalScrollIndicator={false}
+                keyExtractor={keyExtractor}
+              />
+            )}
+          </View>
 
-        <View style={styles.detail}>
-          <View style={styles.detailTitle}>
-            <TextComponent text={title} styles={styles.title} />
-            <TextComponent text={`for ${adType}`} styles={styles.forRent} />
+          <View style={styles.detail}>
+            <View style={styles.detailTitle}>
+              <TextComponent text={title} styles={styles.title} />
+              <TextComponent text={`For ${adType}`} styles={styles.forRent} />
+            </View>
+            <View style={styles.locationMain}>
+              <Image
+                style={{width: wp('5'), height: hp('3'), resizeMode: 'contain'}}
+                source={locationBlueIcon}
+              />
+              <TextComponent
+                text={location}
+                numberOfLines={2}
+                styles={styles.locationText}
+              />
+            </View>
+            {console.log('general111Pref', generalPref)}
+            {generalPref.length > 0 && (
+              <DetailsUiComponent
+                heading={'Property Details'}
+                list={generalPref}
+              />
+            )}
+            <View style={{marginBottom: hp('1.5')}}>
+              <TextComponent text={'Description'} styles={styles.pTitle} />
+              <View style={styles.button}>
+                <TextComponent
+                  numberOfLines={50}
+                  text={description}
+                  styles={styles.desText}
+                />
+              </View>
+            </View>
+            {generalPref.length > 0 ? (
+              <DetailsUiComponent heading={'General'} list={generalPref} />
+            ) : (
+              <DetailsUiComponent heading={''} list={generalPref} />
+            )}
+            {insidePref.length > 0 ? (
+              <DetailsUiComponent heading={'Inside'} list={insidePref} />
+            ) : (
+              <DetailsUiComponent heading={''} list={insidePref} />
+            )}
+            {outsidePref.length > 0 ? (
+              <DetailsUiComponent heading={'Outside'} list={outsidePref} />
+            ) : (
+              <DetailsUiComponent heading={''} list={outsidePref} />
+            )}
           </View>
-          <View style={styles.locationMain}>
-            <Image
-              style={{width: wp('6'), height: hp('5'), resizeMode: 'contain'}}
-              source={locationBlueIcon}
-            />
+        </ScrollView>
+        <View style={styles.priceMain}>
+          <View style={styles.priceLeft}>
             <TextComponent
-              text={location}
-              numberOfLines={2}
-              styles={styles.locationText}
+              text={'$' + price?.toLocaleString()}
+              styles={styles.price}
             />
+            <TextComponent text={'Total price'} styles={styles.priceText} />
           </View>
-          <DetailsUiComponent heading={'Property Details'} list={generalPref} />
-          <View style={{marginBottom: hp('1.5')}}>
-            <TextComponent text={'Description'} styles={styles.pTitle} />
-            <View style={styles.button}>
-              <TextComponent
-                numberOfLines={50}
-                text={description}
-                styles={styles.desText}
+          <MsgSendButton
+            onPress={askQuestion}
+            title={'Contact Now'}
+            style={styles.sendBtnStyle}
+            textStyle={styles.sendTextStyle}
+          />
+        </View>
+      </View>
+      <Modal animationType="none" transparent={true} visible={imageModal}>
+        <StatusBar
+          backgroundColor={Colors.bgBtnColor}
+          barStyle="dark-content"
+        />
+        <View style={styles.grayAreaOfModal}>
+          <View style={styles.mainBodyOfModal}>
+            <View style={styles.checkView}>
+              <View
+                style={{
+                  padding: 5,
+                  borderRadius: 50,
+                  width: wp('9'),
+                  backgroundColor: 'gray',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}>
+                <Entypo
+                  name="cross"
+                  size={hp('3')}
+                  color={Colors.black}
+                  onPress={() => {
+                    setImageModal(false);
+                  }}
+                />
+              </View>
+
+              <Header
+                cross={true}
+                onPress={() => {
+                  setImageModal(false);
+                }}
               />
             </View>
-          </View>
-          <DetailsUiComponent heading={'General'} list={generalPref} />
-          <DetailsUiComponent heading={'Inside'} list={insidePref} />
-          <DetailsUiComponent heading={'Outside'} list={outsidePref} />
-          <View style={styles.priceMain}>
-            <View style={styles.priceLeft}>
-              <TextComponent
-                text={'$' + price?.toLocaleString()}
-                styles={styles.price}
+            <View
+              style={{
+                width: wp('100'),
+                height: hp('100'),
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              {/* Show loader while the image is loading */}
+
+              {Boolean(imageLoading || imageLoading) && (
+                <ActivityIndicator
+                  color={Colors.grayborder}
+                  style={{position: 'absolute'}}
+                />
+              )}
+              <FlatList
+                refreshing={false}
+                ref={imgFlatListRef}
+                data={photos?.length > 0 ? photos : [0]}
+                renderItem={({item, index}) => {
+                  return (
+                    <Image
+                      source={{
+                        uri: item
+                          ? imageUrl('/' + item)
+                          : 'https://exima-online.net/templates/LiveCast/dleimages/no_image.jpg',
+                      }}
+                      style={{
+                        aspectRatio: 1,
+                        width: wp('100'),
+                        backgroundColor: Colors.backgroundColor,
+                      }}
+                      onLoadStart={() => setImageLoading(true)} // Start loader
+                      onLoadEnd={() => setImageLoading(false)} // Hide loader when image loads
+                      onError={() => setImageLoading(false)} // Hide loader if there's an error
+                    />
+                  );
+                }}
+                showsHorizontalScrollIndicator={false}
+                horizontal
+                scrollEnabled={true}
+                onMomentumScrollEnd={onSnapToItem}
+                onMomentumScrollBegin={onSnapToItem}
+                keyExtractor={keyExtractor}
+                pagingEnabled={true}
+                contentContainerStyle={{
+                  flexDirection: 'row',
+                  paddingBottom: 0,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+                style={{paddingBottom: 0}}
               />
-              <TextComponent text={'Total price'} styles={styles.priceText} />
             </View>
-            <MsgSendButton
-              onPress={askQuestion}
-              title={'Contact Now'}
-              style={styles.sendBtnStyle}
-              textStyle={styles.sendTextStyle}
-            />
           </View>
         </View>
-      </ScrollView>
-    </View>
+      </Modal>
+    </>
   );
 };
 

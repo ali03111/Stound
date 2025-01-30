@@ -4,7 +4,7 @@ import {TextComponent} from './TextComponent';
 import {hp, wp} from '../Config/responsive';
 import FilterAddButton from './FilterAddButton';
 import {imageUrl} from '../Utils/Urls';
-import {Colors} from '../Theme/Variables';
+import {Colors, FontFamily, scaleFont} from '../Theme/Variables';
 
 const DetailsUiComponent = ({heading, list}) => {
   return (
@@ -34,9 +34,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'red',
   },
   detailsHeading: {
-    fontSize: hp('1.7'),
-    // color: 'black',
-    // fontWeight: '500',
+    fontSize: scaleFont(16),
+    fontFamily: FontFamily.semiBold,
     color: Colors.primaryTextColor,
     marginBottom: hp('1'),
   },

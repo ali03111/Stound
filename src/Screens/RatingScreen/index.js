@@ -8,6 +8,7 @@ import {
   arrowbackwhite,
   logowhite,
   stars,
+  emptyimage,
 } from '../../Assets';
 import {TextComponent} from '../../Components/TextComponent';
 import ShareButton from '../../Components/ShareButton';
@@ -41,18 +42,24 @@ const RatingScreen = ({navigation}) => {
               numberOfLines={3}
               styles={styles.userEmail}
             />
-            <View style={styles.profileTopImages}>
-              <BlurImage
-                blurhash={'L6PZfSi_.AyE_3t7t7R**0o#DgR4'}
-                styles={styles.ProfileImage}
-                uri={imageUrl(userData?.profilePicture)}
-              />
-            </View>
+
+            {Boolean(userData?.profilePicture) ? (
+              <View style={styles.profileTopImages}>
+                <BlurImage
+                  blurhash={'L6PZfSi_.AyE_3t7t7R**0o#DgR4'}
+                  styles={styles.ProfileImage}
+                  uri={imageUrl(userData?.profilePicture)}
+                />
+              </View>
+            ) : (
+              <Image source={emptyimage} style={styles.emptyimage} />
+            )}
             <Image
               source={editProfileShadow}
               style={styles.ProfileImageShadow}
             />
           </View>
+
           <TextComponent text={userData?.name} styles={styles.userName} />
           {/* <Image source={stars} /> */}
         </View>

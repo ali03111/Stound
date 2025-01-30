@@ -71,7 +71,7 @@ const HomeScreen = ({navigation}) => {
   // console.log('cccc',onBoardinData);
   const renderItem = useCallback(item => {
     const formattedPrice = item?.price?.toLocaleString();
-    console.log(item.adType, 'AdType');
+    console.log(item, 'AdType');
     return (
       <HomeCard
         userName={`${item?.userDetail?.name}`}
@@ -80,7 +80,7 @@ const HomeScreen = ({navigation}) => {
         bath={`${item?.bathrooms} Baths`}
         Beds={`${item?.rooms} Rooms`}
         locationText={`${item?.location}`}
-        forRent={`For ${item?.adType}`}
+        forRent={`${item?.category} For ${item?.adType}`}
         price={`$${formattedPrice}`}
         duration={item?.adType.toLowerCase() == 'rent' && 'month'}
       />
@@ -92,10 +92,7 @@ const HomeScreen = ({navigation}) => {
       <View style={{paddingTop: Platform.OS == 'ios' ? hp('3') : hp('0')}}>
         <View style={styles.searchBarMain}>
           <View style={styles.searchIcons}>
-            <Touchable
-              onPress={toggleTrending}
-              // onPress={() => {setTrending(!trending)}}
-              style={styles.rightIcon}>
+            <Touchable onPress={toggleTrending} style={styles.rightIcon}>
               <Image
                 source={!trending ? trendingOutline : notTrending}
                 style={styles.setting1}

@@ -69,10 +69,7 @@ const HomeCard = ({
             <View style={styles.cardFooter}>
               <TextComponent text={forRent} styles={styles.forRent} />
               <View style={{flexDirection: 'row', alignItems: 'baseline'}}>
-                <TextComponent
-                  text={price?.toLocaleString()}
-                  styles={styles.price}
-                />
+                <TextComponent text={price} styles={styles.price} />
                 {duration && (
                   <TextComponent text={'/'} styles={styles.pillar} />
                 )}
@@ -186,7 +183,7 @@ const styles = StyleSheet.create({
   },
   forRent: {
     color: 'white',
-    fontSize: scaleFont(25),
+    fontSize: scaleFont(22.3),
     fontFamily: FontFamily.bold,
 
     marginLeft: wp('1'),

@@ -31,9 +31,13 @@ export const styles = StyleSheet.create({
     marginTop: hp('-3'),
     zIndex: -9,
   },
-
+  emptyimage: {
+    resizeMode: 'contain',
+    height: hp('13'),
+    width: wp('35'),
+    alignSelf: 'center',
+  },
   porfileTopImages: {
-    // position: 'relative',
     justifyContent: 'center',
     alignItems: 'center',
   },
