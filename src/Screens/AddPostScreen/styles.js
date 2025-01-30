@@ -1,6 +1,6 @@
 import {Dimensions, StyleSheet} from 'react-native';
 import {hp, wp} from '../../Config/responsive';
-import {Colors, FontSize} from '../../Theme/Variables';
+import {Colors, FontFamily, FontSize, scaleFont} from '../../Theme/Variables';
 import {height} from '../../Navigation/bottomNavigation';
 
 export const styles = StyleSheet.create({
@@ -8,11 +8,10 @@ export const styles = StyleSheet.create({
     paddingTop: hp('1.5'),
   },
   itemHeading1: {
-    fontWeight: '600',
-    fontSize: FontSize.scale16,
+    fontFamily: FontFamily.semiBold,
+    fontSize: scaleFont(16),
     color: Colors.primaryTextColor,
   },
-
   cancelImage: {
     position: 'absolute',
     zIndex: 1,

@@ -30,7 +30,7 @@ const Index = ({navigation, route}) => {
       {console.log('CurrentLocaoitnqw', location)}
       <View style={{flex: 1}}>
         <Header
-          headerTitle={'Location'}
+          headerTitle={'Search'}
           arrowBackIcon={arrowback}
           backText={'Back'}
           goBack={navigation.goBack}
