@@ -1,4 +1,4 @@
-import React, {memo, useState} from 'react';
+import React, {memo, useCallback, useState} from 'react';
 import {
   View,
   FlatList,
@@ -12,6 +12,7 @@ import {
   Modal,
   Pressable,
   Platform,
+  StyleSheet,
 } from 'react-native';
 import {styles} from './styles';
 import {TextComponent} from '../../Components/TextComponent';
@@ -47,6 +48,7 @@ import {imageUrl} from '../../Utils/Urls';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {Dropdown} from 'react-native-element-dropdown';
+import DividerLine from '../../Components/DividerLine';
 
 const AddPostScreen = ({navigation, route}) => {
   const [Modal0, setModal0] = useState(false);
@@ -145,6 +147,13 @@ const AddPostScreen = ({navigation, route}) => {
     );
   };
 
+  const [selected, setSelected] = useState('Sell');
+  // const RentSellToggle = useCallback(() => {
+
+  //   return (
+
+  //   );
+  // }, []);
   const FlatListComp = ({data, onPress}) => {
     return (
       <FlatList
@@ -175,7 +184,7 @@ const AddPostScreen = ({navigation, route}) => {
 
   return (
     <>
-      <View style={{flex: 1}}>
+      <View style={{flex: 1, backgroundColor: 'white'}}>
         <Header
           saveReset={'Reset'}
           headerTitle={'Post Ad'}
@@ -191,60 +200,99 @@ const AddPostScreen = ({navigation, route}) => {
             <RefreshControl refreshing={false} onRefresh={onRefresh} />
           }
           showsVerticalScrollIndicator={false}>
+          <View style={styles.container1}>
+            <TextComponent styles={styles.itemHeading1} text={'I want to'} />
+            <View style={styles.toggleContainer}>
+              <TouchableOpacity
+                style={[
+                  styles.option,
+                  selected === 'Rent' && styles.selectedOption,
+                ]}
+                onPress={() => setSelected('Rent')}>
+                <Text
+                  style={[
+                    styles.optionText,
+                    selected === 'Rent' && styles.selectedText,
+                  ]}>
+                  Rent
+                </Text>
+                {selected === 'Rent' ? (
+                  <View style={styles.indicator} />
+                ) : (
+                  <View style={styles.indicator1} />
+                )}
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[
+                  styles.option,
+                  selected === 'Sell' && styles.selectedOption,
+                ]}
+                onPress={() => setSelected('Sell')}>
+                <Text
+                  style={[
+                    styles.optionText,
+                    selected === 'Sell' && styles.selectedText,
+                  ]}>
+                  Sell
+                </Text>
+                {selected === 'Sell' && <View style={styles.indicator} />}
+              </TouchableOpacity>
+            </View>
+          </View>
+          <DividerLine style={{borderBottomWidth: 5}} />
           <View style={styles.filterMain}>
-            <TextComponent styles={styles.itemHeading1} text={'I Want To'} />
-
-            <SwitchSelector
-              options={options}
-              initial={0}
-              onPress={value => onSelecteTag(value, 'type')}
-              backgroundColor="rgba(11, 180, 255, 0.03);"
-              buttonColor={Colors.primaryColor}
-              borderRadius={10}
-              height={45}
-              style={styles.switcher}
-            />
-            {Platform.OS == 'ios' ? (
-              <Pressable
-                onPress={() => setModal0(prev => !prev)}
-                style={styles.pickerStyle}>
-                <Image source={catImage} />
-                <TextComponent
-                  text={!cat ? 'Select' : category}
-                  styles={styles.iosPick}
-                />
-                <Ionicons
-                  style={styles.dropDown}
-                  color={Colors.primaryColor}
-                  name={'caret-down'}
-                  size={hp(2)}
-                />
-              </Pressable>
-            ) : (
-              <View style={styles.pickerStyle}>
-                <Image source={catImage} />
-                <Picker
-                  dropdownIconColor={Colors.primaryColor}
-                  style={styles.pick}
-                  selectedValue={cat}
-                  onValueChange={(itemValue, itemIndex) => {
-                    onSelecteTag(itemValue, 'cat');
-                  }}>
-                  <Picker.Item
-                    // color="gray"
-                    label="Select Category..."
-                    value={null}
+            <View style={styles.container1}>
+              <TextComponent
+                styles={styles.itemHeading1}
+                text={'Select property type'}
+              />
+              {Platform.OS == 'ios' ? (
+                <Pressable
+                  onPress={() => setModal0(prev => !prev)}
+                  style={styles.pickerStyle}>
+                  <Image source={catImage} />
+                  <TextComponent
+                    text={!cat ? 'e.g. home, apartment, room' : category}
+                    styles={styles.iosPick}
                   />
+                  <Ionicons
+                    style={styles.dropDown}
+                    color={Colors.primaryColor}
+                    name={'caret-down'}
+                    size={hp(2)}
+                  />
+                </Pressable>
+              ) : (
+                <View style={styles.pickerStyle}>
+                  <Image source={catImage} />
+                  <Picker
+                    dropdownIconColor={Colors.primaryColor}
+                    style={styles.pick}
+                    selectedValue={cat}
+                    onValueChange={(itemValue, itemIndex) => {
+                      onSelecteTag(itemValue, 'cat');
+                    }}>
+                    <Picker.Item
+                      // color="gray"
+                      label="e.g. home, apartment, room"
+                      value={null}
+                    />
 
-                  {preferencesData.cat &&
-                    preferencesData.cat.map(res => {
-                      return (
-                        <Picker.Item label={res.name} value={res.categoryId} />
-                      );
-                    })}
-                </Picker>
-              </View>
-            )}
+                    {preferencesData.cat &&
+                      preferencesData.cat.map(res => {
+                        return (
+                          <Picker.Item
+                            label={res.name}
+                            value={res.categoryId}
+                          />
+                        );
+                      })}
+                  </Picker>
+                </View>
+              )}
+            </View>
+            <DividerLine style={{borderBottomWidth: 5}} />
+
             <View>
               <InputComponent
                 {...{

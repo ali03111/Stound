@@ -90,6 +90,7 @@ const Colors = {
   redfaded: '#EA4335',
   blue: '#1877F2',
   primaryTextColor: '#212759',
+  borderWidth: 'rgba(217, 217, 217, 1)',
 };
 
 const NavigationColors = {

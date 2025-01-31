@@ -11,6 +11,7 @@ export const styles = StyleSheet.create({
     fontFamily: FontFamily.semiBold,
     fontSize: scaleFont(16),
     color: Colors.primaryTextColor,
+    marginBottom: hp('1.5'),
   },
   cancelImage: {
     position: 'absolute',
@@ -22,8 +23,6 @@ export const styles = StyleSheet.create({
     paddingTop: hp('1.5'),
   },
   filterMain: {
-    paddingHorizontal: wp('3'),
-    paddingTop: hp('2'),
     paddingBottom: hp('4'),
   },
   flatListMain: {
@@ -33,21 +32,14 @@ export const styles = StyleSheet.create({
     flexWrap: 'wrap',
     alignItems: 'center',
   },
-  switcher: {
-    borderWidth: 1,
-    borderRadius: 10,
-    borderColor: Colors.primaryColor,
-    // marginTop: hp('1.5'),
-    marginBottom: hp('1.5'),
-    marginTop: hp('1.5'),
-  },
+
   filterHeader: {
     marginTop: hp('2'),
   },
   pickerStyle: {
     borderWidth: 1,
-    borderColor: 'rgba(11, 180, 255, 0.3)',
-    borderRadius: 10,
+    borderColor: Colors.borderWidth,
+    borderRadius: 5,
     backgroundColor: 'white',
     flexDirection: 'row',
     alignItems: 'center',
@@ -55,6 +47,14 @@ export const styles = StyleSheet.create({
     flexWrap: 'wrap',
     paddingLeft: wp('3'),
     paddingVertical: hp('0.2'),
+    // iOS Shadow
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+
+    // Android Shadow
+    elevation: 5,
   },
   pickerStyle1: {
     borderWidth: 1,
@@ -266,9 +266,9 @@ export const styles = StyleSheet.create({
     marginLeft: wp('0.5'),
     padding: hp('1.5'),
     flex: 1,
-    fontSize: FontSize.scale16,
+    fontSize: scaleFont(16),
+    FontFamily: FontFamily.regular,
     color: Colors.primaryTextColor,
-    fontWeight: 400,
   },
   dropDown: {
     marginRight: wp('4'),
@@ -294,16 +294,7 @@ export const styles = StyleSheet.create({
   icon: {
     marginRight: 5,
   },
-  label: {
-    position: 'absolute',
-    backgroundColor: 'white',
-    left: 22,
-    top: 8,
-    zIndex: 999,
-    paddingHorizontal: 8,
-    fontSize: 14,
-    color: Colors.primaryTextColor,
-  },
+
   placeholderStyle: {
     fontSize: 16,
     color: Colors.primaryTextColor,
@@ -328,7 +319,73 @@ export const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     padding: 10,
     backgroundColor: 'white',
-
     paddingHorizontal: wp('5'),
+  },
+
+  container1: {
+    backgroundColor: 'white',
+    marginVertical: hp('2'),
+    paddingHorizontal: wp('3'),
+  },
+  label: {
+    fontSize: scaleFont(16),
+    FontFamily: FontFamily.regular,
+    color: '#333',
+    marginBottom: hp('2'),
+  },
+  toggleContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: wp('92'),
+    alignSelf: 'center',
+  },
+  option: {
+    width: wp('43.5'),
+    borderWidth: 1,
+    borderColor: 'rgba(11, 180, 255, 0.3)',
+    borderRadius: 5,
+    backgroundColor: 'white',
+    alignItems: 'center',
+    paddingVertical: hp('1.8'),
+    flexDirection: 'row',
+    // iOS Shadow
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+
+    // Android Shadow
+    elevation: 5,
+  },
+  selectedOption: {
+    borderColor: '#0BB4FF',
+  },
+  optionText: {
+    fontSize: scaleFont(16),
+    FontFamily: FontFamily.regular,
+    color: '#333',
+    marginLeft: wp('3'),
+  },
+  selectedText: {
+    color: '#333',
+  },
+  indicator: {
+    width: 16,
+    height: 16,
+    borderRadius: 10,
+    backgroundColor: '#0BB4FF',
+    position: 'absolute',
+    right: 12,
+    borderWidth: 1,
+    borderColor: Colors.gray,
+  },
+  indicator1: {
+    width: 16,
+    height: 16,
+    borderRadius: 10,
+    position: 'absolute',
+    right: 12,
+    borderWidth: 1,
+    borderColor: Colors.gray,
   },
 });
