@@ -160,12 +160,11 @@ const AddPostScreen = ({navigation, route}) => {
         renderItem={renderItem}
         keyExtractor={keyExtractor}
         contentContainerStyle={styles.flatListMain}
-        horizontal
+        horizontal={false}
         ListFooterComponentStyle={{
           alignItems: 'center',
           alignSelf: 'center',
           // marginBottom: hp('1.5'),
-          marginTop: hp('1'),
         }}
         ListFooterComponent={() => {
           return (

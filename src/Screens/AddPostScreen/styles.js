@@ -33,11 +33,12 @@ export const styles = StyleSheet.create({
   },
   flatListMain: {
     flexDirection: 'row',
-    width: wp('100'),
+    width: wp('95'),
     display: 'flex',
     flexWrap: 'wrap',
     alignItems: 'center',
     padding: 5,
+
   },
 
   filterHeader: {

@@ -65,6 +65,7 @@ const styles = StyleSheet.create({
     borderColor: 'rgba(11, 180, 255, 0.3)',
     backgroundColor: 'rgba(11, 180, 255, 0.05)',
     borderRadius: 10,
+    marginTop: hp('0.5'),
   },
   image: {
     width: wp('4.5'),
@@ -82,7 +83,6 @@ const styles = StyleSheet.create({
     width: '100',
     display: 'flex',
     flexWrap: 'wrap',
-    // marginTop: hp('1'),
   },
   tags: {
     paddingHorizontal: wp('2'),
