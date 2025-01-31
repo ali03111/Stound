@@ -33,6 +33,7 @@ export {default as emptyimage} from './Images/emptyimage.png';
 
 //  Icons
 
+export {default as squarefoot} from './Icons/squarefoot.png';
 export {default as eye} from './Icons/eye.png';
 export {default as eyeOff} from './Icons/eye-off.png';
 export {default as lock} from './Icons/lock.png';

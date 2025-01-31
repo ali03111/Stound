@@ -1,6 +1,12 @@
 import {Dimensions, StyleSheet} from 'react-native';
 import {hp, wp} from '../../Config/responsive';
-import {Colors, FontFamily, FontSize, scaleFont} from '../../Theme/Variables';
+import {
+  Colors,
+  FontFamily,
+  FontSize,
+  isIOS,
+  scaleFont,
+} from '../../Theme/Variables';
 import {height} from '../../Navigation/bottomNavigation';
 
 export const styles = StyleSheet.create({
@@ -27,10 +33,11 @@ export const styles = StyleSheet.create({
   },
   flatListMain: {
     flexDirection: 'row',
-    width: '100%',
+    width: wp('100'),
     display: 'flex',
     flexWrap: 'wrap',
     alignItems: 'center',
+    padding: 5,
   },
 
   filterHeader: {
@@ -43,10 +50,10 @@ export const styles = StyleSheet.create({
     backgroundColor: 'white',
     flexDirection: 'row',
     alignItems: 'center',
-    display: 'flex',
-    flexWrap: 'wrap',
+
     paddingLeft: wp('3'),
     paddingVertical: hp('0.2'),
+
     // iOS Shadow
     shadowColor: '#000',
     shadowOffset: {width: 0, height: 2},
@@ -70,13 +77,22 @@ export const styles = StyleSheet.create({
   pick: {
     width: height > 667 ? wp('84') : wp('80'),
     color: Colors.primaryTextColor,
+    // height: hp('5.3'),
   },
   itemHeading: {
-    marginTop: hp('3'),
     marginBottom: hp('1.5'),
-    // fontWeight: '500',
     fontWeight: '600',
     fontSize: FontSize.scale16,
+    color: Colors.primaryTextColor,
+  },
+  emptylocationtext: {
+    fontSize: scaleFont(16),
+    fontFamily: FontFamily.regular,
+    color: Colors.gray,
+  },
+  location: {
+    fontSize: scaleFont(16),
+    fontFamily: FontFamily.regular,
     color: Colors.primaryTextColor,
   },
   room: {
@@ -86,24 +102,38 @@ export const styles = StyleSheet.create({
   },
   addButton: {
     borderWidth: 1,
-    borderColor: 'rgba(11, 180, 255, 0.3)',
-    borderRadius: 10,
+    borderColor: Colors.gray,
+    borderRadius: 5,
     backgroundColor: 'white',
     paddingHorizontal: wp('2'),
-    padding: 10,
-    // flexDirection: 'row',
+
+    // iOS Shadow
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+
+    // Android Shadow
+    elevation: 5,
   },
   filterButton: {
     width: wp('20'),
   },
   locationBtn: {
     borderColor: Colors.grayBackground,
-    borderWidth: 0,
-    borderBottomWidth: 0.5,
-    borderRadius: 0,
+    padding: 10,
+    borderRadius: 5,
+    height: hp('5.8'),
     justifyContent: 'flex-start',
-    width: wp('88'),
     backgroundColor: 'white',
+    // iOS Shadow
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+
+    // Android Shadow
+    elevation: 5,
   },
   locationBtnText: {
     fontSize: hp('2'),
@@ -112,8 +142,8 @@ export const styles = StyleSheet.create({
     textAlign: 'left',
   },
   locationBtnImg: {
-    width: 22,
-    height: 22,
+    width: wp('6'),
+    height: hp('6'),
   },
   pRange: {
     fontWeight: '600',
@@ -167,21 +197,23 @@ export const styles = StyleSheet.create({
     backgroundColor: 'white',
     paddingHorizontal: wp('3'),
   },
-  inputTitle: {
-    paddingHorizontal: wp('2.5'),
-    width: wp('46'),
-    fontSize: hp('2'),
-  },
+
   inputTitle: {
     backgroundColor: 'white',
-    borderRadius: 10,
+    borderRadius: 5,
+    height: hp('5.8'),
+    borderColor: Colors.gray,
+    borderWidth: 1,
+    marginTop: hp('0'),
   },
   text: {
     fontWeight: '400',
   },
   inputText: {
-    fontWeight: '400',
     paddingLeft: wp('2'),
+    fontSize: scaleFont(16),
+    fontFamily: FontFamily.regular,
+    color: Colors.primaryTextColor,
   },
   inputIcon: {
     marginLeft: wp('3'),
@@ -189,8 +221,11 @@ export const styles = StyleSheet.create({
   inputDesc: {
     height: hp('15'),
     backgroundColor: 'white',
-    borderRadius: 10,
+    borderRadius: 5,
     textAlign: 'auto',
+    marginTop: hp('0'),
+    borderColor: Colors.gray,
+    borderWidth: 1,
   },
   msgIcon: {
     marginLeft: wp('3'),
@@ -218,8 +253,16 @@ export const styles = StyleSheet.create({
     marginHorizontal: wp('1'),
   },
   imagesStyle: {
-    width: wp('45'),
+    resizeMode: 'contain',
+    width: wp('40'),
     height: hp('11'),
+    marginVertical: hp('0.5'),
+    marginHorizontal: wp('1'),
+  },
+  filimage: {
+    resizeMode: 'cover',
+    width: wp('44'),
+    height: hp('12'),
     borderRadius: 10,
     marginVertical: hp('0.5'),
     marginHorizontal: wp('1'),
@@ -363,11 +406,12 @@ export const styles = StyleSheet.create({
   optionText: {
     fontSize: scaleFont(16),
     FontFamily: FontFamily.regular,
-    color: '#333',
+    color: Colors.primaryTextColor,
+
     marginLeft: wp('3'),
   },
   selectedText: {
-    color: '#333',
+    color: Colors.primaryTextColor,
   },
   indicator: {
     width: 16,

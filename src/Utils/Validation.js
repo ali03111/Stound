@@ -36,9 +36,11 @@ const signUpschema = yup.object().shape({
     .min(2, 'Name must be atleast 2 characters')
     .max(50, 'Name must be of 50 characters'),
   // city: yup.string().required('Please Enter Your country'),
-  number: yup.string().required('Please enter your number') .
-  matches(/^[0-9]+$/, 'Please enter valid number')
-  .min(2, 'Number must be atleast 2 characters')
+  number: yup
+    .string()
+    .required('Please enter your number')
+    .matches(/^[0-9]+$/, 'Please enter valid number')
+    .min(2, 'Number must be atleast 2 characters')
 
     .max(25, 'Number must be of 25 characters'),
 
@@ -100,7 +102,8 @@ const resetPasswordScheme = yup.object().shape({
     .matches(
       /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
       'Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character',
-    )  .oneOf([yup.ref('password'), null], 'Password must match'),
+    )
+    .oneOf([yup.ref('password'), null], 'Password must match'),
 });
 
 const addPlaylistScheme = yup.object().shape({
@@ -127,6 +130,7 @@ const addPostScheme = yup.object().shape({
   title: yup.string().required('Please enter title'),
   desc: yup.string().required('Please enter description'),
   number: yup.string().required('Please enter price'),
+  squarefoot: yup.string().required('Please enter squarefoot'),
 });
 
 const Schemas = {

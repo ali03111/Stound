@@ -64,12 +64,11 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'rgba(11, 180, 255, 0.3)',
     backgroundColor: 'rgba(11, 180, 255, 0.05)',
-    marginLeft: wp('1'),
     borderRadius: 10,
   },
   image: {
-    width: wp('5'),
-    height: hp('4'),
+    width: wp('4.5'),
+    height: hp('3'),
     resizeMode: 'contain',
   },
   text: {
@@ -80,7 +79,7 @@ const styles = StyleSheet.create({
   },
   flatListMain: {
     flexDirection: 'row',
-    width: '100%',
+    width: '100',
     display: 'flex',
     flexWrap: 'wrap',
     // marginTop: hp('1'),

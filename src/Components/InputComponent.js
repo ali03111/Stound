@@ -33,7 +33,7 @@ export const InputComponent = ({
 }) => {
   const [show, setShow] = useState(!isSecure);
   const handleClick = () => setShow(!show);
-  const keyboardType = ['number', 'reset_code'].includes(name)
+  const keyboardType = ['number', 'reset_code', 'squarefoot'].includes(name)
     ? 'phone-pad'
     : 'default';
 
@@ -75,6 +75,7 @@ export const InputComponent = ({
                   placeholderTextColor: Colors.gray,
                   fontSize: scaleFont(16),
                   fontFamily: FontFamily.semiBold,
+                  fontFamily: FontFamily.regular,
                   autoCapitalize,
                   autoCorrect: false,
                   spellCheck: false,
@@ -124,7 +125,11 @@ export const InputComponent = ({
         {inputLength && (
           <View style={{justifyContent: 'flex-end'}}>
             <TextComponent
-              styles={{textAlign: 'right', color: Colors.blueMenu2}}
+              styles={{
+                textAlign: 'right',
+                marginTop: hp('1'),
+                color: Colors.blueMenu2,
+              }}
               text={`${length.length}/200`}
             />
           </View>
@@ -150,7 +155,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     height: hp('7'),
     borderRadius: 15,
-    marginVertical: hp('1'),
     alignItems: 'center',
     flexDirection: 'row',
     borderColor: Colors.lightblue,
@@ -191,6 +195,7 @@ const styles = StyleSheet.create({
     fontFamily: FontFamily.semiBold,
     marginLeft: wp('2'),
     marginBottom: hp('1'),
+    marginTop: hp('1'),
   },
   inputIcon: {
     marginLeft: hp('2'),

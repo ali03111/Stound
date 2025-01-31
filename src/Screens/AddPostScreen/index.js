@@ -33,6 +33,7 @@ import {
   UploadProfileImage,
   addGalleryImage,
   accessibleforward,
+  squarefoot,
 } from '../../Assets';
 import {Colors, FontSize} from '../../Theme/Variables';
 import FilterAddButton from '../../Components/FilterAddButton';
@@ -113,15 +114,19 @@ const AddPostScreen = ({navigation, route}) => {
     category,
     setCategory,
     uploadedImages,
+    selected,
+    setSelected,
   } = useAddPostScreen(navigation, route);
 
   const renderItem = ({item, index}) => {
+    console.log(imageUrl(item.path), 'asldkjflksdjf');
     return (
       <FilterAddButton
         style={styles.tags}
         title={item?.name}
         image={imageUrl(item.path)}
         required={true}
+        tintColor={Colors.primaryTextColor}
       />
     );
   };
@@ -141,19 +146,12 @@ const AddPostScreen = ({navigation, route}) => {
 
         <Image
           source={{uri: item?.type ? item?.uri : imageUrl(item)}}
-          style={styles.imagesStyle}
+          style={styles.filimage}
         />
       </>
     );
   };
 
-  const [selected, setSelected] = useState('Sell');
-  // const RentSellToggle = useCallback(() => {
-
-  //   return (
-
-  //   );
-  // }, []);
   const FlatListComp = ({data, onPress}) => {
     return (
       <FlatList
@@ -165,7 +163,9 @@ const AddPostScreen = ({navigation, route}) => {
         horizontal
         ListFooterComponentStyle={{
           alignItems: 'center',
-          marginBottom: hp('1.5'),
+          alignSelf: 'center',
+          // marginBottom: hp('1.5'),
+          marginTop: hp('1'),
         }}
         ListFooterComponent={() => {
           return (
@@ -292,8 +292,78 @@ const AddPostScreen = ({navigation, route}) => {
               )}
             </View>
             <DividerLine style={{borderBottomWidth: 5}} />
+            <View style={styles.container1}>
+              <TextComponent
+                styles={styles.itemHeading1}
+                text={'Select location '}
+              />
 
-            <View>
+              <FilterAddButton
+                onPress={sendLocation}
+                style={styles.locationBtn}
+                textStyle={styles.locationBtnText}
+                image={search}
+                isRequired={true}
+                title={
+                  (location && (
+                    <TextComponent styles={styles.location} text={location} />
+                  )) || (
+                    <TextComponent
+                      styles={styles.emptylocationtext}
+                      text={'Search location here.'}
+                    />
+                  )
+                }
+                imgStyle={styles.locationBtnImg}
+              />
+            </View>
+            <DividerLine style={{borderBottomWidth: 5}} />
+            <View style={styles.container1}>
+              <TextComponent styles={styles.itemHeading1} text={'Area size'} />
+              <InputComponent
+                {...{
+                  name: 'squarefoot',
+                  handleSubmit,
+                  errors,
+                  reset,
+                  control,
+                  getValues,
+                  placeholder: 'Enter area size in Sq. Ft.',
+                  viewStyle: styles.inputTitle,
+                  textStyle: styles.inputText,
+                  inputIconStyle: styles.inputIcon,
+                  isImage: squarefoot,
+                  maxLength: 5,
+                }}
+              />
+            </View>
+            <DividerLine style={{borderBottomWidth: 5}} />
+            <View style={styles.container1}>
+              <TextComponent styles={styles.itemHeading1} text={'Set price'} />
+              <InputComponent
+                {...{
+                  name: 'number',
+                  handleSubmit,
+                  errors,
+                  reset,
+                  control,
+                  getValues,
+                  placeholder: 'Enter your price here...',
+                  viewStyle: styles.inputTitle,
+                  textStyle: styles.inputText,
+                  inputIconStyle: styles.inputIcon,
+                  isImage: adTitle,
+                  keyboardType: 'number',
+                  maxLength: 9,
+                }}
+              />
+            </View>
+            <DividerLine style={{borderBottomWidth: 5}} />
+            <View style={styles.container1}>
+              <TextComponent
+                styles={styles.itemHeading1}
+                text={'Property title'}
+              />
               <InputComponent
                 {...{
                   name: 'title',
@@ -309,6 +379,13 @@ const AddPostScreen = ({navigation, route}) => {
                   isImage: adTitle,
                 }}
               />
+            </View>
+            <DividerLine style={{borderBottomWidth: 5}} />
+            <View style={styles.container1}>
+              <TextComponent
+                styles={styles.itemHeading1}
+                text={'Property description'}
+              />
               <InputComponent
                 {...{
                   name: 'desc',
@@ -317,7 +394,7 @@ const AddPostScreen = ({navigation, route}) => {
                   reset,
                   control,
                   getValues,
-                  placeholder: 'Ad description...',
+                  placeholder: 'Write something here...',
                   viewStyle: styles.inputDesc,
                   textStyle: styles.inputTextarea,
                   inputIconStyle: styles.msgIcon,
@@ -328,349 +405,230 @@ const AddPostScreen = ({navigation, route}) => {
                   inputLength: true,
                 }}
               />
-              <InputComponent
-                {...{
-                  name: 'number',
-                  handleSubmit,
-                  errors,
-                  reset,
-                  control,
-                  getValues,
-                  placeholder: 'Ad price...',
-                  viewStyle: styles.inputTitle,
-                  textStyle: styles.inputText,
-                  inputIconStyle: styles.inputIcon,
-                  isImage: adTitle,
-                  keyboardType: 'number',
-                  maxLength: 9,
-                }}
-              />
             </View>
-            <TextComponent styles={styles.itemHeading} text={'Location '} />
-            <View style={{...styles.addButton, paddingHorizontal: wp('3')}}>
-              <FilterAddButton
-                onPress={sendLocation}
-                style={styles.locationBtn}
-                textStyle={styles.locationBtnText}
-                image={search}
-                isRequired={true}
-                title={location == '' ? 'Search location here...' : location}
-                imgStyle={styles.locationBtnImg}
+            <DividerLine style={{borderBottomWidth: 5}} />
+            <View style={styles.container1}>
+              <TextComponent
+                styles={styles.itemHeading1}
+                text={'Select number of bathrooms'}
               />
-            </View>
-            <View style={{...styles.dropDownView, marginTop: hp('3')}}>
-              <>
-                <TextComponent styles={styles.itemHeading1} text={'Country '} />
-                <Dropdown
-                  itemTextStyle={{color: Colors.primaryTextColor}}
-                  style={[
-                    styles.dropdown,
-                    isFocus && {borderColor: Colors.primaryColor},
-                  ]}
-                  placeholderStyle={styles.placeholderStyle}
-                  selectedTextStyle={styles.selectedTextStyle}
-                  inputSearchStyle={styles.inputSearchStyle}
-                  iconStyle={styles.iconStyle}
-                  data={countryData}
-                  search
-                  maxHeight={300}
-                  labelField="label"
-                  valueField="value"
-                  placeholder={!isFocus ? 'Select Country' : '...'}
-                  searchPlaceholder="Search..."
-                  value={country}
-                  onFocus={() => setIsFocus(true)}
-                  onBlur={() => setIsFocus(false)}
-                  onChange={item => {
-                    handleState(item.value);
-                    setCountry(item.value);
-                    setCountryName(item.label);
-                    setIsFocus(false);
-                    setState(null);
-                    setStateName(null);
-                    setCity(null);
-                    setCityName(null);
-                    setCityData([]);
-                  }}
-                />
-              </>
-
-              {stateData.length > 0 && (
-                <>
+              {Platform.OS == 'ios' ? (
+                <Pressable
+                  onPress={() => setModal1(prev => !prev)}
+                  style={styles.pickerStyle}>
+                  <Image source={bedblue} />
                   <TextComponent
-                    styles={styles.itemHeading1}
-                    text={'States '}
+                    text={!rooms ? 'Select' : rooms}
+                    styles={styles.iosPick}
                   />
-                  <Dropdown
-                    itemTextStyle={{color: Colors.primaryTextColor}}
-                    style={[
-                      styles.dropdown,
-                      isFocus1 && {borderColor: Colors.primaryColor},
-                    ]}
-                    placeholderStyle={styles.placeholderStyle}
-                    selectedTextStyle={styles.selectedTextStyle}
-                    inputSearchStyle={styles.inputSearchStyle}
-                    iconStyle={styles.iconStyle}
-                    data={stateData}
-                    search
-                    maxHeight={300}
-                    labelField="label"
-                    valueField="value"
-                    placeholder={!isFocus1 ? 'Select State' : '...'}
-                    searchPlaceholder="Search..."
-                    value={state}
-                    onFocus={() => setIsFocus1(true)}
-                    onBlur={() => setIsFocus1(false)}
-                    onChange={item => {
-                      handleCity(country, item.value);
-                      setState(item.value);
-                      setStateName(item.label);
-                      setCity(null);
-                      setCityName(null);
-                      setIsFocus1(false);
-                    }}
+                  <Ionicons
+                    style={styles.dropDown}
+                    color={Colors.primaryColor}
+                    name={'caret-down'}
+                    size={hp(2)}
                   />
-                </>
-              )}
+                </Pressable>
+              ) : (
+                <View style={styles.pickerStyle}>
+                  <Image source={bedblue} />
 
-              {cityData.length > 0 && (
-                <>
-                  <TextComponent styles={styles.itemHeading1} text={'City '} />
-                  <Dropdown
-                    itemTextStyle={{color: Colors.primaryTextColor}}
-                    style={[
-                      styles.dropdown,
-                      isFocus2 && {borderColor: Colors.primaryColor},
-                    ]}
-                    placeholderStyle={styles.placeholderStyle}
-                    selectedTextStyle={styles.selectedTextStyle}
-                    inputSearchStyle={styles.inputSearchStyle}
-                    iconStyle={styles.iconStyle}
-                    data={cityData}
-                    search
-                    maxHeight={300}
-                    labelField="label"
-                    valueField="value"
-                    placeholder={!isFocus2 ? 'Select City' : '...'}
-                    searchPlaceholder="Search..."
-                    value={city}
-                    onFocus={() => setIsFocus2(true)}
-                    onBlur={() => setIsFocus2(false)}
-                    onChange={item => {
-                      setCity(item.value);
-                      setCityName(item.label);
-                      setIsFocus2(false);
-                    }}
-                  />
-                </>
+                  <Picker
+                    dropdownIconColor={Colors.primaryColor}
+                    // mode="dropdown"
+                    style={[styles.pick]}
+                    selectedValue={rooms}
+                    onValueChange={(itemValue, itemIndex) =>
+                      onSelecteTag(itemValue, 'rooms')
+                    }>
+                    <Picker.Item label="Select" value={null} />
+                    <Picker.Item label="1" value="1" />
+                    <Picker.Item label="2" value="2" />
+                    <Picker.Item label="3" value="3" />
+                    <Picker.Item label="4" value="4" />
+                    <Picker.Item label="5" value="5" />
+                    <Picker.Item label="6" value="6" />
+                    <Picker.Item label="7" value="7" />
+                    <Picker.Item label="8" value="8" />
+                    <Picker.Item label="9" value="9" />
+                    <Picker.Item label="10" value="10" />
+                    <Picker.Item label="11" value="11" />
+                    <Picker.Item label="12" value="12" />
+                    <Picker.Item label="13" value="13" />
+                    <Picker.Item label="14" value="14" />
+                    <Picker.Item label="15" value="15" />
+                    <Picker.Item label="16" value="16" />
+                    <Picker.Item label="17" value="17" />
+                    <Picker.Item label="18" value="18" />
+                    <Picker.Item label="19" value="19" />
+                    <Picker.Item label="20" value="20" />
+                  </Picker>
+                </View>
               )}
-              {/* <TouchableOpacity onPress={()=>Alert.alert(`you have selected country ${countryName+country+' '+stateName+state+ " " +cityName+city}`)}>
-        <Text>Submit</Text>
-      </TouchableOpacity> */}
             </View>
+            <DividerLine style={{borderBottomWidth: 5}} />
 
-            <TextComponent styles={styles.itemHeading} text={'Rooms '} />
-            {Platform.OS == 'ios' ? (
-              <Pressable
-                onPress={() => setModal1(prev => !prev)}
-                style={styles.pickerStyle}>
-                <Image source={bedblue} />
-                <TextComponent
-                  text={!rooms ? 'Select' : rooms}
-                  styles={styles.iosPick}
-                />
-                <Ionicons
-                  style={styles.dropDown}
-                  color={Colors.primaryColor}
-                  name={'caret-down'}
-                  size={hp(2)}
-                />
-              </Pressable>
-            ) : (
-              <View style={styles.pickerStyle}>
-                <Image source={bedblue} />
+            <View style={styles.container1}>
+              <TextComponent
+                styles={styles.itemHeading1}
+                text={'Select number of  bedrooms '}
+              />
+              {Platform.OS == 'ios' ? (
+                <Pressable
+                  onPress={() => setModal2(prev => !prev)}
+                  style={styles.pickerStyle}>
+                  <Image source={bluebath} />
+                  <TextComponent
+                    text={!bathRoom ? 'Select' : bathRoom}
+                    styles={styles.iosPick}
+                  />
+                  <Ionicons
+                    style={styles.dropDown}
+                    color={Colors.primaryColor}
+                    name={'caret-down'}
+                    size={hp(2)}
+                  />
+                </Pressable>
+              ) : (
+                <View style={styles.pickerStyle}>
+                  <Image source={bluebath} />
+                  <Picker
+                    dropdownIconColor={Colors.primaryColor}
+                    // mode="dropdown"
+                    style={[styles.pick]}
+                    selectedValue={bathRoom}
+                    onValueChange={(itemValue, itemIndex) =>
+                      onSelecteTag(itemValue, 'bathRoom')
+                    }>
+                    <Picker.Item label="Select" value={null} />
+                    <Picker.Item label="1" value="1" />
+                    <Picker.Item label="2" value="2" />
+                    <Picker.Item label="3" value="3" />
+                    <Picker.Item label="4" value="4" />
+                    <Picker.Item label="5" value="5" />
+                    <Picker.Item label="6" value="6" />
+                    <Picker.Item label="7" value="7" />
+                    <Picker.Item label="8" value="8" />
+                    <Picker.Item label="9" value="9" />
+                    <Picker.Item label="10" value="10" />
+                    <Picker.Item label="11" value="11" />
+                    <Picker.Item label="12" value="12" />
+                    <Picker.Item label="13" value="13" />
+                    <Picker.Item label="14" value="14" />
+                    <Picker.Item label="15" value="15" />
+                    <Picker.Item label="16" value="16" />
+                    <Picker.Item label="17" value="17" />
+                    <Picker.Item label="18" value="18" />
+                    <Picker.Item label="19" value="19" />
+                    <Picker.Item label="20" value="20" />
+                  </Picker>
+                </View>
+              )}
+            </View>
+            <DividerLine style={{borderBottomWidth: 5}} />
 
-                <Picker
-                  dropdownIconColor={Colors.primaryColor}
-                  // mode="dropdown"
-                  style={[styles.pick]}
-                  selectedValue={rooms}
-                  onValueChange={(itemValue, itemIndex) =>
-                    onSelecteTag(itemValue, 'rooms')
-                  }>
-                  <Picker.Item label="Select" value={null} />
-                  <Picker.Item label="1" value="1" />
-                  <Picker.Item label="2" value="2" />
-                  <Picker.Item label="3" value="3" />
-                  <Picker.Item label="4" value="4" />
-                  <Picker.Item label="5" value="5" />
-                  <Picker.Item label="6" value="6" />
-                  <Picker.Item label="7" value="7" />
-                  <Picker.Item label="8" value="8" />
-                  <Picker.Item label="9" value="9" />
-                  <Picker.Item label="10" value="10" />
-                  <Picker.Item label="11" value="11" />
-                  <Picker.Item label="12" value="12" />
-                  <Picker.Item label="13" value="13" />
-                  <Picker.Item label="14" value="14" />
-                  <Picker.Item label="15" value="15" />
-                  <Picker.Item label="16" value="16" />
-                  <Picker.Item label="17" value="17" />
-                  <Picker.Item label="18" value="18" />
-                  <Picker.Item label="19" value="19" />
-                  <Picker.Item label="20" value="20" />
-                </Picker>
-              </View>
-            )}
-
-            <TextComponent styles={styles.itemHeading} text={'Bathrooms '} />
-            {Platform.OS == 'ios' ? (
-              <Pressable
-                onPress={() => setModal2(prev => !prev)}
-                style={styles.pickerStyle}>
-                <Image source={bluebath} />
-                <TextComponent
-                  text={!bathRoom ? 'Select' : bathRoom}
-                  styles={styles.iosPick}
-                />
-                <Ionicons
-                  style={styles.dropDown}
-                  color={Colors.primaryColor}
-                  name={'caret-down'}
-                  size={hp(2)}
-                />
-              </Pressable>
-            ) : (
-              <View style={styles.pickerStyle}>
-                <Image source={bluebath} />
-                <Picker
-                  dropdownIconColor={Colors.primaryColor}
-                  // mode="dropdown"
-                  style={[styles.pick]}
-                  selectedValue={bathRoom}
-                  onValueChange={(itemValue, itemIndex) =>
-                    onSelecteTag(itemValue, 'bathRoom')
-                  }>
-                  <Picker.Item label="Select" value={null} />
-                  <Picker.Item label="1" value="1" />
-                  <Picker.Item label="2" value="2" />
-                  <Picker.Item label="3" value="3" />
-                  <Picker.Item label="4" value="4" />
-                  <Picker.Item label="5" value="5" />
-                  <Picker.Item label="6" value="6" />
-                  <Picker.Item label="7" value="7" />
-                  <Picker.Item label="8" value="8" />
-                  <Picker.Item label="9" value="9" />
-                  <Picker.Item label="10" value="10" />
-                  <Picker.Item label="11" value="11" />
-                  <Picker.Item label="12" value="12" />
-                  <Picker.Item label="13" value="13" />
-                  <Picker.Item label="14" value="14" />
-                  <Picker.Item label="15" value="15" />
-                  <Picker.Item label="16" value="16" />
-                  <Picker.Item label="17" value="17" />
-                  <Picker.Item label="18" value="18" />
-                  <Picker.Item label="19" value="19" />
-                  <Picker.Item label="20" value="20" />
-                </Picker>
-              </View>
-            )}
-            <View style={styles.galleryHd}>
-              <Image source={UploadProfileImage} style={styles.addImage} />
+            <View style={styles.container1}>
+              {/* <Image source={UploadProfileImage} style={styles.addImage} /> */}
               <TextComponent
                 text={'Upload upto 10 photos'}
-                styles={{
-                  fontWeight: '600',
-                  fontSize: FontSize.scale16,
-                  color: Colors.primaryTextColor,
+                styles={styles.itemHeading1}
+              />
+              <FlatList
+                refreshing={false}
+                data={[...images, ...uploadedImages]}
+                renderItem={renderItemImages}
+                keyExtractor={keyExtractor}
+                contentContainerStyle={{
+                  ...styles.flatListMain,
+                }}
+                horizontal
+                ListFooterComponent={() => {
+                  return (
+                    <Touchable onPress={uploadFromGalary}>
+                      <Image
+                        style={styles.imagesStyle}
+                        source={addGalleryImage}
+                      />
+                    </Touchable>
+                  );
                 }}
               />
             </View>
-            <FlatList
-              refreshing={false}
-              data={[...images, ...uploadedImages]}
-              renderItem={renderItemImages}
-              keyExtractor={keyExtractor}
-              contentContainerStyle={{
-                ...styles.flatListMain,
-              }}
-              horizontal
-              ListFooterComponent={() => {
-                return (
-                  <Touchable onPress={uploadFromGalary}>
-                    <Image
-                      style={styles.imagesStyle}
-                      source={addGalleryImage}
-                    />
-                  </Touchable>
-                );
-              }}
-            />
+            <DividerLine style={{borderBottomWidth: 5}} />
 
-            <TextComponent
-              styles={styles.itemHeading}
-              text={'General Preferences '}
-            />
-            <View style={styles.addButton}>
-              <FlatListComp
-                data={gp}
-                onPress={() =>
-                  dynamicNav({
-                    title: 'General',
-                    data: preferencesData.gp,
-                    key: 'gp',
-                    value: gp,
-                  })
-                }
+            <View style={styles.container1}>
+              <TextComponent
+                styles={styles.itemHeading1}
+                text={'General Preferences '}
               />
+              <View style={styles.addButton}>
+                <FlatListComp
+                  data={gp}
+                  onPress={() =>
+                    dynamicNav({
+                      title: 'General',
+                      data: preferencesData.gp,
+                      key: 'gp',
+                      value: gp,
+                    })
+                  }
+                />
+              </View>
             </View>
-            <TextComponent
-              styles={styles.itemHeading}
-              text={'Outside Preferences '}
-            />
-            <View style={styles.addButton}>
-              <FlatListComp
-                data={op}
-                onPress={() =>
-                  dynamicNav({
-                    title: 'Outside',
-                    data: preferencesData.op,
-                    key: 'op',
-                    value: op,
-                  })
-                }
+            <DividerLine style={{borderBottomWidth: 5}} />
+            <View style={styles.container1}>
+              <TextComponent
+                styles={styles.itemHeading1}
+                text={'Outside Preferences '}
               />
+              <View style={styles.addButton}>
+                <FlatListComp
+                  data={op}
+                  onPress={() =>
+                    dynamicNav({
+                      title: 'Outside',
+                      data: preferencesData.op,
+                      key: 'op',
+                      value: op,
+                    })
+                  }
+                />
+              </View>
             </View>
-            <TextComponent
-              styles={styles.itemHeading}
-              text={'Inside Preferences '}
-            />
-            <View style={styles.addButton}>
-              <FlatListComp
-                data={ip}
-                onPress={() =>
-                  dynamicNav({
-                    title: 'Inside',
-                    data: preferencesData.ip,
-                    key: 'ip',
-                    value: ip,
-                  })
-                }
-              />
-            </View>
+            <DividerLine style={{borderBottomWidth: 5}} />
 
-            <ThemeButtonComp
-              title={'Post'}
-              style={styles.applyFilter}
-              textStyle={styles.filterText}
-              onPress={handleSubmit(data => {
-                if (validateForm()) {
-                  postData(data);
-                } else {
-                  console.log('Form validation failed');
-                }
-              })}
-            />
+            <View style={styles.container1}>
+              <TextComponent
+                styles={styles.itemHeading1}
+                text={'Inside Preferences '}
+              />
+              <View style={styles.addButton}>
+                <FlatListComp
+                  data={ip}
+                  onPress={() =>
+                    dynamicNav({
+                      title: 'Inside',
+                      data: preferencesData.ip,
+                      key: 'ip',
+                      value: ip,
+                    })
+                  }
+                />
+              </View>
+            </View>
+            <View style={styles.container1}>
+              <ThemeButtonComp
+                title={'Post Ad'}
+                style={styles.applyFilter}
+                textStyle={styles.filterText}
+                onPress={handleSubmit(data => {
+                  if (validateForm()) {
+                    postData(data);
+                  } else {
+                    console.log('Form validation failed');
+                  }
+                })}
+              />
+            </View>
           </View>
         </ScrollView>
       </View>

@@ -7,12 +7,13 @@ import {launchImageLibrary} from 'react-native-image-picker';
 import useReduxStore from '../../Hooks/UseReduxStore';
 import {loadingFalse, loadingTrue} from '../../Redux/Action/isloadingAction';
 import axios from 'axios';
-import { navigationRef } from '../../../RootNavigation';
+import {navigationRef} from '../../../RootNavigation';
 
 const {default: Schemas} = require('../../Utils/Validation');
 
 const useAddPostScreen = ({navigate}, {params}) => {
   const item = params;
+  const [selected, setSelected] = useState('Sell');
 
   console.log(
     'paramsparamsparamsparamsparamsparamsparamsparamsparams',
@@ -27,12 +28,14 @@ const useAddPostScreen = ({navigate}, {params}) => {
       title: item?.title ?? '',
       desc: item?.description ?? '',
       number: item?.price.toString() ?? '',
+      squarefoot: item?.squarefoot.toString() ?? '',
       // number: '77',
     });
   // Retrieve values of form fields
   const title = getValues('title');
   const desc = getValues('desc');
   const number = getValues('number');
+  const squarefoot = getValues('squarefoot');
   const numberRegex = /^[0-9]+$/;
 
   const options = [
@@ -89,7 +92,7 @@ const useAddPostScreen = ({navigate}, {params}) => {
   } = preferencesVal;
   // console.log("preference val", preferencesVal)
   // console.log("room bathroom", rooms, bathRoom, images, type , location, uploadedImages)
-  
+
   const updateState = data => setPreferencesVal(prev => ({...prev, ...data}));
 
   const getPreferences = async () => {
@@ -252,9 +255,9 @@ const useAddPostScreen = ({navigate}, {params}) => {
         photos: images,
         price: number,
         adType: type,
-        country: countryName,
-        state: stateName,
-        city: cityName,
+        // country: countryName,
+        // state: stateName,
+        // city: cityName,
       };
       console.log(body, 'alsdkaskldf');
       const {ok, data, status, originalError, problem} = await formDataFunc(
@@ -303,15 +306,16 @@ const useAddPostScreen = ({navigate}, {params}) => {
     dispatch(loadingTrue());
 
     if (
-      images.length || uploadedImages.length &&
-      cat != null &&
-      rooms != null &&
-      bathRoom != null &&
-      gp.length &&
-      ip.length &&
-      op.length &&
-      location != '' &&
-      numberRegex.test(number)
+      images.length ||
+      (uploadedImages.length &&
+        cat != null &&
+        rooms != null &&
+        bathRoom != null &&
+        gp.length &&
+        ip.length &&
+        op.length &&
+        location != '' &&
+        numberRegex.test(number))
     ) {
       const body = {
         adId: item?.adId,
@@ -328,11 +332,11 @@ const useAddPostScreen = ({navigate}, {params}) => {
         oldImagesPaths: uploadedImages,
         price: number,
         adType: type,
-        country: countryName,
-        state: item?.state ?? stateName,
-        city: item?.city ?? cityName,
+        // country: countryName,
+        // state: item?.state ?? stateName,
+        // city: item?.city ?? cityName,
       };
-      console.log('edit post body', body,);
+      console.log('edit post body', body);
       const {ok, data, status, originalError, problem} = await formDataFunc(
         updateAdsUrl,
         body,
@@ -355,7 +359,7 @@ const useAddPostScreen = ({navigate}, {params}) => {
         // reset();
         dispatch(loadingFalse());
         successMessage(data?.message || 'Your Ad has been created ');
-        navigationRef.goBack()
+        navigationRef.goBack();
 
         reset();
         setTimeout(() => {
@@ -376,10 +380,9 @@ const useAddPostScreen = ({navigate}, {params}) => {
 
   const postData = async ({title, desc, number}) => {
     if (params?.price) {
-      postEditData({title, desc, number})
-    }
-    else {
-      postAddData({title, desc, number})
+      postEditData({title, desc, number});
+    } else {
+      postAddData({title, desc, number});
     }
   };
   const useEffectFun = () => {
@@ -396,102 +399,102 @@ const useAddPostScreen = ({navigate}, {params}) => {
   };
   useEffect(useEffectFun, []);
 
-  //GET COUNTRY
-  useEffect(() => {
-    var config = {
-      method: 'get',
-      url: 'https://api.countrystatecity.in/v1/countries',
-      headers: {
-        'X-CSCAPI-KEY':
-          'NEVpNDRDN2h4aE15ckN0dXNlVHNPeGJVSXlEazRqMDVvWndiVUlDbg==',
-      },
-    };
+  // //GET COUNTRY
+  // useEffect(() => {
+  //   var config = {
+  //     method: 'get',
+  //     url: 'https://api.countrystatecity.in/v1/countries',
+  //     headers: {
+  //       'X-CSCAPI-KEY':
+  //         'NEVpNDRDN2h4aE15ckN0dXNlVHNPeGJVSXlEazRqMDVvWndiVUlDbg==',
+  //     },
+  //   };
 
-    axios(config)
-      .then(function (response) {
-        console.log(JSON.stringify(response.data));
-        var count = Object.keys(response.data).length;
+  //   axios(config)
+  //     .then(function (response) {
+  //       console.log(JSON.stringify(response.data));
+  //       var count = Object.keys(response.data).length;
 
-        let countryArray = [];
-        for (let i = 0; i < count; i++) {
-          countryArray.push({
-            value: response.data[i].iso2,
-            label: response.data[i].name,
-          });
-        }
-        setCountryData(countryArray);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }, []);
+  //       let countryArray = [];
+  //       for (let i = 0; i < count; i++) {
+  //         countryArray.push({
+  //           value: response.data[i].iso2,
+  //           label: response.data[i].name,
+  //         });
+  //       }
+  //       setCountryData(countryArray);
+  //     })
+  //     .catch(function (error) {
+  //       console.log(error);
+  //     });
+  // }, []);
 
-  const handleState = useCallback(
-    countryCode => {
-      var config = {
-        method: 'get',
-        url: `https://api.countrystatecity.in/v1/countries/${countryCode}/states`,
-        headers: {
-          'X-CSCAPI-KEY':
-            'NEVpNDRDN2h4aE15ckN0dXNlVHNPeGJVSXlEazRqMDVvWndiVUlDbg==',
-        },
-      };
+  // const handleState = useCallback(
+  //   countryCode => {
+  //     var config = {
+  //       method: 'get',
+  //       url: `https://api.countrystatecity.in/v1/countries/${countryCode}/states`,
+  //       headers: {
+  //         'X-CSCAPI-KEY':
+  //           'NEVpNDRDN2h4aE15ckN0dXNlVHNPeGJVSXlEazRqMDVvWndiVUlDbg==',
+  //       },
+  //     };
 
-      axios(config)
-        .then(function (response) {
-          console.log(JSON.stringify(response.data));
+  //     axios(config)
+  //       .then(function (response) {
+  //         console.log(JSON.stringify(response.data));
 
-          var count = Object.keys(response.data).length;
-          let stateArray = [];
-          for (let i = 0; i < count; i++) {
-            stateArray.push({
-              value: response.data[i].iso2,
-              label: response.data[i].name,
-            });
-          }
+  //         var count = Object.keys(response.data).length;
+  //         let stateArray = [];
+  //         for (let i = 0; i < count; i++) {
+  //           stateArray.push({
+  //             value: response.data[i].iso2,
+  //             label: response.data[i].name,
+  //           });
+  //         }
 
-          setStateData(stateArray);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    },
-    [stateData],
-  );
+  //         setStateData(stateArray);
+  //       })
+  //       .catch(function (error) {
+  //         console.log(error);
+  //       });
+  //   },
+  //   [stateData],
+  // );
 
-  const handleCity = useCallback(
-    (countryCode, stateCode) => {
-      console.log(countryCode, stateCode, 'aaaaaaa');
+  // // const handleCity = useCallback(
+  // //   (countryCode, stateCode) => {
+  // //     console.log(countryCode, stateCode, 'aaaaaaa');
 
-      var config = {
-        method: 'get',
-        url: `https://api.countrystatecity.in/v1/countries/${countryCode}/states/${stateCode}/cities`,
-        headers: {
-          'X-CSCAPI-KEY':
-            'NEVpNDRDN2h4aE15ckN0dXNlVHNPeGJVSXlEazRqMDVvWndiVUlDbg==',
-        },
-      };
+  // //     var config = {
+  // //       method: 'get',
+  // //       url: `https://api.countrystatecity.in/v1/countries/${countryCode}/states/${stateCode}/cities`,
+  // //       headers: {
+  // //         'X-CSCAPI-KEY':
+  // //           'NEVpNDRDN2h4aE15ckN0dXNlVHNPeGJVSXlEazRqMDVvWndiVUlDbg==',
+  // //       },
+  // //     };
 
-      axios(config)
-        .then(function (response) {
-          console.log(JSON.stringify(response.data));
-          var count = Object.keys(response.data).length;
-          let cityArray = [];
-          for (let i = 0; i < count; i++) {
-            cityArray.push({
-              value: response.data[i].id,
-              label: response.data[i].name,
-            });
-          }
-          setCityData(cityArray);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    },
-    [cityData],
-  );
-  // End Dropdown
+  // //     axios(config)
+  // //       .then(function (response) {
+  // //         console.log(JSON.stringify(response.data));
+  // //         var count = Object.keys(response.data).length;
+  // //         let cityArray = [];
+  // //         for (let i = 0; i < count; i++) {
+  // //           cityArray.push({
+  // //             value: response.data[i].id,
+  // //             label: response.data[i].name,
+  // //           });
+  // //         }
+  // //         setCityData(cityArray);
+  // //       })
+  // //       .catch(function (error) {
+  // //         console.log(error);
+  // //       });
+  // //   },
+  // //   [cityData],
+  // // );
+  // // // End Dropdown
 
   //REST ALL STATE
   const onResetState = useCallback(() => {
@@ -546,10 +549,10 @@ const useAddPostScreen = ({navigate}, {params}) => {
       return;
     }
 
-    if (!country) {
-      errorMessage('Country cannot be empty');
-      return;
-    }
+    // if (!country) {
+    //   errorMessage('Country cannot be empty');
+    //   return;
+    // }
     if (!bathRoom) {
       errorMessage('Bathrooms must select');
       return;
@@ -618,8 +621,8 @@ const useAddPostScreen = ({navigate}, {params}) => {
     setStateName,
     cityName,
     setCityName,
-    handleState,
-    handleCity,
+    // handleState,
+    // handleCity,
     setCityData,
     isFocus,
     setIsFocus,
@@ -636,6 +639,9 @@ const useAddPostScreen = ({navigate}, {params}) => {
     category,
     setCategory,
     uploadedImages,
+    selected,
+    setSelected,
+    squarefoot,
     // handleError
     // goBack,
   };
