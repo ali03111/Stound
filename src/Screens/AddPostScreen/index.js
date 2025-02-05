@@ -109,13 +109,16 @@ const AddPostScreen = ({navigation, route}) => {
     desc,
     number,
     numberRegex,
-    options,
+
     validateForm,
     category,
     setCategory,
+    updateState,
     uploadedImages,
-    selected,
-    setSelected,
+    adType,
+    bathRooms,
+    bedRoom,
+    bedRooms,
   } = useAddPostScreen(navigation, route);
 
   const renderItem = ({item, index}) => {
@@ -205,17 +208,17 @@ const AddPostScreen = ({navigation, route}) => {
               <TouchableOpacity
                 style={[
                   styles.option,
-                  selected === 'Rent' && styles.selectedOption,
+                  adType === 'Rent' && styles.selectedOption,
                 ]}
-                onPress={() => setSelected('Rent')}>
+                onPress={() => updateState({adType: 'Rent'})}>
                 <Text
                   style={[
                     styles.optionText,
-                    selected === 'Rent' && styles.selectedText,
+                    adType === 'Rent' && styles.selectedText,
                   ]}>
                   Rent
                 </Text>
-                {selected === 'Rent' ? (
+                {adType === 'Rent' ? (
                   <View style={styles.indicator} />
                 ) : (
                   <View style={styles.indicator1} />
@@ -224,17 +227,21 @@ const AddPostScreen = ({navigation, route}) => {
               <TouchableOpacity
                 style={[
                   styles.option,
-                  selected === 'Sell' && styles.selectedOption,
+                  adType === 'Sell' && styles.selectedOption,
                 ]}
-                onPress={() => setSelected('Sell')}>
+                onPress={() => updateState({adType: 'Sell'})}>
                 <Text
                   style={[
                     styles.optionText,
-                    selected === 'Sell' && styles.selectedText,
+                    adType === 'Sell' && styles.selectedText,
                   ]}>
                   Sell
                 </Text>
-                {selected === 'Sell' && <View style={styles.indicator} />}
+                {adType === 'Sell' ? (
+                  <View style={styles.indicator} />
+                ) : (
+                  <View style={styles.indicator1} />
+                )}
               </TouchableOpacity>
             </View>
           </View>
@@ -321,7 +328,7 @@ const AddPostScreen = ({navigation, route}) => {
               <TextComponent styles={styles.itemHeading1} text={'Area size'} />
               <InputComponent
                 {...{
-                  name: 'squarefoot',
+                  name: 'areaSize',
                   handleSubmit,
                   errors,
                   reset,
@@ -406,7 +413,65 @@ const AddPostScreen = ({navigation, route}) => {
               />
             </View>
             <DividerLine style={{borderBottomWidth: 5}} />
+
             <View style={styles.container1}>
+              <TextComponent
+                styles={styles.itemHeading1}
+                text={'Select number of bathrooms'}
+              />
+              <FlatList
+                data={bathRooms}
+                horizontal
+                keyExtractor={item => item.toString()}
+                showsHorizontalScrollIndicator={false}
+                contentContainerStyle={styles.list}
+                renderItem={({item}) => (
+                  <TouchableOpacity
+                    style={[
+                      styles.box,
+                      bathRoom === item && styles.selectedBox,
+                    ]}
+                    onPress={() => updateState({bathRoom: item})}>
+                    <Text
+                      style={[
+                        styles.text,
+                        bathRoom === item && styles.selectedText1,
+                      ]}>
+                      {item}
+                    </Text>
+                  </TouchableOpacity>
+                )}
+              />
+            </View>
+
+            <DividerLine style={{borderBottomWidth: 5}} />
+            <View style={styles.container1}>
+              <TextComponent
+                styles={styles.itemHeading1}
+                text={'Select number of  bedrooms'}
+              />
+              <FlatList
+                data={bedRooms}
+                horizontal
+                keyExtractor={item => item.toString()}
+                showsHorizontalScrollIndicator={false}
+                contentContainerStyle={styles.list}
+                renderItem={({item}) => (
+                  <TouchableOpacity
+                    style={[styles.box, bedRoom === item && styles.selectedBox]}
+                    onPress={() => updateState({bedRoom: item})}>
+                    <Text
+                      style={[
+                        styles.text,
+                        bedRoom === item && styles.selectedText1,
+                      ]}>
+                      {item}
+                    </Text>
+                  </TouchableOpacity>
+                )}
+              />
+            </View>
+            {/* <View style={styles.container1}>
               <TextComponent
                 styles={styles.itemHeading1}
                 text={'Select number of bathrooms'}
@@ -463,70 +528,10 @@ const AddPostScreen = ({navigation, route}) => {
                   </Picker>
                 </View>
               )}
-            </View>
+            </View> */}
             <DividerLine style={{borderBottomWidth: 5}} />
 
             <View style={styles.container1}>
-              <TextComponent
-                styles={styles.itemHeading1}
-                text={'Select number of  bedrooms '}
-              />
-              {Platform.OS == 'ios' ? (
-                <Pressable
-                  onPress={() => setModal2(prev => !prev)}
-                  style={styles.pickerStyle}>
-                  <Image source={bluebath} />
-                  <TextComponent
-                    text={!bathRoom ? 'Select' : bathRoom}
-                    styles={styles.iosPick}
-                  />
-                  <Ionicons
-                    style={styles.dropDown}
-                    color={Colors.primaryColor}
-                    name={'caret-down'}
-                    size={hp(2)}
-                  />
-                </Pressable>
-              ) : (
-                <View style={styles.pickerStyle}>
-                  <Image source={bluebath} />
-                  <Picker
-                    dropdownIconColor={Colors.primaryColor}
-                    // mode="dropdown"
-                    style={[styles.pick]}
-                    selectedValue={bathRoom}
-                    onValueChange={(itemValue, itemIndex) =>
-                      onSelecteTag(itemValue, 'bathRoom')
-                    }>
-                    <Picker.Item label="Select" value={null} />
-                    <Picker.Item label="1" value="1" />
-                    <Picker.Item label="2" value="2" />
-                    <Picker.Item label="3" value="3" />
-                    <Picker.Item label="4" value="4" />
-                    <Picker.Item label="5" value="5" />
-                    <Picker.Item label="6" value="6" />
-                    <Picker.Item label="7" value="7" />
-                    <Picker.Item label="8" value="8" />
-                    <Picker.Item label="9" value="9" />
-                    <Picker.Item label="10" value="10" />
-                    <Picker.Item label="11" value="11" />
-                    <Picker.Item label="12" value="12" />
-                    <Picker.Item label="13" value="13" />
-                    <Picker.Item label="14" value="14" />
-                    <Picker.Item label="15" value="15" />
-                    <Picker.Item label="16" value="16" />
-                    <Picker.Item label="17" value="17" />
-                    <Picker.Item label="18" value="18" />
-                    <Picker.Item label="19" value="19" />
-                    <Picker.Item label="20" value="20" />
-                  </Picker>
-                </View>
-              )}
-            </View>
-            <DividerLine style={{borderBottomWidth: 5}} />
-
-            <View style={styles.container1}>
-              {/* <Image source={UploadProfileImage} style={styles.addImage} /> */}
               <TextComponent
                 text={'Upload upto 10 photos'}
                 styles={styles.itemHeading1}
@@ -620,6 +625,7 @@ const AddPostScreen = ({navigation, route}) => {
                 style={styles.applyFilter}
                 textStyle={styles.filterText}
                 onPress={handleSubmit(data => {
+                  console.log(data, 'kslksafjlkjdsfklj');
                   if (validateForm()) {
                     postData(data);
                   } else {
@@ -681,7 +687,7 @@ const AddPostScreen = ({navigation, route}) => {
       </Modal>
 
       {/* //ROOMS  */}
-      <Modal animationType="slide" visible={Modal1} transparent={true}>
+      {/* <Modal animationType="slide" visible={Modal1} transparent={true}>
         <View style={styles.Modal}>
           <View style={styles.innerContainer}>
             <View style={styles.titleContainer}>
@@ -723,7 +729,7 @@ const AddPostScreen = ({navigation, route}) => {
             </Picker>
           </View>
         </View>
-      </Modal>
+      </Modal> */}
 
       {/* //BAThHROOMs  */}
       <Modal animationType="slide" visible={Modal2} transparent={true}>

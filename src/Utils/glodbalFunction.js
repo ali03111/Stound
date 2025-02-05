@@ -147,6 +147,8 @@ function formatTime(date) {
 }
 
 function capitalizeFirstLetter(string) {
+  if (!string) return '';
+
   return string
     .toLowerCase()
     .split(' ')

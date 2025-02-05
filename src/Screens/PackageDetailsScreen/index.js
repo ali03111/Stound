@@ -45,16 +45,20 @@ import {fav} from '../../Assets';
 import DetailsUiComponent from '../../Components/DetailsUiComponent';
 import {Colors} from '../../Theme/Variables';
 import Entypo from 'react-native-vector-icons/Entypo';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import DividerLine from '../../Components/DividerLine';
+import {capitalizeFirstLetter} from '../../Utils/glodbalFunction';
 
 const PackageDetailsScreen = ({navigation, route}) => {
   const {
-    PackageDetailData,
-    userDetail,
-    outsidePref,
     price,
     insidePref,
     generalPref,
     title,
+    rooms,
+    bathrooms,
+    areaSize,
     photos,
     location,
     adType,
@@ -63,7 +67,18 @@ const PackageDetailsScreen = ({navigation, route}) => {
     description,
     onFavouriteFunction,
     isFav,
+    preferences,
   } = usePackageDetailsScreen(route, navigation);
+
+  const propertyDetails = [
+    {id: '1', icon: 'bath', text: `${bathrooms} Baths`}, // FontAwesome5
+    {id: '2', icon: 'bed', text: `${rooms} Beds`}, // FontAwesome5
+    {id: '3', icon: 'square-foot', text: `${areaSize} sqft`}, // MaterialIcons
+  ];
+
+  console.log(insidePref, 'asdjlkajsdfljalsdf');
+
+  console.log(generalPref, 'slslslslslls');
   const imgFlatListRef = useRef(null);
 
   const [imageModal, setImageModal] = useState(false);
@@ -80,15 +95,15 @@ const PackageDetailsScreen = ({navigation, route}) => {
   const renderItem = useCallback(({item, index}) => {
     return (
       index > 0 &&
-      index < 4 && (
+      index < 5 && (
         <Touchable onPress={() => setImageModal(true)}>
           <BlurBackground
             uri={imageUrl(item)}
             styles={styles.secondImage(index)}>
-            {index == 3 && (
+            {index == 4 && (
               <View style={styles.overlayView}>
                 <TextComponent
-                  text={`+${imageLenght - 4}`}
+                  text={`+${imageLenght - 5}`}
                   styles={styles.overlayText}
                 />
               </View>
@@ -112,10 +127,7 @@ const PackageDetailsScreen = ({navigation, route}) => {
           onHeartPress={onFavouriteFunction}
           // onSave={() => updateFav()}
         />
-        <ScrollView
-          bounces={false}
-          style={{padding: 5}}
-          showsVerticalScrollIndicator={false}>
+        <ScrollView bounces={false} showsVerticalScrollIndicator={false}>
           <View style={styles.imageHeaderView}>
             <Touchable
               onPress={() => {
@@ -126,7 +138,6 @@ const PackageDetailsScreen = ({navigation, route}) => {
                 uri={imageUrl(photos[0])}
               />
             </Touchable>
-            {console.log(photos, 'kskieekdkkd')}
             {photos.length > 0 && (
               <FlatList
                 refreshing={false}
@@ -139,30 +150,89 @@ const PackageDetailsScreen = ({navigation, route}) => {
           </View>
 
           <View style={styles.detail}>
-            <View style={styles.detailTitle}>
-              <TextComponent text={title} styles={styles.title} />
-              <TextComponent text={`For ${adType}`} styles={styles.forRent} />
+            <View
+              style={{
+                marginHorizontal: wp('5'),
+              }}>
+              <View style={styles.detailTitle}>
+                <TextComponent
+                  text={capitalizeFirstLetter(title)}
+                  styles={styles.title}
+                />
+                <TextComponent text={`For ${adType}`} styles={styles.forRent} />
+              </View>
+              <View style={styles.locationMain}>
+                <Image
+                  style={{
+                    width: wp('6'),
+                    height: hp('3'),
+                    resizeMode: 'contain',
+                  }}
+                  source={locationBlueIcon}
+                />
+                <TextComponent
+                  text={location}
+                  numberOfLines={2}
+                  styles={styles.locationText}
+                />
+              </View>
             </View>
-            <View style={styles.locationMain}>
-              <Image
-                style={{width: wp('5'), height: hp('3'), resizeMode: 'contain'}}
-                source={locationBlueIcon}
-              />
+            <DividerLine style={{borderBottomWidth: 5}} />
+            <View style={{marginVertical: hp('1'), marginHorizontal: wp('5')}}>
+              {/* {generalPref.length > 0 && (
+                <DetailsUiComponent
+                  heading={'Property Details'}
+                  list={generalPref}
+                />
+              )} */}
               <TextComponent
-                text={location}
-                numberOfLines={2}
-                styles={styles.locationText}
+                styles={styles.propertyText}
+                text={'Property Details '}
+              />
+              <FlatList
+                data={propertyDetails}
+                horizontal
+                keyExtractor={item => item.id}
+                contentContainerStyle={styles.list}
+                renderItem={({item}) => (
+                  <View style={styles.detailBox}>
+                    {item.icon === 'square-foot' ? (
+                      <MaterialIcons
+                        name={item.icon}
+                        size={16}
+                        color={Colors.primaryTextColor}
+                      />
+                    ) : (
+                      <FontAwesome5
+                        name={item.icon}
+                        size={16}
+                        color={Colors.primaryTextColor}
+                      />
+                    )}
+                    <Text style={styles.text}>{item.text}</Text>
+                  </View>
+                )}
               />
             </View>
-            {console.log('general111Pref', generalPref)}
-            {generalPref.length > 0 && (
-              <DetailsUiComponent
-                heading={'Property Details'}
-                list={generalPref}
+            <DividerLine style={{borderBottomWidth: 5}} />
+
+            <View style={{marginVertical: hp('1'), marginHorizontal: wp('5')}}>
+              {generalPref.length > 0 ? (
+                <DetailsUiComponent
+                  heading={'Preferences'}
+                  list={preferences}
+                />
+              ) : (
+                <DetailsUiComponent heading={''} list={generalPref} />
+              )}
+            </View>
+            <DividerLine style={{borderBottomWidth: 5}} />
+
+            <View style={{marginVertical: hp('1'), marginHorizontal: wp('5')}}>
+              <TextComponent
+                text={'Description'}
+                styles={styles.propertyText}
               />
-            )}
-            <View style={{marginBottom: hp('1.5')}}>
-              <TextComponent text={'Description'} styles={styles.pTitle} />
               <View style={styles.button}>
                 <TextComponent
                   numberOfLines={50}
@@ -171,21 +241,23 @@ const PackageDetailsScreen = ({navigation, route}) => {
                 />
               </View>
             </View>
-            {generalPref.length > 0 ? (
-              <DetailsUiComponent heading={'General'} list={generalPref} />
-            ) : (
-              <DetailsUiComponent heading={''} list={generalPref} />
-            )}
-            {insidePref.length > 0 ? (
-              <DetailsUiComponent heading={'Inside'} list={insidePref} />
-            ) : (
-              <DetailsUiComponent heading={''} list={insidePref} />
-            )}
-            {outsidePref.length > 0 ? (
-              <DetailsUiComponent heading={'Outside'} list={outsidePref} />
-            ) : (
-              <DetailsUiComponent heading={''} list={outsidePref} />
-            )}
+            {/* <DividerLine style={{borderBottomWidth: 5}} />
+            <View style={{marginVertical: hp('1'), marginHorizontal: wp('5')}}>
+              {insidePref.length > 0 ? (
+                <DetailsUiComponent heading={'Inside'} list={insidePref} />
+              ) : (
+                <DetailsUiComponent heading={''} list={insidePref} />
+              )}
+            </View>
+            <DividerLine style={{borderBottomWidth: 5}} />
+            <View style={{marginVertical: hp('1'), marginHorizontal: wp('5')}}>
+              {outsidePref.length > 0 ? (
+                <DetailsUiComponent heading={'Outside'} list={outsidePref} />
+              ) : (
+                <DetailsUiComponent heading={''} list={outsidePref} />
+              )}
+            </View>
+            <DividerLine style={{borderBottomWidth: 5}} /> */}
           </View>
         </ScrollView>
         <View style={styles.priceMain}>

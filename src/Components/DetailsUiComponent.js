@@ -6,10 +6,13 @@ import FilterAddButton from './FilterAddButton';
 import {imageUrl} from '../Utils/Urls';
 import {Colors, FontFamily, scaleFont} from '../Theme/Variables';
 
-const DetailsUiComponent = ({heading, list}) => {
+const DetailsUiComponent = ({heading, list, detailsHeadingStyle}) => {
   return (
     <View>
-      <TextComponent text={heading} styles={styles.detailsHeading} />
+      <TextComponent
+        text={heading}
+        styles={{...styles.detailsHeading, ...detailsHeadingStyle}}
+      />
       <View style={styles.btns}>
         {list?.map(item => {
           return (
@@ -19,6 +22,7 @@ const DetailsUiComponent = ({heading, list}) => {
               image={imageUrl(item.image)}
               style={styles.btn}
               required={true}
+              tintColor={Colors.primaryTextColor}
             />
           );
         })}

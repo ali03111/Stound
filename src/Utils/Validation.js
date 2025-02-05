@@ -130,7 +130,7 @@ const addPostScheme = yup.object().shape({
   title: yup.string().required('Please enter title'),
   desc: yup.string().required('Please enter description'),
   number: yup.string().required('Please enter price'),
-  squarefoot: yup.string().required('Please enter squarefoot'),
+  areaSize: yup.string().required('Please enter area size'),
 });
 
 const Schemas = {

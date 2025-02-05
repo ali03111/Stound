@@ -13,35 +13,26 @@ const {default: Schemas} = require('../../Utils/Validation');
 
 const useAddPostScreen = ({navigate}, {params}) => {
   const item = params;
-  const [selected, setSelected] = useState('Sell');
-
-  console.log(
-    'paramsparamsparamsparamsparamsparamsparamsparamsparams',
-    params?.price,
-  );
 
   const {dispatch, getState} = useReduxStore();
 
   const {recentLocation} = getState('recentlocation');
+
+  const bathRooms = ['1', '2', '3', '4', '5', '6', '7+'];
+  const bedRooms = ['1', '2', '3', '4', '5', '6', '7+'];
   const {handleSubmit, errors, reset, control, getValues, resetField} =
     useFormHook(Schemas.addPost, {
       title: item?.title ?? '',
       desc: item?.description ?? '',
       number: item?.price.toString() ?? '',
-      squarefoot: item?.squarefoot.toString() ?? '',
-      // number: '77',
+      areaSize: item?.areaSize.toString() ?? '',
     });
   // Retrieve values of form fields
   const title = getValues('title');
   const desc = getValues('desc');
   const number = getValues('number');
-  const squarefoot = getValues('squarefoot');
+  const areaSize = getValues('areaSize');
   const numberRegex = /^[0-9]+$/;
-
-  const options = [
-    {label: 'Rent', value: 'Rent'},
-    {label: 'Sell', value: 'Sell'},
-  ];
 
   //For Picker
   const [countryData, setCountryData] = useState([]);
@@ -61,37 +52,30 @@ const useAddPostScreen = ({navigate}, {params}) => {
 
   const [preferencesData, setPreferencesData] = useState([]);
   const [preferencesVal, setPreferencesVal] = useState({
+    adType: item?.adType ?? 'Rent',
     gp: item?.generalPref ?? [],
     ip: item?.insidePref ?? [],
     op: item?.outsidePref ?? [],
     cat: item?.categoryDetail?.categoryId ?? null,
-    rooms: item?.rooms,
-    bathRoom: item?.bathrooms,
+    bedRoom: item?.rooms || 1,
+    bathRoom: item?.bathrooms || 1,
     images: [],
-    type: item?.adType ?? options[0].value,
     location: item?.location,
     uploadedImages: item?.photos ?? [],
   });
-
-  console.log(
-    'preferencesDatapreferencesDatapreferencesDatapreferencesDatapreferencesData',
-    preferencesData,
-  );
 
   const {
     gp,
     ip,
     op,
     bathRoom,
-    rooms,
+    bedRoom,
     cat,
     images,
-    type,
+    adType,
     location,
     uploadedImages,
   } = preferencesVal;
-  // console.log("preference val", preferencesVal)
-  // console.log("room bathroom", rooms, bathRoom, images, type , location, uploadedImages)
 
   const updateState = data => setPreferencesVal(prev => ({...prev, ...data}));
 
@@ -122,8 +106,6 @@ const useAddPostScreen = ({navigate}, {params}) => {
           if (images.length + selectedImages.length <= 10) {
             updateState({images: [...images, ...selectedImages]});
           } else {
-            // You've reached the maximum limit, show an error message or take appropriate action.
-            // You can also limit the selection in a different way here.
             console.log("You can't select more than 10 images.");
             errorMessage("You can't select more than 10 images.");
           }
@@ -145,96 +127,14 @@ const useAddPostScreen = ({navigate}, {params}) => {
     return newArry;
   };
 
-  // const postData = async ({title, desc, number}) => {
-  //   console.log('asljdflkajsdflkajsdlfkjasldfkj');
-  //   dispatch(loadingTrue());
-  //   // if (!number || Number(number) === 0 || numberRegex.test(number)) {
-  //   //   // Display error message if proposed_price is null or 0
-  //   //   Alert.alert('Invalid', 'Price cannot be empty or zero.');
-  //   //   return; // Exit the function early
-  //   // }
-
-  //   // if (!title || !desc || !number) {
-  //   //   errorMessage('Please complete all fields before submitting.');
-  //   //   return;
-  //   // }
-  //   if (
-  //     images.length &&
-  //     cat != null &&
-  //     rooms != null &&
-  //     bathRoom != null &&
-  //     gp.length &&
-  //     ip.length &&
-  //     op.length &&
-  //     location != ''
-  //   ) {
-  //     const body = {
-  //       title: title,
-  //       rooms: rooms,
-  //       description: desc,
-  //       bathrooms: bathRoom,
-  //       location,
-  //       generalPref: getAllID(gp),
-  //       insidePref: getAllID(ip),
-  //       outsidePref: getAllID(op),
-  //       category: cat,
-  //       photos: images,
-  //       // price: number,
-  //       adType: type,
-  //       country: countryName,
-  //       state: stateName,
-  //       city: cityName,
-  //     };
-  //     console.log(body, 'alsdkaskldf');
-  //     const {ok, data, status, originalError, problem} = await formDataFunc(
-  //       createAdsUrl,
-  //       body,
-  //       'photos',
-  //       true,
-  //     );
-  //     console.log(data, 'sadlkfjlsadkfj');
-  //     if (ok) {
-  //       updateState({
-  //         images: [],
-  //         gp: null,
-  //         op: null,
-  //         ip: null,
-  //         cat: null,
-  //         rooms: null,
-  //         bathRoom: null,
-  //         location: '',
-  //         number,
-  //       });
-  //       // reset();
-  //       dispatch(loadingFalse());
-  //       successMessage(data?.message || 'Your Ad has been created ');
-  //       navigate('HomeScreen');
-
-  //       reset();
-  //       setTimeout(() => {
-  //         onResetState();
-  //       }, 1000);
-  //     } else {
-  //       dispatch(loadingFalse());
-  //       console.log('dfdfa', originalError, status, problem, data?.message);
-  //       errorMessage(originalError?.message?.split(' ')?.slice(1)?.join(' '));
-  //     }
-  //   } else {
-  //     dispatch(loadingFalse());
-  //     // !numberRegex.test(number)
-  //     //   ? errorMessage('Please correct your price')
-  //     errorMessage('Please comeplete all fields');
-  //   }
-  // };
-
-  const postAddData = async ({title, desc, number}) => {
+  const postAddData = async ({title, desc, number, areaSize}) => {
     console.log('alsdkfjlakjsdiedkddi');
     dispatch(loadingTrue());
 
     if (
       images.length &&
       cat != null &&
-      rooms != null &&
+      bedRoom != null &&
       bathRoom != null &&
       gp.length &&
       ip.length &&
@@ -243,23 +143,21 @@ const useAddPostScreen = ({navigate}, {params}) => {
       numberRegex.test(number)
     ) {
       const body = {
-        title: title,
-        rooms: rooms,
+        adType,
+        category: cat,
+        location,
+        areaSize,
+        price: number,
+        title,
         description: desc,
         bathrooms: bathRoom,
-        location,
-        generalPref: getAllID(gp),
-        insidePref: getAllID(ip),
-        outsidePref: getAllID(op),
-        category: cat,
+        rooms: bedRoom,
         photos: images,
-        price: number,
-        adType: type,
-        // country: countryName,
-        // state: stateName,
-        // city: cityName,
+        generalPref: getAllID(gp),
+        outsidePref: getAllID(op),
+        insidePref: getAllID(ip),
       };
-      console.log(body, 'alsdkaskldf');
+      console.log(body, '1231231 s dfasdfas');
       const {ok, data, status, originalError, problem} = await formDataFunc(
         createAdsUrl,
         body,
@@ -274,7 +172,7 @@ const useAddPostScreen = ({navigate}, {params}) => {
           op: null,
           ip: null,
           cat: null,
-          rooms: null,
+          bedRoom: null,
           bathRoom: null,
           location: '',
           number,
@@ -309,7 +207,7 @@ const useAddPostScreen = ({navigate}, {params}) => {
       images.length ||
       (uploadedImages.length &&
         cat != null &&
-        rooms != null &&
+        bedRoom != null &&
         bathRoom != null &&
         gp.length &&
         ip.length &&
@@ -320,7 +218,7 @@ const useAddPostScreen = ({navigate}, {params}) => {
       const body = {
         adId: item?.adId,
         title: title,
-        rooms: rooms,
+        rooms: bedRoom,
         description: desc,
         bathrooms: bathRoom,
         location,
@@ -332,9 +230,6 @@ const useAddPostScreen = ({navigate}, {params}) => {
         oldImagesPaths: uploadedImages,
         price: number,
         adType: type,
-        // country: countryName,
-        // state: item?.state ?? stateName,
-        // city: item?.city ?? cityName,
       };
       console.log('edit post body', body);
       const {ok, data, status, originalError, problem} = await formDataFunc(
@@ -351,7 +246,7 @@ const useAddPostScreen = ({navigate}, {params}) => {
           op: null,
           ip: null,
           cat: null,
-          rooms: null,
+          bedRoom: null,
           bathRoom: null,
           location: '',
           number,
@@ -380,9 +275,9 @@ const useAddPostScreen = ({navigate}, {params}) => {
 
   const postData = async ({title, desc, number}) => {
     if (params?.price) {
-      postEditData({title, desc, number});
+      postEditData({title, desc, number, areaSize});
     } else {
-      postAddData({title, desc, number});
+      postAddData({title, desc, number, areaSize});
     }
   };
   const useEffectFun = () => {
@@ -399,104 +294,6 @@ const useAddPostScreen = ({navigate}, {params}) => {
   };
   useEffect(useEffectFun, []);
 
-  // //GET COUNTRY
-  // useEffect(() => {
-  //   var config = {
-  //     method: 'get',
-  //     url: 'https://api.countrystatecity.in/v1/countries',
-  //     headers: {
-  //       'X-CSCAPI-KEY':
-  //         'NEVpNDRDN2h4aE15ckN0dXNlVHNPeGJVSXlEazRqMDVvWndiVUlDbg==',
-  //     },
-  //   };
-
-  //   axios(config)
-  //     .then(function (response) {
-  //       console.log(JSON.stringify(response.data));
-  //       var count = Object.keys(response.data).length;
-
-  //       let countryArray = [];
-  //       for (let i = 0; i < count; i++) {
-  //         countryArray.push({
-  //           value: response.data[i].iso2,
-  //           label: response.data[i].name,
-  //         });
-  //       }
-  //       setCountryData(countryArray);
-  //     })
-  //     .catch(function (error) {
-  //       console.log(error);
-  //     });
-  // }, []);
-
-  // const handleState = useCallback(
-  //   countryCode => {
-  //     var config = {
-  //       method: 'get',
-  //       url: `https://api.countrystatecity.in/v1/countries/${countryCode}/states`,
-  //       headers: {
-  //         'X-CSCAPI-KEY':
-  //           'NEVpNDRDN2h4aE15ckN0dXNlVHNPeGJVSXlEazRqMDVvWndiVUlDbg==',
-  //       },
-  //     };
-
-  //     axios(config)
-  //       .then(function (response) {
-  //         console.log(JSON.stringify(response.data));
-
-  //         var count = Object.keys(response.data).length;
-  //         let stateArray = [];
-  //         for (let i = 0; i < count; i++) {
-  //           stateArray.push({
-  //             value: response.data[i].iso2,
-  //             label: response.data[i].name,
-  //           });
-  //         }
-
-  //         setStateData(stateArray);
-  //       })
-  //       .catch(function (error) {
-  //         console.log(error);
-  //       });
-  //   },
-  //   [stateData],
-  // );
-
-  // // const handleCity = useCallback(
-  // //   (countryCode, stateCode) => {
-  // //     console.log(countryCode, stateCode, 'aaaaaaa');
-
-  // //     var config = {
-  // //       method: 'get',
-  // //       url: `https://api.countrystatecity.in/v1/countries/${countryCode}/states/${stateCode}/cities`,
-  // //       headers: {
-  // //         'X-CSCAPI-KEY':
-  // //           'NEVpNDRDN2h4aE15ckN0dXNlVHNPeGJVSXlEazRqMDVvWndiVUlDbg==',
-  // //       },
-  // //     };
-
-  // //     axios(config)
-  // //       .then(function (response) {
-  // //         console.log(JSON.stringify(response.data));
-  // //         var count = Object.keys(response.data).length;
-  // //         let cityArray = [];
-  // //         for (let i = 0; i < count; i++) {
-  // //           cityArray.push({
-  // //             value: response.data[i].id,
-  // //             label: response.data[i].name,
-  // //           });
-  // //         }
-  // //         setCityData(cityArray);
-  // //       })
-  // //       .catch(function (error) {
-  // //         console.log(error);
-  // //       });
-  // //   },
-  // //   [cityData],
-  // // );
-  // // // End Dropdown
-
-  //REST ALL STATE
   const onResetState = useCallback(() => {
     // resetField('desc')
 
@@ -507,7 +304,7 @@ const useAddPostScreen = ({navigate}, {params}) => {
       op: null,
       ip: null,
       cat: null,
-      rooms: null,
+      bedRoom: null,
       bathRoom: null,
       location: '',
     });
@@ -519,17 +316,24 @@ const useAddPostScreen = ({navigate}, {params}) => {
     const title = getValues('title');
     const desc = getValues('desc');
     const number = getValues('number');
+    const areaSize = getValues('areaSize');
 
-    if (!title || title.length < 15) {
+    if (!title || title.length < 10) {
       errorMessage(
-        'Title cannot be null and must be at least 15 characters long',
+        'Title cannot be null and must be at least 10 characters long',
+      );
+      return;
+    }
+    if (!areaSize) {
+      errorMessage(
+        'areaSize cannot be null and must be at least 1 characters long',
       );
       return;
     }
 
-    if (!desc || desc.length < 20) {
+    if (!desc || desc.length < 15) {
       errorMessage(
-        'Description cannot be null or description must be at least 20 characters long ',
+        'Description cannot be null or description must be at least 15 characters long ',
       );
       return;
     }
@@ -557,7 +361,7 @@ const useAddPostScreen = ({navigate}, {params}) => {
       errorMessage('Bathrooms must select');
       return;
     }
-    if (!rooms) {
+    if (!bedRooms) {
       errorMessage('Rooms must select');
       return;
     }
@@ -593,13 +397,14 @@ const useAddPostScreen = ({navigate}, {params}) => {
     ip,
     op,
     onSelecteTag,
-    rooms,
+    bedRoom,
+    bedRooms,
     bathRoom,
+    bathRooms,
     cat,
     postData,
     uploadFromGalary,
     images,
-    options,
     onRefresh: getPreferences,
     recentLocation,
     sendLocation,
@@ -634,16 +439,14 @@ const useAddPostScreen = ({navigate}, {params}) => {
     desc,
     number,
     numberRegex,
-    options,
+
     validateForm,
     category,
     setCategory,
     uploadedImages,
-    selected,
-    setSelected,
-    squarefoot,
-    // handleError
-    // goBack,
+    adType,
+    areaSize,
+    updateState,
   };
 };
 

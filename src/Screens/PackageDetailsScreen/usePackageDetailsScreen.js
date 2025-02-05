@@ -16,12 +16,16 @@ const usePackageDetailsScreen = ({params}, {navigate}) => {
       insidePref,
       generalPref,
       title,
+      bathrooms,
+      areaSize,
+      rooms,
       photos,
       location,
       adType,
       adId,
       userDetail: {agoraId},
       description,
+      preferences,
     },
   } = params;
   const {getState, dispatch} = useReduxStore();
@@ -31,6 +35,7 @@ const usePackageDetailsScreen = ({params}, {navigate}) => {
   };
   console.log(userDetail, Index, 'aaa');
 
+  console.log(generalPref, preferences, 'aklsdfjklajsdlfkajsdfl');
   // useEffect(useEffectFun, []);
 
   const navigationChatScreen = () => {
@@ -63,21 +68,21 @@ const usePackageDetailsScreen = ({params}, {navigate}) => {
     } else errorMessage(originalError.message.split(' ').slice(1).join(' '));
   }, [isFav]);
 
-    const clickAddData = async () => {
-      try {
-        const {ok, data} = await API.get(clickAdsUrl + params?.items?.adId);
-        console.log('data success', data);
-        if (ok) {
-          // dispatch({type: types.UpdateProfile, payload: data.user});
-        } else errorMessage(data.message || 'request failed');
-      } catch (error) {
-        console.log("error", error)
-      }
-    };
+  const clickAddData = async () => {
+    try {
+      const {ok, data} = await API.get(clickAdsUrl + params?.items?.adId);
+      console.log('data success', data);
+      if (ok) {
+        // dispatch({type: types.UpdateProfile, payload: data.user});
+      } else errorMessage(data.message || 'request failed');
+    } catch (error) {
+      console.log('error', error);
+    }
+  };
 
-    useEffect(() => {
-      clickAddData()
-    }, [params])
+  useEffect(() => {
+    clickAddData();
+  }, [params]);
 
   return {
     PackageDetailData,
@@ -95,6 +100,10 @@ const usePackageDetailsScreen = ({params}, {navigate}) => {
     description,
     onFavouriteFunction,
     isFav,
+    preferences,
+    bathrooms,
+    areaSize,
+    rooms,
   };
 };
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import {Text, Image, StyleSheet, FlatList} from 'react-native';
-import {Colors, FontFamily} from '../Theme/Variables';
+import {Colors, FontFamily, scaleFont} from '../Theme/Variables';
 import {Touchable} from './Touchable';
 import {hp, wp} from '../Config/responsive';
 import {TextComponent} from './TextComponent';
@@ -76,7 +76,8 @@ const styles = StyleSheet.create({
     color: Colors.black,
     textAlign: 'center',
     marginLeft: wp('2'),
-    fontSize: hp('1.5'),
+    fontSize: scaleFont(14),
+    fontFamily: FontFamily.regular,
   },
   flatListMain: {
     flexDirection: 'row',

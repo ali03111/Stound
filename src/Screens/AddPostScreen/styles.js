@@ -38,7 +38,6 @@ export const styles = StyleSheet.create({
     flexWrap: 'wrap',
     alignItems: 'center',
     padding: 5,
-
   },
 
   filterHeader: {
@@ -412,13 +411,13 @@ export const styles = StyleSheet.create({
     marginLeft: wp('3'),
   },
   selectedText: {
-    color: Colors.primaryTextColor,
+    color: Colors.primaryColor,
   },
   indicator: {
     width: 16,
     height: 16,
     borderRadius: 10,
-    backgroundColor: '#0BB4FF',
+    backgroundColor: 'rgba(11, 180, 255, 0.5)',
     position: 'absolute',
     right: 12,
     borderWidth: 1,
@@ -432,5 +431,38 @@ export const styles = StyleSheet.create({
     right: 12,
     borderWidth: 1,
     borderColor: Colors.gray,
+  },
+
+  label: {
+    fontSize: 16,
+    fontWeight: '600',
+    marginBottom: 10,
+    color: '#1D1D1D',
+  },
+  list: {
+    flexDirection: 'row',
+    gap: 10,
+  },
+  box: {
+    width: wp('14.5'),
+    height: hp('6.5'),
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: '#DADADA',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#FFF',
+  },
+  selectedBox: {
+    borderColor: '#rgba(11, 180, 255, 0.5)',
+    backgroundColor: '#EAF4FF',
+  },
+  text: {
+    fontSize: 16,
+    fontWeight: '500',
+    color: '#1D1D1D',
+  },
+  selectedText1: {
+    color: Colors.primaryColor,
   },
 });
