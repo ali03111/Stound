@@ -91,6 +91,18 @@ const FilterScreen = ({navigation}) => {
     resetField,
     images,
     bedRoom,
+
+    squareFootLow,
+    setSquareFootLow,
+    squareFootHigh,
+    setSquareFootHigh,
+
+    priceLow,
+    setPriceLow,
+    priceHigh,
+    setPriceHigh,
+    sliderRef1,
+    sliderRef,
   } = useFilterScreen(navigation);
 
   //Render Preferences dynamics
@@ -141,6 +153,23 @@ const FilterScreen = ({navigation}) => {
           style={styles.filimage}
         />
       </>
+    );
+  };
+  const renderMultiSelectItem = (item, key) => {
+    const isSelected = preferencesVal[key]?.includes(item);
+
+    return (
+      <TouchableOpacity
+        key={item}
+        onPress={() => onSelectMultiTag(item, key)}
+        style={{
+          padding: 10,
+          backgroundColor: isSelected ? 'blue' : 'gray', // Highlight selected item
+          margin: 5,
+          borderRadius: 5,
+        }}>
+        <Text style={{color: 'white'}}>{item}</Text>
+      </TouchableOpacity>
     );
   };
 
@@ -311,7 +340,35 @@ const FilterScreen = ({navigation}) => {
             </View>
             <DividerLine style={{borderBottomWidth: 5}} />
             <View style={styles.container1}>
-              <SliderScreen />
+              <TextComponent
+                styles={styles.itemHeading1}
+                text={'Area size in Sq. Ft. '}
+              />
+              <SliderScreen
+                ref={sliderRef1}
+                low={squareFootLow}
+                setLow={setSquareFootLow}
+                high={squareFootHigh}
+                setHigh={setSquareFootHigh}
+                maxRange={2000}
+                step={1}
+              />
+            </View>
+            <DividerLine style={{borderBottomWidth: 5}} />
+            <View style={styles.container1}>
+              <TextComponent
+                styles={styles.itemHeading1}
+                text={'Price Range'}
+              />
+              <SliderScreen
+                ref={sliderRef}
+                low={priceLow}
+                setLow={setPriceLow}
+                high={priceHigh}
+                setHigh={setPriceHigh}
+                maxRange={100000}
+                step={100}
+              />
             </View>
             <DividerLine style={{borderBottomWidth: 5}} />
 

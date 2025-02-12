@@ -1,4 +1,4 @@
-import {useCallback, useEffect, useState} from 'react';
+import {useCallback, useEffect, useRef, useState} from 'react';
 import API from '../../Utils/helperFunc';
 import {FilterAdsUrl, getPreUrl, savePreUrl} from '../../Utils/Urls';
 import useReduxStore from '../../Hooks/UseReduxStore';
@@ -6,6 +6,7 @@ import {successMessage, errorMessage} from '../../Config/NotificationMessage';
 import {loadingFalse} from '../../Redux/Action/isloadingAction';
 import axios from 'axios';
 import useFormHook from '../../Hooks/UseFormHooks';
+import {squarefoot} from '../../Assets';
 
 const useFilterScreen = ({navigate}) => {
   // Start Dropdown
@@ -42,6 +43,16 @@ const useFilterScreen = ({navigate}) => {
 
   const [min, setMin] = useState(MIN_DEFAULT);
   const [max, setMax] = useState(MAX_DEFAULT);
+
+  const sliderRef = useRef(null);
+  const sliderRef1 = useRef(null);
+  // for squarefoot
+  const [squareFootLow, setSquareFootLow] = useState(0);
+  const [squareFootHigh, setSquareFootHigh] = useState(2000);
+
+  // for price range
+  const [priceLow, setPriceLow] = useState(0);
+  const [priceHigh, setPriceHigh] = useState(100000);
 
   //GET COUNTRY
   //GET COUNTRY
@@ -296,6 +307,16 @@ const useFilterScreen = ({navigate}) => {
       bathRoom: null,
       location: '',
     });
+    // for squarefoot
+    setSquareFootLow(0);
+    setSquareFootHigh(2000);
+
+    // for price range
+    setPriceLow(0);
+    setPriceHigh(100000);
+
+    sliderRef.current?.resetSlider();
+    sliderRef1.current?.resetSlider();
     setStateData([]);
     setCityData([]);
   }, []);
@@ -370,6 +391,19 @@ const useFilterScreen = ({navigate}) => {
     bedRoom,
     bathRoom,
     images,
+
+    squareFootLow,
+    setSquareFootLow,
+    squareFootHigh,
+    setSquareFootHigh,
+
+    priceLow,
+    setPriceLow,
+    priceHigh,
+    setPriceHigh,
+
+    sliderRef,
+    sliderRef1,
   };
 };
 

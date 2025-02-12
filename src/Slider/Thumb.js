@@ -13,9 +13,9 @@ const styles = StyleSheet.create({
     width: THUMB_RADIUS_LOW * 2,
     height: THUMB_RADIUS_LOW * 2,
     borderRadius: THUMB_RADIUS_LOW,
-    borderWidth: 2,
-    borderColor: '#7f7f7f',
-    backgroundColor: '#aaaaaa',
+    borderWidth: 3,
+    borderColor: 'rgba(11, 180, 255, 1)',
+    backgroundColor: 'white',
   },
   rootHigh: {
     width: THUMB_RADIUS_HIGH * 2,

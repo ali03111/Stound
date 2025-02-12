@@ -1,65 +1,100 @@
-import React, {useCallback, useState} from 'react';
+import React, {
+  forwardRef,
+  useCallback,
+  useImperativeHandle,
+  useState,
+} from 'react';
 import {View, Text, TextInput, StyleSheet} from 'react-native';
 import Slider from 'rn-range-slider';
 
 import Thumb from '../Slider/Thumb';
 import Rail from '../Slider/Rail';
-import RailSelected from '../Slider/RailSelected';
 import Notch from '../Slider/Notch';
+import {RailSelected} from '../Slider/RailSelected';
+import {hp, wp} from '../Config/responsive';
+import {FontFamily, isIOS, scaleFont} from '../Theme/Variables';
+import {Colors} from '../Theme/Variables';
 
-const SliderScreen = () => {
-  const [low, setLow] = useState(0);
-  const [high, setHigh] = useState(100);
+const SliderScreen = forwardRef(
+  (
+    {
+      low,
+      high,
+      setHigh,
+      setLow,
+      step,
+      maxRange,
+      defaultLow = 0,
+      defaultHigh = 100,
+    },
+    ref,
+  ) => {
+    const [resetKey, setResetKey] = useState(0);
+    const renderThumb = useCallback(() => <Thumb />, []);
+    const renderRail = useCallback(() => <Rail />, []);
+    const renderRailSelected = useCallback(() => <RailSelected />, []);
 
-  const renderThumb = useCallback(() => <Thumb />, []);
-  const renderRail = useCallback(() => <Rail />, []);
-  const renderRailSelected = useCallback(() => <RailSelected />, []);
-  const renderNotch = useCallback(() => <Notch />, []);
+    // ✅ Pass the value prop to Notch
+    const renderNotch = useCallback(({value}) => <Notch value={value} />, []);
 
-  const handleValueChange = useCallback((lowValue, highValue) => {
-    setLow(lowValue);
-    setHigh(highValue);
-  }, []);
+    const handleValueChange = useCallback((lowValue, highValue) => {
+      setLow(lowValue);
+      setHigh(highValue);
+    }, []);
 
-  return (
-    <View style={styles.container}>
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.input}
-          value={String(low)}
-          keyboardType="numeric"
-          onChangeText={text => setLow(Number(text) || 0)}
-        />
-        <Text style={styles.toText}>To</Text>
-        <TextInput
-          style={styles.input}
-          value={String(high)}
-          keyboardType="numeric"
-          onChangeText={text => setHigh(Number(text) || 0)}
+    // ✅ Make reset function accessible from parent
+    useImperativeHandle(ref, () => ({
+      resetSlider: () => {
+        setLow(defaultLow);
+        setHigh(defaultHigh);
+        setResetKey(prevKey => prevKey + 1); // 🔥 Force re-render
+      },
+    }));
+
+    return (
+      <View style={styles.container}>
+        <View style={styles.inputContainer}>
+          <View style={styles.inputView}>
+            <TextInput
+              style={styles.input}
+              value={String(low)}
+              keyboardType="numeric"
+              onChangeText={text => setLow(Number(text) || 0)}
+            />
+          </View>
+          <Text style={styles.toText}>To</Text>
+          <View style={styles.inputView}>
+            <TextInput
+              style={styles.input}
+              value={String(high)}
+              keyboardType="numeric"
+              onChangeText={text => setHigh(Number(text) || 0)}
+            />
+          </View>
+        </View>
+
+        <Slider
+          key={resetKey} // 🔥 Force re-render
+          style={styles.slider}
+          min={0}
+          max={maxRange}
+          step={step || 1}
+          renderThumb={renderThumb}
+          renderRail={renderRail}
+          renderRailSelected={renderRailSelected}
+          renderNotch={renderNotch}
+          onValueChanged={handleValueChange}
         />
       </View>
-
-      <Slider
-        style={styles.slider}
-        min={0}
-        max={100}
-        step={1}
-        renderThumb={renderThumb}
-        renderRail={renderRail}
-        renderRailSelected={renderRailSelected}
-        renderNotch={renderNotch}
-        onValueChanged={handleValueChange}
-      />
-    </View>
-  );
-};
+    );
+  },
+);
 
 export default SliderScreen;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
     justifyContent: 'center',
     backgroundColor: '#fff',
   },
@@ -67,24 +102,42 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 20,
   },
-  input: {
-    width: 60,
-    height: 40,
+  inputView: {
+    height: hp(isIOS ? '4.5' : '5'),
     borderWidth: 1,
     borderColor: '#ddd',
     borderRadius: 8,
-    textAlign: 'center',
-    fontSize: 16,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: wp('2'),
+    backgroundColor: 'white',
+
+    // iOS Shadow
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+
+    // Android Shadow
+    elevation: 5,
+  },
+  input: {
+    width: wp('33'),
+    textAlign: 'left',
+    fontSize: scaleFont(14),
+    fontFamily: FontFamily.regular,
     color: '#333',
   },
   toText: {
     marginHorizontal: 10,
-    fontSize: 16,
+    fontSize: scaleFont(14),
+    fontFamily: FontFamily.regular,
     color: '#555',
   },
   slider: {
     marginTop: 20,
+    width: wp('90'),
+    alignSelf: 'center',
   },
 });
