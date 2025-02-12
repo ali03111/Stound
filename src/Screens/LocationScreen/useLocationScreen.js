@@ -133,11 +133,10 @@ const useLocationScreen = ({goBack}, {params}) => {
     fetch(geocodingAPI)
       .then(response => response.json())
       .then(data => {
-        console.log(data, 'locationDataalskjklsjaklsj');
+        console.log(JSON.stringify(data), 'locationDataalskjklsjaklsj');
         console.log(data.results, 'locationDataalskjklsjaklsj');
         if (data.results.length > 0) {
-          // const locationName = data.results[0].formatted_address;
-          const locationName = data.plus_code.compound_code;
+          const locationName = data.results[0].formatted_address;
           setSelectedLocation(locationName);
         }
       })

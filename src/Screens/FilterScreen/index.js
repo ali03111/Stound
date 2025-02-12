@@ -26,6 +26,9 @@ import {
   bedblue,
   bluebath,
   catImage,
+  squarefoot,
+  chat,
+  adTitle,
 } from '../../Assets';
 import SwitchSelector from 'react-native-switch-selector';
 import {Colors} from '../../Theme/Variables';
@@ -38,18 +41,19 @@ import {hp, wp} from '../../Config/responsive';
 // import RangeSlider from '../../Components/RangeSlider';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {Dropdown} from 'react-native-element-dropdown';
-import {InputComponent} from '../../Components/InputComponent';
 import RangeSlider from 'rn-range-slider';
+import DividerLine from '../../Components/DividerLine';
+import {InputComponent} from '../../Components/InputComponent';
+import {Touchable} from '../../Components/Touchable';
+import SliderScreen from '../../Components/Slider';
 
 const FilterScreen = ({navigation}) => {
   const {
     filterAdsDataFunction,
     onSelecteTag,
-    options,
     preferencesData,
-    locations,
+    location,
     cat,
-    rooms,
     bathRoom,
     gp,
     op,
@@ -57,32 +61,8 @@ const FilterScreen = ({navigation}) => {
     dynamicNav,
     setSliderValue,
     sliderValue,
-    resetFunction,
     sendLocation,
-    countryData,
-    stateData,
-    cityData,
-    country,
-    setCountry,
-    state,
-    setState,
-    city,
-    setCity,
-    countryName,
-    setCountryName,
-    stateName,
-    setStateName,
-    cityName,
-    setCityName,
-    handleState,
-    handleCity,
-    setCityData,
-    isFocus,
-    setIsFocus,
-    isFocus1,
-    setIsFocus1,
-    isFocus2,
-    setIsFocus2,
+
     category,
     setCategory,
     Modal0,
@@ -97,8 +77,20 @@ const FilterScreen = ({navigation}) => {
     setMax,
     MIN_DEFAULT,
     MAX_DEFAULT,
-    setMIN_DEFAULT,
-    setMAX_DEFAULT,
+    adType,
+    updateState,
+    onResetState,
+    bathRooms,
+    bedRooms,
+
+    handleSubmit,
+    errors,
+    reset,
+    control,
+    getValues,
+    resetField,
+    images,
+    bedRoom,
   } = useFilterScreen(navigation);
 
   //Render Preferences dynamics
@@ -131,6 +123,27 @@ const FilterScreen = ({navigation}) => {
     setValue(false);
   };
 
+  const renderItemImages = ({item, index}) => {
+    return (
+      <>
+        <TouchableOpacity
+          style={styles.cancelImage}
+          onPress={() => deleteImage(index)}>
+          <MaterialIcons
+            name="cancel"
+            size={hp('2.5')}
+            color={Colors.primaryColor}
+          />
+        </TouchableOpacity>
+
+        <Image
+          source={{uri: item?.type ? item?.uri : imageUrl(item)}}
+          style={styles.filimage}
+        />
+      </>
+    );
+  };
+
   const FlatListComp = ({data, onPress}) => {
     return (
       <FlatList
@@ -161,36 +174,66 @@ const FilterScreen = ({navigation}) => {
 
   return (
     <>
-      <View style={{flex: 1}}>
+      <View style={{flex: 1, backgroundColor: 'white'}}>
         <Header
+          saveReset={'Reset'}
+          onSave={onResetState}
           headerTitle={'Filters'}
-          arrowBackIcon={arrowback}
           backText={'Back'}
-          // saveReset={'Reset'}
-          // onSave={() => resetFunction()}
+          arrowBackIcon={arrowback}
           goBack={() => navigation.goBack()}
         />
 
-        <ScrollView scrollEnabled={!value} showsVerticalScrollIndicator={false}>
+        <ScrollView bounces={false} showsVerticalScrollIndicator={false}>
+          <View style={styles.container1}>
+            <TextComponent styles={styles.itemHeading1} text={'I want to'} />
+            <View style={styles.toggleContainer}>
+              <TouchableOpacity
+                style={[
+                  styles.option,
+                  adType === 'Rent' && styles.selectedOption,
+                ]}
+                onPress={() => updateState({adType: 'Rent'})}>
+                <Text
+                  style={[
+                    styles.optionText,
+                    adType === 'Rent' && styles.selectedText,
+                  ]}>
+                  Rent
+                </Text>
+                {adType === 'Rent' ? (
+                  <View style={styles.indicator} />
+                ) : (
+                  <View style={styles.indicator1} />
+                )}
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[
+                  styles.option,
+                  adType === 'Sell' && styles.selectedOption,
+                ]}
+                onPress={() => updateState({adType: 'Sell'})}>
+                <Text
+                  style={[
+                    styles.optionText,
+                    adType === 'Sell' && styles.selectedText,
+                  ]}>
+                  Sell
+                </Text>
+                {adType === 'Sell' ? (
+                  <View style={styles.indicator} />
+                ) : (
+                  <View style={styles.indicator1} />
+                )}
+              </TouchableOpacity>
+            </View>
+          </View>
+          <DividerLine style={{borderBottomWidth: 5}} />
           <View style={styles.filterMain}>
-            <View style={{paddingHorizontal: wp('3')}}>
-              <TextComponent styles={styles.itemHeading1} text={'I Want To'} />
-              <SwitchSelector
-                options={options}
-                initial={0}
-                onPress={value => {
-                  onSelecteTag(value, 'type');
-                }}
-                backgroundColor="rgba(11, 180, 255, 0.03);"
-                buttonColor={Colors.primaryColor}
-                borderRadius={10}
-                height={45}
-                style={styles.switcher}
-              />
-
+            <View style={styles.container1}>
               <TextComponent
-                styles={styles.itemHeading}
-                text={'Property Type'}
+                styles={styles.itemHeading1}
+                text={'Select property type'}
               />
               {Platform.OS == 'ios' ? (
                 <Pressable
@@ -198,7 +241,7 @@ const FilterScreen = ({navigation}) => {
                   style={styles.pickerStyle}>
                   <Image source={catImage} />
                   <TextComponent
-                    text={!cat ? 'Select' : category}
+                    text={category || 'e.g. home, apartment, room'}
                     styles={styles.iosPick}
                   />
                   <Ionicons
@@ -211,20 +254,24 @@ const FilterScreen = ({navigation}) => {
               ) : (
                 <View style={styles.pickerStyle}>
                   <Image source={catImage} />
-
                   <Picker
-                    style={styles.pick}
                     dropdownIconColor={Colors.primaryColor}
+                    style={styles.pick}
                     selectedValue={cat}
-                    onValueChange={value => onSelecteTag(value, 'cat')}>
-                    <Picker.Item label="Select Category" value={null} />
-                    {preferencesData?.cat &&
-                      preferencesData?.cat?.map(res => {
+                    onValueChange={(itemValue, itemIndex) => {
+                      onSelecteTag(itemValue, 'cat');
+                    }}>
+                    <Picker.Item
+                      // color="gray"
+                      label="e.g. home, apartment, room"
+                      value={null}
+                    />
+
+                    {preferencesData.cat &&
+                      preferencesData.cat.map(res => {
                         return (
                           <Picker.Item
                             label={res.name}
-                            // color="black"
-                            // style={{color: 'black'}}
                             value={res.categoryId}
                           />
                         );
@@ -232,280 +279,105 @@ const FilterScreen = ({navigation}) => {
                   </Picker>
                 </View>
               )}
-              {/* <TextComponent styles={styles.itemHeading} text={'Location '} />
-          <View style={styles.addButton}>
-            <FilterAddButton
-              locations={locations}
-              isRequired={true}
-              style={styles.locationBtn}
-              textStyle={styles.locationBtnText}
-              image={search}
-              title={'Search location here...'}
-              imgStyle={styles.locationBtnImg}
-              onPress={() =>
-                dynamicNav({
-                  title: 'Locations',
-                  data: preferencesData?.locations,
-                  key: 'locations',
-                  value: locations,
-                })
-              }
-            />
-          </View> */}
-
-              <TextComponent styles={styles.itemHeading} text={'Location '} />
-              {/* <View style={{...styles.addButton, paddingHorizontal: wp('3')}}>
+            </View>
+            <DividerLine style={{borderBottomWidth: 5}} />
+            <View style={styles.container1}>
+              <TextComponent
+                styles={styles.itemHeading1}
+                text={'Select location '}
+              />
               <FilterAddButton
                 onPress={sendLocation}
                 style={styles.locationBtn}
                 textStyle={styles.locationBtnText}
                 image={search}
                 isRequired={true}
-                title={locations == '' ? 'Search location here...' : locations}
+                title={
+                  (location && (
+                    <TextComponent
+                      numberOfLines={2}
+                      styles={styles.location}
+                      text={location}
+                    />
+                  )) || (
+                    <TextComponent
+                      styles={styles.emptylocationtext}
+                      text={'Search location here.'}
+                    />
+                  )
+                }
                 imgStyle={styles.locationBtnImg}
               />
-            </View> */}
+            </View>
+            <DividerLine style={{borderBottomWidth: 5}} />
+            <View style={styles.container1}>
+              <SliderScreen />
+            </View>
+            <DividerLine style={{borderBottomWidth: 5}} />
 
-              <View style={styles.dropDownView}>
-                <>
-                  <TextComponent
-                    styles={styles.itemHeading1}
-                    text={'Country '}
-                  />
-                  <Dropdown
-                    itemTextStyle={{color: Colors.primaryTextColor}}
-                    style={[
-                      styles.dropdown,
-                      isFocus && {borderColor: Colors.primaryColor},
-                    ]}
-                    placeholderStyle={styles.placeholderStyle}
-                    selectedTextStyle={styles.selectedTextStyle}
-                    inputSearchStyle={styles.inputSearchStyle}
-                    iconStyle={styles.iconStyle}
-                    data={countryData}
-                    search
-                    maxHeight={300}
-                    labelField="label"
-                    valueField="value"
-                    placeholder={!isFocus ? 'Select Country' : '...'}
-                    searchPlaceholder="Search..."
-                    value={country}
-                    onFocus={() => setIsFocus(true)}
-                    onBlur={() => setIsFocus(false)}
-                    onChange={item => {
-                      handleState(item.value);
-                      setCountry(item.value);
-                      setCountryName(item.label);
-                      setIsFocus(false);
-                      setState(null);
-                      setStateName(null);
-                      setCity(null);
-                      setCityName(null);
-                      setCityData([]);
-                    }}
-                  />
-                </>
-
-                <>
-                  {stateData.length > 0 && (
-                    <>
-                      <TextComponent
-                        styles={styles.itemHeading1}
-                        text={'States '}
-                      />
-                      <Dropdown
-                        itemTextStyle={{color: Colors.primaryTextColor}}
-                        style={[
-                          styles.dropdown,
-                          isFocus1 && {borderColor: Colors.primaryColor},
-                        ]}
-                        placeholderStyle={styles.placeholderStyle}
-                        selectedTextStyle={styles.selectedTextStyle}
-                        inputSearchStyle={styles.inputSearchStyle}
-                        iconStyle={styles.iconStyle}
-                        data={stateData}
-                        search
-                        maxHeight={300}
-                        labelField="label"
-                        valueField="value"
-                        placeholder={!isFocus1 ? 'Select State' : '...'}
-                        searchPlaceholder="Search..."
-                        value={state}
-                        onFocus={() => setIsFocus1(true)}
-                        onBlur={() => setIsFocus1(false)}
-                        onChange={item => {
-                          console.log(country, 'CountryAPi');
-                          handleCity(country, item.value);
-                          setState(item.value);
-                          setStateName(item.label);
-                          setCity(null);
-                          setCityName(null);
-                          setIsFocus1(false);
-                        }}
-                      />
-                    </>
-                  )}
-                </>
-
-                {cityData.length > 0 && (
-                  <>
-                    <TextComponent
-                      styles={styles.itemHeading1}
-                      text={'City '}
-                    />
-                    <Dropdown
-                      itemTextStyle={{color: Colors.primaryTextColor}}
-                      style={[
-                        styles.dropdown,
-                        isFocus2 && {borderColor: Colors.primaryColor},
-                      ]}
-                      placeholderStyle={styles.placeholderStyle}
-                      selectedTextStyle={styles.selectedTextStyle}
-                      inputSearchStyle={styles.inputSearchStyle}
-                      iconStyle={styles.iconStyle}
-                      data={cityData}
-                      search
-                      maxHeight={300}
-                      labelField="label"
-                      valueField="value"
-                      placeholder={!isFocus2 ? 'Select City' : '...'}
-                      searchPlaceholder="Search..."
-                      value={city}
-                      onFocus={() => setIsFocus2(true)}
-                      onBlur={() => setIsFocus2(false)}
-                      onChange={item => {
-                        setCity(item.value);
-                        setCityName(item.label);
-                        setIsFocus2(false);
-                      }}
-                    />
-                  </>
-                )}
-                {/* <TouchableOpacity
-                  onPress={() =>
-                    Alert.alert(
-                      `you have selected country ${
-                        countryName +
-                        country +
-                        ' ' +
-                        stateName +
-                        state +
-                        ' ' +
-                        cityName +
-                        city
-                      }`,
-                    )
-                  }>
-                  <Text>Submit</Text>
-                </TouchableOpacity> */}
-              </View>
-              <TextComponent styles={styles.itemHeading} text={'Rooms'} />
-
-              {Platform.OS == 'ios' ? (
-                <Pressable
-                  onPress={() => setModal1(prev => !prev)}
-                  style={styles.pickerStyle}>
-                  <Image source={bedblue} />
-                  <TextComponent text={rooms} styles={styles.iosPick} />
-                  <Ionicons
-                    style={styles.dropDown}
-                    color={Colors.primaryColor}
-                    name={'caret-down'}
-                    size={hp(2)}
-                  />
-                </Pressable>
-              ) : (
-                <View style={styles.pickerStyle1}>
-                  <Image source={bedblue} />
-                  <Picker
-                    dropdownIconColor={Colors.primaryColor}
-                    style={styles.pick}
-                    selectedValue={rooms}
-                    onValueChange={(itemValue, itemIndex) =>
-                      onSelecteTag(itemValue, 'rooms')
-                    }>
-                    {/* ADD */}
-                    <Picker.Item label="Select" value={null} />
-                    {/* ADD */}
-                    <Picker.Item label="1" value="1" />
-                    <Picker.Item label="2" value="2" />
-                    <Picker.Item label="3" value="3" />
-                    <Picker.Item label="4" value="4" />
-                    <Picker.Item label="5" value="5" />
-                    <Picker.Item label="6" value="6" />
-                    <Picker.Item label="7" value="7" />
-                    <Picker.Item label="8" value="8" />
-                    <Picker.Item label="9" value="9" />
-                    <Picker.Item label="10" value="10" />
-                    <Picker.Item label="11" value="11" />
-                    <Picker.Item label="12" value="12" />
-                    <Picker.Item label="13" value="13" />
-                    <Picker.Item label="14" value="14" />
-                    <Picker.Item label="15" value="15" />
-                    <Picker.Item label="16" value="16" />
-                    <Picker.Item label="17" value="17" />
-                    <Picker.Item label="18" value="18" />
-                    <Picker.Item label="19" value="19" />
-                    <Picker.Item label="20" value="20" />
-                  </Picker>
-                </View>
-              )}
-              <TextComponent styles={styles.itemHeading} text={'Bathrooms'} />
-              {Platform.OS == 'ios' ? (
-                <Pressable
-                  onPress={() => setModal2(prev => !prev)}
-                  style={styles.pickerStyle}>
-                  <Image source={bluebath} />
-                  <TextComponent
-                    text={!bathRoom ? 'Select' : bathRoom}
-                    styles={styles.iosPick}
-                  />
-                  <Ionicons
-                    style={styles.dropDown}
-                    color={Colors.primaryColor}
-                    name={'caret-down'}
-                    size={hp(2)}
-                  />
-                </Pressable>
-              ) : (
-                <View style={styles.pickerStyle1}>
-                  <Image source={bluebath} />
-
-                  <Picker
-                    dropdownIconColor={Colors.primaryColor}
-                    style={[styles.pick]}
-                    selectedValue={bathRoom}
-                    onValueChange={(itemValue, itemIndex) =>
-                      onSelecteTag(itemValue, 'bathRoom')
-                    }>
-                    {/* ADD */}
-                    <Picker.Item label="Select" value={null} />
-                    {/* ADD */}
-                    <Picker.Item label="1" value="1" />
-                    <Picker.Item label="2" value="2" />
-                    <Picker.Item label="3" value="3" />
-                    <Picker.Item label="4" value="4" />
-                    <Picker.Item label="5" value="5" />
-                    <Picker.Item label="6" value="6" />
-                    <Picker.Item label="7" value="7" />
-                    <Picker.Item label="8" value="8" />
-                    <Picker.Item label="9" value="9" />
-                    <Picker.Item label="10" value="10" />
-                    <Picker.Item label="11" value="11" />
-                    <Picker.Item label="12" value="12" />
-                    <Picker.Item label="13" value="13" />
-                    <Picker.Item label="14" value="14" />
-                    <Picker.Item label="15" value="15" />
-                    <Picker.Item label="16" value="16" />
-                    <Picker.Item label="17" value="17" />
-                    <Picker.Item label="18" value="18" />
-                    <Picker.Item label="19" value="19" />
-                    <Picker.Item label="20" value="20" />
-                  </Picker>
-                </View>
-              )}
+            <View style={styles.container1}>
               <TextComponent
-                styles={styles.itemHeading}
+                styles={styles.itemHeading1}
+                text={'Select number of bathrooms'}
+              />
+              <FlatList
+                data={bathRooms}
+                horizontal
+                keyExtractor={item => item.toString()}
+                showsHorizontalScrollIndicator={false}
+                contentContainerStyle={styles.list}
+                renderItem={({item}) => (
+                  <TouchableOpacity
+                    style={[
+                      styles.box,
+                      bathRoom === item && styles.selectedBox,
+                    ]}
+                    onPress={() => updateState({bathRoom: item})}>
+                    <Text
+                      style={[
+                        styles.text,
+                        bathRoom === item && styles.selectedText1,
+                      ]}>
+                      {item}
+                    </Text>
+                  </TouchableOpacity>
+                )}
+              />
+            </View>
+
+            <DividerLine style={{borderBottomWidth: 5}} />
+            <View style={styles.container1}>
+              <TextComponent
+                styles={styles.itemHeading1}
+                text={'Select number of  bedrooms'}
+              />
+              <FlatList
+                data={bedRooms}
+                horizontal
+                keyExtractor={item => item.toString()}
+                showsHorizontalScrollIndicator={false}
+                contentContainerStyle={styles.list}
+                renderItem={({item}) => (
+                  <TouchableOpacity
+                    style={[styles.box, bedRoom === item && styles.selectedBox]}
+                    onPress={() => updateState({bedRoom: item})}>
+                    <Text
+                      style={[
+                        styles.text,
+                        bedRoom === item && styles.selectedText1,
+                      ]}>
+                      {item}
+                    </Text>
+                  </TouchableOpacity>
+                )}
+              />
+            </View>
+
+            <DividerLine style={{borderBottomWidth: 5}} />
+
+            <View style={styles.container1}>
+              <TextComponent
+                styles={styles.itemHeading1}
                 text={'General Preferences '}
               />
               <View style={styles.addButton}>
@@ -521,8 +393,11 @@ const FilterScreen = ({navigation}) => {
                   }
                 />
               </View>
+            </View>
+            <DividerLine style={{borderBottomWidth: 5}} />
+            <View style={styles.container1}>
               <TextComponent
-                styles={styles.itemHeading}
+                styles={styles.itemHeading1}
                 text={'Outside Preferences '}
               />
               <View style={styles.addButton}>
@@ -538,8 +413,12 @@ const FilterScreen = ({navigation}) => {
                   }
                 />
               </View>
+            </View>
+            <DividerLine style={{borderBottomWidth: 5}} />
+
+            <View style={styles.container1}>
               <TextComponent
-                styles={styles.itemHeading}
+                styles={styles.itemHeading1}
                 text={'Inside Preferences '}
               />
               <View style={styles.addButton}>
@@ -555,145 +434,18 @@ const FilterScreen = ({navigation}) => {
                   }
                 />
               </View>
-              <View
-                style={{
-                  flexDirection: 'row',
-                }}>
-                <TextComponent styles={styles.pRange} text={'Price Range '} />
-                <TextComponent
-                  styles={{...styles.pRange, fontWeight: '400'}}
-                  text={'(USD)'}
-                />
-              </View>
             </View>
-
-            {/* <View
-              style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-              <TextComponent styles={styles.pRange} text={'Price Range '} />
-              <TextComponent
-                styles={{...styles.pRange, fontWeight: '400'}}
-                text={'USD'}
+            <View style={{marginHorizontal: wp('3')}}>
+              <ThemeButtonComp
+                onPress={filterAdsDataFunction}
+                title={'Apply Filter'}
+                style={styles.applyFilter}
+                textStyle={styles.filterText}
               />
             </View>
-            <View style={styles.rangeTextMain}>
-              <View style={{...styles.rightView}}>
-                <TextInput
-                  value={MIN_DEFAULT}
-                  styles={styles.rangeTextLeft}
-                  onChangeText={value => setMIN_DEFAULT(value)}
-                />
-              </View>
-              <TextComponent styles={styles.to} text={`To`} />
-              <View style={{...styles.rightView}}>
-                <TextInput
-                  value={MAX_DEFAULT}
-                  onChangeText={value => setMAX_DEFAULT(value)}
-                  styles={{...styles.rangeTextRight}}
-                  // text={`${max}`}
-                />
-              </View>
-            </View> */}
-            {/* <Slider
-            // style={styles.rangeSlider}
-            style={[
-              styles.rangeSlider,
-              Platform.OS === 'android'
-                ? styles.androidSlider
-                : styles.iosSlider,
-            ]}
-            minimumValue={0}
-            maximumValue={1000000}
-            minimumTrackTintColor={Colors.primaryColor2}
-            maximumTrackTintColor="rgba(11, 180, 255, 0.8)"
-            maximumTrackTintStyle={Colors.primaryColor2}
-            thumbImage={sliderdot}
-            minimumTrackImage={minslider}
-            maximumTrackImage={maxslider}
-            trackImage={minslider}
-            value={sliderValue}
-            onValueChange={sliderValue => {
-              setSliderValue(Math.trunc(sliderValue));
-            }}
-            thumbStyle={styles.thumbImage}
-          />
-          <TextInput
-            theme={{
-              colors: {
-                placeholder: 'gray',
-                primary: Colors.primaryColor,
-              },
-            }}
-            label="Enter price ranges"
-            mode="outlined"
-            style={styles.priceRange}
-            value={sliderValue == 0 ? '' : String(sliderValue)} // Convert sliderValue to a string before setting it as the value
-            onChangeText={text => setSliderValue(Number(text))}
-            placeholder="Enter price ranges..."
-          /> */}
-            <View style={styles.rangeSliderContainer}>
-              <View style={styles.innerRangeSlider}>
-                <View style={{marginRight: wp('2.5')}}>
-                  {/* <RangeSlider
-                    sliderWidth={345}
-                    min={MIN_DEFAULT}
-                    max={MAX_DEFAULT}
-                    step={100000}
-                    onValueChange={range => {
-                      setMin(range.min);
-                      setMax(range.max);
-                    }}
-                  /> */}
-                  <RangeSlider
-                    labelBackgroundColor={Colors.primaryColor}
-                    labelBorderColor={Colors.border2}
-                    style={{width: wp('95'), height: 80}}
-                    gravity={'center'}
-                    min={MIN_DEFAULT}
-                    max={MAX_DEFAULT}
-                    step={100000}
-                    selectionColor={Colors.primaryColor}
-                    blankColor="#feff"
-                    onTouchStart={handleTouchStart}
-                    onTouchEnd={() => handleTouchEnd(min, max)} // Pass the callback function for onTouchEnd
-                    onValueChanged={handleRangeChange}
-                    // onTouchEnd={handleTouchEnd}
-                    // onValueChanged={handleRangeChange}
-                  />
-                </View>
-
-                <View style={styles.rangeTextMain}>
-                  <TextComponent
-                    styles={styles.rangeTextLeft}
-                    text={`$${min}`}
-                  />
-                  {/* </View> */}
-                  <View
-                    style={{
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                    }}></View>
-
-                  {/* <View style={{...styles.rightView}}> */}
-                  <TextComponent
-                    styles={{...styles.rangeTextRight}}
-                    text={`$${max}`}
-                  />
-                  {/* </View> */}
-                </View>
-              </View>
-            </View>
-          </View>
-          <View style={{marginHorizontal: wp('3')}}>
-            <ThemeButtonComp
-              onPress={filterAdsDataFunction}
-              title={'Apply Filter'}
-              style={styles.applyFilter}
-              textStyle={styles.filterText}
-            />
           </View>
         </ScrollView>
       </View>
-
       {/* Category PICKER */}
       <Modal animationType="slide" visible={Modal0} transparent={true}>
         <View style={styles.Modal}>
@@ -715,7 +467,8 @@ const FilterScreen = ({navigation}) => {
                 const selectedCategory = preferencesData.cat.find(
                   categoryItem => categoryItem.categoryId === itemValue,
                 );
-                // Update the category state with the selected category name
+
+                // // Update the category state with the selected category name
                 setCategory(selectedCategory ? selectedCategory.name : '');
               }}>
               <Picker.Item
@@ -728,7 +481,6 @@ const FilterScreen = ({navigation}) => {
                   {
                     cat && index == 2 && setCategory(res.name);
                   }
-                  console.log('res.name', res);
 
                   return (
                     <Picker.Item
@@ -739,54 +491,6 @@ const FilterScreen = ({navigation}) => {
                     />
                   );
                 })}
-            </Picker>
-          </View>
-        </View>
-      </Modal>
-
-      {/* //ROOMS  */}
-      <Modal animationType="slide" visible={Modal1} transparent={true}>
-        <View style={styles.Modal}>
-          <View style={styles.innerContainer}>
-            <View style={styles.titleContainer}>
-              <TextComponent
-                styles={styles.modalText}
-                onPress={() => setModal1(false)}
-                text={'Done'}
-              />
-            </View>
-
-            <Picker
-              dropdownIconColor={Colors.primaryColor}
-              style={styles.pick}
-              selectedValue={rooms}
-              onValueChange={(itemValue, itemIndex) =>
-                onSelecteTag(itemValue, 'rooms')
-              }>
-              {/* ADD */}
-              <Picker.Item label="Select" value={null} />
-              {/* ADD */}
-
-              <Picker.Item label="1" value="1" />
-              <Picker.Item label="2" value="2" />
-              <Picker.Item label="3" value="3" />
-              <Picker.Item label="4" value="4" />
-              <Picker.Item label="5" value="5" />
-              <Picker.Item label="6" value="6" />
-              <Picker.Item label="7" value="7" />
-              <Picker.Item label="8" value="8" />
-              <Picker.Item label="9" value="9" />
-              <Picker.Item label="10" value="10" />
-              <Picker.Item label="11" value="11" />
-              <Picker.Item label="12" value="12" />
-              <Picker.Item label="13" value="13" />
-              <Picker.Item label="14" value="14" />
-              <Picker.Item label="15" value="15" />
-              <Picker.Item label="16" value="16" />
-              <Picker.Item label="17" value="17" />
-              <Picker.Item label="18" value="18" />
-              <Picker.Item label="19" value="19" />
-              <Picker.Item label="20" value="20" />
             </Picker>
           </View>
         </View>
@@ -811,9 +515,7 @@ const FilterScreen = ({navigation}) => {
               onValueChange={(itemValue, itemIndex) =>
                 onSelecteTag(itemValue, 'bathRoom')
               }>
-              {/* ADD */}
               <Picker.Item label="Select" value={null} />
-              {/* ADD */}
               <Picker.Item label="1" value="1" />
               <Picker.Item label="2" value="2" />
               <Picker.Item label="3" value="3" />

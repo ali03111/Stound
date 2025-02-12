@@ -1,14 +1,9 @@
-import React, {memo, useCallback, useEffect, useState} from 'react';
+import React, {memo, useState} from 'react';
 import {
   View,
   FlatList,
-  Text,
   ScrollView,
-  SafeAreaView,
   Image,
-  TextInput,
-  RefreshControl,
-  TouchableOpacity,
   Modal,
   Pressable,
   Platform,
@@ -17,107 +12,34 @@ import {styles} from './styles';
 import {TextComponent} from '../../Components/TextComponent';
 import Header from '../../Components/Header';
 import {Picker} from '@react-native-picker/picker';
-import {
-  arrowback,
-  addcircle,
-  search,
-  sliderdot,
-  minslider,
-  maxslider,
-  catImage,
-  adTitle,
-  chat,
-  bedblue,
-  bluebath,
-  UploadProfileImage,
-  addGalleryImage,
-  accessibleforward,
-} from '../../Assets';
+import {arrowback, addcircle, catImage} from '../../Assets';
 import {Colors, FontSize} from '../../Theme/Variables';
 import FilterAddButton from '../../Components/FilterAddButton';
 import ThemeButtonComp from '../../Components/ThemeButtonComp';
-import Slider from '@react-native-community/slider';
-import {goBack, keyExtractor} from '../../Utils';
-import {InputComponent} from '../../Components/InputComponent';
-import useAddPostScreen from './usePreferenceScreen';
+import {keyExtractor} from '../../Utils';
 import {hp, wp} from '../../Config/responsive';
-import {Touchable} from '../../Components/Touchable';
 import SwitchSelector from 'react-native-switch-selector';
 import {imageUrl} from '../../Utils/Urls';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {Dropdown} from 'react-native-element-dropdown';
-import {errorMessage} from '../../Config/NotificationMessage';
-import {
-  Collapse,
-  CollapseHeader,
-  CollapseBody,
-} from 'accordion-collapse-react-native';
+
+import usePreferenceScreen from './usePreferenceScreen';
 
 const PreferenceScreen = ({navigation, route}) => {
   const [Modal0, setModal0] = useState(false);
-  const [Modal1, setModal1] = useState(false);
-  const [Modal2, setModal2] = useState(false);
 
   const {
-    handleSubmit,
-    reset,
-    getValues,
     dynamicNav,
     onSelecteTag,
     postData,
-    uploadFromGalary,
-    onRefresh,
-    images,
-    control,
-    errors,
     preferencesData,
     gp,
     ip,
     op,
-    rooms,
-    bathRoom,
     cat,
-    recentLocation,
-    location,
-    sendLocation,
-    deleteImage,
-    checkAuthentication,
     onResetState,
-    isFocus,
-    setIsFocus,
-    isFocus1,
-    setIsFocus1,
-    isFocus2,
-    setIsFocus2,
-    countryData,
-    stateData,
-    cityData,
-    country,
-    setCountry,
-    state,
-    setState,
-    city,
-    setCity,
-    countryName,
-    setCountryName,
-    stateName,
-    setStateName,
-    cityName,
-    setCityName,
-    handleState,
-    handleCity,
-    setCityData,
-    title,
-    desc,
-    number,
-    numberRegex,
     options,
-    validateForm,
     category,
-    setCategory,
-    uploadedImages,
-  } = useAddPostScreen(navigation, route);
+  } = usePreferenceScreen(navigation, route);
 
   const renderItem = ({item, index}) => {
     return (
@@ -126,28 +48,8 @@ const PreferenceScreen = ({navigation, route}) => {
         title={item?.name}
         image={imageUrl(item.path)}
         required={true}
+        tintColor={Colors.primaryTextColor}
       />
-    );
-  };
-
-  const renderItemImages = ({item, index}) => {
-    return (
-      <>
-        <TouchableOpacity
-          style={styles.cancelImage}
-          onPress={() => deleteImage(index)}>
-          <MaterialIcons
-            name="cancel"
-            size={hp('2.5')}
-            color={Colors.primaryColor}
-          />
-        </TouchableOpacity>
-
-        <Image
-          source={{uri: item?.type ? item?.uri : imageUrl(item)}}
-          style={styles.imagesStyle}
-        />
-      </>
     );
   };
 
@@ -171,6 +73,7 @@ const PreferenceScreen = ({navigation, route}) => {
               image={addcircle}
               isRequired={true}
               title={'Add'}
+              tintColor={Colors.primaryTextColor}
               onPress={onPress}
             />
           );
@@ -183,7 +86,7 @@ const PreferenceScreen = ({navigation, route}) => {
     <>
       <View style={{flex: 1}}>
         <Header
-          // saveReset={'Reset'}
+          saveReset={'Reset'}
           headerTitle={'Preferences'}
           onSave={onResetState}
           backText={'Back'}
@@ -191,38 +94,14 @@ const PreferenceScreen = ({navigation, route}) => {
           goBack={() => navigation.goBack()}
         />
 
-        <ScrollView
-          r
-          refreshControl={
-            <RefreshControl refreshing={false} onRefresh={onRefresh} />
-          }
-          showsVerticalScrollIndicator={false}>
+        <ScrollView bounces={false} showsVerticalScrollIndicator={false}>
           <View style={styles.filterMain}>
-            {/* <TextComponent styles={styles.itemHeading1} text={'I Want To'} /> */}
-
             <View style={styles.collapseContainer}>
-              {/* <Collapse>
-                <CollapseHeader>
-                  <View style={[styles.header, styles.loginInput]}>
-                    <View style={styles.dropDown} />
-                    <TextComponent
-                      text={'Your Preferences'}
-                      styles={styles.text}
-                    />
-                    <Ionicons
-                      style={styles.dropDown}
-                      color={Colors.primaryColor}
-                      name={'caret-down'}
-                      size={hp(2)}
-                    />
-                  </View>
-                </CollapseHeader>
-                <CollapseBody> */}
               <View style={styles.body}>
                 <SwitchSelector
                   options={options}
                   initial={0}
-                  onPress={value => onSelecteTag(value, 'type')}
+                  onPress={value => onSelecteTag(value, 'adType')}
                   backgroundColor="rgba(11, 180, 255, 0.03);"
                   buttonColor={Colors.primaryColor}
                   borderRadius={10}
@@ -239,7 +118,7 @@ const PreferenceScreen = ({navigation, route}) => {
                     style={styles.pickerStyle}>
                     <Image source={catImage} />
                     <TextComponent
-                      text={!cat ? 'Select' : category}
+                      text={category || 'e.g. home, apartment, room'}
                       styles={styles.iosPick}
                     />
                     <Ionicons
@@ -259,7 +138,10 @@ const PreferenceScreen = ({navigation, route}) => {
                       onValueChange={(itemValue, itemIndex) => {
                         onSelecteTag(itemValue, 'cat');
                       }}>
-                      <Picker.Item label="Select Category..." value={null} />
+                      <Picker.Item
+                        label={category || 'e.g. home, apartment, room'}
+                        value={null}
+                      />
 
                       {preferencesData.cat &&
                         preferencesData.cat.map(res => {
@@ -326,37 +208,13 @@ const PreferenceScreen = ({navigation, route}) => {
                   />
                 </View>
               </View>
-              {/* </CollapseBody>
-              </Collapse> */}
             </View>
 
             <ThemeButtonComp
               title={'Save'}
               style={styles.applyFilter}
               textStyle={styles.filterText}
-              // // onPress={
-              // //   () => {
-              // //     // if (validateForm()) {
-              // //     console.log('asdfjkaklsdjflkdjs', errors);
-              // //     // }
-              // //     handleSubmit(postData);
-              // //   }
-              // //   // title && desc && number
-              // //   //   ? handleSubmit(postData)
-              // //   //   : () =>
-              // //   //       !numberRegex.test(number)
-              // //   //         ? errorMessage('Please correct your price')
-              // //   //         : errorMessage('Please comeplete all fields')
-              // // }
-              // // onPress={checkAuthentication}
-              // onPress={handleSubmit(data => {
-              //   if (validateForm()) {
-              //     postData(data);
-              //   } else {
-              //     console.log('Form validation failed');
-              //   }
-              // })}
-              onPress={() => handleSubmit(postData())}
+              onPress={() => postData()}
             />
           </View>
         </ScrollView>
@@ -383,7 +241,10 @@ const PreferenceScreen = ({navigation, route}) => {
                   categoryItem => categoryItem.categoryId === itemValue,
                 );
                 // Update the category state with the selected category name
-                setCategory(selectedCategory ? selectedCategory.name : '');
+                onSelecteTag(
+                  selectedCategory ? selectedCategory.name : '',
+                  'category',
+                );
               }}>
               <Picker.Item
                 // color="gray"
@@ -405,96 +266,6 @@ const PreferenceScreen = ({navigation, route}) => {
                     />
                   );
                 })}
-            </Picker>
-          </View>
-        </View>
-      </Modal>
-
-      {/* //ROOMS  */}
-      <Modal animationType="slide" visible={Modal1} transparent={true}>
-        <View style={styles.Modal}>
-          <View style={styles.innerContainer}>
-            <View style={styles.titleContainer}>
-              <TextComponent
-                styles={styles.modalText}
-                onPress={() => setModal1(false)}
-                text={'Done'}
-              />
-            </View>
-
-            <Picker
-              dropdownIconColor={Colors.primaryColor}
-              style={styles.pick}
-              selectedValue={rooms}
-              onValueChange={(itemValue, itemIndex) =>
-                onSelecteTag(itemValue, 'rooms')
-              }>
-              <Picker.Item label="Select" value={null} />
-              <Picker.Item label="1" value="1" />
-              <Picker.Item label="2" value="2" />
-              <Picker.Item label="3" value="3" />
-              <Picker.Item label="4" value="4" />
-              <Picker.Item label="5" value="5" />
-              <Picker.Item label="6" value="6" />
-              <Picker.Item label="7" value="7" />
-              <Picker.Item label="8" value="8" />
-              <Picker.Item label="9" value="9" />
-              <Picker.Item label="10" value="10" />
-              <Picker.Item label="11" value="11" />
-              <Picker.Item label="12" value="12" />
-              <Picker.Item label="13" value="13" />
-              <Picker.Item label="14" value="14" />
-              <Picker.Item label="15" value="15" />
-              <Picker.Item label="16" value="16" />
-              <Picker.Item label="17" value="17" />
-              <Picker.Item label="18" value="18" />
-              <Picker.Item label="19" value="19" />
-              <Picker.Item label="20" value="20" />
-            </Picker>
-          </View>
-        </View>
-      </Modal>
-
-      {/* //BAThHROOMs  */}
-      <Modal animationType="slide" visible={Modal2} transparent={true}>
-        <View style={styles.Modal}>
-          <View style={styles.innerContainer}>
-            <View style={styles.titleContainer}>
-              <TextComponent
-                styles={styles.modalText}
-                onPress={() => setModal2(false)}
-                text={'Done'}
-              />
-            </View>
-
-            <Picker
-              dropdownIconColor={Colors.primaryColor}
-              style={styles.pick}
-              selectedValue={bathRoom}
-              onValueChange={(itemValue, itemIndex) =>
-                onSelecteTag(itemValue, 'bathRoom')
-              }>
-              <Picker.Item label="Select" value={null} />
-              <Picker.Item label="1" value="1" />
-              <Picker.Item label="2" value="2" />
-              <Picker.Item label="3" value="3" />
-              <Picker.Item label="4" value="4" />
-              <Picker.Item label="5" value="5" />
-              <Picker.Item label="6" value="6" />
-              <Picker.Item label="7" value="7" />
-              <Picker.Item label="8" value="8" />
-              <Picker.Item label="9" value="9" />
-              <Picker.Item label="10" value="10" />
-              <Picker.Item label="11" value="11" />
-              <Picker.Item label="12" value="12" />
-              <Picker.Item label="13" value="13" />
-              <Picker.Item label="14" value="14" />
-              <Picker.Item label="15" value="15" />
-              <Picker.Item label="16" value="16" />
-              <Picker.Item label="17" value="17" />
-              <Picker.Item label="18" value="18" />
-              <Picker.Item label="19" value="19" />
-              <Picker.Item label="20" value="20" />
             </Picker>
           </View>
         </View>

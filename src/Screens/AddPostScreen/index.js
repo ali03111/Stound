@@ -189,18 +189,18 @@ const AddPostScreen = ({navigation, route}) => {
       <View style={{flex: 1, backgroundColor: 'white'}}>
         <Header
           saveReset={'Reset'}
-          headerTitle={'Post Ad'}
           onSave={onResetState}
+          headerTitle={'Post Ad'}
           backText={'Back'}
           arrowBackIcon={arrowback}
           goBack={() => navigation.goBack()}
         />
 
         <ScrollView
-          r
-          refreshControl={
-            <RefreshControl refreshing={false} onRefresh={onRefresh} />
-          }
+          // refreshControl={
+          //   <RefreshControl refreshing={false} onRefresh={onRefresh} />
+          // }
+          bounces={false}
           showsVerticalScrollIndicator={false}>
           <View style={styles.container1}>
             <TextComponent styles={styles.itemHeading1} text={'I want to'} />
@@ -312,7 +312,11 @@ const AddPostScreen = ({navigation, route}) => {
                 isRequired={true}
                 title={
                   (location && (
-                    <TextComponent styles={styles.location} text={location} />
+                    <TextComponent
+                      numberOfLines={2}
+                      styles={styles.location}
+                      text={location}
+                    />
                   )) || (
                     <TextComponent
                       styles={styles.emptylocationtext}

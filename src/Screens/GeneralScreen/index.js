@@ -64,24 +64,6 @@ const GeneralScreen = ({navigation, route}) => {
         keyExtractor={keyExtractor}
         contentContainerStyle={styles.filterMain}
       />
-
-      {/* <View style={styles.filterMain}>
-        <FilterAddButton
-          title={'Appliances'}
-          image={accessibleforward}
-          style={styles.filterBtn}
-        />
-        <FilterAddButton
-          title={'Exterior Lighting'}
-          image={accessibleforward}
-          style={styles.filterBtn}
-        />
-        <FilterAddButton
-          title={'Exterior Lighting'}
-          image={accessibleforward}
-          style={styles.filterBtn}
-        />
-      </View> */}
     </View>
   );
 };

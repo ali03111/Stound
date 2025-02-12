@@ -94,6 +94,48 @@ const formDataFunc = (url, body, imageKey, isArray) => {
       return {data: err, ok: false};
     });
 };
+// const formDataFunc = (url, body, imageKey, isArray) => {
+//   console.log(url, body, imageKey, isArray);
+//   const {Auth} = store.getState();
+//   let headers = new Headers({
+//     Accept: 'application/json',
+//     Authorization: `Bearer ${Auth.token}`,
+//   });
+
+//   let requestOptions = {method: 'POST', headers};
+//   let hasImage = body.hasOwnProperty(imageKey);
+
+//   if (hasImage) {
+//     const formData = new FormData();
+//     Object.entries(body).forEach(([key, val]) => {
+//       if (key === imageKey) {
+//         (isArray ? val : [val]).forEach(res => {
+//           if (res?.uri) {
+//             formData.append(imageKey, {
+//               name: res.fileName || 'image.jpg',
+//               type: res.type || 'image/jpeg',
+//               uri:
+//                 Platform.OS === 'ios'
+//                   ? res.uri.replace('file://', '')
+//                   : res.uri,
+//             });
+//           }
+//         });
+//       } else {
+//         formData.append(key, JSON.stringify(val));
+//       }
+//     });
+//     requestOptions.body = formData;
+//   } else {
+//     headers.append('Content-Type', 'application/json');
+//     requestOptions.body = body;
+//   }
+
+//   return fetch(baseURL + url, requestOptions)
+//     .then(res => res.json())
+//     .then(res => ({data: res, ok: true}))
+//     .catch(err => ({data: err, ok: false}));
+// };
 
 export {formDataFunc};
 

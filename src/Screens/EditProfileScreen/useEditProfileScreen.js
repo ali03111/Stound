@@ -4,7 +4,7 @@ import useReduxStore from '../../Hooks/UseReduxStore';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {updateAuth, updateUser} from '../../Redux/Action/AuthAction';
 import API from '../../Utils/helperFunc';
-import { getPreUrl } from '../../Utils/Urls';
+import {getPreUrl} from '../../Utils/Urls';
 
 const {default: useFormHook} = require('../../Hooks/UseFormHooks');
 
@@ -22,7 +22,8 @@ const useEditProfileScreen = ({navigate, goBack}) => {
     {label: 'Rent', value: 'Rent'},
     {label: 'Buy', value: 'Buy'},
   ];
-  const item = null
+  console.log(item?.categoryDetail?.categoryId, 'asdf1111asdf');
+  const item = null;
   const [category, setCategory] = useState(item?.category);
   const [preferencesData, setPreferencesData] = useState([]);
   const [preferencesVal, setPreferencesVal] = useState({
@@ -51,7 +52,7 @@ const useEditProfileScreen = ({navigate, goBack}) => {
     uploadedImages,
   } = preferencesVal;
   const updateState1 = data => setPreferencesVal(prev => ({...prev, ...data}));
-  
+
   const [profileData, setProfileData] = useState({});
 
   const showDatePicker = () => {
@@ -90,25 +91,28 @@ const useEditProfileScreen = ({navigate, goBack}) => {
     console.log(number, name, profileData, 'ueiueieieu');
     console.log('sdfhjalksdfjkldjsfkj', profileData.uri);
     console.log('sdfhjalksdfjkldjsfkj', Boolean(profileData.uri));
-    {Boolean(profileData.uri) ?dispatch(
-      updateUser({
-        profileData: {
-          name,
-          number,
-          description,
-          image:  profileData
-        },
-      }),
-    ):
-    dispatch(
-      updateUser({
-        profileData: {
-          name,
-          number,
-          description,
-        },
-      }),
-      )}
+    {
+      Boolean(profileData.uri)
+        ? dispatch(
+            updateUser({
+              profileData: {
+                name,
+                number,
+                description,
+                image: profileData,
+              },
+            }),
+          )
+        : dispatch(
+            updateUser({
+              profileData: {
+                name,
+                number,
+                description,
+              },
+            }),
+          );
+    }
   };
 
   const handleConfirm = date => {
@@ -116,15 +120,15 @@ const useEditProfileScreen = ({navigate, goBack}) => {
     hideDatePicker();
   };
 
-    useEffect(() => {
-      getPreferences()
-    }, []);
+  useEffect(() => {
+    getPreferences();
+  }, []);
 
-    const getPreferences = async () => {
-      const {ok, data, originalError} = await API.get(getPreUrl);
-      if (ok) setPreferencesData(data);
-      else errorMessage(originalError);
-    };
+  const getPreferences = async () => {
+    const {ok, data, originalError} = await API.get(getPreUrl);
+    if (ok) setPreferencesData(data);
+    else errorMessage(originalError);
+  };
 
   const onSelecteTag = (item, key) => {
     console.log(key, item, 'keyueueu11');
@@ -159,7 +163,7 @@ const useEditProfileScreen = ({navigate, goBack}) => {
     gp,
     ip,
     op,
-    dynamicNav
+    dynamicNav,
   };
 };
 

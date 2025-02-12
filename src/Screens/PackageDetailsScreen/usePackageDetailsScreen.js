@@ -40,7 +40,6 @@ const usePackageDetailsScreen = ({params}, {navigate}) => {
 
   const navigationChatScreen = () => {
     navigate('MessagesScreen', {id: agoraId, userDetail});
-    // navigate('MessagesScreen', {id: users[0]?.userId, userDetail: users[0]});
   };
 
   const askQuestion = async index => {

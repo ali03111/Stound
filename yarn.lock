@@ -10488,10 +10488,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rn-range-slider@npm:1.3.3":
-  version: 1.3.3
-  resolution: "rn-range-slider@npm:1.3.3"
-  checksum: b3f34e4b28f15d5c93ae30bef7bd33d035681926c0e8791f4b132fec13e6f306f49d2734f01bdaf7024e80ed45c3a11b04d7239369fe47e5e0862b2011345ed8
+"rn-range-slider@npm:^2.2.2":
+  version: 2.2.2
+  resolution: "rn-range-slider@npm:2.2.2"
+  checksum: 6d9273ff103584319d0095794ee21da48c49609978321677e22c9d1d2eb22ce7fd72228382a8777828fac7b646eb814cee4e2c764e44f11cb92a7d5936ded529
   languageName: node
   linkType: hard
 
@@ -11123,7 +11123,7 @@ __metadata:
     react-test-renderer: 18.2.0
     redux-persist: ^6.0.0
     redux-saga: ^1.2.3
-    rn-range-slider: 1.3.3
+    rn-range-slider: ^2.2.2
     socket.io-client: ^4.6.2
     typescript: 4.8.4
     yup: ^1.0.2

@@ -64,7 +64,7 @@ const LoginScreen = ({navigation}) => {
             placeholder: 'example@example.com',
             viewStyle: styles.loginInput,
             isImage: sms,
-            defaultValue: __DEV__ ? 'user1@gmail.com' : '',
+            defaultValue: __DEV__ ? 'l1@mailinator.com' : '',
           }}
         />
         <InputComponent

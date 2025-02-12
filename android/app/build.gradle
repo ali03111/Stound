@@ -98,6 +98,7 @@ android {
         applicationId 'com.anideos.stound'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
+        multiDexEnabled true
         versionCode 9
         versionName '1.2'
         missingDimensionStrategy "store", "play"    
@@ -163,6 +164,8 @@ dependencies {
     implementation 'com.facebook.android:facebook-login:latest.release'
     implementation 'com.google.android.gms:play-services-auth:20.5.0'
     implementation 'com.facebook.android:facebook-android-sdk:12.1.0'
+    implementation "androidx.multidex:multidex:2.0.1"
+    implementation platform("org.jetbrains.kotlin:kotlin-bom:1.8.0")
     // implementation project(':react-native-push-notification')
     // implementation('androidx.swiperefreshlayout:swiperefreshlayout:1.0.0')
     implementation project(':react-native-vector-icons')

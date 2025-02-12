@@ -1,8 +1,8 @@
 import {Dimensions, Platform, Image, Text, PixelRatio} from 'react-native';
-import {CardStyleInterpolators} from '@react-navigation/stack';
 const {width, height} = Dimensions.get('window');
 
 const Colors = {
+  placeholderText: 'rgba(41, 45, 50, 0.5)',
   primaryColor: '#0BB4FF',
   primaryColorFaded: '#759CFA',
   backgroundColor: 'FDFDFD',
@@ -58,8 +58,7 @@ const Colors = {
   line: '#2F5C84',
   seconds: '#DA2E7C',
   bottomLine: '#D0DCFF',
-  // primaryColor: '#13678A',
-  // primaryColor: '#C3FFF5',
+
   transparent: 'rgba(0, 0, 0, 0)',
   blurBlack: 'rgba(0, 0, 0, 0.4)',
   blurWhite: 'rgba(255, 255, 255, 0.5)',
@@ -93,28 +92,60 @@ const Colors = {
   borderWidth: 'rgba(217, 217, 217, 1)',
 };
 
-const NavigationColors = {
-  primary: Colors.primary,
-};
-
-// FontSize
-
 // Function to determine the base width dynamically
+const dpr = PixelRatio.get();
 const getBaseWidth = () => {
-  if (width <= 320) return 320; // Small Android devices (e.g., old phones, iPhone SE)
+  // Check for specific iPhone models using width, height, and device pixel ratio:
+  console.log({Platform});
+
+  if (width === 393 && height === 852 && dpr === 3) {
+    // iPhone 15 and iPhone 15 Pro (also iPhone 14 Pro with same dimensions)
+    return 393;
+  }
+  if (width === 430 && height === 932 && dpr === 3) {
+    // iPhone 15 Plus and iPhone 15 Pro Max (also iPhone 14 Pro Max)
+    return 430;
+  }
+  if (width === 390 && height === 844 && dpr === 3) {
+    // iPhone 14 (also iPhone 12, 12 Pro, 13, 13 Pro, 14)
+    return 390;
+  }
+  if (width === 428 && height === 926 && dpr === 3) {
+    // iPhone 14 Plus (also iPhone 12 Pro Max, 13 Pro Max, 14 Plus)
+    return 428;
+  }
+  if (width === 375 && height === 812 && dpr === 3) {
+    // iPhone 13 Mini (also iPhone X, Xs, 11 Pro, 12 Mini)
+    return 375;
+  }
+  if (width === 414 && height === 896 && dpr === 2) {
+    // iPhone 11 / iPhone XR
+    return 414;
+  }
+  if (width === 414 && height === 896 && dpr === 3) {
+    // iPhone 11 Pro Max (also iPhone Xs Max, iPhone 11 Pro Max)
+    return 414;
+  }
+  if (width === 375 && height === 667 && dpr === 2) {
+    // iPhone SE (1st to 3rd gen, iPhone 7, 8)
+    return 375;
+  }
+
+  // Fallback for other devices:
+  if (width <= 320) return 320; // Small Android devices (e.g., old phones)
   if (width <= 360) return 360; // Common Android devices (Samsung A-series, Moto G)
-  if (width <= 375) return 375; // iPhones 12/13/14 (Standard width)
-  if (width <= 414) return 414; // iPhone 14 Pro Max, Pixel 6 Pro, larger Android phones
-  if (width <= 480) return 480; // Small tablets (iPad Mini, Galaxy Tab A7 Lite)
-  if (width <= 600) return 600; // Mid-sized tablets (Amazon Fire HD, iPad Mini)
-  if (width <= 768) return 768; // Standard tablets (iPad 9th/10th Gen, Samsung Tab S6 Lite)
-  if (width <= 1024) return 1024; // Large tablets (iPad Pro, Galaxy Tab S8, larger Android)
-  return 1280; // Extra-large screens (Desktop-like, foldable screens, large Android tablets)
+  if (width <= 375) return 375; // Standard width for many phones
+  if (width <= 414) return 414; // Larger phones
+  if (width <= 480) return 480; // Small tablets (e.g., iPad Mini)
+  if (width <= 600) return 600; // Mid-sized tablets (e.g., Amazon Fire HD)
+  if (width <= 768) return 768; // Standard tablets (e.g., iPad 9th/10th Gen)
+  if (width <= 1024) return 1024; // Large tablets (e.g., iPad Pro)
+  return 1280; // Extra-large screens (Desktop-like, foldable devices, large tablets)
 };
 
-const BASE_WIDTH = getBaseWidth(); // Auto-detect base width
+const BASE_WIDTH = getBaseWidth();
 
-// Function to scale font size based on base width
+// Function to scale font size based on the detected base width
 const scaleFont = size => (size * width) / BASE_WIDTH;
 
 /** FontSize **/
@@ -340,7 +371,6 @@ export {
   Sizes,
   topTabsStyles,
   screenOptions,
-  NavigationColors,
   animationConfig,
   isIOS,
   scaleFont,

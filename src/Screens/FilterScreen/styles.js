@@ -1,104 +1,154 @@
 import {Dimensions, StyleSheet} from 'react-native';
 import {hp, wp} from '../../Config/responsive';
-import {Colors, FontSize} from '../../Theme/Variables';
+import {
+  Colors,
+  FontFamily,
+  FontSize,
+  isIOS,
+  scaleFont,
+} from '../../Theme/Variables';
+import {height} from '../../Navigation/bottomNavigation';
 
 export const styles = StyleSheet.create({
-  pick: {
-    // alignSelf: 'center',
-    width: wp('83'),
-    color: Colors.primaryTextColor,
-  },
   favMain: {
     paddingTop: hp('1.5'),
+  },
+  itemHeading1: {
+    fontFamily: FontFamily.semiBold,
+    fontSize: scaleFont(16),
+    color: Colors.primaryTextColor,
+    marginBottom: hp('1.5'),
+  },
+  cancelImage: {
+    position: 'absolute',
+    zIndex: 1,
+    right: wp('2'),
+    top: hp('1'),
   },
   topHeader: {
     paddingTop: hp('1.5'),
   },
   filterMain: {
-    // paddingHorizontal: wp('3'),
+    paddingBottom: hp('4'),
   },
-  switcher: {
-    borderWidth: 1,
-    borderRadius: 10,
-    borderColor: Colors.primaryColor,
-    marginTop: hp('1.5'),
+  flatListMain: {
+    flexDirection: 'row',
+    width: wp('95'),
+    display: 'flex',
+    flexWrap: 'wrap',
+    alignItems: 'center',
+    padding: 5,
   },
+
   filterHeader: {
     marginTop: hp('2'),
   },
   pickerStyle: {
     borderWidth: 1,
-    borderColor: 'rgba(11, 180, 255, 0.3)',
-    borderRadius: 10,
+    borderColor: Colors.borderWidth,
+    borderRadius: 5,
     backgroundColor: 'white',
     flexDirection: 'row',
     alignItems: 'center',
-    display: 'flex',
-    flexWrap: 'wrap',
+
     paddingLeft: wp('3'),
     paddingVertical: hp('0.2'),
+
+    // iOS Shadow
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+
+    // Android Shadow
+    elevation: 5,
   },
   pickerStyle1: {
     borderWidth: 1,
     borderColor: 'rgba(11, 180, 255, 0.3)',
     borderRadius: 10,
-    backgroundColor: 'white',
+    backgroundColor: 'red',
     flexDirection: 'row',
     alignItems: 'center',
     display: 'flex',
     flexWrap: 'wrap',
     paddingLeft: wp('3'),
   },
-  itemHeading1: {
-    fontWeight: '600',
-    fontSize: FontSize.scale16,
-
+  pick: {
+    width: height > 667 ? wp('84') : wp('80'),
     color: Colors.primaryTextColor,
+    // height: hp('5.3'),
   },
   itemHeading: {
-    marginTop: hp('3'),
     marginBottom: hp('1.5'),
     fontWeight: '600',
     fontSize: FontSize.scale16,
-
     color: Colors.primaryTextColor,
+  },
+  emptylocationtext: {
+    fontSize: scaleFont(16),
+    fontFamily: FontFamily.regular,
+    color: Colors.gray,
+  },
+  location: {
+    fontSize: scaleFont(16),
+    fontFamily: FontFamily.regular,
+    color: Colors.primaryTextColor,
+  },
+  room: {
+    marginTop: hp('3'),
+    marginBottom: hp('1.5'),
+    fontWeight: '500',
   },
   addButton: {
     borderWidth: 1,
-    borderColor: 'rgba(11, 180, 255, 0.3)',
-    borderRadius: 10,
+    borderColor: Colors.gray,
+    borderRadius: 5,
     backgroundColor: 'white',
     paddingHorizontal: wp('2'),
-    padding: 10,
-    // paddingTop: hp('1'),
-    // paddingVertical: hp('1'),
+
+    // iOS Shadow
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+
+    // Android Shadow
+    elevation: 5,
   },
   filterButton: {
     width: wp('20'),
   },
   locationBtn: {
     borderColor: Colors.grayBackground,
-    borderWidth: 0,
-    borderBottomWidth: 0.5,
-    borderRadius: 0,
+    padding: 10,
+    borderRadius: 5,
+    height: hp('5.8'),
     justifyContent: 'flex-start',
-    width: wp('85'),
+    backgroundColor: 'white',
+    // iOS Shadow
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+
+    // Android Shadow
+    elevation: 5,
   },
   locationBtnText: {
     fontSize: hp('2'),
     color: Colors.grayBackground,
-    width: wp('80'),
+    width: wp('70'),
     textAlign: 'left',
   },
   locationBtnImg: {
-    width: 22,
-    height: 22,
+    width: wp('6'),
+    height: hp('6'),
   },
   pRange: {
+    fontWeight: '600',
     marginTop: hp('3'),
-    fontWeight: '700',
-    fontSize: FontSize.scale16,
-    color: Colors.primaryTextColor,
+    fontSize: hp('2.5'),
     marginBottom: hp('1.5'),
   },
   applyFilter: {
@@ -115,81 +165,108 @@ export const styles = StyleSheet.create({
   filterText: {
     fontSize: hp('2'),
   },
-  thumbImage: {
-    width: 50,
-    height: 80,
-    backgroundColor: Colors.primary,
-    borderBottomRightRadius: 100,
-    borderTopRightRadius: 100,
-  },
   rangeSlider: {
+    // height: 40,
     // paddingBottom: wp('6'),
     paddingHorizontal: hp('0'),
     marginHorizontal: hp('0'),
   },
-  rangeSlider: {
-    width: '100%',
-    paddingHorizontal: hp('0'),
-    marginHorizontal: hp('0'),
-    // alignSelf: 'center',
-  },
-  androidSlider: {
-    marginBottom: hp('1.5'),
-
-    // borderRadius: 8,
-  },
-  iosSlider: {
-    marginBottom: hp('1.5'),
-
-    // No additional styles needed for iOS in this example
-  },
   rangeTextMain: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginTop: hp('2'),
-    paddingHorizontal: hp('1.5'),
   },
   rangeTextLeft: {
     flex: 1,
-    color: Colors.primaryTextColor,
-    textAlign: 'left',
-    fontWeight: 400,
+    color: Colors.gray2,
   },
   rangeTextRight: {
-    // color: Colors.gray2,
-    color: Colors.primaryTextColor,
-
-    textAlign: 'left',
+    flex: 1,
+    textAlign: 'right',
+    color: Colors.gray2,
   },
   max: {
     backgroundColor: 'red',
   },
-  flatListMain: {
+  titleMain: {
     flexDirection: 'row',
-    width: '100%',
-    display: 'flex',
-    flexWrap: 'wrap',
     alignItems: 'center',
-  },
-  tags: {
-    paddingHorizontal: wp('2'),
-    marginHorizontal: wp('1'),
-    // marginBottom: hp('1'),
-  },
-  priceRange: {
-    color: 'black',
-    // backgroundColor: 'transparent', // This works
-  },
-  rangeSliderContainer: {
-    marginTop: hp('0.5'),
     borderWidth: 1,
-    borderColor: 'rgba(11, 180, 255, 0.3)',
-    justifyContent: 'flex-end',
-    padding: 10,
+    height: hp('7'),
+    borderRadius: 10,
+    borderColor: Colors.lightblue,
+    marginVertical: hp('3'),
     backgroundColor: 'white',
+    paddingHorizontal: wp('3'),
   },
 
+  inputTitle: {
+    backgroundColor: 'white',
+    borderRadius: 5,
+    height: hp('5.8'),
+    borderColor: Colors.gray,
+    borderWidth: 1,
+    marginTop: hp('0'),
+  },
+  text: {
+    fontWeight: '400',
+  },
+  inputText: {
+    paddingLeft: wp('2'),
+    fontSize: scaleFont(16),
+    fontFamily: FontFamily.regular,
+    color: Colors.primaryTextColor,
+  },
+  inputIcon: {
+    marginLeft: wp('3'),
+  },
+  inputDesc: {
+    height: hp('15'),
+    backgroundColor: 'white',
+    borderRadius: 5,
+    textAlign: 'auto',
+    marginTop: hp('0'),
+    borderColor: Colors.gray,
+    borderWidth: 1,
+  },
+  msgIcon: {
+    marginLeft: wp('3'),
+    alignSelf: 'baseline',
+    marginTop: hp('2'),
+  },
+  inputTextarea: {
+    fontWeight: '400',
+    paddingLeft: wp('2'),
+    textAlignVertical: 'top',
+    paddingTop: hp('2'),
+  },
+  galleryHd: {
+    flexDirection: 'row',
+    marginTop: hp('3'),
+    marginBottom: hp('1.5'),
+    alignItems: 'center',
+  },
+  addImage: {
+    marginRight: wp('2'),
+  },
+  tags: {
+    // height: hp('6'),
+    paddingHorizontal: wp('2'),
+    marginHorizontal: wp('1'),
+  },
+  imagesStyle: {
+    resizeMode: 'contain',
+    width: wp('40'),
+    height: hp('11'),
+    marginVertical: hp('0.5'),
+    marginHorizontal: wp('1'),
+  },
+  filimage: {
+    resizeMode: 'cover',
+    width: wp('44'),
+    height: hp('12'),
+    borderRadius: 10,
+    marginVertical: hp('0.5'),
+    marginHorizontal: wp('1'),
+  },
   Modal: {
     flex: 1,
     backgroundColor: 'rgba(52, 52, 52, 0.5)',
@@ -215,21 +292,6 @@ export const styles = StyleSheet.create({
 
     elevation: 5,
   },
-  innerContainer: {
-    borderRadius: 10,
-    backgroundColor: '#ffff',
-    justifyContent: 'center',
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-
-    elevation: 5,
-  },
 
   titleContainer: {
     padding: 15,
@@ -237,18 +299,23 @@ export const styles = StyleSheet.create({
     alignSelf: 'flex-end',
     flexDirection: 'row',
   },
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent black background
+    justifyContent: 'center', // Center vertically
+    alignItems: 'center', // Center horizontally
+  },
   iosPick: {
     marginLeft: wp('0.5'),
     padding: hp('1.5'),
     flex: 1,
-    fontSize: FontSize.scale16,
+    fontSize: scaleFont(16),
+    FontFamily: FontFamily.regular,
     color: Colors.primaryTextColor,
-    fontWeight: 400,
   },
   dropDown: {
     marginRight: wp('4'),
   },
-
   //FOR picker style
   dropDownView: {
     borderRadius: 15,
@@ -270,16 +337,7 @@ export const styles = StyleSheet.create({
   icon: {
     marginRight: 5,
   },
-  label: {
-    position: 'absolute',
-    backgroundColor: 'white',
-    left: 22,
-    top: 8,
-    zIndex: 999,
-    paddingHorizontal: 8,
-    fontSize: 14,
-    color: Colors.primaryTextColor,
-  },
+
   placeholderStyle: {
     fontSize: 16,
     color: Colors.primaryTextColor,
@@ -304,21 +362,107 @@ export const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     padding: 10,
     backgroundColor: 'white',
+    paddingHorizontal: wp('5'),
+  },
 
-    paddingRight: wp('25'),
-  },
-  to: {
-    fontWeight: '400',
-    fontSize: FontSize.scale16,
-    color: Colors.primaryTextColor,
-    textAlign: 'center',
-  },
-  innerRangeSlider: {
-    marginLeft: 0,
-    paddingLeft: 0,
-    padding: 10,
+  container1: {
     backgroundColor: 'white',
-    width: wp('100'),
-    paddingTop: hp('2'),
+    marginVertical: hp('2'),
+    paddingHorizontal: wp('3'),
+  },
+  label: {
+    fontSize: scaleFont(16),
+    FontFamily: FontFamily.regular,
+    color: '#333',
+    marginBottom: hp('2'),
+  },
+  toggleContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: wp('92'),
+    alignSelf: 'center',
+  },
+  option: {
+    width: wp('43.5'),
+    borderWidth: 1,
+    borderColor: 'rgba(11, 180, 255, 0.3)',
+    borderRadius: 5,
+    backgroundColor: 'white',
+    alignItems: 'center',
+    paddingVertical: hp('1.8'),
+    flexDirection: 'row',
+    // iOS Shadow
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+
+    // Android Shadow
+    elevation: 5,
+  },
+  selectedOption: {
+    borderColor: '#0BB4FF',
+  },
+  optionText: {
+    fontSize: scaleFont(16),
+    FontFamily: FontFamily.regular,
+    color: Colors.primaryTextColor,
+
+    marginLeft: wp('3'),
+  },
+  selectedText: {
+    color: Colors.primaryColor,
+  },
+  indicator: {
+    width: 16,
+    height: 16,
+    borderRadius: 10,
+    backgroundColor: 'rgba(11, 180, 255, 0.5)',
+    position: 'absolute',
+    right: 12,
+    borderWidth: 1,
+    borderColor: Colors.gray,
+  },
+  indicator1: {
+    width: 16,
+    height: 16,
+    borderRadius: 10,
+    position: 'absolute',
+    right: 12,
+    borderWidth: 1,
+    borderColor: Colors.gray,
+  },
+
+  label: {
+    fontSize: 16,
+    fontWeight: '600',
+    marginBottom: 10,
+    color: '#1D1D1D',
+  },
+  list: {
+    flexDirection: 'row',
+    gap: 10,
+  },
+  box: {
+    width: wp('14.5'),
+    height: hp('6.5'),
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: '#DADADA',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#FFF',
+  },
+  selectedBox: {
+    borderColor: '#rgba(11, 180, 255, 0.5)',
+    backgroundColor: '#EAF4FF',
+  },
+  text: {
+    fontSize: 16,
+    fontWeight: '500',
+    color: '#1D1D1D',
+  },
+  selectedText1: {
+    color: Colors.primaryColor,
   },
 });

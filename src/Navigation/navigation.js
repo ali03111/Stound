@@ -97,6 +97,10 @@ const StackNavigatior = () => {
       {isLogin && (
         <>
           <Stack.Screen name="MybottomTabs" component={MybottomTabs} />
+          <Stack.Screen
+            name="PreferenceScreen"
+            component={Screens.PreferenceScreen}
+          />
           <Stack.Screen name="MyListing" component={Screens.MyListing} />
           <Stack.Screen
             name="ListingQueryScreen"
@@ -116,10 +120,7 @@ const StackNavigatior = () => {
             name="AddPostScreen"
             component={Screens.AddPostScreen}
           />
-          <Stack.Screen
-            name="PreferenceScreen"
-            component={Screens.PreferenceScreen}
-          />
+
           <Stack.Screen
             name="ResetPasswordScreen"
             component={Screens.ResetPasswordScreen}

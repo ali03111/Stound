@@ -5,10 +5,14 @@ import useReduxStore from '../../Hooks/UseReduxStore';
 import {successMessage, errorMessage} from '../../Config/NotificationMessage';
 import {loadingFalse} from '../../Redux/Action/isloadingAction';
 import axios from 'axios';
+import useFormHook from '../../Hooks/UseFormHooks';
 
 const useFilterScreen = ({navigate}) => {
   // Start Dropdown
-
+  const bathRooms = ['1', '2', '3', '4', '5', '6', '7+'];
+  const bedRooms = ['1', '2', '3', '4', '5', '6', '7+'];
+  const {handleSubmit, errors, reset, control, getValues, resetField} =
+    useFormHook();
   //For Picker
   const [countryData, setCountryData] = useState([]);
   const [stateData, setStateData] = useState([]);
@@ -149,26 +153,27 @@ const useFilterScreen = ({navigate}) => {
   ];
 
   const [preferencesVal, setPreferencesVal] = useState({
+    adType,
     gp: [],
     ip: [],
     op: [],
     cat: null,
     // rooms: 1,
     // bathRoom: 1,
-    rooms:null,
-    bathRoom:null,
+    bedRoom: null,
+    bathRoom: null,
     images: [],
-    type: options[0]?.value,
-    locations: '',
+    // type: options[0]?.value,
+    location: '',
   });
 
-  const {gp, ip, op, bathRoom, rooms, cat, images, type, locations} =
+  const {adType, gp, ip, op, bathRoom, bedRoom, rooms, cat, images, location} =
     preferencesVal;
   const updateState = data => setPreferencesVal(prev => ({...prev, ...data}));
 
   //SElECT RENT TYPE
   const onSelecteTag = (item, key) => {
-    console.log(type, cat, 'keyueueau');
+    console.log(cat, 'keyueueau');
     updateState({[key]: item});
   };
 
@@ -191,30 +196,15 @@ const useFilterScreen = ({navigate}) => {
       ip: preferencesData?.ip?.filter(item => item.isSelected) ?? [],
       op: preferencesData?.op?.filter(item => item.isSelected) ?? [],
       cat: preferencesData?.property_type ?? [],
-      type: preferencesData?.type ?? "Rent", // Default to "Rent"
+      // type: preferencesData?.type ?? 'Rent', // Default to "Rent"
     });
   }, [preferencesData]);
-
 
   //GET LOCATION
 
   //Navigate Preferences with onSelectTag Function
   const dynamicNav = data => navigate('GeneralScreen', {...data, onSelecteTag});
 
-  // const getAllID = data => {
-  //   console.log(data, 'asdfklalskdfjklasj');
-  //   const newArry = [];
-  //   data.map(res => newArry?.push(res.id));
-  //   return newArry;
-  // };
-  // const getAllName = data => {
-  //   console.log(data, 'asdfklalskdaaafjklasj');
-
-  //   const newArry = [];
-  //   data.map(res => newArry?.push(res.name));
-  //   return newArry;
-  // };
-  // Corrected getAllID and getAllName functions
   const getAllID = data => {
     if (Array.isArray(data)) {
       return data.map(res => res.id);
@@ -230,51 +220,44 @@ const useFilterScreen = ({navigate}) => {
   };
 
   console.log(
+    adType,
     gp,
     ip,
     op,
     cat,
-    type,
     bathRoom,
     rooms,
-    locations,
+    location,
     'aldfjajksdflkaaj',
   );
   const filterAdsDataFunction = async () => {
-    if ( cat != null) {
+    if (cat != null) {
       const body = {
         propertyType: cat,
-        adType: type,
+        adType,
         rooms: rooms,
         bathrooms: bathRoom,
         generalPrefIds: getAllID(gp),
         insidePrefIds: getAllID(ip),
         outsidePrefIds: getAllID(op),
-        // location: getAllName(locations),
-        location: locations,
+        location,
         minPrice: min,
         maxPrice: max,
-        country: countryName ?? '',
-        state: stateName ?? '',
-        city: cityName ?? '',
       };
       console.log('h12312eheha;', body);
       const {ok, data, originalError} = await API.post(FilterAdsUrl, body);
-      console.log('h12312eh121121eh;', data);
+      console.log('h12312eh121121eh;', ok, data, originalError);
 
       const body1 = {
         generalPrefIds: getAllID(gp),
         insidePrefIds: getAllID(ip),
         outsidePrefIds: getAllID(op),
         categoryId: cat,
-        adType: type,
+        adType,
       };
-      console.log('body1',body1);
-      const response = await API.post(
-        savePreUrl,
-        body1,
-      );
-      console.log('preferences data post filter',response);
+      console.log('body1', body1);
+      const response = await API.post(savePreUrl, body1);
+      console.log('preferences data post filter', response);
 
       if (ok) {
         navigate('FilterPackageScreen', {items: data});
@@ -291,7 +274,7 @@ const useFilterScreen = ({navigate}) => {
 
   //Get Location
   const getLocation = data => {
-    updateState({locations: data});
+    updateState({location: data});
 
     console.log(data, 'aakljskljakldjlaksjdklajskldj');
   };
@@ -299,22 +282,23 @@ const useFilterScreen = ({navigate}) => {
     navigate('LocationScreen', {getLocation});
   };
 
-  //Reset All Value In Filter Screen
-  const resetFunction = () => {
+  const onResetState = useCallback(() => {
+    // resetField('desc')
+
+    reset();
     updateState({
-      gp: [],
-      ip: [],
-      op: [],
-      cat: null,
-      // rooms: 1,
-      // bathRoom: 1,
-      rooms:null,
-      bathRoom:null,
       images: [],
-      type: options[0]?.value,
-      locations: '',
+      gp: null,
+      op: null,
+      ip: null,
+      cat: null,
+      bedRoom: null,
+      bathRoom: null,
+      location: '',
     });
-  };
+    setStateData([]);
+    setCityData([]);
+  }, []);
 
   return {
     filterAdsDataFunction,
@@ -328,10 +312,9 @@ const useFilterScreen = ({navigate}) => {
     op,
     ip,
     dynamicNav,
-    locations,
+
     sliderValue,
     setSliderValue,
-    resetFunction,
     sendLocation,
     countryData,
     stateData,
@@ -372,8 +355,21 @@ const useFilterScreen = ({navigate}) => {
     handleCity,
     setCityData,
     setStateData,
-    // setMIN_DEFAULT,
-    // setMAX_DEFAULT,
+    adType,
+    updateState,
+    onResetState,
+    location,
+    handleSubmit,
+    errors,
+    reset,
+    control,
+    getValues,
+    resetField,
+    bathRooms,
+    bedRooms,
+    bedRoom,
+    bathRoom,
+    images,
   };
 };
 

@@ -13,6 +13,7 @@ const {default: Schemas} = require('../../Utils/Validation');
 
 const useAddPostScreen = ({navigate}, {params}) => {
   const item = params;
+  console.log('item123123123', item);
 
   const {dispatch, getState} = useReduxStore();
 
@@ -24,8 +25,8 @@ const useAddPostScreen = ({navigate}, {params}) => {
     useFormHook(Schemas.addPost, {
       title: item?.title ?? '',
       desc: item?.description ?? '',
-      number: item?.price.toString() ?? '',
-      areaSize: item?.areaSize.toString() ?? '',
+      number: item?.price?.toString() ?? '',
+      areaSize: item?.areaSize?.toString() ?? '',
     });
   // Retrieve values of form fields
   const title = getValues('title');
@@ -63,7 +64,7 @@ const useAddPostScreen = ({navigate}, {params}) => {
     location: item?.location,
     uploadedImages: item?.photos ?? [],
   });
-
+  console.log(preferencesData, 'asjdfklajsdflkjsdflkj');
   const {
     gp,
     ip,
@@ -229,7 +230,7 @@ const useAddPostScreen = ({navigate}, {params}) => {
         photos: images,
         oldImagesPaths: uploadedImages,
         price: number,
-        adType: type,
+        adType,
       };
       console.log('edit post body', body);
       const {ok, data, status, originalError, problem} = await formDataFunc(
