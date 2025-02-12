@@ -103,6 +103,8 @@ const FilterScreen = ({navigation}) => {
     setPriceHigh,
     sliderRef1,
     sliderRef,
+    preferencesVal,
+    onSelectMultiTag,
   } = useFilterScreen(navigation);
 
   //Render Preferences dynamics
@@ -155,24 +157,27 @@ const FilterScreen = ({navigation}) => {
       </>
     );
   };
-  const renderMultiSelectItem = (item, key) => {
-    const isSelected = preferencesVal[key]?.includes(item);
+  const renderMultiSelectItem = ({item, index}) => {
+    console.log('Rendering:', item, 'for key:', index); // Debugging log
+
+    const isSelected = preferencesVal[index]?.includes(item) || false;
 
     return (
       <TouchableOpacity
-        key={item}
-        onPress={() => onSelectMultiTag(item, key)}
+        onPress={() => onSelectMultiTag(item, index)}
         style={{
-          padding: 10,
-          backgroundColor: isSelected ? 'blue' : 'gray', // Highlight selected item
-          margin: 5,
-          borderRadius: 5,
+          paddingVertical: 12,
+          paddingHorizontal: 16,
+          borderRadius: 8,
+          borderWidth: 2,
+          borderColor: isSelected ? '#007BFF' : '#ddd',
+          backgroundColor: isSelected ? '#E0F0FF' : 'white',
+          marginRight: 8,
         }}>
-        <Text style={{color: 'white'}}>{item}</Text>
+        <Text style={{color: '#333', fontWeight: 'bold'}}>{item}</Text>
       </TouchableOpacity>
     );
   };
-
   const FlatListComp = ({data, onPress}) => {
     return (
       <FlatList
@@ -383,22 +388,49 @@ const FilterScreen = ({navigation}) => {
                 keyExtractor={item => item.toString()}
                 showsHorizontalScrollIndicator={false}
                 contentContainerStyle={styles.list}
-                renderItem={({item}) => (
-                  <TouchableOpacity
-                    style={[
-                      styles.box,
-                      bathRoom === item && styles.selectedBox,
-                    ]}
-                    onPress={() => updateState({bathRoom: item})}>
-                    <Text
-                      style={[
-                        styles.text,
-                        bathRoom === item && styles.selectedText1,
-                      ]}>
-                      {item}
-                    </Text>
-                  </TouchableOpacity>
-                )}
+                // renderItem={({item}) => (
+                //   <TouchableOpacity
+                //     style={[
+                //       styles.box,
+                //       bathRoom === item && styles.selectedBox,
+                //     ]}
+                //     onPress={() => updateState({bathRoom: item})}>
+                //     <Text
+                //       style={[
+                //         styles.text,
+                //         bathRoom === item && styles.selectedText1,
+                //       ]}>
+                //       {item}
+                //     </Text>
+                //   </TouchableOpacity>
+                // )}
+                // renderItem={({item}) =>
+                //   renderMultiSelectItem({item, key: 'bathRoom'})
+                // }
+
+                renderItem={({item, index}) => {
+                  console.log('Rendering:', item, 'for key:', index); // Debugging log
+
+                  const isSelected =
+                    preferencesVal.bathRoom?.includes(item) || false;
+                  return (
+                    <TouchableOpacity
+                      onPress={() => onSelectMultiTag(item, 'bathRoom')} // Explicitly pass 'bathRoom'
+                      style={{
+                        paddingVertical: 12,
+                        paddingHorizontal: 16,
+                        borderRadius: 8,
+                        borderWidth: 2,
+                        borderColor: isSelected ? '#007BFF' : '#ddd',
+                        backgroundColor: isSelected ? '#E0F0FF' : 'white',
+                        marginRight: 8,
+                      }}>
+                      <Text style={{color: '#333', fontWeight: 'bold'}}>
+                        {item}
+                      </Text>
+                    </TouchableOpacity>
+                  );
+                }}
               />
             </View>
 
@@ -414,19 +446,47 @@ const FilterScreen = ({navigation}) => {
                 keyExtractor={item => item.toString()}
                 showsHorizontalScrollIndicator={false}
                 contentContainerStyle={styles.list}
-                renderItem={({item}) => (
-                  <TouchableOpacity
-                    style={[styles.box, bedRoom === item && styles.selectedBox]}
-                    onPress={() => updateState({bedRoom: item})}>
-                    <Text
-                      style={[
-                        styles.text,
-                        bedRoom === item && styles.selectedText1,
-                      ]}>
-                      {item}
-                    </Text>
-                  </TouchableOpacity>
-                )}
+                //   renderItem={({item}) => (
+                //     <TouchableOpacity
+                //       style={[styles.box, bedRoom === item && styles.selectedBox]}
+                //       onPress={() => updateState({bedRoom: item})}>
+                //       <Text
+                //         style={[
+                //           styles.text,
+                //           bedRoom === item && styles.selectedText1,
+                //         ]}>
+                //         {item}
+                //       </Text>
+                //     </TouchableOpacity>
+                //   )}
+                // renderItem={({item}) =>
+                //   renderMultiSelectItem({item, key: 'bedRoom'})
+                // }
+
+                renderItem={({item, index}) => {
+                  console.log('Rendering:', item, 'for key:', index); // Debugging log
+
+                  const isSelected =
+                    preferencesVal.bedRoom?.includes(item) || false;
+
+                  return (
+                    <TouchableOpacity
+                      onPress={() => onSelectMultiTag(item, 'bedRoom')} // Explicitly pass 'bedRoom'
+                      style={{
+                        paddingVertical: 12,
+                        paddingHorizontal: 16,
+                        borderRadius: 8,
+                        borderWidth: 2,
+                        borderColor: isSelected ? '#007BFF' : '#ddd',
+                        backgroundColor: isSelected ? '#E0F0FF' : 'white',
+                        marginRight: 8,
+                      }}>
+                      <Text style={{color: '#333', fontWeight: 'bold'}}>
+                        {item}
+                      </Text>
+                    </TouchableOpacity>
+                  );
+                }}
               />
             </View>
 

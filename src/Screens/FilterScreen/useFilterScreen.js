@@ -177,7 +177,6 @@ const useFilterScreen = ({navigate}) => {
     // type: options[0]?.value,
     location: '',
   });
-
   const {adType, gp, ip, op, bathRoom, bedRoom, rooms, cat, images, location} =
     preferencesVal;
   const updateState = data => setPreferencesVal(prev => ({...prev, ...data}));
@@ -242,11 +241,12 @@ const useFilterScreen = ({navigate}) => {
     'aldfjajksdflkaaj',
   );
   const filterAdsDataFunction = async () => {
+    console.log();
     if (cat != null) {
       const body = {
         propertyType: cat,
         adType,
-        rooms: rooms,
+        rooms: bedRoom,
         bathrooms: bathRoom,
         generalPrefIds: getAllID(gp),
         insidePrefIds: getAllID(ip),
@@ -320,7 +320,24 @@ const useFilterScreen = ({navigate}) => {
     setStateData([]);
     setCityData([]);
   }, []);
+  const onSelectMultiTag = (item, key) => {
+    setPreferencesVal(prev => {
+      const selectedItems = prev[key] || [];
 
+      let updatedItems;
+      if (selectedItems.includes(item)) {
+        // Remove item if already selected
+        updatedItems = selectedItems.filter(i => i !== item);
+      } else {
+        // Add new item
+        updatedItems = [...selectedItems, item];
+      }
+
+      const newState = {...prev, [key]: updatedItems};
+      console.log('Updated preferencesVal:', newState); // Debugging state
+      return newState;
+    });
+  };
   return {
     filterAdsDataFunction,
     onSelecteTag,
@@ -404,6 +421,8 @@ const useFilterScreen = ({navigate}) => {
 
     sliderRef,
     sliderRef1,
+    preferencesVal,
+    onSelectMultiTag,
   };
 };
 
