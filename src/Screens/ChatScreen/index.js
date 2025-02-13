@@ -75,7 +75,6 @@ const ChatScreen = ({navigation}) => {
           placeholderTextColor={Colors.gray}
         />
       </View>
-      {/* <Text onPress={updateIsReadToFalse}>submit</Text> */}
       <FlatList
         data={searchData}
         renderItem={renderItem}

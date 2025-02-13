@@ -8,6 +8,7 @@ import MyListingComp from '../../Components/MyListingComp';
 import {hp} from '../../Config/responsive';
 import {isIOS} from '../../Theme/Variables';
 import {keyExtractor} from '../../Utils';
+import {EmptyViewComp} from '../../Components/EmptyViewComp';
 MyListingComp;
 const MyListing = ({navigation}) => {
   const {listingData} = useMyListing(navigation);
@@ -31,11 +32,7 @@ const MyListing = ({navigation}) => {
     );
   }, []);
   return (
-    <View
-      style={{
-        flexGrow: 1,
-        paddingTop: hp(isIOS ? '1' : '3'),
-      }}>
+    <View>
       <Header
         style={styles.topHeader}
         headerTitle={'My Listing'}
@@ -52,6 +49,16 @@ const MyListing = ({navigation}) => {
           paddingBottom: hp('15'),
         }}
         keyExtractor={keyExtractor}
+        ListEmptyComponent={
+          <View
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              marginTop: hp('19.5'),
+            }}>
+            <EmptyViewComp buttonTrue={true} />
+          </View>
+        }
       />
     </View>
   );

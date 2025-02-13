@@ -136,7 +136,7 @@ const useLocationScreen = ({goBack}, {params}) => {
         console.log(JSON.stringify(data), 'locationDataalskjklsjaklsj');
         console.log(data.results, 'locationDataalskjklsjaklsj');
         if (data.results.length > 0) {
-          const locationName = data.results[0].formatted_address;
+          const locationName = data.results[2].formatted_address;
           setSelectedLocation(locationName);
         }
       })

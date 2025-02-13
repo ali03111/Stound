@@ -306,7 +306,9 @@ const useFilterScreen = ({navigate}) => {
       bedRoom: null,
       bathRoom: null,
       location: '',
+      adType: null,
     });
+    setCategory('');
     // for squarefoot
     setSquareFootLow(0);
     setSquareFootHigh(2000);

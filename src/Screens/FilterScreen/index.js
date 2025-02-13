@@ -107,8 +107,6 @@ const FilterScreen = ({navigation}) => {
     onSelectMultiTag,
   } = useFilterScreen(navigation);
 
-  //Render Preferences dynamics
-  const [value, setValue] = useState(false);
   const renderItem = ({item, index}) => {
     console.log('itmemmemem', item);
     return (
@@ -121,66 +119,11 @@ const FilterScreen = ({navigation}) => {
     );
   };
 
-  const handleRangeChange = (low, high, fromUser) => {
-    setMin(low);
-    setMax(high);
-  };
-
-  const handleTouchStart = newMinValue => {
-    // Handle the onTouchEnd logic
-    // For example, set the values to a specific state when the touch ends.
-    setValue(true);
-  };
-  const handleTouchEnd = () => {
-    // Handle the onTouchEnd logic
-
-    setValue(false);
-  };
-
-  const renderItemImages = ({item, index}) => {
-    return (
-      <>
-        <TouchableOpacity
-          style={styles.cancelImage}
-          onPress={() => deleteImage(index)}>
-          <MaterialIcons
-            name="cancel"
-            size={hp('2.5')}
-            color={Colors.primaryColor}
-          />
-        </TouchableOpacity>
-
-        <Image
-          source={{uri: item?.type ? item?.uri : imageUrl(item)}}
-          style={styles.filimage}
-        />
-      </>
-    );
-  };
-  const renderMultiSelectItem = ({item, index}) => {
-    console.log('Rendering:', item, 'for key:', index); // Debugging log
-
-    const isSelected = preferencesVal[index]?.includes(item) || false;
-
-    return (
-      <TouchableOpacity
-        onPress={() => onSelectMultiTag(item, index)}
-        style={{
-          paddingVertical: 12,
-          paddingHorizontal: 16,
-          borderRadius: 8,
-          borderWidth: 2,
-          borderColor: isSelected ? '#007BFF' : '#ddd',
-          backgroundColor: isSelected ? '#E0F0FF' : 'white',
-          marginRight: 8,
-        }}>
-        <Text style={{color: '#333', fontWeight: 'bold'}}>{item}</Text>
-      </TouchableOpacity>
-    );
-  };
   const FlatListComp = ({data, onPress}) => {
     return (
       <FlatList
+        bounces={false}
+        showsHorizontalScrollIndicator={false}
         refreshing={false}
         data={data}
         renderItem={renderItem}
@@ -388,26 +331,6 @@ const FilterScreen = ({navigation}) => {
                 keyExtractor={item => item.toString()}
                 showsHorizontalScrollIndicator={false}
                 contentContainerStyle={styles.list}
-                // renderItem={({item}) => (
-                //   <TouchableOpacity
-                //     style={[
-                //       styles.box,
-                //       bathRoom === item && styles.selectedBox,
-                //     ]}
-                //     onPress={() => updateState({bathRoom: item})}>
-                //     <Text
-                //       style={[
-                //         styles.text,
-                //         bathRoom === item && styles.selectedText1,
-                //       ]}>
-                //       {item}
-                //     </Text>
-                //   </TouchableOpacity>
-                // )}
-                // renderItem={({item}) =>
-                //   renderMultiSelectItem({item, key: 'bathRoom'})
-                // }
-
                 renderItem={({item, index}) => {
                   console.log('Rendering:', item, 'for key:', index); // Debugging log
 
@@ -446,23 +369,6 @@ const FilterScreen = ({navigation}) => {
                 keyExtractor={item => item.toString()}
                 showsHorizontalScrollIndicator={false}
                 contentContainerStyle={styles.list}
-                //   renderItem={({item}) => (
-                //     <TouchableOpacity
-                //       style={[styles.box, bedRoom === item && styles.selectedBox]}
-                //       onPress={() => updateState({bedRoom: item})}>
-                //       <Text
-                //         style={[
-                //           styles.text,
-                //           bedRoom === item && styles.selectedText1,
-                //         ]}>
-                //         {item}
-                //       </Text>
-                //     </TouchableOpacity>
-                //   )}
-                // renderItem={({item}) =>
-                //   renderMultiSelectItem({item, key: 'bedRoom'})
-                // }
-
                 renderItem={({item, index}) => {
                   console.log('Rendering:', item, 'for key:', index); // Debugging log
 

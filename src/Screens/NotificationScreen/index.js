@@ -78,7 +78,7 @@ const Notification = ({navigation}) => {
               <View
                 style={{
                   justifyContent: 'center',
-                  height: hp('80'),
+                  marginTop: hp('19.5'),
                 }}>
                 {isNotification && (
                   <EmptyViewComp onRefresh={getAllNotificationFunc} />

@@ -50,6 +50,7 @@ const useAddPostScreen = ({navigate}, {params}) => {
   const [isFocus1, setIsFocus1] = useState(false);
   const [isFocus2, setIsFocus2] = useState(false);
   const [category, setCategory] = useState(item?.category);
+  console.log(item, 'aklsdfjalsdjflkdjs');
 
   const [preferencesData, setPreferencesData] = useState([]);
   const [preferencesVal, setPreferencesVal] = useState({
