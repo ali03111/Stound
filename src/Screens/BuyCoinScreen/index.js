@@ -454,7 +454,7 @@ const index = ({navigation, route}) => {
 
   //END ANDROID WORK FOR PURCHASING
 
-  const BuyCoin = ({coinTitle, coinDes, coinPrice, onPress}) => {
+  const BuyCoin = useCallback(({coinTitle, coinDes, coinPrice, onPress}) => {
     return (
       <TouchableOpacity onPress={onPress} style={styles.mainContainer}>
         <View
@@ -478,7 +478,7 @@ const index = ({navigation, route}) => {
         </View>
       </TouchableOpacity>
     );
-  };
+  }, []);
   if (loading && isIos) {
     return (
       <View style={{...styles.midContainer, flex: 1}}>
@@ -496,83 +496,81 @@ const index = ({navigation, route}) => {
   }
   return (
     <>
-      <BuyCoinHeader
-        onPress={() => navigation.goBack()}
-        dayStyle={styles.dayStyle}
-        style={styles.topHeader}
-        headerTitle={'Buy Coins'}
-        arrowBackIcon={arrowbackwhite}
-        centerTextStyle={styles.centerHeading}
-        backText={'Back'}
-        centerImage={require('../../Assets/Images/stoundLogo.png')}
-      />
-      <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
-        <View style={styles.dayBarStyle}>
-          <TextComponent
-            text={'Get your coins here!'}
-            styles={{...styles.coin}}
-          />
-        </View>
-        <View style={{paddingBottom: hp('5')}}>
+      <>
+        <BuyCoinHeader
+          onPress={() => navigation.goBack()}
+          dayStyle={styles.dayStyle}
+          style={styles.topHeader}
+          headerTitle={'Buy Coins'}
+          arrowBackIcon={arrowbackwhite}
+          centerTextStyle={styles.centerHeading}
+          backText={'Back'}
+          centerImage={require('../../Assets/Images/stoundLogo.png')}
+        />
+
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          style={styles.container}>
+          <View style={styles.dayBarStyle}>
+            <TextComponent
+              text={'Get your coins here!'}
+              styles={{...styles.coin}}
+            />
+          </View>
+
           {loading ? (
             <View style={{...styles.midContainer, marginTop: hp('10')}}>
               <ActivityIndicator />
             </View>
           ) : (
-            (console.log(Platform.OS, subscriptions, 'alskfjlksdjflkasjdf'),
-            products
-              .sort((a, b) => a.price - b.price)
-              .map((subscription, index) => {
-                // const owned = purchaseHistory.find(
-                //   s => s?.productId === subscription.productId,
-                // );
-                return (
-                  <View style={styles.midContainer}>
-                    {isIos && (
-                      <BuyCoin
-                        onPress={() => {
-                          setLoading(true);
-                          handleBuySubscription(subscription.productId);
-                        }}
-                        coinTitle={subscription?.title}
-                        coinDes={'Validy until your coins finish'}
-                        coinPrice={subscription?.localizedPrice}
-                      />
-                    )}
-                  </View>
-                );
-              }))
+            <FlatList
+              showsVerticalScrollIndicator={false}
+              data={products.sort((a, b) => a.price - b.price)}
+              keyExtractor={item => item.productId}
+              renderItem={({item}) => (
+                <View style={styles.midContainer}>
+                  {isIos && (
+                    <BuyCoin
+                      onPress={() => {
+                        setLoading(true);
+                        handleBuySubscription(item.productId);
+                      }}
+                      coinTitle={item?.title}
+                      coinDes={'Validy until your coins finish'}
+                      coinPrice={item?.localizedPrice}
+                    />
+                  )}
+                </View>
+              )}
+            />
           )}
 
-          {console.log(products, 'askldfjklsadjfklajsdfklajsld')}
           {isBoolProduct && !isIos ? (
             <View style={{...styles.midContainer, marginTop: hp('10')}}>
               <ActivityIndicator />
             </View>
           ) : (
-            products
-              .sort((a, b) => a.description - b.description)
-              .map((subscription, index) => {
-                return (
-                  <View
-                    key={subscription.productId}
-                    style={styles.midContainer}>
-                    {!isIos && (
-                      <BuyCoin
-                        onPress={() => {
-                          setLoading(true);
-                          handleBuySubscription(subscription.productId);
-                        }}
-                        coinTitle={subscription?.name}
-                        coinPrice={subscription?.description}
-                      />
-                    )}
-                  </View>
-                );
-              })
+            <FlatList
+              data={products.sort((a, b) => a.description - b.description)}
+              keyExtractor={item => item.productId}
+              renderItem={({item}) => (
+                <View style={styles.midContainer}>
+                  {!isIos && (
+                    <BuyCoin
+                      onPress={() => {
+                        setLoading(true);
+                        handleBuySubscription(item.productId);
+                      }}
+                      coinTitle={item?.name}
+                      coinPrice={item?.description}
+                    />
+                  )}
+                </View>
+              )}
+            />
           )}
-        </View>
-      </ScrollView>
+        </ScrollView>
+      </>
     </>
   );
 };

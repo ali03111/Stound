@@ -230,7 +230,7 @@ const EditProfileScreen = ({navigation}) => {
                 reset,
                 control,
                 getValues,
-                placeholder: 'Ad description...',
+                placeholder: 'About me',
                 viewStyle: styles.inputDesc,
                 textStyle: styles.inputTextarea,
                 inputIconStyle: styles.msgIcon,
