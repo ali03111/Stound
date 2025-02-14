@@ -1,13 +1,14 @@
 import {StyleSheet} from 'react-native';
 import {hp, wp} from '../../Config/responsive';
-import {Colors} from '../../Theme/Variables';
+import {Colors, FontFamily, isIOS, scaleFont} from '../../Theme/Variables';
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: Colors.white,
   },
   topHeader: {
     paddingBottom: hp('5'),
-    paddingTop: hp('5'),
+    paddingTop: hp(!isIOS ? '3' : '7'),
   },
   centerCustomStyles: {
     alignItems: 'center',
@@ -16,6 +17,11 @@ export const styles = StyleSheet.create({
     paddingTop: hp('6'),
     color: Colors.primaryTextColor,
     fontSize: hp('2.5'),
+  },
+  coin: {
+    fontFamily: FontFamily.semiBold,
+    color: Colors.primaryTextColor,
+    fontSize: scaleFont(25),
   },
   dayBarStyle: {
     flexDirection: 'row',

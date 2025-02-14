@@ -23,6 +23,7 @@ import {
   catImage,
   addcircle,
   chat,
+  sms,
 } from '../../Assets';
 import {TextComponent} from '../../Components/TextComponent';
 import {InputComponent} from '../../Components/InputComponent';
@@ -146,7 +147,7 @@ const EditProfileScreen = ({navigation}) => {
   return (
     <>
       <KeyBoardWrapper>
-        <View style={{flex: 1}}>
+        <View style={{flex: 1, backgroundColor: 'white'}}>
           <Header
             headerTitle={'Edit Profile'}
             arrowBackIcon={arrowback}
@@ -191,7 +192,6 @@ const EditProfileScreen = ({navigation}) => {
                 EditText: true,
               }}
             />
-
             <InputComponent
               {...{
                 name: 'number',
@@ -206,6 +206,22 @@ const EditProfileScreen = ({navigation}) => {
                 EditText: true,
               }}
             />
+            <InputComponent
+              {...{
+                editable: false,
+                name: 'email',
+                handleSubmit,
+                errors,
+                reset,
+                control,
+                getValues,
+                placeholder: 'Email',
+                viewStyle: styles.loginInput,
+                isImage: sms,
+                defaultValue: userData?.email || '',
+              }}
+            />
+
             <InputComponent
               {...{
                 name: 'description',

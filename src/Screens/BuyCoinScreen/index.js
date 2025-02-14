@@ -8,6 +8,7 @@ import {
   ActivityIndicator,
   Platform,
   ScrollView,
+  StatusBar,
 } from 'react-native';
 import React, {
   memo,
@@ -49,8 +50,6 @@ import {store} from '../../Redux/Reducers';
 import {loadingFalse, loadingTrue} from '../../Redux/Action/isloadingAction';
 const subscriptionSkus = Platform.select({
   ios: ['productId_10', 'productId20', 'productId_30', 'productId50'],
-  // android: ['productid_10', 'productid_30'],
-  // android: ['productsid_10'],
   android: [
     'productsid_10',
     'productsid_20',
@@ -59,8 +58,6 @@ const subscriptionSkus = Platform.select({
   ],
 });
 
-// let purchaseUpdateSubscription = null;
-// let purchaseErrorSubscription = null;
 const errorLog = ({message, error}) => {
   console.error('An error happened', message, error);
 };
@@ -498,7 +495,7 @@ const index = ({navigation, route}) => {
     );
   }
   return (
-    <ScrollView style={styles.container}>
+    <>
       <BuyCoinHeader
         onPress={() => navigation.goBack()}
         dayStyle={styles.dayStyle}
@@ -509,67 +506,74 @@ const index = ({navigation, route}) => {
         backText={'Back'}
         centerImage={require('../../Assets/Images/stoundLogo.png')}
       />
-      <View style={styles.dayBarStyle}>
-        <TextComponent text={'Get your coins here!'} styles={{...styles.day}} />
-      </View>
-      <View style={{paddingBottom: hp('5')}}>
-        {loading ? (
-          <View style={{...styles.midContainer, marginTop: hp('10')}}>
-            <ActivityIndicator />
-          </View>
-        ) : (
-          (console.log(Platform.OS, subscriptions, 'alskfjlksdjflkasjdf'),
-          products
-            .sort((a, b) => a.price - b.price)
-            .map((subscription, index) => {
-              // const owned = purchaseHistory.find(
-              //   s => s?.productId === subscription.productId,
-              // );
-              return (
-                <View style={styles.midContainer}>
-                  {isIos && (
-                    <BuyCoin
-                      onPress={() => {
-                        setLoading(true);
-                        handleBuySubscription(subscription.productId);
-                      }}
-                      coinTitle={subscription?.title}
-                      coinDes={'Validy until your coins finish'}
-                      coinPrice={subscription?.localizedPrice}
-                    />
-                  )}
-                </View>
-              );
-            }))
-        )}
+      <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
+        <View style={styles.dayBarStyle}>
+          <TextComponent
+            text={'Get your coins here!'}
+            styles={{...styles.coin}}
+          />
+        </View>
+        <View style={{paddingBottom: hp('5')}}>
+          {loading ? (
+            <View style={{...styles.midContainer, marginTop: hp('10')}}>
+              <ActivityIndicator />
+            </View>
+          ) : (
+            (console.log(Platform.OS, subscriptions, 'alskfjlksdjflkasjdf'),
+            products
+              .sort((a, b) => a.price - b.price)
+              .map((subscription, index) => {
+                // const owned = purchaseHistory.find(
+                //   s => s?.productId === subscription.productId,
+                // );
+                return (
+                  <View style={styles.midContainer}>
+                    {isIos && (
+                      <BuyCoin
+                        onPress={() => {
+                          setLoading(true);
+                          handleBuySubscription(subscription.productId);
+                        }}
+                        coinTitle={subscription?.title}
+                        coinDes={'Validy until your coins finish'}
+                        coinPrice={subscription?.localizedPrice}
+                      />
+                    )}
+                  </View>
+                );
+              }))
+          )}
 
-        {console.log(products, 'askldfjklsadjfklajsdfklajsld')}
-        {isBoolProduct && !isIos ? (
-          <View style={{...styles.midContainer, marginTop: hp('10')}}>
-            <ActivityIndicator />
-          </View>
-        ) : (
-          products
-            .sort((a, b) => a.description - b.description)
-            .map((subscription, index) => {
-              return (
-                <View key={subscription.productId} style={styles.midContainer}>
-                  {!isIos && (
-                    <BuyCoin
-                      onPress={() => {
-                        setLoading(true);
-                        handleBuySubscription(subscription.productId);
-                      }}
-                      coinTitle={subscription?.name}
-                      coinPrice={subscription?.description}
-                    />
-                  )}
-                </View>
-              );
-            })
-        )}
-      </View>
-    </ScrollView>
+          {console.log(products, 'askldfjklsadjfklajsdfklajsld')}
+          {isBoolProduct && !isIos ? (
+            <View style={{...styles.midContainer, marginTop: hp('10')}}>
+              <ActivityIndicator />
+            </View>
+          ) : (
+            products
+              .sort((a, b) => a.description - b.description)
+              .map((subscription, index) => {
+                return (
+                  <View
+                    key={subscription.productId}
+                    style={styles.midContainer}>
+                    {!isIos && (
+                      <BuyCoin
+                        onPress={() => {
+                          setLoading(true);
+                          handleBuySubscription(subscription.productId);
+                        }}
+                        coinTitle={subscription?.name}
+                        coinPrice={subscription?.description}
+                      />
+                    )}
+                  </View>
+                );
+              })
+          )}
+        </View>
+      </ScrollView>
+    </>
   );
 };
 

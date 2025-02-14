@@ -244,16 +244,18 @@ const useFilterScreen = ({navigate}) => {
     console.log();
     if (cat != null) {
       const body = {
-        propertyType: cat,
         adType,
+        category: cat,
         rooms: bedRoom,
         bathrooms: bathRoom,
-        generalPrefIds: getAllID(gp),
-        insidePrefIds: getAllID(ip),
-        outsidePrefIds: getAllID(op),
+        generalPref: getAllID(gp),
+        insidePref: getAllID(ip),
+        outsidePref: getAllID(op),
         location,
-        minPrice: min,
-        maxPrice: max,
+        minPrice: priceLow,
+        maxPrice: priceHigh,
+        minAreaSize: squareFootLow,
+        maxAreaSize: squareFootHigh,
       };
       console.log('h12312eheha;', body);
       const {ok, data, originalError} = await API.post(FilterAdsUrl, body);

@@ -241,23 +241,6 @@ const PackageDetailsScreen = ({navigation, route}) => {
                 />
               </View>
             </View>
-            {/* <DividerLine style={{borderBottomWidth: 5}} />
-            <View style={{marginVertical: hp('1'), marginHorizontal: wp('5')}}>
-              {insidePref.length > 0 ? (
-                <DetailsUiComponent heading={'Inside'} list={insidePref} />
-              ) : (
-                <DetailsUiComponent heading={''} list={insidePref} />
-              )}
-            </View>
-            <DividerLine style={{borderBottomWidth: 5}} />
-            <View style={{marginVertical: hp('1'), marginHorizontal: wp('5')}}>
-              {outsidePref.length > 0 ? (
-                <DetailsUiComponent heading={'Outside'} list={outsidePref} />
-              ) : (
-                <DetailsUiComponent heading={''} list={outsidePref} />
-              )}
-            </View>
-            <DividerLine style={{borderBottomWidth: 5}} /> */}
           </View>
         </ScrollView>
         <View style={styles.priceMain}>

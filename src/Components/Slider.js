@@ -60,6 +60,7 @@ const SliderScreen = forwardRef(
               value={String(low)}
               keyboardType="numeric"
               onChangeText={text => setLow(Number(text) || 0)}
+              editable={false}
             />
           </View>
           <Text style={styles.toText}>To</Text>
@@ -69,6 +70,7 @@ const SliderScreen = forwardRef(
               value={String(high)}
               keyboardType="numeric"
               onChangeText={text => setHigh(Number(text) || 0)}
+              editable={false}
             />
           </View>
         </View>

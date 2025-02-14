@@ -12,7 +12,7 @@ export const styles = StyleSheet.create({
   },
 
   topHeading: {
-    color: Colors.black,
+    color: Colors.primaryTextColor,
     fontSize: scaleFont(25),
     fontFamily: FontFamily.semiBold,
 
