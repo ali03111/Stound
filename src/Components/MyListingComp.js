@@ -9,7 +9,7 @@ import {
   scaleFont,
 } from '../Theme/Variables';
 import {hp, wp} from '../Config/responsive';
-import {bathtub, bed, locationIcon, scaleIcon} from '../Assets';
+import {bathtub, bed, locationIcon, scaleIcon, square_foot} from '../Assets';
 import {Touchable} from './Touchable';
 
 const DetailButton = ({title, onPress, hide, style, textStyle}) => {
@@ -31,6 +31,7 @@ const MyListingComp = ({
   title,
   bathrooms,
   rooms,
+  squareFeet,
   onPressInquires,
   onPressEdit,
 }) => {
@@ -41,13 +42,13 @@ const MyListingComp = ({
           borderRadius: 10,
           width: wp('93'),
           overflow: 'hidden',
-          paddingVertical: hp('1'),
-          paddingHorizontal: wp('1'),
+          paddingVertical: hp('3'),
+          paddingHorizontal: wp('3'),
         }}
         source={require('../Assets/Images/property1.png')}
         //   blurRadius={1} for blur
       >
-        <View style={{padding: 10}}>
+        <View>
           <Text style={styles.price}>
             ${price}/
             <TextComponent
@@ -64,7 +65,7 @@ const MyListingComp = ({
             style={{
               flexDirection: 'row',
               alignItems: 'center',
-              marginTop: hp('3'),
+              marginTop: hp('2'),
               width: wp('60'),
             }}>
             <Image
@@ -88,17 +89,30 @@ const MyListingComp = ({
                 justifyContent: 'space-between',
               }}>
               <View style={styles.cardTopRight}>
-                <Image source={bathtub} />
+                <Image source={bathtub} style={styles.icon} />
                 <TextComponent
                   text={bathrooms + ' Bath'}
                   styles={styles.bath}
                 />
 
-                <Image source={bed} />
-                <TextComponent text={rooms + ' Bed'} styles={styles.bed} />
+                <Image source={bed} style={styles.icon} />
+                <TextComponent text={rooms + ' Bed'} styles={styles.bath} />
 
-                {/* <Image source={scaleIcon} />
-                <TextComponent text={'2' + ' sqft'} styles={styles.bed} /> */}
+                <Image
+                  source={square_foot}
+                  style={{
+                    width: wp('2.6'),
+                    tintColor: Colors.white,
+                    resizeMode: 'contain',
+                    height: hp('1.3'),
+                    marginLeft: wp('2'),
+                    marginRight: wp('1.0'),
+                  }}
+                />
+                <TextComponent
+                  text={squareFeet + ' Sqft'}
+                  styles={styles.bath}
+                />
               </View>
             </View>
           </View>
@@ -124,7 +138,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 0.3,
-    borderColor: Colors.white,
     backgroundColor: 'rgba(0, 0, 0, 0.65)',
   },
   text: {
@@ -154,16 +167,10 @@ const styles = StyleSheet.create({
   },
   bath: {
     color: 'white',
-    marginLeft: wp('1'),
-    marginRight: wp('1.5'),
+    fontFamily: FontFamily.regular,
     fontSize: FontSize.scale12,
   },
-  bed: {
-    color: 'white',
-    marginLeft: wp('1'),
-    fontSize: FontSize.scale12,
-    marginRight: wp('1.5'),
-  },
+
   cardTopRight: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -179,6 +186,7 @@ const styles = StyleSheet.create({
     fontFamily: FontFamily.regular,
     fontSize: scaleFont(15),
     color: Colors.white,
+    width: wp('55'),
   },
   loc: {
     width: wp('4.5'),
@@ -187,6 +195,14 @@ const styles = StyleSheet.create({
     aspectRatio: 1,
     fontFamily: 'Nunito_Medium',
     alignSelf: 'flex-start',
+  },
+  icon: {
+    width: wp('4'),
+    tintColor: Colors.white,
+    resizeMode: 'contain',
+    height: hp('2'),
+    marginLeft: wp('1.5'),
+    marginRight: wp('1.0'),
   },
   cardFooter: {
     flexDirection: 'row',

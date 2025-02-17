@@ -113,13 +113,14 @@ const useLocationScreen = ({goBack}, {params}) => {
     const newValue = data.description; // The value you want to push
     setLocation(data);
     // Create a new array with the updated value
-    console.log(data, '123123123');
+    console.log(JSON.stringify(data), '123123111123');
     const updatedArray = [...addressText, newValue];
     // Update the state variable with the new array
     dispatch(setRecentLocation(data));
   };
 
   const setSelectedLocation = locationName => {
+    console.log(locationName, 'aksdfjlksdjfkl');
     params.getLocation(locationName);
     dispatch(loadingFalse());
     goBack();
@@ -133,8 +134,9 @@ const useLocationScreen = ({goBack}, {params}) => {
     fetch(geocodingAPI)
       .then(response => response.json())
       .then(data => {
-        console.log(JSON.stringify(data), 'locationDataalskjklsjaklsj');
+        console.log(JSON.stringify(data), 'locationDataalskjkl111sjaklsj');
         console.log(data.results, 'locationDataalskjklsjaklsj');
+        console.log(JSON.stringify(data.results[2].geometry), 'safkljdklfj');
         if (data.results.length > 0) {
           const locationName = data.results[2].formatted_address;
           setSelectedLocation(locationName);

@@ -9,6 +9,7 @@ import {hp, wp} from '../../Config/responsive';
 import NotificationComp from '../../Components/Notification';
 import {imageUrl} from '../../Utils/Urls';
 import {EmptyViewComp} from '../../Components/EmptyViewComp';
+import {capitalizeFirstLetter} from '../../Utils/glodbalFunction';
 
 const ListingQueryScreen = ({navigation, route}) => {
   const {queryData, getListingData, toSeeDetails} = useListingQueryScreen(
@@ -21,7 +22,7 @@ const ListingQueryScreen = ({navigation, route}) => {
     return (
       <NotificationComp
         image={imageUrl(item?.profilePicture)}
-        name={item?.name}
+        name={capitalizeFirstLetter(item?.name)}
         description={item?.answer}
         time={item?.createdAt}
         onPress={() => {

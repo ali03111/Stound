@@ -23,6 +23,7 @@ const MyListing = ({navigation}) => {
           title={item?.title}
           bathrooms={item?.bathrooms}
           rooms={item?.rooms}
+          squareFeet={item?.areaSize}
           onPressInquires={() =>
             navigation.navigate('ListingQueryScreen', item)
           }

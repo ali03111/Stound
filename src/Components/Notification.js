@@ -1,12 +1,19 @@
 import React from 'react';
-import { StyleSheet, Text, Image, View, TouchableOpacity, Dimensions } from 'react-native';
-import { TextComponent } from './TextComponent';
-import { hp, wp } from '../Config/responsive';
-import { Colors } from '../Theme/Variables';
+import {
+  StyleSheet,
+  Text,
+  Image,
+  View,
+  TouchableOpacity,
+  Dimensions,
+} from 'react-native';
+import {TextComponent} from './TextComponent';
+import {hp, wp} from '../Config/responsive';
+import {Colors, FontFamily, scaleFont} from '../Theme/Variables';
 import moment from 'moment';
 import BlurImage from './BlurImage';
 
-const NotificationComp = ({ image, name, description, time, onPress }) => {
+const NotificationComp = ({image, name, description, time, onPress}) => {
   const givenTime = new Date(time).getTime();
   const currentTime = new Date().getTime();
   const timeDifferenceMs = currentTime - givenTime;
@@ -16,8 +23,12 @@ const NotificationComp = ({ image, name, description, time, onPress }) => {
   const millisecondsPerDay = 24 * millisecondsPerHour;
 
   const days = Math.floor(timeDifferenceMs / millisecondsPerDay);
-  const hours = Math.floor((timeDifferenceMs % millisecondsPerDay) / millisecondsPerHour);
-  const minutes = Math.floor((timeDifferenceMs % millisecondsPerHour) / millisecondsPerMinute);
+  const hours = Math.floor(
+    (timeDifferenceMs % millisecondsPerDay) / millisecondsPerHour,
+  );
+  const minutes = Math.floor(
+    (timeDifferenceMs % millisecondsPerHour) / millisecondsPerMinute,
+  );
 
   // Function to format the time string
   const formatTime = () => {
@@ -40,8 +51,9 @@ const NotificationComp = ({ image, name, description, time, onPress }) => {
       <View style={styles.nameDescriptionMain}>
         <Text style={styles.nameDescription}>
           <TextComponent text={name} styles={styles.username} />
+          {console.log(description, 'aklsdjalksdjfklajsd')}
           <TextComponent
-            text={` ${description ?? ' interested'} in your property and want to talk.`}
+            text={` ${description ?? 'Interested'} in your `}
             styles={styles.description}
           />
         </Text>
@@ -82,12 +94,13 @@ const styles = StyleSheet.create({
     marginLeft: wp('1.5'),
   },
   username: {
-    fontWeight: 'bold',
-    fontSize: hp('2'),
+    fontFamily: FontFamily.semiBold,
+    fontSize: scaleFont(14),
     marginLeft: wp('2.5'),
   },
   description: {
-    fontSize: hp('1.8'),
+    fontFamily: FontFamily.regular,
+    fontSize: scaleFont(14),
     marginLeft: wp('1.5'),
   },
   mainTiming: {

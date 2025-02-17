@@ -10,10 +10,13 @@ import API from '../../Utils/helperFunc';
 function* setQuestionSaga(action) {
   try {
     yield put(questionFalse());
+    console.log(addQuesUrl, action.payload, 'sdklfjladksj');
     const {ok, data} = yield call(randomService, {
       url: addQuesUrl,
       params: action.payload.value,
     });
+    console.log(data, 'eoeokdekdie');
+
     if (ok) yield put({type: types.UpdateProfile, payload: data.data});
     const {isQuestion} = yield call(store.getState, 'isQuestion');
     // successMessage('You like this property');
