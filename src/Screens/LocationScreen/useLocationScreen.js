@@ -6,7 +6,7 @@ import Geolocation from 'react-native-geolocation-service';
 import {setRecentLocation} from '../../Redux/Action/recentLocationAction';
 import {loadingFalse, loadingTrue} from '../../Redux/Action/isloadingAction';
 
-const useLocationScreen = ({goBack}, {params}) => {
+const useLocationScreen = ({navigate, goBack}, {params}) => {
   const [location, setLocation] = useState([]);
 
   useEffect(() => {
@@ -117,6 +117,7 @@ const useLocationScreen = ({goBack}, {params}) => {
     const updatedArray = [...addressText, newValue];
     // Update the state variable with the new array
     dispatch(setRecentLocation(data));
+    setSelectedLocation(data?.description);
   };
 
   const setSelectedLocation = locationName => {

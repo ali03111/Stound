@@ -53,11 +53,10 @@ const Index = ({navigation, route}) => {
                 alignSelf: 'center',
                 zIndex: 0,
               }, // Added to adjust container flex
+
               textInputContainer: {
-                marginTop: 0,
                 borderRadius: 10,
                 backgroundColor: 'white',
-                padding: 5,
                 width: wp('90'),
                 alignSelf: 'center',
                 shadowColor: '#000000',
@@ -70,6 +69,7 @@ const Index = ({navigation, route}) => {
                 elevation: 4,
                 flexDirection: 'row', // Added to align icon and input
                 alignItems: 'center',
+                justifyContent: 'center',
               },
               // Modified placeholder style
 
@@ -107,6 +107,11 @@ const Index = ({navigation, route}) => {
               />
             )}
             onPress={(data, details) => {
+              console.log(
+                JSON.stringify(data),
+                JSON.stringify(details),
+                'laksdjfklajsdfljsdkl',
+              );
               handleButtonClick(data);
             }}
             query={{
@@ -143,15 +148,26 @@ const Index = ({navigation, route}) => {
 
               <View style={styles.innerRecentContainer}>
                 <FlatList
-                  data={recentLocation}
+                  data={recentLocation?.reverse()}
                   showsVerticalScrollIndicator={false}
-                  inverted
+                  ItemSeparatorComponent={() => (
+                    <DividerLine
+                      style={{
+                        borderBottomWidth: 1,
+                        marginTop: hp('1.5'),
+                      }}
+                    />
+                  )}
+                  contentContainerStyle={{
+                    flexGrow: 1,
+                    paddingBottom: hp('3'), // Ensures the list doesn’t overlap the button
+                  }} // Allow full list to be scrollable
                   renderItem={({item}) => {
                     return (
                       <Touchable
                         onPress={() => setSelectedLocation(item.description)}>
-                        <DividerLine />
                         <TextComponent
+                          adjustsFontSizeToFit={false}
                           styles={styles.recentText}
                           text={item?.description}
                         />
@@ -163,7 +179,6 @@ const Index = ({navigation, route}) => {
             </View>
           ) : null}
         </View>
-        {/* <TouchableOpacity style={styles.chooseLocationButton}> */}
         <ShareButton
           onPress={() => {
             if (location.description) setSelectedLocation(location.description);
@@ -172,7 +187,6 @@ const Index = ({navigation, route}) => {
           title={'Choose Location'}
           style={styles.chooseLocationButton}
         />
-        {/* </TouchableOpacity> */}
       </View>
     </>
   );

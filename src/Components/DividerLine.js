@@ -6,11 +6,11 @@ const DividerLine = ({style}) => {
     <View
       style={[
         {
-          ...style,
           borderBottomColor: '#A1ACBB26',
           borderBottomWidth: 5,
           marginBottom: hp('1.5'),
         },
+        style, // Ensuring custom styles override defaults
       ]}
     />
   );

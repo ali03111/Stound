@@ -13,7 +13,15 @@ import {Colors, FontFamily, scaleFont} from '../Theme/Variables';
 import moment from 'moment';
 import BlurImage from './BlurImage';
 
-const NotificationComp = ({image, name, description, time, onPress}) => {
+const NotificationComp = ({
+  image,
+  name,
+  description,
+  prpertyType,
+  time,
+  onPress,
+}) => {
+  console.log(prpertyType, 'as;dklf;asdkfl;');
   const givenTime = new Date(time).getTime();
   const currentTime = new Date().getTime();
   const timeDifferenceMs = currentTime - givenTime;
@@ -51,9 +59,13 @@ const NotificationComp = ({image, name, description, time, onPress}) => {
       <View style={styles.nameDescriptionMain}>
         <Text style={styles.nameDescription}>
           <TextComponent text={name} styles={styles.username} />
-          {console.log(description, 'aklsdjalksdjfklajsd')}
           <TextComponent
-            text={` ${description ?? 'Interested'} in your `}
+            text={` ${description} in your `}
+            styles={styles.description}
+          />
+          <TextComponent text={`${prpertyType} `} styles={styles.username} />
+          <TextComponent
+            text={`and want to talk `}
             styles={styles.description}
           />
         </Text>
@@ -82,8 +94,8 @@ const styles = StyleSheet.create({
     borderRadius: Math.round(
       Dimensions.get('window').width + Dimensions.get('window').height,
     ),
-    width: Dimensions.get('window').width * 0.15,
-    height: Dimensions.get('window').width * 0.15,
+    width: Dimensions.get('window').width * 0.12,
+    height: Dimensions.get('window').width * 0.12,
   },
   nameDescriptionMain: {
     width: wp('55'),

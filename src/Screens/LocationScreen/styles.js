@@ -17,13 +17,11 @@ export const styles = StyleSheet.create({
     height: hp('7'),
     width: wp('90'),
     alignSelf: 'center',
-    borderWidth: 0.6,
     flexDirection: 'row', // Added to align icon and input
     alignItems: 'center',
     position: 'absolute',
     top: height > 667 ? hp('10') : hp('13'),
     zIndex: -1,
-    overflow: 'hidden',
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -67,8 +65,8 @@ export const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 15,
     width: wp('90'),
+    height: hp('40'),
     alignSelf: 'center',
-    borderWidth: 0.6,
 
     zIndex: 0,
     marginLeft: wp('1'),
@@ -95,6 +93,7 @@ export const styles = StyleSheet.create({
     width: wp('90'),
     alignSelf: 'center',
     marginBottom: hp('5'),
+    marginTop: hp('10'),
     shadowColor: '#000000',
     shadowOffset: {
       width: 0,

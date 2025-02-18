@@ -16,6 +16,7 @@ const FilterAddButton = ({
   tintColor,
   isRequired,
   locations,
+  adjustsFontSizeToFit,
 }) => {
   const renderItem = ({item, index}) => {
     return (
@@ -39,7 +40,11 @@ const FilterAddButton = ({
             style={[styles.image, {...imgStyle}]}
           />
         )}
-        <TextComponent styles={{...styles.text, ...textStyle}} text={title} />
+        <TextComponent
+          adjustsFontSizeToFit={adjustsFontSizeToFit ?? true}
+          styles={{...styles.text, ...textStyle}}
+          text={title}
+        />
       </Touchable>
       {locations?.length > 0 && (
         <FlatList

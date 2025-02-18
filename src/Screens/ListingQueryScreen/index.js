@@ -24,15 +24,10 @@ const ListingQueryScreen = ({navigation, route}) => {
         image={imageUrl(item?.profilePicture)}
         name={capitalizeFirstLetter(item?.name)}
         description={item?.answer}
+        prpertyType={item?.ad?.category}
         time={item?.createdAt}
         onPress={() => {
           toSeeDetails(item);
-          // navigation.navigate('HeaderDetailScreen', {
-          //   userDetail: item,
-          //   adDetail: queryData?.ad,
-          // });
-          //   onCancel(coinAlert, 'coinAlert', index, item);
-          // onCancel(item);
         }}
       />
     );

@@ -310,12 +310,13 @@ const AddPostScreen = ({navigation, route}) => {
                 textStyle={styles.locationBtnText}
                 image={search}
                 isRequired={true}
+                adjustsFontSizeToFit={false}
                 title={
                   (location && (
                     <TextComponent
-                      numberOfLines={2}
                       styles={styles.location}
                       text={location}
+                      numberOfLines={1}
                     />
                   )) || (
                     <TextComponent
