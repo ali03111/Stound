@@ -38,6 +38,9 @@ import {Colors} from '../../Theme/Variables';
 import {imageURL, imageUrl} from '../../Utils/Urls';
 import {GiftedChat} from 'react-native-gifted-chat';
 import {firebase} from '@react-native-firebase/firestore';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import DetailsUiComponent from '../../Components/DetailsUiComponent';
 
 const index = ({navigation, route}) => {
   const {
@@ -53,24 +56,47 @@ const index = ({navigation, route}) => {
 
   const Item = route.params;
   const imageLenght = Item?.adDetail?.photos?.length;
+  console.log('itemitemitemitemitemitemitemitemitem', Item?.adDetail);
+
+  const propertyDetails = [
+    {id: '1', icon: 'bath', text: `${Item?.adDetail?.bathrooms} Baths`}, // FontAwesome5
+    {id: '2', icon: 'bed', text: `${Item?.adDetail?.rooms} Beds`}, // FontAwesome5
+    {id: '3', icon: 'square-foot', text: `${Item?.adDetail?.areaSize} sqft`}, // MaterialIcons
+  ];
+
   console.log({routeparam: Item});
   const renderItem = useCallback(({item, index}) => {
     return (
       index > 0 &&
-      index < 4 && (
-        <ImageBackground
-          resizeMode="cover"
-          source={{uri: imageUrl(item)}}
-          style={styles.secondImage(index)}>
-          {index == 3 && (
-            <View style={styles.overlayView}>
-              <TextComponent
-                text={`+${imageLenght - 4}`}
-                styles={styles.overlayText}
-              />
-            </View>
-          )}
-        </ImageBackground>
+      index < 5 && (
+        <Touchable onPress={() => setImageModal(true)}>
+          <BlurBackground
+            uri={imageUrl(item)}
+            styles={styles.secondImage(index)}>
+            {index == 4 && (
+              <View style={styles.overlayView}>
+                <TextComponent
+                  text={`+${imageLenght - 5}`}
+                  styles={styles.overlayText}
+                />
+              </View>
+            )}
+          </BlurBackground>
+        </Touchable>
+
+        // <ImageBackground
+        //   resizeMode="cover"
+        //   source={{uri: imageUrl(item)}}
+        //   style={styles.secondImage(index)}>
+        //   {index == 3 && (
+        //     <View style={styles.overlayView}>
+        //       <TextComponent
+        //         text={`+${imageLenght - 4}`}
+        //         styles={styles.overlayText}
+        //       />
+        //     </View>
+        //   )}
+        // </ImageBackground>
       )
     );
   }, []);
@@ -332,6 +358,35 @@ const index = ({navigation, route}) => {
             />
           </View> */}
 
+          <TextComponent
+            styles={styles.propertyText}
+            text={'Property Details '}
+          />
+          <FlatList
+            data={propertyDetails}
+            horizontal
+            keyExtractor={item => item.id}
+            contentContainerStyle={styles.list}
+            renderItem={({item}) => (
+              <View style={styles.detailBox}>
+                {item.icon === 'square-foot' ? (
+                  <MaterialIcons
+                    name={item.icon}
+                    size={16}
+                    color={Colors.primaryTextColor}
+                  />
+                ) : (
+                  <FontAwesome5
+                    name={item.icon}
+                    size={16}
+                    color={Colors.primaryTextColor}
+                  />
+                )}
+                <Text style={styles.text}>{item.text}</Text>
+              </View>
+            )}
+          />
+
           <View style={{marginBottom: hp('1.5')}}>
             <TextComponent text={'Description'} styles={styles.pTitle} />
             <ScrollView
@@ -339,7 +394,30 @@ const index = ({navigation, route}) => {
               <Text style={styles.desText}>{Item?.adDetail?.description}</Text>
             </ScrollView>
           </View>
-          <TextComponent
+          {
+            Item?.adDetail?.generalPref.length > 0 && (
+              <DetailsUiComponent
+                heading={'Preferences'}
+                list={[
+                  ...Item?.adDetail?.generalPref,
+                  ...Item?.adDetail?.outsidePref,
+                  ...Item?.adDetail?.insidePref,
+                ]}
+              />
+            )
+            //  : (
+            //   <DetailsUiComponent
+            //     heading={''}
+            //     list={[
+            //       ...Item?.adDetail?.generalPref,
+            //       ...Item?.adDetail?.outsidePref,
+            //       ...Item?.adDetail?.insidePref,
+            //     ]}
+            //   />
+            // )
+          }
+
+          {/* <TextComponent
             // onPress={() => onSend('Hello World')}
             text={'General Preferences'}
             styles={styles.headingStyle}
@@ -361,9 +439,9 @@ const index = ({navigation, route}) => {
                 </>
               );
             }}
-          />
+          /> */}
 
-          <TextComponent
+          {/* <TextComponent
             text={'Outside Preferences'}
             styles={{...styles.headingStyle, marginTop: hp('2')}}
           />
@@ -384,8 +462,8 @@ const index = ({navigation, route}) => {
                 </>
               );
             }}
-          />
-          <TextComponent
+          /> */}
+          {/* <TextComponent
             onPress={() => onSend(firstMsg)}
             text={'Inside Preferences'}
             styles={{...styles.headingStyle, marginTop: hp('2')}}
@@ -407,7 +485,7 @@ const index = ({navigation, route}) => {
                 </>
               );
             }}
-          />
+          /> */}
         </View>
       </ScrollView>
     </>

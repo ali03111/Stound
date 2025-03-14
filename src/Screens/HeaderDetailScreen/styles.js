@@ -1,6 +1,6 @@
 import {StyleSheet} from 'react-native';
 import {hp, wp} from '../../Config/responsive';
-import {Colors, FontSize} from '../../Theme/Variables';
+import {Colors, FontFamily, FontSize, scaleFont} from '../../Theme/Variables';
 
 export const styles = StyleSheet.create({
   SocialBoxContainer: {
@@ -14,14 +14,14 @@ export const styles = StyleSheet.create({
   },
 
   input: {
-    height:120,
+    height: 120,
     margin: 20,
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderColor: 'gray',
     borderWidth: 1,
 
-    color:'black'
+    color: 'black',
   },
 
   descriptionScrollContainer: {
@@ -29,7 +29,7 @@ export const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'rgba(11, 180, 255, 0.3)',
     borderRadius: 10,
-    backgroundColor: 'rgb(248, 248, 248)',
+    backgroundColor: 'rgba(11, 180, 255, 0.03)',
   },
   // desText: {
   //   color: 'gray',
@@ -88,8 +88,8 @@ export const styles = StyleSheet.create({
   },
   topContainer: {
     marginTop: hp('2'),
-    marginLeft:wp('3'),
-    marginRight:wp('2.5'),
+    marginLeft: wp('3'),
+    marginRight: wp('2.5'),
 
     paddingBottom: hp('5'),
   },
@@ -146,7 +146,7 @@ export const styles = StyleSheet.create({
   locationMain: {
     flexDirection: 'row',
 
-    marginVertical:hp('2')
+    marginVertical: hp('2'),
     // paddingHorizontal: wp('1'),
   },
   locationText: {
@@ -165,7 +165,7 @@ export const styles = StyleSheet.create({
     flex: 0.8,
     fontWeight: '600',
     fontSize: FontSize.scale24,
-    color:Colors.primaryTextColor
+    color: Colors.primaryTextColor,
   },
   forRent: {
     flex: 0.3,
@@ -180,7 +180,6 @@ export const styles = StyleSheet.create({
     paddingHorizontal: wp('2.5'),
     marginRight: wp('2'),
     marginBottom: hp('1'),
-
   },
   btns: {
     flexDirection: 'row',
@@ -279,19 +278,19 @@ export const styles = StyleSheet.create({
     fontSize: hp('1.5'),
   },
   button: {
-    padding:10,
-    height:hp('12'),
+    padding: 10,
+    height: hp('12'),
     borderWidth: 1,
     borderColor: 'rgba(11, 180, 255, 0.3)',
     borderRadius: 10,
     backgroundColor: 'rgb(248, 248, 248)',
-    color:'black'
+    color: 'black',
   },
   // pTitle: {
   //   fontSize: hp('1.7'),
   //   // fontWeight: '600',
   //   color: Colors.primaryTextColor,
-  
+
   //   marginBottom: hp('1'),
   // },
   desText: {
@@ -303,5 +302,27 @@ export const styles = StyleSheet.create({
     marginTop: hp('1'),
     marginLeft: wp('3'),
     marginRight: wp('2'),
+  },
+  detailBox: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    borderWidth: 1,
+    borderColor: 'rgba(11, 180, 255, 0.3)',
+    borderRadius: 10,
+    backgroundColor: 'rgba(11, 180, 255, 0.03)',
+    marginBottom: hp('2'),
+  },
+  propertyText: {
+    fontSize: scaleFont(16),
+    fontFamily: FontFamily.semiBold,
+    color: Colors.primaryTextColor,
+    marginBottom: hp('1.5'),
+  },
+  list: {
+    flexDirection: 'row',
+    gap: 10,
   },
 });

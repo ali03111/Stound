@@ -70,11 +70,11 @@ const useHeaderDetailScreen = ({navigate}, {params}) => {
     }
   };
 
-  useEffect(() => {
-    {
-      !coinUsed ? useCoin() : null;
-    }
-  }, []);
+  // useEffect(() => {
+  //   {
+  //     !coinUsed ? useCoin() : null;
+  //   }
+  // }, []);
 
   return {
     PackageDetailData,

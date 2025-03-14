@@ -241,6 +241,7 @@ const useAddPostScreen = ({navigate}, {params}) => {
         true,
       );
       console.log('data', data);
+      console.log('skldbvklbsdlkvblksdbvklsdbvsbdkvbsdklvds', data);
       if (ok) {
         updateState({
           images: [],
@@ -253,7 +254,7 @@ const useAddPostScreen = ({navigate}, {params}) => {
           location: '',
           number,
         });
-        // reset();
+        reset();
         dispatch(loadingFalse());
         successMessage(data?.message || 'Your Ad has been created ');
         navigationRef.goBack();

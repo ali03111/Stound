@@ -35,7 +35,7 @@ const Notification = ({navigation}) => {
   console.log(notificationDataState, 'asldkjfklaasdasdsdfjlkdjsf');
   const renderItem = useCallback(
     ({item: {displayNotification}, item, index}) => {
-      console.log(item, index, 'asdklajklsasdasdjakls');
+      console.log(item, index, 'asdklajklssdvsdvsddsfsdasdasdjakls');
       return (
         <View style={styles.notification}>
           <NotificationComp
@@ -43,6 +43,7 @@ const Notification = ({navigation}) => {
             name={displayNotification?.name}
             description={displayNotification?.answer}
             time={item?.createdAt}
+            prpertyType={item?.userDetail?.category ?? item?.adDetail?.category}
             onPress={() => {
               onCancel(coinAlert, 'coinAlert', index, item);
               // onCancel(item);
