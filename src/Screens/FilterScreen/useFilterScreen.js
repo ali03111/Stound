@@ -8,7 +8,7 @@ import axios from 'axios';
 import useFormHook from '../../Hooks/UseFormHooks';
 import {squarefoot} from '../../Assets';
 
-const useFilterScreen = ({navigate}) => {
+const useFilterScreen = ({navigate, goBack}, {params}) => {
   // Start Dropdown
   const bathRooms = ['1', '2', '3', '4', '5', '6', '7+'];
   const bedRooms = ['1', '2', '3', '4', '5', '6', '7+'];
@@ -18,6 +18,7 @@ const useFilterScreen = ({navigate}) => {
   const [countryData, setCountryData] = useState([]);
   const [stateData, setStateData] = useState([]);
   const [cityData, setCityData] = useState([]);
+  const [filter, setFilter] = useState(true);
 
   const [country, setCountry] = useState(null);
   const [state, setState] = useState(null);
@@ -242,46 +243,46 @@ const useFilterScreen = ({navigate}) => {
   );
   const filterAdsDataFunction = async () => {
     console.log();
-    if (cat != null) {
-      const body = {
-        adType,
-        category: cat,
-        rooms: bedRoom,
-        bathrooms: bathRoom,
-        generalPref: getAllID(gp),
-        insidePref: getAllID(ip),
-        outsidePref: getAllID(op),
-        location,
-        minPrice: priceLow,
-        maxPrice: priceHigh,
-        minAreaSize: squareFootLow,
-        maxAreaSize: squareFootHigh,
-      };
-      console.log('h12312eheha;', body);
-      const {ok, data, originalError} = await API.post(FilterAdsUrl, body);
-      console.log('h12312eh121121eh;', ok, data, originalError);
+    const body = {
+      adType,
+      category: cat,
+      rooms: bedRoom,
+      bathrooms: bathRoom,
+      generalPref: getAllID(gp),
+      insidePref: getAllID(ip),
+      outsidePref: getAllID(op),
+      location,
+      minPrice: priceLow,
+      maxPrice: priceHigh,
+      minAreaSize: squareFootLow,
+      maxAreaSize: squareFootHigh,
+    };
+    console.log('h12312eheha;', body);
+    const {ok, data, originalError} = await API.post(FilterAdsUrl, body);
+    console.log('h12312eh121121eh;', ok, data, originalError);
 
-      const body1 = {
-        generalPrefIds: getAllID(gp),
-        insidePrefIds: getAllID(ip),
-        outsidePrefIds: getAllID(op),
-        categoryId: cat,
-        adType,
-      };
-      console.log('body1', body1);
-      const response = await API.post(savePreUrl, body1);
-      console.log('preferences data post filter', response);
+    const body1 = {
+      generalPrefIds: getAllID(gp),
+      insidePrefIds: getAllID(ip),
+      outsidePrefIds: getAllID(op),
+      categoryId: cat,
+      adType,
+    };
+    console.log('body1', body1);
+    const response = await API.post(savePreUrl, body1);
+    console.log('preferences data post filter', response);
 
-      if (ok) {
-        navigate('FilterPackageScreen', {items: data});
-        // successMessage(data?.message || 'Your Ad has been created ');
-      } else {
-        console.log('dfdfa', originalError, data);
-        errorMessage(originalError?.message?.split(' ')?.slice(1)?.join(' '));
-      }
+    if (ok) {
+      setFilter(true);
+      setTimeout(() => {
+        params?.updateFuntion(data?.data ?? [], filter);
+      }, 100);
+      goBack();
+      // navigate('FilterPackageScreen', {items: data});
+      // successMessage(data?.message || 'Your Ad has been created ');
     } else {
-      dispatch(loadingFalse());
-      errorMessage(`Please make sure to select a "Property Type"`);
+      console.log('dfdfa', originalError, data);
+      errorMessage(originalError?.message?.split(' ')?.slice(1)?.join(' '));
     }
   };
 
@@ -323,6 +324,7 @@ const useFilterScreen = ({navigate}) => {
     sliderRef1.current?.resetSlider();
     setStateData([]);
     setCityData([]);
+    setFilter(false);
   }, []);
   const onSelectMultiTag = (item, key) => {
     setPreferencesVal(prev => {

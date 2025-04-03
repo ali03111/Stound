@@ -24,6 +24,7 @@ const useHomeScreen = ({navigate, params, addListener}) => {
   const [showAlert, setShowAlert] = useState(false);
   const [homeData, setHomeData] = useState([]);
   const [text, onChangeText] = useState('');
+  const [isFilter, setIsFilter] = useState(false);
   const [trending, setTrending] = useState(false);
   console.log('trending', trending);
 
@@ -116,7 +117,7 @@ const useHomeScreen = ({navigate, params, addListener}) => {
 
   const useEffectFun = () => {
     const event = addListener('focus', () => {
-      getHomeData(trending); // Use the state `trending` directly
+      if (!isFilter) getHomeData(); // Use the state `trending` directly
     });
     return event;
   };
@@ -128,6 +129,13 @@ const useHomeScreen = ({navigate, params, addListener}) => {
     else {
       errorMessage(data.message || 'request failed');
     }
+  };
+
+  const updateAccordingToFilter = (data, isfil) => {
+    console.log('jklsdvblksbdlvbsdklbvklsdbvklbsdklv', isfil, data);
+    setIsFilter(isfil);
+    if (isfil) setHomeData(data);
+    else getHomeData();
   };
 
   //Search Property Lists With Api
@@ -194,6 +202,9 @@ const useHomeScreen = ({navigate, params, addListener}) => {
     trending,
     setTrending,
     toggleTrending,
+    updateAccordingToFilter,
+    setIsFilter,
+    isFilter,
   };
 };
 

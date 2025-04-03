@@ -100,3 +100,4 @@ export {default as trendingOutline} from './Icons/trending-outline.png';
 export {default as trending} from './Icons/trending.png';
 export {default as setting1} from './Icons/setting1.png';
 export {default as square_foot} from './Icons/square_foot.png';
+export {default as filterFilled} from './Icons/filterFilled.png';

@@ -35,9 +35,18 @@ const useNotificationScreen = ({navigate, addListener}) => {
   };
 
   const onCancel = (state, stateName, index, item) => {
-    console.log(isSub.current, 'onCancelalsdfjlaksdjfkl');
+    console.log(userData, item?.coinUsed, 'onCancelalsdfjdssdfsdfsdlaksdjfkl');
 
-    if (item?.coinUsed) {
+    // isSub.current = true;
+
+    // // If the user is not subscribed, navigate to the BuyCoinScreen and pass isSub.
+    // navigate('BuyCoinScreen', {
+    //   items: notificationDataState[index],
+    //   isSub,
+    // });
+    // isSub.current = true;
+
+    if (item?.coinUsed == true) {
       // isSub.current = true;
 
       // If coin is used, navigate directly to the detail screen.
@@ -45,7 +54,7 @@ const useNotificationScreen = ({navigate, addListener}) => {
     } else if (userData?.isSubscribed) {
       // If the user is subscribed, set the state and navigate to the detail screen.
       updateState({[stateName]: !state, currentIndex: index});
-      navigate('HeaderDetailScreen', notificationDataState[index]);
+      // navigate('HeaderDetailScreen', notificationDataState[index]);
     } else {
       isSub.current = true;
 

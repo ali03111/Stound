@@ -58,6 +58,12 @@ const ChatScreen = ({navigation}) => {
       </View>
     );
   });
+
+  console.log(
+    'searchDatasearchDatasearchDatasearchDatasearchDatasearchData',
+    searchData,
+  );
+
   return (
     <View style={styles.notificationMain}>
       <Header

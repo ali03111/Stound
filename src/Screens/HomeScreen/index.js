@@ -26,6 +26,7 @@ import {
   setting1,
   trendingOutline,
   trending as notTrending,
+  filterFilled,
 } from '../../Assets';
 
 import * as Animatable from 'react-native-animatable';
@@ -66,6 +67,9 @@ const HomeScreen = ({navigation}) => {
     trending,
     toggleTrending,
     setTrending,
+    updateAccordingToFilter,
+    setIsFilter,
+    isFilter,
   } = useHomeScreen(navigation);
 
   // console.log('cccc',onBoardinData);
@@ -75,7 +79,7 @@ const HomeScreen = ({navigation}) => {
     return (
       <HomeCard
         userName={`${item?.userDetail?.name}`}
-        image={imageUrl(item.photos[0])}
+        image={imageUrl(item?.photos[0])}
         profile={imageUrl(item.userDetail.profilePicture)}
         bath={`${item?.bathrooms} Baths`}
         Beds={`${item?.rooms} Rooms`}
@@ -106,10 +110,18 @@ const HomeScreen = ({navigation}) => {
           />
           <View style={styles.searchIcons}>
             <Touchable
-              onPress={() => navigation.navigate('FilterScreen')}
+              onPress={() => {
+                navigation.navigate('FilterScreen', {
+                  updateFuntion: updateAccordingToFilter,
+                });
+                setIsFilter(true);
+              }}
               style={styles.rightIcon}>
               {/* <Image source={setting} style={styles.setting} /> */}
-              <Image source={setting1} style={styles.setting1} />
+              <Image
+                source={isFilter ? filterFilled : setting1}
+                style={styles.setting1}
+              />
             </Touchable>
             {/* {notificationLength.length > 0 ? (
               <Touchable

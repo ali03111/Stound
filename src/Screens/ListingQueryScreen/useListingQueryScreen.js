@@ -37,6 +37,7 @@ const useListingQueryScreen = ({navigate}, {params}) => {
         userDetail: item,
         adDetail: listingRef.current?.ad,
         coinUsed: true,
+        adId: params?.adId,
       });
     } else if (userData?.isSubscribed) {
       // If the user is subscribed, set the state and navigate to the detail screen.
@@ -44,6 +45,7 @@ const useListingQueryScreen = ({navigate}, {params}) => {
         userDetail: item,
         adDetail: listingRef.current?.ad,
         coinUsed: true,
+        adId: params?.adId,
       });
     } else {
       // If the user is not subscribed, navigate to the BuyCoinScreen and pass isSub.

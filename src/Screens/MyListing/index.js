@@ -24,10 +24,13 @@ const MyListing = ({navigation}) => {
           bathrooms={item?.bathrooms}
           rooms={item?.rooms}
           squareFeet={item?.areaSize}
+          image={item?.photos[0]}
           onPressInquires={() =>
             navigation.navigate('ListingQueryScreen', item)
           }
-          onPressEdit={() => navigation.navigate('AddPostScreen', item)}
+          onPressEdit={() =>
+            navigation.navigate('AddPostScreen', JSON.stringify(item))
+          }
         />
       </View>
     );

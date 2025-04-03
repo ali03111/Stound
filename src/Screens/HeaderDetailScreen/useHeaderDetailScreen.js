@@ -1,4 +1,4 @@
-import {Alert, Linking} from 'react-native';
+import {Alert, Linking, Platform} from 'react-native';
 import {PackageDetailData} from '../../Utils/localDB';
 import {useEffect, useCallback} from 'react';
 import API from '../../Utils/helperFunc';
@@ -36,9 +36,11 @@ const useHeaderDetailScreen = ({navigate}, {params}) => {
   };
 
   const navigationChatScreen = item => {
+    console.log('itemitemitemitemitemitemitemitemitemitemitem', item);
     navigate('MessagesScreen', {
       id: item.userDetail.agoraId,
       userDetail: item.userDetail,
+      adId: item?.adDetail?.adId,
     });
     // navigate('MessagesScreen', {id: users[0]?.userId, userDetail: users[0]});
   };

@@ -1,4 +1,4 @@
-import React, {useState, useCallback, useEffect, memo} from 'react';
+import React, {useState, useCallback, useEffect, memo, useRef} from 'react';
 import {
   Bubble,
   Composer,
@@ -19,12 +19,17 @@ import Feather from 'react-native-vector-icons/Feather';
 import {height} from '../../Navigation/bottomNavigation';
 import useReduxStore from '../../Hooks/UseReduxStore';
 import {messagesNotification} from '../../Redux/Action/messagesAction';
+import MyListingComp from '../../Components/MyListingComp';
+import {getSingleAdUrl} from '../../Utils/Urls';
+import API from '../../Utils/helperFunc';
+import {errorMessage} from '../../Config/NotificationMessage';
 const MessagesScreen = ({route, navigation}) => {
-  const {userData} = useMessagesScreen();
+  const {userData} = useMessagesScreen(route);
   const {
     id,
     userDetail: {name, profilePicture},
     userDetail,
+    adId,
   } = route?.params;
   const [messages, setMessages] = useState([]);
 
@@ -125,6 +130,7 @@ const MessagesScreen = ({route, navigation}) => {
             createdAt: item.data()?.createdAt.toDate(), //this line change only
           };
         });
+        setMsgId(allMsg[0]?.adId);
         setMessages(allMsg);
       });
     return () => subscriber();
@@ -134,6 +140,7 @@ const MessagesScreen = ({route, navigation}) => {
     const msg = messages[0];
     const myMsg = {
       ...msg,
+      adId: adDetails?.adId ?? route?.params?.adId ?? adId,
       // sentBy: userData.agoraId,
       sentBy: userData.agoraId,
       receivedBy: id,
@@ -143,6 +150,7 @@ const MessagesScreen = ({route, navigation}) => {
         'https://res.cloudinary.com/dd6tdswt5/image/upload/v1684830799/UserImages/mhysa2zj0sbmvnw69b35.jpg',
     };
     setMessages(previousMessages => GiftedChat.append(previousMessages, myMsg));
+    setMsgId(myMsg?.adId);
     console.log(myMsg, 'MYMessage File');
     firebase
       .firestore()
@@ -245,6 +253,40 @@ const MessagesScreen = ({route, navigation}) => {
       });
   }, []);
 
+  console.log(
+    'dlsgfvdslvilsdgilvdgsivbilsdblvsdfsdgsdgvsdgsdgsdbsdklb',
+    adDetails?.adId ?? route?.params?.adId ?? adId ?? messages[0]?.adId,
+  );
+
+  const mesgRef = useRef(
+    adDetails?.adId ?? route?.params?.adId ?? adId ?? messages[0]?.adId,
+  );
+
+  const [adDetails, setAdDetails] = useState({});
+  const [msgId, setMsgId] = useState(
+    adDetails?.adId ?? route?.params?.adId ?? adId ?? messages[0]?.adId,
+  );
+
+  const getHomeData = async () => {
+    const url = getSingleAdUrl + msgId;
+    console.log('urlurlurlurlurlurlurlurlurlurlurlurlurlurlurlurl', url);
+    const {ok, data} = await API.get(url);
+    // const {ok, data} = await API.get(getAdsUrl);
+    console.log(JSON.stringify(data?.data), 'alksjdlkajsdlfkjaklsd');
+    if (ok) {
+      setAdDetails(data?.data);
+    }
+  };
+
+  useEffect(() => {
+    getHomeData();
+  }, [msgId]);
+
+  console.log(
+    'messagesmessagesmessagesmessagesmessagesmessagesmessagesmessagesmessages',
+    messages,
+  );
+
   return (
     <View
       style={{
@@ -258,6 +300,24 @@ const MessagesScreen = ({route, navigation}) => {
         arrowBackIcon={arrowbackwhite}
         // icon={whitedots}
         centerTextStyle={styles.centerHeading}
+      />
+      <MyListingComp
+        bathrooms={adDetails?.bathrooms}
+        location={adDetails?.location}
+        price={adDetails?.price}
+        title={adDetails?.title}
+        rooms={adDetails?.rooms}
+        squareFeet={adDetails?.areaSize}
+        mainViewStyles={{alignSelf: 'center', height: hp('20')}}
+        image={adDetails?.photos ? adDetails?.photos[0] : null}
+        onPressView={() =>
+          navigation.navigate('PackageDetailsScreen', {
+            items: {
+              ...adDetails,
+              isShow: true,
+            },
+          })
+        }
       />
       <GiftedChat
         alwaysShowSend={false}

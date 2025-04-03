@@ -55,7 +55,10 @@ const AccountScreen = ({navigation}) => {
             onPress={() => dynamicNav('EditProfileScreen')}
             userData={userData}
           />
-          <CoinsComponent RemainingCoins={userData?.coins} />
+          <CoinsComponent
+            RemainingCoins={userData?.coins}
+            onPress={() => navigation.navigate('BuyCoinScreen', {isSub: true})}
+          />
           <ProfileButton
             onPress={() => dynamicNav('MyListing')}
             title={'My Listing'}

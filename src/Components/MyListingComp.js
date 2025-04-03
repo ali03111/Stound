@@ -11,6 +11,7 @@ import {
 import {hp, wp} from '../Config/responsive';
 import {bathtub, bed, locationIcon, scaleIcon, square_foot} from '../Assets';
 import {Touchable} from './Touchable';
+import {imageUrl} from '../Utils/Urls';
 
 const DetailButton = ({title, onPress, hide, style, textStyle}) => {
   return (
@@ -34,6 +35,9 @@ const MyListingComp = ({
   squareFeet,
   onPressInquires,
   onPressEdit,
+  image,
+  mainViewStyles,
+  onPressView,
 }) => {
   return (
     <>
@@ -42,86 +46,101 @@ const MyListingComp = ({
           borderRadius: 10,
           width: wp('93'),
           overflow: 'hidden',
-          paddingVertical: hp('3'),
-          paddingHorizontal: wp('3'),
+          ...mainViewStyles,
+          // opacity: 0.5,
         }}
-        source={require('../Assets/Images/property1.png')}
-        //   blurRadius={1} for blur
-      >
-        <View>
-          <Text style={styles.price}>
-            ${price}/
-            <TextComponent
-              text={`month`}
-              styles={{
-                fontFamily: FontFamily.semiBold,
-                fontSize: scaleFont(12),
-                color: Colors.white,
-              }}
-            />
-          </Text>
-          <TextComponent text={`${title}`} styles={styles.apartitle} />
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              marginTop: hp('2'),
-              width: wp('60'),
-            }}>
-            <Image
-              resizeMode="contain"
-              style={styles.loc}
-              source={locationIcon}
-            />
-            {/* {location && ( */}
-            <TextComponent
-              numberOfLines={2}
-              // text={locationName}
-              text={location}
-              styles={styles.userlocation}
-            />
-            {/* )} */}
-          </View>
-          <View style={styles.cardFooter}>
+        source={{uri: imageUrl(image)}}
+        blurRadius={1}>
+        <View
+          style={{
+            backgroundColor: Colors.placeholderText,
+            paddingVertical: hp('3'),
+            paddingHorizontal: wp('3'),
+          }}>
+          <View>
+            <Text style={styles.price}>
+              ${price}/
+              <TextComponent
+                text={`month`}
+                styles={{
+                  fontFamily: FontFamily.semiBold,
+                  fontSize: scaleFont(12),
+                  color: Colors.white,
+                }}
+              />
+            </Text>
+            <TextComponent text={`${title}`} styles={styles.apartitle} />
             <View
               style={{
                 flexDirection: 'row',
-                justifyContent: 'space-between',
+                alignItems: 'center',
+                marginTop: hp('2'),
+                width: wp('60'),
               }}>
-              <View style={styles.cardTopRight}>
-                <Image source={bathtub} style={styles.icon} />
-                <TextComponent
-                  text={bathrooms + ' Bath'}
-                  styles={styles.bath}
-                />
+              <Image
+                resizeMode="contain"
+                style={styles.loc}
+                source={locationIcon}
+              />
+              {/* {location && ( */}
+              <TextComponent
+                numberOfLines={2}
+                // text={locationName}
+                text={location}
+                styles={styles.userlocation}
+              />
+              {/* )} */}
+            </View>
+            {onPressView && (
+              <View style={styles.inquires}>
+                <DetailButton title={'View'} onPress={onPressView} />
+              </View>
+            )}
+            <View style={styles.cardFooter}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                }}>
+                <View style={styles.cardTopRight}>
+                  <Image source={bathtub} style={styles.icon} />
+                  <TextComponent
+                    text={bathrooms + ' Bath'}
+                    styles={styles.bath}
+                  />
 
-                <Image source={bed} style={styles.icon} />
-                <TextComponent text={rooms + ' Bed'} styles={styles.bath} />
+                  <Image source={bed} style={styles.icon} />
+                  <TextComponent text={rooms + ' Bed'} styles={styles.bath} />
 
-                <Image
-                  source={square_foot}
-                  style={{
-                    width: wp('2.6'),
-                    tintColor: Colors.white,
-                    resizeMode: 'contain',
-                    height: hp('1.3'),
-                    marginLeft: wp('2'),
-                    marginRight: wp('1.0'),
-                  }}
-                />
-                <TextComponent
-                  text={squareFeet + ' Sqft'}
-                  styles={styles.bath}
-                />
+                  <Image
+                    source={square_foot}
+                    style={{
+                      width: wp('2.6'),
+                      tintColor: Colors.white,
+                      resizeMode: 'contain',
+                      height: hp('1.3'),
+                      marginLeft: wp('2'),
+                      marginRight: wp('1.0'),
+                    }}
+                  />
+                  <TextComponent
+                    text={squareFeet + ' Sqft'}
+                    styles={styles.bath}
+                  />
+                </View>
               </View>
             </View>
           </View>
-        </View>
-        <View style={styles.inquires}>
-          <DetailButton title={'Inquiries'} onPress={onPressInquires} />
-        </View>
-        <View style={styles.edit}>
-          <DetailButton title={'Edit'} onPress={onPressEdit} />
+          {onPressInquires && (
+            <View style={styles.inquires}>
+              <DetailButton title={'Inquiries'} onPress={onPressInquires} />
+            </View>
+          )}
+          {onPressEdit && (
+            <View style={styles.edit}>
+              <DetailButton title={'Edit'} onPress={onPressEdit} />
+            </View>
+          )}
         </View>
       </ImageBackground>
     </>
@@ -192,7 +211,7 @@ const styles = StyleSheet.create({
     width: wp('4.5'),
     tintColor: Colors.white,
     marginRight: wp('1'),
-    aspectRatio: 1,
+    // aspectRatio: 1,
     fontFamily: 'Nunito_Medium',
     alignSelf: 'flex-start',
   },

@@ -13,7 +13,10 @@ const {default: Schemas} = require('../../Utils/Validation');
 
 const useAddPostScreen = ({navigate}, {params}) => {
   const item = params;
-  console.log('item123123123', item);
+
+  const itemsData = JSON.parse(item ?? '{}');
+
+  console.log('item123123123', itemsData);
 
   const {dispatch, getState} = useReduxStore();
 
@@ -23,10 +26,10 @@ const useAddPostScreen = ({navigate}, {params}) => {
   const bedRooms = ['1', '2', '3', '4', '5', '6', '7+'];
   const {handleSubmit, errors, reset, control, getValues, resetField} =
     useFormHook(Schemas.addPost, {
-      title: item?.title ?? '',
-      desc: item?.description ?? '',
-      number: item?.price?.toString() ?? '',
-      areaSize: item?.areaSize?.toString() ?? '',
+      title: itemsData?.title ?? '',
+      desc: itemsData?.description ?? '',
+      number: itemsData?.price?.toString() ?? '',
+      areaSize: itemsData?.areaSize?.toString() ?? '',
     });
   // Retrieve values of form fields
   const title = getValues('title');
@@ -40,30 +43,32 @@ const useAddPostScreen = ({navigate}, {params}) => {
   const [stateData, setStateData] = useState([]);
   const [cityData, setCityData] = useState([]);
 
-  const [country, setCountry] = useState(item?.country_code?.toUpperCase());
+  const [country, setCountry] = useState(
+    itemsData?.country_code?.toUpperCase(),
+  );
   const [state, setState] = useState(null);
   const [city, setCity] = useState(null);
-  const [countryName, setCountryName] = useState(item?.country);
+  const [countryName, setCountryName] = useState(itemsData?.country);
   const [stateName, setStateName] = useState(null);
   const [cityName, setCityName] = useState(null);
   const [isFocus, setIsFocus] = useState(false);
   const [isFocus1, setIsFocus1] = useState(false);
   const [isFocus2, setIsFocus2] = useState(false);
-  const [category, setCategory] = useState(item?.category);
-  console.log(item, 'aklsdfjalsdjflkdjs');
+  const [category, setCategory] = useState(itemsData?.category);
+  console.log(itemsData, 'aklsdfjalsdjflkdjs');
 
   const [preferencesData, setPreferencesData] = useState([]);
   const [preferencesVal, setPreferencesVal] = useState({
-    adType: item?.adType ?? 'Rent',
-    gp: item?.generalPref ?? [],
-    ip: item?.insidePref ?? [],
-    op: item?.outsidePref ?? [],
-    cat: item?.categoryDetail?.categoryId ?? null,
-    bedRoom: item?.rooms || 1,
-    bathRoom: item?.bathrooms || 1,
-    images: [],
-    location: item?.location,
-    uploadedImages: item?.photos ?? [],
+    adType: itemsData?.adType ?? 'Rent',
+    gp: itemsData?.generalPref ?? [],
+    ip: itemsData?.insidePref ?? [],
+    op: itemsData?.outsidePref ?? [],
+    cat: itemsData?.categoryDetail?.categoryId ?? null,
+    bedRoom: itemsData?.rooms || 1,
+    bathRoom: itemsData?.bathrooms || 1,
+    images: itemsData?.photos ?? [],
+    location: itemsData?.location,
+    uploadedImages: itemsData?.photos ?? [],
   });
   console.log(preferencesData, 'asjdfklajsdflkjsdflkj');
   const {
@@ -83,6 +88,7 @@ const useAddPostScreen = ({navigate}, {params}) => {
 
   const getPreferences = async () => {
     const {ok, data, originalError} = await API.get(getPreUrl);
+    console.log('kjsdvjkvoibvildbvlksbdklvbklsdbvklbdsklvbs', data);
     if (ok) setPreferencesData(data);
     else errorMessage(originalError);
   };
@@ -202,7 +208,22 @@ const useAddPostScreen = ({navigate}, {params}) => {
   };
 
   const postEditData = async ({title, desc, number}) => {
-    console.log('edit post');
+    console.log('edit post', {
+      adId: itemsData?.adId,
+      title: title,
+      rooms: bedRoom,
+      description: desc,
+      bathrooms: bathRoom,
+      location,
+      generalPref: getAllID(gp),
+      insidePref: getAllID(ip),
+      outsidePref: getAllID(op),
+      category: cat,
+      photos: images,
+      oldImagesPaths: uploadedImages,
+      price: number,
+      adType,
+    });
     dispatch(loadingTrue());
 
     if (
@@ -218,7 +239,7 @@ const useAddPostScreen = ({navigate}, {params}) => {
         numberRegex.test(number))
     ) {
       const body = {
-        adId: item?.adId,
+        adId: itemsData?.adId,
         title: title,
         rooms: bedRoom,
         description: desc,
@@ -233,11 +254,11 @@ const useAddPostScreen = ({navigate}, {params}) => {
         price: number,
         adType,
       };
-      console.log('edit post body', body);
+      console.log('edit post body', JSON.stringify(body));
       const {ok, data, status, originalError, problem} = await formDataFunc(
         updateAdsUrl,
         body,
-        'photos',
+        images[0]?.uri ? 'photos' : 'd',
         true,
       );
       console.log('data', data);
@@ -277,7 +298,7 @@ const useAddPostScreen = ({navigate}, {params}) => {
   };
 
   const postData = async ({title, desc, number}) => {
-    if (params?.price) {
+    if (itemsData?.price) {
       postEditData({title, desc, number, areaSize});
     } else {
       postAddData({title, desc, number, areaSize});

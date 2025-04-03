@@ -67,12 +67,22 @@ const useChatScreen = ({navigate, goBack, addListener}) => {
   const getUsers = () => {
     dispatch(loadingTrue());
 
+    console.log(
+      'klsdnlksdnvklsnvnsdlknvsdnkvnsdnvnvdlksndvl;nsd',
+      userData?.agoraId,
+    );
+
     if (userData.agoraId) {
       // Create an array to store the user data
       const usersData = [];
 
       // Reference to the user's document
       const userRef = db.collection('users').doc(userData.agoraId);
+
+      console.log(
+        'userRefuserRefuserRefuserRefuserRefuserRefuserRefuserRefuserRef',
+        userRef,
+      );
 
       // Listen for changes to the user's chat data
       const unsubscribe = userRef.onSnapshot(async doc => {

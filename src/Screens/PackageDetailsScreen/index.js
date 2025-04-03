@@ -243,21 +243,23 @@ const PackageDetailsScreen = ({navigation, route}) => {
             </View>
           </View>
         </ScrollView>
-        <View style={styles.priceMain}>
-          <View style={styles.priceLeft}>
-            <TextComponent
-              text={'$' + price?.toLocaleString()}
-              styles={styles.price}
+        {!route?.params?.items?.isShow && (
+          <View style={styles.priceMain}>
+            <View style={styles.priceLeft}>
+              <TextComponent
+                text={'$' + price?.toLocaleString()}
+                styles={styles.price}
+              />
+              <TextComponent text={'Total price'} styles={styles.priceText} />
+            </View>
+            <MsgSendButton
+              onPress={askQuestion}
+              title={'Contact Now'}
+              style={styles.sendBtnStyle}
+              textStyle={styles.sendTextStyle}
             />
-            <TextComponent text={'Total price'} styles={styles.priceText} />
           </View>
-          <MsgSendButton
-            onPress={askQuestion}
-            title={'Contact Now'}
-            style={styles.sendBtnStyle}
-            textStyle={styles.sendTextStyle}
-          />
-        </View>
+        )}
       </View>
       <Modal animationType="none" transparent={true} visible={imageModal}>
         <StatusBar

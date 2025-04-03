@@ -121,6 +121,7 @@ const index = ({navigation, route}) => {
       _id: Item?.userDetail?.agoraId,
       createdAt: new Date(),
       text: 'Hi how can i help you!',
+      adId: Item?.adDetail?.adId,
       user: {
         _id: userData?.agoraId,
 
@@ -168,12 +169,13 @@ const index = ({navigation, route}) => {
   }, []);
 
   const onSend = useCallback((messages = []) => {
-    console.log(messages, 'asldfaASDASlskj');
+    console.log(Item?.adDetail?.adId, 'asldfasdfsdfsdfsdfdsdfsdfsdsASDASlskj');
     // [{"_id": "21d2cccd-debc-453e-9dd2-5786f9bba9b6", "createdAt": 2023-08-17T12:03:13.053Z, "text": "Wolrd", "user": {"_id": "407ccec0-c78e-49ec-89a8-6fdbef59e156", "createdAt": 2023-08-17T11:13:11.255Z}}]
     const msg = messages[0];
     const myMsg = {
       ...msg,
       // sentBy: userData.agoraId,
+      adId: Item?.adDetail?.adId,
       sentBy: userData.agoraId,
       receivedBy: Item?.userDetail.agoraId,
       createdAt: new Date(msg.createdAt),

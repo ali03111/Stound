@@ -51,3 +51,4 @@ export const iosAppUrl = 'inApp-ios';
 export const androidAppUrl = 'inApp-android';
 export const useCoinUrl = 'use-coin';
 export const interestedUserUrl = 'interested-users/';
+export const getSingleAdUrl = '/get-ad/';

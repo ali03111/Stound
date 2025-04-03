@@ -76,8 +76,7 @@ const index = ({navigation, route}) => {
     purchaseHistory, //return the purchase history of the user on the device (sandbox user in dev)
     getPurchaseHistory, //gets users purchase history
   } = useIAP();
-  const {items, isSub} = route.params;
-  console.log(isSub, 'asdkjfklsajfaaaaklj');
+  const {isSub} = route.params;
   const [loading, setLoading] = useState(false);
   const [isPurchasing, setIsPurchasing] = useState(false);
   const handleGetPurchaseHistory = async () => {
@@ -171,7 +170,7 @@ const index = ({navigation, route}) => {
 
               if (appleReceiptResponse) {
                 const {status} = appleReceiptResponse;
-                if (status && isSub.current) {
+                if (status && (isSub.current || isSub)) {
                   hitAPIToSever(receipt);
                   isSub.current = false;
                 }
@@ -229,10 +228,13 @@ const index = ({navigation, route}) => {
       const data = await response.json();
       console.log('response=>>>>>', data);
       if (isIos) {
-        navigation.navigate('HeaderDetailScreen', items);
+        if (route.params?.item) {
+          navigation.navigate('HeaderDetailScreen', route.params?.items);
+        } else navigation.goBack();
       } else {
-        navigation.navigate('HeaderDetailScreen', items);
-
+        if (route.params?.item)
+          navigation.navigate('HeaderDetailScreen', route.params?.items);
+        else navigation.goBack();
         const ackResult = await acknowledgePurchaseAndroid({
           token: receipt.purchaseToken,
         });
@@ -305,7 +307,7 @@ const index = ({navigation, route}) => {
         if (receipt) {
           console.log(isSub.current, 'ieyvaaavayassjuy');
 
-          if (isSub.current) {
+          if (isSub.current || isSub) {
             isSub.current = false;
             try {
               await hitAPIToSever(purchase);

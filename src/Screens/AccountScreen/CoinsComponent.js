@@ -5,9 +5,9 @@ import {styles} from './styles';
 import {AccountProfile, coin} from '../../Assets';
 import {TextComponent} from '../../Components/TextComponent';
 import {Touchable} from '../../Components/Touchable';
-const CoinsComponent = ({RemainingCoins}) => {
+const CoinsComponent = ({RemainingCoins, onPress}) => {
   return (
-    <View style={styles.porfileContainer}>
+    <Touchable style={styles.porfileContainer} onPress={onPress}>
       <View style={styles.coinIcon}>
         <Image source={coin} style={styles.coin} />
       </View>
@@ -20,7 +20,7 @@ const CoinsComponent = ({RemainingCoins}) => {
           <TextComponent text={' Remains'} styles={styles.BtnText} />
         </Pressable>
       </View>
-    </View>
+    </Touchable>
   );
 };
 

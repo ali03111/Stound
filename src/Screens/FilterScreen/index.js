@@ -10,6 +10,7 @@ import {
   Alert,
   TextInputComponent,
   TextInput,
+  Platform,
 } from 'react-native';
 import useFilterScreen from './useFilterScreen';
 import {styles} from './styles';
@@ -47,7 +48,7 @@ import {InputComponent} from '../../Components/InputComponent';
 import {Touchable} from '../../Components/Touchable';
 import SliderScreen from '../../Components/Slider';
 
-const FilterScreen = ({navigation}) => {
+const FilterScreen = ({navigation, route}) => {
   const {
     filterAdsDataFunction,
     onSelecteTag,
@@ -105,7 +106,7 @@ const FilterScreen = ({navigation}) => {
     sliderRef,
     preferencesVal,
     onSelectMultiTag,
-  } = useFilterScreen(navigation);
+  } = useFilterScreen(navigation, route);
 
   const renderItem = ({item, index}) => {
     console.log('itmemmemem', item);
@@ -158,7 +159,10 @@ const FilterScreen = ({navigation}) => {
           headerTitle={'Filters'}
           backText={'Back'}
           arrowBackIcon={arrowback}
-          goBack={() => navigation.goBack()}
+          goBack={() => {
+            route?.params?.updateFuntion([], false);
+            navigation.goBack();
+          }}
         />
 
         <ScrollView bounces={false} showsVerticalScrollIndicator={false}>
