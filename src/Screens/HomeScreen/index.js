@@ -1,4 +1,4 @@
-import React, {memo, useCallback} from 'react';
+import React, {memo, useCallback, useState} from 'react';
 import {
   View,
   Text,
@@ -70,7 +70,16 @@ const HomeScreen = ({navigation}) => {
     updateAccordingToFilter,
     setIsFilter,
     isFilter,
+    setShowEndMessage,
+    showEndMessage,
   } = useHomeScreen(navigation);
+
+  const handleSwipedAll = useCallback(() => {
+    setShowEndMessage(true);
+    // onRefresh();
+    // // Hide the message after 3 seconds
+    // setTimeout(() => setShowEndMessage(false), 3000);
+  }, []);
 
   // console.log('cccc',onBoardinData);
   const renderItem = useCallback(item => {
@@ -80,13 +89,13 @@ const HomeScreen = ({navigation}) => {
       <HomeCard
         userName={`${item?.userDetail?.name}`}
         image={imageUrl(item?.photos[0])}
-        profile={imageUrl(item.userDetail.profilePicture)}
+        profile={imageUrl(item?.userDetail?.profilePicture)}
         bath={`${item?.bathrooms} Baths`}
         Beds={`${item?.rooms} Rooms`}
         locationText={`${item?.location}`}
         forRent={`${item?.category} For ${item?.adType}`}
         price={`$${formattedPrice}`}
-        duration={item?.adType.toLowerCase() == 'rent' && 'month'}
+        duration={item?.adType?.toLowerCase() == 'rent' && 'month'}
       />
     );
   }, []);
@@ -156,34 +165,48 @@ const HomeScreen = ({navigation}) => {
         </View>
         <View style={styles.cardMainView}>
           {onBoardinData?.length > 0 ? (
-            <Swiper
-              cards={onBoardinData}
-              useViewOverflow={true}
-              cardVerticalMargin={0}
-              cardHorizontalMargin={0}
-              marginBottom={0}
-              infinite={true}
-              onSwipedAll={e => onRefresh()}
-              renderCard={renderItem}
-              onSwipedLeft={ca => {
-                // successMessage('You cancel this property');
-              }}
-              onSwipedRight={ca => {
-                askQuestion(ca);
-              }}
-              onSwipedTop={ca => {
-                setCurrentIndex(ca);
-                goToDetails(ca);
-              }}
-              onSwipedBottom={ca => {
-                updateFav(ca);
-              }}
-              cardIndex={0}
-              containerStyle={{
-                backgroundColor: 'transparent',
-              }}
-              stackSize={2}
-            />
+            <>
+              {!showEndMessage && (
+                <Swiper
+                  cards={onBoardinData}
+                  useViewOverflow={true}
+                  cardVerticalMargin={0}
+                  cardHorizontalMargin={0}
+                  marginBottom={0}
+                  // infinite={true}
+                  onSwipedAll={handleSwipedAll}
+                  renderCard={renderItem}
+                  onSwipedLeft={ca => {
+                    // successMessage('You cancel this property');
+                  }}
+                  onSwipedRight={ca => {
+                    askQuestion(ca);
+                  }}
+                  onSwipedTop={ca => {
+                    setCurrentIndex(ca);
+                    goToDetails(ca);
+                  }}
+                  onSwipedBottom={ca => {
+                    updateFav(ca);
+                  }}
+                  cardIndex={0}
+                  containerStyle={{
+                    backgroundColor: 'transparent',
+                  }}
+                  stackSize={2}
+                />
+              )}
+              {showEndMessage && (
+                <TextComponent
+                  text={
+                    'No more cards to swipe! Pull to refresh or check back later.'
+                  }
+                  adjustsFontSizeToFit={false}
+                  styles={styles.endMessageText}
+                  numberOfLines={3}
+                />
+              )}
+            </>
           ) : (
             !isloading &&
             onBoardinData?.length == 0 && (

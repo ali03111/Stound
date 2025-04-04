@@ -130,4 +130,22 @@ export const styles = StyleSheet.create({
     fontFamily: FontFamily.bold,
     color: Colors.primaryColor,
   },
+  endMessageContainer: {
+    // bottom: hp('10'),
+    alignSelf: 'center',
+    marginTop: hp('70'),
+    borderRadius: hp('1'),
+    paddingVertical: hp('10'),
+    backgroundColor: 'yellow',
+  },
+  endMessageText: {
+    textAlign: 'center',
+    fontSize: hp('2'),
+    textAlignVertical: 'center',
+    color: Colors.primaryColor,
+    position: 'absolute',
+    top: hp('35'),
+    width: wp('70'),
+    fontWeight: 'bold',
+  },
 });

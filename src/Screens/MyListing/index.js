@@ -11,7 +11,7 @@ import {keyExtractor} from '../../Utils';
 import {EmptyViewComp} from '../../Components/EmptyViewComp';
 MyListingComp;
 const MyListing = ({navigation}) => {
-  const {listingData} = useMyListing(navigation);
+  const {listingData, DeletegData} = useMyListing(navigation);
 
   const renderItem = useCallback(({item, index}) => {
     console.log(item, index, 'MY LISTINGIGNIGNIGN');
@@ -31,6 +31,9 @@ const MyListing = ({navigation}) => {
           onPressEdit={() =>
             navigation.navigate('AddPostScreen', JSON.stringify(item))
           }
+          onPressDelete={() => {
+            DeletegData(item?._id);
+          }}
         />
       </View>
     );

@@ -38,6 +38,7 @@ const MyListingComp = ({
   image,
   mainViewStyles,
   onPressView,
+  onPressDelete,
 }) => {
   return (
     <>
@@ -132,8 +133,13 @@ const MyListingComp = ({
             </View>
           </View>
           {onPressInquires && (
-            <View style={styles.inquires}>
+            <View style={styles.delete}>
               <DetailButton title={'Inquiries'} onPress={onPressInquires} />
+            </View>
+          )}
+          {onPressDelete && (
+            <View style={styles.inquires}>
+              <DetailButton title={'Delete'} onPress={onPressDelete} />
             </View>
           )}
           {onPressEdit && (
@@ -173,6 +179,13 @@ const styles = StyleSheet.create({
   inquires: {
     alignSelf: 'flex-end',
     bottom: hp(isIOS ? '7' : '7.5'),
+    right: wp('1'),
+    overflow: 'hidden',
+    position: 'absolute',
+  },
+  delete: {
+    alignSelf: 'flex-end',
+    bottom: hp(isIOS ? '13.5' : '13'),
     right: wp('1'),
     overflow: 'hidden',
     position: 'absolute',

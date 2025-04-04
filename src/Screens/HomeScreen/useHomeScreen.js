@@ -96,6 +96,7 @@ const useHomeScreen = ({navigate, params, addListener}) => {
   };
 
   const toggleTrending = () => {
+    setShowEndMessage(false);
     setTrending(prevState => {
       const newTrending = !prevState;
       getHomeData(newTrending);
@@ -110,14 +111,18 @@ const useHomeScreen = ({navigate, params, addListener}) => {
     // const {ok, data} = await API.get(getAdsUrl);
     console.log(data, 'alksjdlkajsdlfkjaklsd');
     if (ok) {
+      setIsFilter(false);
       dispatch({type: types.UpdateProfile, payload: data.user});
       setHomeData(data?.data);
+      setShowEndMessage(false);
     } else errorMessage(data.message || 'request failed');
   };
 
   const useEffectFun = () => {
     const event = addListener('focus', () => {
-      if (!isFilter) getHomeData(); // Use the state `trending` directly
+      setTimeout(() => {
+        if (!isFilter) getHomeData(); // Use the state `trending` directly
+      }, 1000);
     });
     return event;
   };
@@ -133,6 +138,7 @@ const useHomeScreen = ({navigate, params, addListener}) => {
 
   const updateAccordingToFilter = (data, isfil) => {
     console.log('jklsdvblksbdlvbsdklbvklsdbvklbsdklv', isfil, data);
+    setShowEndMessage(false);
     setIsFilter(isfil);
     if (isfil) setHomeData(data);
     else getHomeData();
@@ -170,9 +176,11 @@ const useHomeScreen = ({navigate, params, addListener}) => {
   const navigateToNotificationScreen = () => {
     navigate('NotificationScreen');
   };
-  useEffect(useEffectFun, []);
+  useEffect(useEffectFun, [isFilter]);
 
-  console.log(homeData, 'oeoepspfkpakfpasoddfko');
+  const [showEndMessage, setShowEndMessage] = useState(false);
+
+  console.log(currentIndex, 'oeoepspfkpakfpasoddfko');
   return {
     onBoardinData: homeData,
     onSnapToItem,
@@ -180,7 +188,11 @@ const useHomeScreen = ({navigate, params, addListener}) => {
     getStart: () => {},
     goToDetails,
     homeData,
-    onRefresh: getHomeData,
+    onRefresh: () => {
+      setIsFilter(false);
+      setShowEndMessage(false);
+      getHomeData();
+    },
     updateFav,
     showAlert,
     setShowAlert,
@@ -205,6 +217,8 @@ const useHomeScreen = ({navigate, params, addListener}) => {
     updateAccordingToFilter,
     setIsFilter,
     isFilter,
+    showEndMessage,
+    setShowEndMessage,
   };
 };
 

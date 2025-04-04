@@ -192,16 +192,41 @@ const useFilterScreen = ({navigate, goBack}, {params}) => {
   const [preferencesData, setPreferencesData] = useState([]);
   const getPreferences = async () => {
     const {ok, data, originalError} = await API.get(getPreUrl);
-    console.log('jsjaasdsjsj', data);
-    if (ok) setPreferencesData(data);
-    else errorMessage(originalError);
+    console.log('jsjaasdssdfsfsdjsj', data);
+    if (ok) {
+      setPreferencesVal(res => ({
+        ...res,
+        adType: data?.type,
+        gp: data?.gp?.filter(item => item.isSelected) ?? [],
+        ip: data?.ip?.filter(item => item.isSelected) ?? [],
+        op: data?.op?.filter(item => item.isSelected) ?? [],
+        // rooms: 1,
+        // bathRoom: 1,
+        bedRoom: data?.rooms,
+        bathRoom: data?.bathrooms,
+        cat:
+          data?.cat?.filter(res => res.isSelected == true)[0]?.categoryId ?? '',
+      }));
+      setPreferencesData(prev => ({
+        gp: data?.gp ?? [],
+        ip: data?.ip ?? [],
+        op: data?.op ?? [],
+        cat: data?.cat ?? [],
+      }));
+      setPriceHigh(data?.maxPrice);
+      setPriceLow(data?.minPrice ?? 0);
+      setSquareFootHigh(data?.maxAreaSize);
+      setSquareFootLow(data?.minAreaSize ?? 0);
+      setCategory(data?.cat?.filter(res => res.isSelected == true)[0] ?? '');
+
+      console.log('kjsdbjvkbsdkjvbksdbvlksdblvksbdlkvsd', data?.cat);
+    } else errorMessage(originalError);
   };
   useEffect(() => {
     getPreferences();
   }, []);
 
-  useEffect(() => {
-    // Whenever preferencesData changes, update the state
+  const updateThePre = data => {
     setPreferencesVal({
       gp: preferencesData?.gp?.filter(item => item.isSelected) ?? [],
       ip: preferencesData?.ip?.filter(item => item.isSelected) ?? [],
@@ -209,7 +234,18 @@ const useFilterScreen = ({navigate, goBack}, {params}) => {
       cat: preferencesData?.property_type ?? [],
       // type: preferencesData?.type ?? 'Rent', // Default to "Rent"
     });
-  }, [preferencesData]);
+  };
+
+  // useEffect(() => {
+  //   // Whenever preferencesData changes, update the state
+  //   setPreferencesVal({
+  //     gp: preferencesData?.gp?.filter(item => item.isSelected) ?? [],
+  //     ip: preferencesData?.ip?.filter(item => item.isSelected) ?? [],
+  //     op: preferencesData?.op?.filter(item => item.isSelected) ?? [],
+  //     cat: preferencesData?.property_type ?? [],
+  //     // type: preferencesData?.type ?? 'Rent', // Default to "Rent"
+  //   });
+  // }, [preferencesData]);
 
   //GET LOCATION
 
@@ -267,7 +303,30 @@ const useFilterScreen = ({navigate, goBack}, {params}) => {
       outsidePrefIds: getAllID(op),
       categoryId: cat,
       adType,
+      rooms: bedRoom,
+      bathrooms: bathRoom,
+      // country,
+      // city,
+      // state,
+      // location,
+      maxPrice: priceHigh,
+      minPrice: priceLow,
+      maxAreaSize: squareFootHigh,
+      minAreaSize: squareFootLow,
     };
+    // const body1 = {
+    //   generalPrefIds: getAllID(gp),
+    //   insidePrefIds: getAllID(ip),
+    //   outsidePrefIds: getAllID(op),
+    //   categoryId: cat,
+    //   adType,
+    //   bathRoom,
+    //   rooms,
+    //   squareFootLow,
+    //   squareFootHigh,
+    //   priceHigh,
+    //   priceLow
+    // };
     console.log('body1', body1);
     const response = await API.post(savePreUrl, body1);
     console.log('preferences data post filter', response);
@@ -296,7 +355,7 @@ const useFilterScreen = ({navigate, goBack}, {params}) => {
     navigate('LocationScreen', {getLocation});
   };
 
-  const onResetState = useCallback(() => {
+  const onResetState = useCallback(async () => {
     // resetField('desc')
 
     reset();
@@ -325,6 +384,16 @@ const useFilterScreen = ({navigate, goBack}, {params}) => {
     setStateData([]);
     setCityData([]);
     setFilter(false);
+    const response = await API.post(savePreUrl, {});
+    console.log('preferences data post filter', response);
+
+    if (ok) {
+      // navigate('FilterPackageScreen', {items: data});
+      // successMessage(data?.message || 'Your Ad has been created ');
+    } else {
+      console.log('dfdfa', originalError, data);
+      errorMessage(originalError?.message?.split(' ')?.slice(1)?.join(' '));
+    }
   }, []);
   const onSelectMultiTag = (item, key) => {
     setPreferencesVal(prev => {

@@ -1,8 +1,8 @@
 import {useEffect, useState} from 'react';
 import {errorMessage} from '../../Config/NotificationMessage';
 import API from '../../Utils/helperFunc';
-import {getMyAdsUrl} from '../../Utils/Urls';
-import { useIsFocused } from '@react-navigation/native';
+import {deleteAdUrl, getMyAdsUrl} from '../../Utils/Urls';
+import {useIsFocused} from '@react-navigation/native';
 
 const useMyListing = ({navigate, addListener}) => {
   const [listing, setListing] = useState();
@@ -16,7 +16,15 @@ const useMyListing = ({navigate, addListener}) => {
       setListing(data?.data);
     } else errorMessage(data.message || 'request failed');
   };
-  
+  const DeletegData = async id => {
+    const {ok, data} = await API.get(deleteAdUrl + id);
+    console.log(data, 'alksjdlkajsdwwwlfkjaklsd');
+    if (ok) {
+      getListingData();
+      // dispatch({type: types.UpdateProfile, payload: data.user});
+    } else errorMessage(data.message || 'request failed');
+  };
+
   // useEffect(() => {
   //   getListingData();
   //   return () => {
@@ -30,6 +38,6 @@ const useMyListing = ({navigate, addListener}) => {
     }
   }, [isFocused]);
 
-  return {listingData: listing};
+  return {listingData: listing, DeletegData};
 };
 export default useMyListing;

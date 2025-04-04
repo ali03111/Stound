@@ -172,17 +172,17 @@ const FilterScreen = ({navigation, route}) => {
               <TouchableOpacity
                 style={[
                   styles.option,
-                  adType === 'Rent' && styles.selectedOption,
+                  adType == 'Rent' && styles.selectedOption,
                 ]}
                 onPress={() => updateState({adType: 'Rent'})}>
                 <Text
                   style={[
                     styles.optionText,
-                    adType === 'Rent' && styles.selectedText,
+                    adType == 'Rent' && styles.selectedText,
                   ]}>
                   Rent
                 </Text>
-                {adType === 'Rent' ? (
+                {adType == 'Rent' ? (
                   <View style={styles.indicator} />
                 ) : (
                   <View style={styles.indicator1} />
@@ -191,17 +191,17 @@ const FilterScreen = ({navigation, route}) => {
               <TouchableOpacity
                 style={[
                   styles.option,
-                  adType === 'Sell' && styles.selectedOption,
+                  adType == 'Sell' && styles.selectedOption,
                 ]}
                 onPress={() => updateState({adType: 'Sell'})}>
                 <Text
                   style={[
                     styles.optionText,
-                    adType === 'Sell' && styles.selectedText,
+                    adType == 'Sell' && styles.selectedText,
                   ]}>
                   Sell
                 </Text>
-                {adType === 'Sell' ? (
+                {adType == 'Sell' ? (
                   <View style={styles.indicator} />
                 ) : (
                   <View style={styles.indicator1} />

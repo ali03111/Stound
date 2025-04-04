@@ -459,7 +459,7 @@ export const RadioButtons = [
   },
   {
     id: '3',
-    label: 'serious',
+    label: 'Serious',
     value: 'serious',
   },
 ];

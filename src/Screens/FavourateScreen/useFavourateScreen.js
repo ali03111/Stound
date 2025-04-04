@@ -4,7 +4,7 @@ import API from '../../Utils/helperFunc';
 import {getfavouritesUrl, updateFavUrl} from '../../Utils/Urls';
 import {errorMessage, successMessage} from '../../Config/NotificationMessage';
 import useReduxStore from '../../Hooks/UseReduxStore';
-import { useFocusEffect } from '@react-navigation/native';
+import {useFocusEffect} from '@react-navigation/native';
 
 const useFavourateScreen = ({navigate, addListener}) => {
   const {getState} = useReduxStore();
@@ -28,10 +28,9 @@ const useFavourateScreen = ({navigate, addListener}) => {
     if (ok) {
       setFavData(data.data.ads);
       successMessage(data?.message);
-    } else errorMessage(originalError.message.split(' ').slice(1).join(' '));
+    } else
+      errorMessage(originalError?.message?.split(' ')?.slice(1)?.join(' '));
   };
-  
-
 
   const useEffectFuc = () => {
     const event = addListener('focus', getFav);
@@ -40,10 +39,8 @@ const useFavourateScreen = ({navigate, addListener}) => {
 
   useEffect(useEffectFuc, []);
 
-
-
   return {
-    favouriteData: favData.slice().reverse(),
+    favouriteData: favData?.slice()?.reverse() ?? [],
     onPress,
     favData,
     getFav,

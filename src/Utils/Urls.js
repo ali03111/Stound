@@ -52,3 +52,4 @@ export const androidAppUrl = 'inApp-android';
 export const useCoinUrl = 'use-coin';
 export const interestedUserUrl = 'interested-users/';
 export const getSingleAdUrl = '/get-ad/';
+export const deleteAdUrl = '/change-ad-status/';
