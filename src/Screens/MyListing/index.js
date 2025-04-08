@@ -1,4 +1,11 @@
-import {FlatList, ImageBackground, Platform, Text, View} from 'react-native';
+import {
+  Alert,
+  FlatList,
+  ImageBackground,
+  Platform,
+  Text,
+  View,
+} from 'react-native';
 import React, {memo, useCallback} from 'react';
 import useMyListing from './useMyListing';
 import Header from '../../Components/Header';
@@ -32,7 +39,28 @@ const MyListing = ({navigation}) => {
             navigation.navigate('AddPostScreen', JSON.stringify(item))
           }
           onPressDelete={() => {
-            DeletegData(item?._id);
+            Alert.alert('Warning', 'Are you sure to want to delete this ad?', [
+              {
+                text: 'Cancel',
+                onPress: () => null,
+                style: 'cancel',
+              },
+              {
+                text: 'Yes',
+                onPress: () => {
+                  DeletegData(item?._id);
+
+                  //  if(userData?.coins >0) {
+                  //   navigate('HeaderDetailScreen', {
+                  //     userDetail: item,
+                  //     adDetail: listing?.ad,
+                  //   })
+                  //  }else{
+
+                  //  }
+                },
+              },
+            ]);
           }}
         />
       </View>

@@ -105,10 +105,11 @@ const HomeScreen = ({navigation}) => {
       <View style={{paddingTop: Platform.OS == 'ios' ? hp('3') : hp('0')}}>
         <View style={styles.searchBarMain}>
           <View style={styles.searchIcons}>
-            <Touchable onPress={toggleTrending} style={styles.rightIcon}>
+            <Touchable onPress={toggleTrending}>
               <Image
                 source={!trending ? trendingOutline : notTrending}
-                style={styles.setting1}
+                style={{...styles.rightIcon, left: wp('-3')}}
+                // resizeMode="contain"
               />
             </Touchable>
           </View>
@@ -125,11 +126,13 @@ const HomeScreen = ({navigation}) => {
                 });
                 setIsFilter(true);
               }}
-              style={styles.rightIcon}>
+              // style={styles.rightIcon}
+            >
               {/* <Image source={setting} style={styles.setting} /> */}
               <Image
                 source={isFilter ? filterFilled : setting1}
-                style={styles.setting1}
+                style={{...styles.rightIcon, right: wp('-3')}}
+                resizeMode="contain"
               />
             </Touchable>
             {/* {notificationLength.length > 0 ? (

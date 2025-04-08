@@ -1,11 +1,12 @@
 import React from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {View, Platform, Dimensions, StyleSheet} from 'react-native';
+import {View, Platform, Dimensions, StyleSheet, Image} from 'react-native';
 import * as Screens from '../Screens/index';
 import {Colors} from '../Theme/Variables';
 import {hp, wp} from '../Config/responsive';
 import Svg, {Path} from 'react-native-svg';
+import {homeFill, homeSimple} from '../Assets';
 
 globalStyles = {};
 
@@ -120,28 +121,15 @@ function MybottomTabs() {
         options={{
           tabBarIcon: ({focused}) => {
             return (
-              <Svg
-                width={wp('15')}
-                height={width <= 415 ? hp('7.2') : hp('6.2')}
-                viewBox="0 0 54 54"
-                style={styles.circleSvg}
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg">
-                <Path
-                  d="M27 54C41.9117 54 54 41.9117 54 27C54 12.0883 41.9117 0 27 0C12.0883 0 0 12.0883 0 27C0 41.9117 12.0883 54 27 54Z"
-                  fill="#0BB4FF"
-                />
-                {/* Home icon path */}
-                <Path
-                  d="M19 27L27 19L35 27V39H19V27Z"
-                  fill={focused ? Colors.white : 'none'}
-                  stroke={focused ? 'none' : Colors.white}
-                  // strokeWidth={focused ? 0 : 2}
-                  strokeWidth="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </Svg>
+              <Image
+                source={focused ? homeFill : homeSimple}
+                resizeMode="contain"
+                style={{
+                  width: wp('18'),
+                  height: hp('8'),
+                  bottom: Platform.OS == 'android' ? hp('3') : hp('1'),
+                }}
+              />
             );
           },
           title: '',
@@ -221,7 +209,7 @@ const styles = StyleSheet.create({
       height <= 667
         ? isIOS
           ? hp('3')
-          : hp('6')
+          : hp('7')
         : isIOS
         ? hp('-0.5')
         : hp('1.5'),

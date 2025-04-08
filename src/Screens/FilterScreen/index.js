@@ -491,22 +491,22 @@ const FilterScreen = ({navigation, route}) => {
               onValueChange={(itemValue, itemIndex) => {
                 onSelecteTag(itemValue, 'cat');
                 // Find the selected category name based on itemValue
-                const selectedCategory = preferencesData.cat.find(
-                  categoryItem => categoryItem.categoryId === itemValue,
+                const selectedCategory = preferencesData?.cat?.find(
+                  categoryItem => categoryItem?.categoryId === itemValue,
                 );
 
                 // // Update the category state with the selected category name
-                setCategory(selectedCategory ? selectedCategory.name : '');
+                setCategory(selectedCategory ? selectedCategory?.name : '');
               }}>
               <Picker.Item
                 // color="gray"
                 label="Select Category..."
                 value={null}
               />
-              {preferencesData.cat &&
-                preferencesData.cat.map((res, index) => {
+              {preferencesData?.cat &&
+                preferencesData?.cat?.map((res, index) => {
                   {
-                    cat && index == 2 && setCategory(res.name);
+                    cat && index == 2 && setCategory(res?.name);
                   }
 
                   return (
@@ -514,7 +514,7 @@ const FilterScreen = ({navigation, route}) => {
                       label={res.name}
                       // color="black"
                       // style={{color: 'black'}}
-                      value={res.categoryId}
+                      value={res?.categoryId}
                     />
                   );
                 })}

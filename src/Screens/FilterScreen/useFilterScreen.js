@@ -197,15 +197,16 @@ const useFilterScreen = ({navigate, goBack}, {params}) => {
       setPreferencesVal(res => ({
         ...res,
         adType: data?.type,
-        gp: data?.gp?.filter(item => item.isSelected) ?? [],
-        ip: data?.ip?.filter(item => item.isSelected) ?? [],
-        op: data?.op?.filter(item => item.isSelected) ?? [],
+        gp: data?.gp?.filter(item => item?.isSelected) ?? [],
+        ip: data?.ip?.filter(item => item?.isSelected) ?? [],
+        op: data?.op?.filter(item => item?.isSelected) ?? [],
         // rooms: 1,
         // bathRoom: 1,
         bedRoom: data?.rooms,
         bathRoom: data?.bathrooms,
         cat:
-          data?.cat?.filter(res => res.isSelected == true)[0]?.categoryId ?? '',
+          data?.cat?.filter(res => res?.isSelected == true)[0]?.categoryId ??
+          [],
       }));
       setPreferencesData(prev => ({
         gp: data?.gp ?? [],
@@ -217,7 +218,9 @@ const useFilterScreen = ({navigate, goBack}, {params}) => {
       setPriceLow(data?.minPrice ?? 0);
       setSquareFootHigh(data?.maxAreaSize);
       setSquareFootLow(data?.minAreaSize ?? 0);
-      setCategory(data?.cat?.filter(res => res.isSelected == true)[0] ?? '');
+      setCategory(
+        data?.cat?.filter(res => res?.isSelected == true)[0]?.name ?? '',
+      );
 
       console.log('kjsdbjvkbsdkjvbksdbvlksdblvksbdlkvsd', data?.cat);
     } else errorMessage(originalError);
@@ -228,9 +231,9 @@ const useFilterScreen = ({navigate, goBack}, {params}) => {
 
   const updateThePre = data => {
     setPreferencesVal({
-      gp: preferencesData?.gp?.filter(item => item.isSelected) ?? [],
-      ip: preferencesData?.ip?.filter(item => item.isSelected) ?? [],
-      op: preferencesData?.op?.filter(item => item.isSelected) ?? [],
+      gp: preferencesData?.gp?.filter(item => item?.isSelected) ?? [],
+      ip: preferencesData?.ip?.filter(item => item?.isSelected) ?? [],
+      op: preferencesData?.op?.filter(item => item?.isSelected) ?? [],
       cat: preferencesData?.property_type ?? [],
       // type: preferencesData?.type ?? 'Rent', // Default to "Rent"
     });

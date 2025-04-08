@@ -16,7 +16,8 @@ const useFavourateScreen = ({navigate, addListener}) => {
   const getFav = async () => {
     try {
       const {data, ok, originalError} = await API.get(getfavouritesUrl);
-      if (ok) setFavData(data.data.ads);
+      console.log('sjvdj,asdklvbklsdbvklbsd', data);
+      if (ok) setFavData(data?.data?.ads ?? []);
     } catch (error) {
       errorMessage(error.message.split(' ').slice(1).join(' '));
     }
@@ -26,7 +27,7 @@ const useFavourateScreen = ({navigate, addListener}) => {
     const url = updateFavUrl + item.adId;
     const {ok, originalError, data} = await API.put(url);
     if (ok) {
-      setFavData(data.data.ads);
+      setFavData(data?.data?.ads ?? []);
       successMessage(data?.message);
     } else
       errorMessage(originalError?.message?.split(' ')?.slice(1)?.join(' '));
