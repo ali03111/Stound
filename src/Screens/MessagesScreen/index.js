@@ -140,7 +140,7 @@ const MessagesScreen = ({route, navigation}) => {
     const msg = messages[0];
     const myMsg = {
       ...msg,
-      adId: adDetails?.adId ?? route?.params?.adId ?? adId,
+      adId: adDetails?.adId ?? route?.params?.adId ?? adId ?? null,
       // sentBy: userData.agoraId,
       sentBy: userData.agoraId,
       receivedBy: id,
@@ -149,6 +149,7 @@ const MessagesScreen = ({route, navigation}) => {
         profilePicture ??
         'https://res.cloudinary.com/dd6tdswt5/image/upload/v1684830799/UserImages/mhysa2zj0sbmvnw69b35.jpg',
     };
+    console.log('klsdlkvsdklbvklsdbvklsdbvksdbklvsbkdsv', myMsg);
     setMessages(previousMessages => GiftedChat.append(previousMessages, myMsg));
     setMsgId(myMsg?.adId);
     console.log(myMsg, 'MYMessage File');
@@ -157,7 +158,7 @@ const MessagesScreen = ({route, navigation}) => {
       .collection('chats')
       .doc('' + userData?.agoraId + id)
       .collection('messages')
-      .add({...myMsg, profileImage: userData.profilePicture});
+      .add({...myMsg, profileImage: userData?.profilePicture});
     firebase
       .firestore()
       .collection('chats')

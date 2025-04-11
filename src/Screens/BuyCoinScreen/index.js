@@ -79,6 +79,9 @@ const index = ({navigation, route}) => {
   const {isSub} = route.params;
   const [loading, setLoading] = useState(false);
   const [isPurchasing, setIsPurchasing] = useState(false);
+
+  console.log('jkdsbfkljsbkjfbsdkjbvjksdbvjksdbvsbdklvjsd', route.params);
+
   const handleGetPurchaseHistory = async () => {
     try {
       await getPurchaseHistory();
@@ -228,11 +231,11 @@ const index = ({navigation, route}) => {
       const data = await response.json();
       console.log('response=>>>>>', data);
       if (isIos) {
-        if (route.params?.item) {
+        if (route.params?.items) {
           navigation.navigate('HeaderDetailScreen', route.params?.items);
         } else navigation.goBack();
       } else {
-        if (route.params?.item)
+        if (route.params?.items)
           navigation.navigate('HeaderDetailScreen', route.params?.items);
         else navigation.goBack();
         const ackResult = await acknowledgePurchaseAndroid({

@@ -109,7 +109,7 @@ const useHomeScreen = ({navigate, params, addListener}) => {
     console.log('trending params', trending, url);
     const {ok, data} = await API.get(url);
     // const {ok, data} = await API.get(getAdsUrl);
-    console.log(data, 'alksjdlkajsdlfkjaklsd');
+    console.log(JSON.stringify(data?.data), 'alksjdlkajsdlfkjaklsd');
     if (ok) {
       setIsFilter(false);
       dispatch({type: types.UpdateProfile, payload: data.user});
@@ -137,7 +137,11 @@ const useHomeScreen = ({navigate, params, addListener}) => {
   };
 
   const updateAccordingToFilter = (data, isfil) => {
-    console.log('jklsdvblksbdlvbsdklbvklsdbvklbsdklv', isfil, data);
+    console.log(
+      'jklsdvblksbdlvbsdklbvklsdbvklbsdklv',
+      isfil,
+      JSON.stringify(data),
+    );
     setShowEndMessage(false);
     setIsFilter(isfil);
     if (isfil) setHomeData(data);
