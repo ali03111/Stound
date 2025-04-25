@@ -1,12 +1,13 @@
-import {useCallback, useRef, useState} from 'react';
+import {useCallback, useEffect, useRef, useState} from 'react';
 import useReduxStore from '../../Hooks/UseReduxStore';
 import {logOutUser} from '../../Redux/Action/AuthAction';
 import API from '../../Utils/helperFunc';
-import {deleteAccUrl} from '../../Utils/Urls';
+import {deleteAccUrl, getAdsUrl} from '../../Utils/Urls';
 import {errorMessage, successMessage} from '../../Config/NotificationMessage';
 
 import {Linking} from 'react-native';
-const useAccountScreen = ({navigate}) => {
+import {types} from '../../Redux/types';
+const useAccountScreen = ({navigate, addListener}) => {
   const scrollViewRef = useRef(null);
 
   const handleContentSizeChange = (contentWidth, contentHeight) => {
@@ -21,6 +22,21 @@ const useAccountScreen = ({navigate}) => {
   });
 
   const {deactivate, logOut} = alerState;
+
+  const getHomeData = async (trending = false) => {
+    const url = getAdsUrl;
+    console.log('trending params', trending, url);
+    const {ok, data} = await API.get(url);
+    // const {ok, data} = await API.get(getAdsUrl);
+    if (ok) {
+      dispatch({type: types.UpdateProfile, payload: data.user});
+    } else errorMessage(data.message || 'request failed');
+  };
+
+  useEffect(() => {
+    const event = addListener('focus', getHomeData);
+    return event;
+  }, []);
 
   const updateState = data => setAlertState(() => ({...alerState, ...data}));
 

@@ -11,20 +11,20 @@ export const errorMessage = description => {
     backgroundColor: Colors.red,
     style: {alignItems: 'center'},
     duration: 3000, // Set the duration in milliseconds (5 seconds in this example)
-
   });
 };
 
-export const successMessage = description => {
+export const successMessage = (description, bgColor) => {
   showMessage({
     type: 'success',
     icon: 'auto',
     message: 'Success',
     description: description,
     floating: true,
-    backgroundColor: Colors.primaryColor,
+    backgroundColor: bgColor ?? Colors.primaryColor,
     style: {alignItems: 'center'},
     duration: 2000, // Set the duration in milliseconds (5 seconds in this example)
-
+    textStyle: {color: bgColor ? Colors.black : Colors.white},
+    titleStyle: {color: bgColor ? Colors.black : Colors.white},
   });
 };

@@ -91,4 +91,8 @@ export const styles = StyleSheet.create({
     marginHorizontal: wp('4.5'),
     marginVertical: hp('2'),
   },
+  socialBtn: {
+    justifyContent: 'center',
+    marginTop: hp('2.5'),
+  },
 });

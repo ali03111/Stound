@@ -48,6 +48,7 @@ import {androidAppUrl, baseURL, iosAppUrl} from '../../Utils/Urls';
 import {errorMessage, successMessage} from '../../Config/NotificationMessage';
 import {store} from '../../Redux/Reducers';
 import {loadingFalse, loadingTrue} from '../../Redux/Action/isloadingAction';
+import {set} from 'react-hook-form';
 const subscriptionSkus = Platform.select({
   ios: ['productId_10', 'productId20', 'productId_30', 'productId50'],
   android: [
@@ -79,6 +80,7 @@ const index = ({navigation, route}) => {
   const {isSub} = route.params;
   const [loading, setLoading] = useState(false);
   const [isPurchasing, setIsPurchasing] = useState(false);
+  const [isHit, setIsHit] = useState(false);
 
   console.log('jkdsbfkljsbkjfbsdkjbvjksdbvjksdbvsbdklvjsd', route.params);
 
@@ -229,11 +231,12 @@ const index = ({navigation, route}) => {
       store.dispatch(loadingFalse());
 
       const data = await response.json();
-      console.log('response=>>>>>', data);
-      if (isIos) {
+      console.log('response=>>>sdfsdgd>>', isHit);
+      if (isIos && isHit == false) {
         if (route.params?.items) {
           navigation.navigate('HeaderDetailScreen', route.params?.items);
-        } else navigation.goBack();
+        } else successMessage('Purchase successfully please go back!', 'white');
+        // else navigation.goBack();
       } else {
         if (route.params?.items)
           navigation.navigate('HeaderDetailScreen', route.params?.items);
@@ -252,6 +255,7 @@ const index = ({navigation, route}) => {
       }
 
       setIsPurchasing(false);
+      setIsHit(true);
     } else {
       console.log('RESPONSE OK ERROR');
       setIsPurchasing(false);

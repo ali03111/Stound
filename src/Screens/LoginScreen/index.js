@@ -2,9 +2,12 @@ import React, {memo, useCallback} from 'react';
 import {View, Text, Image, Platform} from 'react-native';
 import {
   appleIcon,
+  appleIconWhite,
   arrowback,
   facebookIcon,
+  facebookIconWhite,
   googleIcon,
+  googleIconWhite,
   lock,
   sms,
 } from '../../Assets';
@@ -114,8 +117,27 @@ const LoginScreen = ({navigation}) => {
           <TextComponent text={'sign up with'} styles={styles.signUpText} />
           <TextComponent styles={styles.signUpBorder} />
         </View>
-
-        <View style={styles.mainSocialIcon}>
+        {Platform.OS === 'ios' && (
+          <ShareButton
+            title={'Continue with Apple'}
+            image={appleIconWhite}
+            onPress={appleIdAuth}
+            style={{...styles.socialBtn, backgroundColor: Colors.black}}
+          />
+        )}
+        <ShareButton
+          title={'Continue with Google'}
+          image={googleIconWhite}
+          onPress={googleLoginFunc}
+          style={{...styles.socialBtn, backgroundColor: Colors.redfaded}}
+        />
+        <ShareButton
+          title={'Continue with Facebook'}
+          image={facebookIconWhite}
+          onPress={facebookLoginFunc}
+          style={{...styles.socialBtn, backgroundColor: Colors.blue}}
+        />
+        {/* <View style={styles.mainSocialIcon}>
           <Touchable onPress={facebookLoginFunc}>
             <Image source={facebookIcon} style={styles.socialIcon} />
           </Touchable>
@@ -127,7 +149,7 @@ const LoginScreen = ({navigation}) => {
           <Touchable onPress={googleLoginFunc}>
             <Image source={googleIcon} style={styles.socialIcon} />
           </Touchable>
-        </View>
+        </View> */}
       </KeyBoardWrapper>
     </View>
   );

@@ -15,7 +15,7 @@ const CoinsComponent = ({RemainingCoins, onPress}) => {
         <TextComponent text={'Coins'} styles={styles.coinInnerText} />
       </View>
       <View style={styles.coinsBtn}>
-        <Pressable Opacity={0.7} style={styles.cBtn}>
+        <Pressable Opacity={0.7} style={styles.cBtn} onPress={onPress}>
           <TextComponent text={RemainingCoins} styles={styles.coinNumber} />
           <TextComponent text={' Remaining'} styles={styles.BtnText} />
         </Pressable>
