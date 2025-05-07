@@ -9954,13 +9954,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-sha256@npm:^1.4.9":
-  version: 1.4.9
-  resolution: "react-native-sha256@npm:1.4.9"
-  checksum: 613d9944daa2a869eb15288e721ba3c0310332ad982cf15fbe583df8d12d9942446154779a7e0a387eea93ece4222ea5c0014fe4a097085113eb0ab0e7e65088
-  languageName: node
-  linkType: hard
-
 "react-native-svg@npm:^13.8.0":
   version: 13.9.0
   resolution: "react-native-svg@npm:13.9.0"
@@ -11114,7 +11107,6 @@ __metadata:
     react-native-responsive-screen: ^1.4.2
     react-native-safe-area-context: ^4.5.0
     react-native-screens: ^3.20.0
-    react-native-sha256: ^1.4.9
     react-native-svg: ^13.8.0
     react-native-switch-selector: ^2.3.0
     react-native-uuid: ^2.0.1
