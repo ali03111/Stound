@@ -336,6 +336,10 @@ function isPrivateRelayEmail(email) {
   return email.includes('@privaterelay.appleid.com');
 }
 
+function formatPrice(number) {
+  return number.toLocaleString('en-US');
+}
+
 export {
   getSingleCharacter,
   formatTimeDifference,
@@ -355,4 +359,5 @@ export {
   formatPhoneNumber1,
   formatDuration,
   isPrivateRelayEmail,
+  formatPrice,
 };

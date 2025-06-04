@@ -103,3 +103,4 @@ export {default as square_foot} from './Icons/square_foot.png';
 export {default as filterFilled} from './Icons/filterFilled.png';
 export {default as homeFill} from './Icons/homeFill.png';
 export {default as homeSimple} from './Icons/homeSimple.png';
+export {default as trashWhite} from './Icons/trashWhite.png';

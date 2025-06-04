@@ -8,6 +8,7 @@ import {
   Text,
   TextInput,
   Platform,
+  TouchableOpacity,
 } from 'react-native';
 import Header from '../../Components/Header';
 import ChatComponent from '../../Components/ChatComponent';
@@ -16,10 +17,11 @@ import {styles} from './styles';
 import useChatScreen from './useChatScreen';
 import {NotificationHeader} from '../../Components/Header';
 import {hp, wp} from '../../Config/responsive';
-import {arrowback, moredots, search, smsedit} from '../../Assets';
+import {arrowback, moredots, search, smsedit, trashWhite} from '../../Assets';
 import {Colors} from '../../Theme/Variables';
 import {imageUrl} from '../../Utils/Urls';
 import {EmptyViewComp} from '../../Components/EmptyViewComp';
+import {SwipeListView} from 'react-native-swipe-list-view';
 
 const ChatScreen = ({navigation}) => {
   const {
@@ -30,6 +32,7 @@ const ChatScreen = ({navigation}) => {
     searchData,
     isloading,
     updateIsReadToFalse,
+    deleteWholeChat,
   } = useChatScreen(navigation);
   const renderItem = useCallback(({item, index}) => {
     const createdAtt = item?.chatUsers.find(
@@ -64,6 +67,28 @@ const ChatScreen = ({navigation}) => {
     searchData,
   );
 
+  const renderHiddenItem = ({item}) => (
+    <View
+      style={{
+        width: '98%',
+        alignSelf: 'center',
+      }}>
+      <TouchableOpacity
+        style={[styles.backRightBtn, styles.backRightBtnRight]}
+        onPress={() => deleteWholeChat(item?.userId)}>
+        <Image
+          source={trashWhite}
+          style={styles.trashIcon}
+          resizeMode="contain"
+        />
+      </TouchableOpacity>
+    </View>
+  );
+
+  const onRowDidOpen = rowKey => {
+    console.log('This row opened', rowKey);
+  };
+
   return (
     <View style={styles.notificationMain}>
       <Header
@@ -81,7 +106,44 @@ const ChatScreen = ({navigation}) => {
           placeholderTextColor={Colors.gray}
         />
       </View>
-      <FlatList
+
+      <SwipeListView
+        showsVerticalScrollIndicator={false}
+        style={{
+          paddingBottom: Platform.OS == 'ios' ? hp('25') : hp('22'),
+          paddingHorizontal: wp('4'),
+        }}
+        useFlatList
+        // data={[1, 23, 4]}
+        data={searchData}
+        // sections={bottomData}
+        renderItem={renderItem}
+        renderHiddenItem={renderHiddenItem}
+        rightOpenValue={-55}
+        leftOpenValue={0}
+        previewRowKey={'0'}
+        stopLeftSwipe
+        // previewOpenValue={-40}
+        previewOpenDelay={3000}
+        onRowDidOpen={onRowDidOpen}
+        closeOnRowPress
+        // onRefresh={initializeChat}
+        refreshing={false}
+        ListEmptyComponent={
+          !isloading && (
+            <View
+              style={{
+                justifyContent: 'center',
+                alignItems: 'center',
+                marginTop: hp('11.5'),
+              }}>
+              <EmptyViewComp buttonTrue={true} />
+            </View>
+          )
+        }
+      />
+
+      {/* <FlatList
         data={searchData}
         renderItem={renderItem}
         showsHorizontalScrollIndicator={false}
@@ -102,7 +164,7 @@ const ChatScreen = ({navigation}) => {
             </View>
           )
         }
-      />
+      /> */}
     </View>
   );
 };

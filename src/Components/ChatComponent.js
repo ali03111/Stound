@@ -13,6 +13,7 @@ import {Colors} from '../Theme/Variables';
 import {Touchable} from './Touchable';
 import BlurImage from './BlurImage';
 import moment from 'moment';
+import {Pressable} from 'react-native';
 
 const ChatComponent = ({
   image,
@@ -44,7 +45,7 @@ const ChatComponent = ({
   }
 
   return (
-    <Touchable style={styles.notificationMian} onPress={onPress}>
+    <Pressable style={styles.notificationMian} onPress={onPress}>
       <View style={styles.mainBannerImg}>
         <BlurImage styles={styles.profileImg} radius={50} uri={image} />
       </View>
@@ -60,7 +61,7 @@ const ChatComponent = ({
           {isRead === true && <View style={styles.dotMessage}></View>}
         </View>
       </View>
-    </Touchable>
+    </Pressable>
   );
 };
 const styles = StyleSheet.create({
@@ -86,6 +87,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: wp('3'),
     alignItems: 'center',
     marginBottom: hp('1'),
+    backgroundColor: 'white',
   },
   bannerImg: {
     borderRadius: 50,

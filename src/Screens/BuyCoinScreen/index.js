@@ -545,7 +545,7 @@ const index = ({navigation, route}) => {
                         handleBuySubscription(item.productId);
                       }}
                       coinTitle={item?.title}
-                      coinDes={'Validy until your coins finish'}
+                      coinDes={'Valid until your coins finish'}
                       coinPrice={item?.localizedPrice}
                     />
                   )}

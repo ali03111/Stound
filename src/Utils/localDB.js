@@ -407,7 +407,7 @@ export const detailsImages = [
 export const PackageDetailData = {
   title: 'Chessington Kanass',
   forRent: 'For Rent',
-  forSale: 'For Sell',
+  forSale: 'For Sale',
   location: '1050 Old Nichols Rd Islandia, NY 11749',
   time: '3:15 PM',
   tags: [

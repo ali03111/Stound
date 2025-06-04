@@ -330,6 +330,63 @@ const useChatScreen = ({navigate, goBack, addListener}) => {
     }
   };
 
+  const deleteWholeChat = async id => {
+    console.log('idididididididididididididididid', id);
+    const chatId1 = `${userData.agoraId}${id}`;
+    const chatId2 = `${id}${userData.agoraId}`;
+
+    const deleteMessages = async chatId => {
+      const messagesRef = firebase
+        .firestore()
+        .collection('chats')
+        .doc(chatId)
+        .collection('messages');
+
+      const snapshot = await messagesRef.get();
+      const batch = firebase.firestore().batch();
+
+      snapshot.forEach(doc => {
+        batch.delete(doc.ref);
+      });
+
+      await batch.commit();
+    };
+
+    try {
+      await deleteMessages(chatId1);
+      await deleteMessages(chatId2);
+
+      // Optionally, delete the chat document itself
+      await firebase.firestore().collection('chats').doc(chatId1).delete();
+      await firebase.firestore().collection('chats').doc(chatId2).delete();
+
+      // Remove from chatUsers arrays by replacing the whole field
+      const userRef1 = firebase
+        .firestore()
+        .collection('users')
+        .doc(userData.agoraId);
+      const userRef2 = firebase.firestore().collection('users').doc(id);
+
+      const userDoc1 = await userRef1.get();
+      const chatUsers1 = userDoc1.data()?.chatUsers || [];
+      const updatedChatUsers1 = chatUsers1.filter(u => u.otherUserId !== id);
+      await userRef1.update({chatUsers: updatedChatUsers1});
+
+      const userDoc2 = await userRef2.get();
+      const chatUsers2 = userDoc2.data()?.chatUsers || [];
+      const updatedChatUsers2 = chatUsers2.filter(
+        u => u.otherUserId !== userData.agoraId,
+      );
+      await userRef2.update({chatUsers: updatedChatUsers2});
+
+      console.log('Chat deleted successfully and cleaned up chatUsers!');
+      // Optionally, update local state
+      getUsers();
+    } catch (error) {
+      console.log('Error deleting chat:', error);
+    }
+  };
+
   // useFocusEffect(() => {
   //   // Your logic to run when the screen gains focus
   //   console.log('Screen is focuaasedaaa');
@@ -359,6 +416,7 @@ const useChatScreen = ({navigate, goBack, addListener}) => {
     onChangeText,
     searchData: searchData?.slice().reverse(),
     isloading,
+    deleteWholeChat,
   };
 };
 export default useChatScreen;

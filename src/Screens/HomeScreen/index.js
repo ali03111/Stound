@@ -83,7 +83,7 @@ const HomeScreen = ({navigation}) => {
 
   // console.log('cccc',onBoardinData);
   const renderItem = useCallback(item => {
-    const formattedPrice = item?.price?.toLocaleString();
+    const formattedPrice = item?.price?.toLocaleString('en-US');
     console.log(item, 'AdType');
     return (
       <HomeCard
