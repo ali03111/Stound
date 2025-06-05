@@ -1,3 +1,4 @@
+import {Text} from 'react-native';
 import {
   onBoard1,
   onBoard2,
@@ -14,6 +15,11 @@ import {
   DetailBed,
   DetailBathtub,
   profile,
+  tutorialImg,
+  first,
+  second,
+  third,
+  fourth,
 } from '../Assets';
 
 export const APP_STORE_SECRET = '80263efda96949308ef41ea36ff7b72c';
@@ -33,6 +39,32 @@ export const onBoardinData = [
     id: 2,
     heading: 'Empower Your Home Search with Stound.',
     image: onBoard3,
+  },
+];
+export const tutorialData = [
+  {
+    id: 0,
+    heading: `Swipe RIGHT to like...`,
+    image: tutorialImg,
+    handgesture: first,
+  },
+  {
+    id: 1,
+    heading: `Swipe LEFT to cancel...`,
+    image: tutorialImg,
+    handgesture: second,
+  },
+  {
+    id: 2,
+    heading: `Swipe DOWN to add to favourite...`,
+    image: tutorialImg,
+    handgesture: third,
+  },
+  {
+    id: 3,
+    heading: `Swipe UP to see property details...`,
+    image: tutorialImg,
+    handgesture: fourth,
   },
 ];
 

@@ -107,17 +107,17 @@ const HomeScreen = ({navigation}) => {
           <View style={styles.searchIcons}>
             <Touchable onPress={toggleTrending}>
               <Image
-                source={!trending ? trendingOutline : notTrending}
-                style={{...styles.rightIcon, left: wp('-3')}}
+                source={trending ? trendingOutline : notTrending}
+                style={{...styles.rightIcon}}
                 // resizeMode="contain"
               />
             </Touchable>
           </View>
-          <TextComponent
+          {/* <TextComponent
             numberOfLines={1}
             text={'Stound'}
             styles={styles.HeaderTitle}
-          />
+          /> */}
           <View style={styles.searchIcons}>
             <Touchable
               onPress={() => {
@@ -131,7 +131,7 @@ const HomeScreen = ({navigation}) => {
               {/* <Image source={setting} style={styles.setting} /> */}
               <Image
                 source={isFilter ? filterFilled : setting1}
-                style={{...styles.rightIcon, right: wp('-3')}}
+                style={{...styles.rightIcon, right: wp('-7')}}
                 resizeMode="contain"
               />
             </Touchable>

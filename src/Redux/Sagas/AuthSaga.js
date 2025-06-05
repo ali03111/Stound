@@ -184,6 +184,7 @@ function* logOutSaga(action) {
     // yield call(AgoraLogout);
 
     yield put({type: types.LogoutType});
+    yield put({type: types.onTutorialReset});
   } catch (error) {
     console.log(error, 'logoutErrorrr');
     // errorMessage(error.message.split(' ').slice(1).join(' '));

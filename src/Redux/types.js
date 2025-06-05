@@ -23,4 +23,6 @@ export const types = {
   cleanNotification: 'cleanNotification',
   messagesNotification: 'messagesNotification',
   cleanMessagesNotification: 'cleanMessagesNotification',
+  onTutorialReset: 'onTutorialReset',
+  onTutorialFinished: 'onTutorialFinished',
 };

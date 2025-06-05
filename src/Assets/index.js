@@ -30,6 +30,11 @@ export {default as property1} from './Images/property1.png';
 export {default as locationIcon} from './Icons/locationicon.png';
 export {default as forgotimage} from './Images/forgotimage.png';
 export {default as emptyimage} from './Images/emptyimage.png';
+export {default as tutorialImg} from './Images/tutorialImg.png';
+export {default as first} from './Images/first.png';
+export {default as second} from './Images/second.png';
+export {default as third} from './Images/third.png';
+export {default as fourth} from './Images/fourth.png';
 
 //  Icons
 
@@ -96,8 +101,8 @@ export {default as bedblue} from './Icons/bedblue.png';
 export {default as bluebath} from './Icons/bathtubblue.png';
 export {default as radioEmtpy} from './Icons/radioEmtpy.png';
 export {default as radioFill} from './Icons/radioFill.png';
-export {default as trendingOutline} from './Icons/trending-outline.png';
-export {default as trending} from './Icons/trending.png';
+export {default as trendingOutline} from './Icons/trendingOutline.png';
+export {default as trending} from './Icons/notTrending.png';
 export {default as setting1} from './Icons/setting1.png';
 export {default as square_foot} from './Icons/square_foot.png';
 export {default as filterFilled} from './Icons/filterFilled.png';

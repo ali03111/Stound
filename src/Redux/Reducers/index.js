@@ -11,6 +11,7 @@ import RecentLocationReducer from './RecentLocationReducer';
 import NotificationReducer from './NotificationReducer';
 import questionReducer from './questionReducer';
 import messagesReducer from './messagesReducer';
+import tutorialReducer from './tutorialReducer';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -18,6 +19,11 @@ const onBoardPersistConfig = {
   key: 'onboarding',
   storage: AsyncStorage,
   whitelist: 'onboarding',
+};
+const onTutorialPersistConfig = {
+  key: 'onTutorial',
+  storage: AsyncStorage,
+  whitelist: 'onTutorial',
 };
 
 const AuthPersistConfig = {
@@ -45,6 +51,7 @@ const MessagePersistConfig = {
 
 const reducers = {
   onboarding: persistReducer(onBoardPersistConfig, onboardingReducer),
+  onTutorial: persistReducer(onTutorialPersistConfig, tutorialReducer),
   Auth: persistReducer(AuthPersistConfig, AuthReducer),
   recentlocation: persistReducer(LocationPersistConfig, RecentLocationReducer),
   notification: persistReducer(NotificationPersistConfig, NotificationReducer),

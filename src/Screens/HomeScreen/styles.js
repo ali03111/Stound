@@ -44,7 +44,7 @@ export const styles = StyleSheet.create({
     // justifyContent: 'center',
     // width: wp('14'),
     // marginLeft: 5,
-    width: wp('19'),
+    width: wp('29'),
     // backgroundColor: 'red',
     // marginHorizontal: 10,
   },

@@ -35,6 +35,7 @@ export const screens = [
 const StackNavigatior = () => {
   const {getState} = useReduxStore();
   const {onboarding} = getState('onboarding');
+  const {onTutorial} = getState('onTutorial');
   const {isLogin} = getState('Auth');
   const {notificationLength} = getState('notification');
 
@@ -96,6 +97,12 @@ const StackNavigatior = () => {
       )}
       {isLogin && (
         <>
+          {!onTutorial && (
+            <Stack.Screen
+              name="TutorialScreen"
+              component={Screens.TutorialScreen}
+            />
+          )}
           <Stack.Screen name="MybottomTabs" component={MybottomTabs} />
           <Stack.Screen
             name="PreferenceScreen"

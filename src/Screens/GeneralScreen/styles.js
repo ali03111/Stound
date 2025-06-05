@@ -27,7 +27,7 @@ export const styles = StyleSheet.create({
     paddingHorizontal: wp('4'),
     marginHorizontal: wp('2'),
     marginBottom: hp('2'),
-    backgroundColor: v.includes(item) ? Colors.primaryColor : Colors.white,
+    backgroundColor: v.includes(item) ? 'rgba(11, 180, 255, 1)' : Colors.white,
   }),
   save: {
     color: Colors.primaryColor2,
