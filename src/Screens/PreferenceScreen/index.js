@@ -46,7 +46,7 @@ const PreferenceScreen = ({navigation, route}) => {
       <FilterAddButton
         style={styles.tags}
         title={item?.name}
-        image={imageUrl(item.path)}
+        // image={imageUrl(item.path)}
         required={true}
         tintColor={Colors.primaryTextColor}
       />
@@ -175,14 +175,14 @@ const PreferenceScreen = ({navigation, route}) => {
                 </View>
                 <TextComponent
                   styles={styles.itemHeading}
-                  text={'Outside Preferences '}
+                  text={'Outdoor Preferences '}
                 />
                 <View style={styles.addButton}>
                   <FlatListComp
                     data={op}
                     onPress={() =>
                       dynamicNav({
-                        title: 'Outside',
+                        title: 'Outdoor',
                         data: preferencesData.op,
                         key: 'op',
                         value: op,
@@ -192,14 +192,14 @@ const PreferenceScreen = ({navigation, route}) => {
                 </View>
                 <TextComponent
                   styles={styles.itemHeading}
-                  text={'Inside Preferences '}
+                  text={'Indoor Preferences '}
                 />
                 <View style={styles.addButton}>
                   <FlatListComp
                     data={ip}
                     onPress={() =>
                       dynamicNav({
-                        title: 'Inside',
+                        title: 'Indoor',
                         data: preferencesData.ip,
                         key: 'ip',
                         value: ip,

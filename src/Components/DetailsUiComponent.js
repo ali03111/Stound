@@ -19,7 +19,7 @@ const DetailsUiComponent = ({heading, list, detailsHeadingStyle}) => {
             <FilterAddButton
               disabledValue={true}
               title={item?.name}
-              image={imageUrl(item.image)}
+              // image={imageUrl(item.image)}
               style={styles.btn}
               required={true}
               tintColor={Colors.primaryTextColor}
