@@ -29,7 +29,6 @@ import {TextComponent} from '../../Components/TextComponent';
 import {InputComponent} from '../../Components/InputComponent';
 import ShareButton from '../../Components/ShareButton';
 import KeyBoardWrapper from '../../Components/KeyboardWrapper';
-import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import {Touchable} from '../../Components/Touchable';
 import BlurImage from '../../Components/BlurImage';
 import {imageUrl} from '../../Utils/Urls';

@@ -9,26 +9,25 @@ import App from './App';
 import {name as appName} from './app.json';
 import {persistor, store} from './src/Redux/Reducers';
 import FlashMessage from 'react-native-flash-message';
-import messaging from '@react-native-firebase/messaging'
-import { setNotificationLength } from './src/Redux/Action/recentNotification';
-import {GestureHandlerRootView} from 'react-native-gesture-handler'
-import { navigate, navigationRef } from './RootNavigation';
+import messaging from '@react-native-firebase/messaging';
+import {setNotificationLength} from './src/Redux/Action/recentNotification';
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
+import {navigate, navigationRef} from './RootNavigation';
+import 'react-native-get-random-values'; // Polyfill crypto.getRandomValues()
 
 const Stound = () => (
-
-    <GestureHandlerRootView style={{flex:1}}>
-  <Provider store={store}>
-    <PersistGate persistor={persistor} loading={null}>
-      <App />
-      <FlashMessage position="top" />
-    </PersistGate>
-  </Provider>
-    </GestureHandlerRootView>
+  <GestureHandlerRootView style={{flex: 1}}>
+    <Provider store={store}>
+      <PersistGate persistor={persistor} loading={null}>
+        <App />
+        <FlashMessage position="top" />
+      </PersistGate>
+    </Provider>
+  </GestureHandlerRootView>
 );
 
 // Register background handlere
-export const backgroundNotificationFunction =()=>{
-
+export const backgroundNotificationFunction = () => {
   messaging().setBackgroundMessageHandler(async remoteMessage => {
     console.log('Message handled in the background!', remoteMessage);
     store.dispatch(setNotificationLength(remoteMessage));
@@ -42,7 +41,7 @@ export const backgroundNotificationFunction =()=>{
       // You can ignore this, or add these actions to a queue you can call later
     }
   });
-}
+};
 // // Register Terminate handler
 //   messaging()
 //       .getInitialNotification()
@@ -61,7 +60,7 @@ export const backgroundNotificationFunction =()=>{
 //           // You can ignore this, or add these actions to a queue you can call later
 //         }
 
-//   // store.dispatch(setNotificationLength(remoteMessage));    
+//   // store.dispatch(setNotificationLength(remoteMessage));
 
 //       });
 
